@@ -42,6 +42,7 @@ public class CustomerServlet extends HttpServlet {
 		}
 		System.out.println(view);
 		
+		System.out.println("가나");
 		request.getRequestDispatcher(view).forward(request, response);
 		
 	

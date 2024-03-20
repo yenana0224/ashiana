@@ -13,7 +13,6 @@ public class Notice {
 	
 	public Notice() {
 		super();
-		System.out.println("½ÇÇè");
 	}
 	
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, String noticeHold,

@@ -13,6 +13,7 @@ public class Notice {
 	
 	public Notice() {
 		super();
+		System.out.println("테스트");
 	}
 	
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, String noticeHold,

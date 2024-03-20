@@ -8,7 +8,7 @@
     <title>Document</title>
     <style>
 
-        *{
+       *{
             list-style: none;
             box-sizing: border-box;
             text-decoration: none;
@@ -53,6 +53,16 @@
             background-color : #ff595e;
         }
 
+        a {
+          text-decoration: none;
+          color : black;
+        }
+
+        a:hover{
+          text-decoration : none;
+          color : white;
+        }
+
         .sidebar>h2{
             font-size: 30px;
             text-align: center;
@@ -80,12 +90,13 @@
         .outer{
             position: relative;
             z-index: 1;
-            float : top;
+            float : left;
             width: 78%;
             height: 1000px;
             margin : auto;
-            padding : 30px 30px 0px 15%;
-            border : 1px solid blue;
+            padding-top : 30px;
+            padding-left: 25%;
+            padding-right: 30px;
         }
 
 
@@ -95,16 +106,16 @@
     <div class="sidebar">
         <h2>관리자페이지</h2>
         <ul class="adminMenu">
-            <ul class="menu"> 메뉴 관리
+            <ul class="menu"> <span>메뉴 관리</span>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="#">여행스토리</a></li>
                 <li><a href="#">여행정보</a></li>
             </ul>
-            <ul class="menu"> 회원 관리
+            <ul class="menu"> <span>회원 관리</span>
                 <li><a href="#">전체 회원 조회</a></li>
                 <li><a href="#">탈퇴 회원 조회</a></li>
             </ul>
-            <ul class="menu"> 문의 관리
+            <ul class="menu"> <span>문의 관리</span>
                 <li><a href="#">QNA</a></li>
             </ul>
         </ul>
@@ -113,10 +124,5 @@
             <a href="#">로그아웃</a>
         </div>
     </div>
-
-    <div class="outer">
-        <h1>어깨가아프다</h1>
-    </div>
-
 </body>
 </html>

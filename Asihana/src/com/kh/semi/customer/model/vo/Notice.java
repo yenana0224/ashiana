@@ -10,8 +10,10 @@ public class Notice {
 	private int noticeType;
 	private String imageFile;
 	
+	
 	public Notice() {
 		super();
+		System.out.println("½ÇÇè");
 	}
 	
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, String noticeHold,

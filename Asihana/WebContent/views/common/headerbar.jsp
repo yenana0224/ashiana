@@ -123,8 +123,8 @@
 </head>
 <body>
 	<div id="login_join">
-        <a href="#">로그인</a>
-        <a href="#">회원가입</a>
+        <a href="<%=contextPath%>/views/member/memberLoginForm.jsp">로그인</a>
+        <a href="<%=contextPath%>/views/member/memberEnrollForm.jsp">회원가입</a>
     </div>
     <div id="logotop">
         <a href="<%=contextPath%>">아시아를 한눈에 하나로</a>

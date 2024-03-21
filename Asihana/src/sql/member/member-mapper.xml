@@ -7,7 +7,9 @@
 	</comment>
 
 	<entry key="login">
-
+		SELECT MEM_NO, MEM_ID, MEM_PWD, NICKNAME, ENROLL_DATE, MODIFY_DATE, STATUS
+		FROM MEMBER
+		WHERE MEM_ID = ? AND MEM_PWD=? AND STATUS ='Y'
 	</entry>
 
 	<entry key="insertMember">
@@ -22,6 +24,7 @@
 	</entry>
 
 	<entry key="selectMember">
+		SELECT*FROM MEMBER WHERE MEM_ID =?
 	</entry>
 
 	<entry key="updatePwd">

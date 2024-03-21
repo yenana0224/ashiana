@@ -35,16 +35,11 @@ public class InfoServelt extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		//System.out.println("1" + request.hashCode());
-		
 		switch(mapping) {
 		case "main" : view = ic.main(request, response); break;
 		case "search" : view = ic.search(request, response); break;
 		}
 		
-		//System.out.println("2" + request.hashCode());
-		System.out.println(request.getAttribute("list"));
-		System.out.println(view);
 		request.getRequestDispatcher(view).forward(request, response);
 	
 	}

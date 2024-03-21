@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.Nation;
 
 public class InfoDao {
 	
@@ -52,6 +53,32 @@ public class InfoDao {
 			JDBCTemplate.close(pstmt);
 		}		
 		return list;
+	}
+	
+	public Nation searchNation(Connection conn, int nationNo) {
+		Nation nation = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchNation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nation = new Nation();
+				nation.setNationName(rset.getString("NATION_NAME"));
+				nation.setNationContent(rset.getString("NATION_CONTENT"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nation;
 	}
 	
 	public City searchCity(Connection conn, City c) {

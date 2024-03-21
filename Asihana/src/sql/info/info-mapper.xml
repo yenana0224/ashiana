@@ -32,6 +32,17 @@
 	  		ROWNUM BETWEEN 1 AND 8
 	</entry>
 	
+	<entry key="searchNation">
+	SELECT
+    	   NATION_NAME,
+    	   NATION_CONTENT
+	  FROM
+  	 	   TB_NATION
+	 WHERE
+    	   TB_NATION.NATION_NO = ?
+    	   
+	</entry>
+	
 	
 	
 	

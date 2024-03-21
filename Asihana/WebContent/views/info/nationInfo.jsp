@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.Nation"%>
+    
+<%
+	Nation nation = (Nation)request.getAttribute("nation");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,6 +165,8 @@
 </head>
 <body>
 
+	<%@ include file="../common/headerbar.jsp" %>
+
     <div class="outer">
         <div class="selectbar">
             <div id="selectwrap">
@@ -193,9 +199,9 @@
         </div>
         <br><br><br><br>
         <div class="currentPage">
-            <a href="#">홈</a> 
+            <a href="<%=contextPath%>/index.jsp">홈</a> 
             <span> > </span>
-            <a href="#">나라이름</a>
+            <a href="#"><%= nation.getNationName() %></a>
         </div>
 
         <div class="nationIntro">
@@ -365,6 +371,8 @@
             }
         }
     </script>
+    
+    	<%@ include file="../common/footer.jsp" %>
 
 </body>
 </html>

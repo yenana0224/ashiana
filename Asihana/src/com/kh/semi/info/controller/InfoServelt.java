@@ -1,6 +1,7 @@
 package com.kh.semi.info.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CityController
+ * Servlet implementation class InfoServelt
  */
-@WebServlet("*.city")
-public class CityServlet extends HttpServlet {
+@WebServlet("*.info")
+public class InfoServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CityServlet() {
+    public InfoServelt() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +28,19 @@ public class CityServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = request.getRequestURI();
-		String mapping = uri.substring(uri.lastIndexOf("/")+ 1, uri.lastIndexOf("."));
+		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 		
-		CityController cc = new CityController();
+		InfoController ic = new InfoController();
+		String view = "";
+		
+		request.setCharacterEncoding("UTF-8");
 		
 		switch(mapping) {
-		case "insert" : cc.insert(request, response); break;
-		case "select" : cc.select(request, response); break;
+		case "main" : view = ic.main(request, response); break;
+		case "search" : view = ic.search(request, response); break;
 		}
+		
+		request.getRequestDispatcher(view).forward(request, response);
 	
 	}
 

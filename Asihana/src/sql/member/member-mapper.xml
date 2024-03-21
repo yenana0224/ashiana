@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>
+		Member Mapper
+	</comment>
+
+	<entry key="login">
+
+	</entry>
+
+	<entry key="insertMember">
+	INSERT INTO MEMBER(MEM_NO, MEM_ID, MEM_PWD,
+		NICKNAME)
+		VALUES(SEQ_MEM.NEXTVAL,?,?,?)
+	
+	</entry>
+
+
+	<entry key="updateMember">
+	</entry>
+
+	<entry key="selectMember">
+	</entry>
+
+	<entry key="updatePwd">
+	</entry>
+
+	<entry key="deleteMember">
+
+	</entry>
+
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_ID = ?
+
+	</entry>
+</properties>

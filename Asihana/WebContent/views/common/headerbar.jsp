@@ -138,7 +138,7 @@
                 <a href="#">살펴보기</a>
                 <ul>
                     <li><a href="#">여행스토리</a></li>
-                    <li><a href="#">여행정보</a></li>
+                    <li><a href="main.info">여행정보</a></li>
                 </ul>
             </li>
             <li>

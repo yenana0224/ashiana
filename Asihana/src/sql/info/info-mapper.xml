@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>
+		info Mapper
+	</comment>
+	
+	<entry key="cityList">
+	
+	SELECT
+     	  CITY_NO,
+     	  CITY_NAME,
+     	  NATION_NO,
+    	  NATION_NAME
+	  FROM 
+	  	  (SELECT
+    		  	 CITY_NO,
+   				 CITY_NAME,
+    			 TB_CITY.NATION_NO,
+    			 NATION_NAME
+ 			 FROM
+    			 TB_CITY
+ 			 JOIN
+    			 TB_NATION ON(TB_CITY.NATION_NO = TB_NATION.NATION_NO)
+			ORDER 
+			   BY 
+			   	 COUNT DESC)
+	  WHERE 
+	  		ROWNUM BETWEEN 1 AND 8
+	</entry>
+	
+	
+	
+	
+</properties>

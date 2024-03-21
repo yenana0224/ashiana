@@ -58,7 +58,7 @@
 						
 						//AJAX요청
 						$.ajax({
-							url : 'idCheck.do',
+							url : '<%=contextPath%>/idCheck.do',
 							data : {checkId : $userId.val()},
 							success : function(result){
 								//console.log(result);

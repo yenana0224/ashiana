@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.customer.model.vo.Notice;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 
 public class CustomerDao {
@@ -58,7 +59,57 @@ public class CustomerDao {
 		return notice;
 	}
 	
-	public ArrayList<Notice> noticeList(Connection conn){
+	public int selectCount(Connection conn) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int selectHoldCount(Connection conn) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHoldCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Notice> noticeList(Connection conn, PageInfo pi, int holdCount){
 		
 		ArrayList<Notice> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -69,6 +120,12 @@ public class CustomerDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1 - holdCount;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -78,16 +135,16 @@ public class CustomerDao {
 				notice.setNoticeNo(rset.getInt("NOTICE_NO"));
 				notice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				notice.setCreateDate(rset.getDate("CREATE_DATE"));
+				notice.setNoticeHold(rset.getString("NOTICE_HOLD"));
 				
 				list.add(notice);
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
-		
 		
 		return list;
 	}

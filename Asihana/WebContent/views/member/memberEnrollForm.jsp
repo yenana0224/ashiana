@@ -49,7 +49,7 @@
 				<tr>
 					<td>* 아이디</td>
 					<td><input type="text" maxlength="12" required name="userId"></td>
-					<td><button class = "btn btn-sm btn-primary" type="button">중복확인</button></td>
+					<td><button class = "btn btn-sm btn-primary" type="button"  onclick="idCheck();">중복확인</button></td>
 					<!-- 중복확인 나중에 AJAX배우고 다음주..? -->
 				</tr>
 				<script>					
@@ -106,7 +106,7 @@
 
 			<div align="center">
 				<button type="reset"class="btn btn-sm btn-secondary">취소</button>
-				<button type="submit" class="btn btn-sm btn-primary" >회원가입</button>
+				<button type="submit" class="btn btn-sm btn-primary" disabled >회원가입</button>
 			</div>
 
 			<br><br>

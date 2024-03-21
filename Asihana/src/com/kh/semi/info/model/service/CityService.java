@@ -17,8 +17,5 @@ public class CityService {
 		return list;
 	}
 	
-	public City searchCity(City c) {
-		
-	}
 
 }

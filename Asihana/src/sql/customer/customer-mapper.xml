@@ -23,15 +23,72 @@
 		      ROWNUM BETWEEN 1 AND 3
 	</entry>
 	
+	<entry key="selectCount">
+		SELECT
+	     	  COUNT(*) COUNT
+	 	  FROM
+	     	  TB_NOTICE
+		 WHERE
+	     	  STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectHoldCount">
+		SELECT
+     		  COUNT(*) COUNT
+  		  FROM
+      		  TB_NOTICE
+ 		 WHERE
+      		  NOTICE_HOLD = 'Y'
+      	   AND
+      	      STATUS = 'Y'  
+	</entry>
+	
 	<entry key="noticeList">
 		SELECT
 		      NOTICE_NO,
 		      NOTICE_TITLE,
-		      CREATE_DATE
-		  FROM
-		      TB_NOTICE
-		 WHERE
-		      STATUS = 'Y'         
+		      CREATE_DATE,
+		      NOTICE_HOLD,
+              RNUM
+ 		 FROM(SELECT
+		            NOTICE_NO,
+		            NOTICE_TITLE,
+		            CREATE_DATE,
+		            NOTICE_HOLD,
+                    ROWNUM RNUM
+		       FROM
+		       	    TB_NOTICE)    
+		  WHERE
+			   NOTICE_HOLD = 'Y'
+		  UNION ALL
+		  SELECT
+                NOTICE_NO,
+		        NOTICE_TITLE,
+		        CREATE_DATE,
+		        NOTICE_HOLD,
+                ROWNUM RNUM
+           FROM(SELECT
+                    NOTICE_NO,
+                    NOTICE_TITLE,
+                    CREATE_DATE,
+                    NOTICE_HOLD,
+                    ROWNUM RNUM
+               FROM(SELECT
+                          NOTICE_NO,
+                          NOTICE_TITLE,
+                          CREATE_DATE,
+                          NOTICE_HOLD
+                     FROM
+                         TB_NOTICE
+                    WHERE
+                         STATUS = 'Y'
+                      AND
+                         NOTICE_HOLD = 'N'
+                    ORDER
+                       BY
+                         CREATE_DATE DESC))
+			WHERE
+		         RNUM BETWEEN ? AND ?       
 	</entry>
 	
 	

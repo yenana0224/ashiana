@@ -133,13 +133,11 @@
         .numButton{
             width: 30px;
             height: 30px;
-            background-color: rgba(250, 160, 160, 0.685);
             border: none;
             border-radius: 5px;
             font-weight: bold;
             font-size: 15px;
         }
-
 </style>
 </head>
 <body>
@@ -177,7 +175,7 @@
             </tr>
         <% } else { %>
 	        <% for(Notice notice : noticeList){ %>
-	            <tr>
+	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
 	            	<% if(notice.getNoticeHold().equals("Y")) {%>
 	                	<td class="td noticeNo" style="color:red;">[공지]</td>
 	                <% } else { %>
@@ -206,8 +204,16 @@
        	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
         <% } %>
     </div>
-	
-	
+	<script>
+		function mouseIn(e){
+			e.style.backgroundColor = 'lightgray';
+		}
+		function mouseOut(e){
+			e.style.backgroundColor = 'rgba(247, 240, 233, 0.253)';
+		}
+
+	</script>
+
 	
 	<%@ include file="../common/footer.jsp" %>
 

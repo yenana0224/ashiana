@@ -127,10 +127,10 @@
         <a href="#">회원가입</a>
     </div>
     <div id="logotop">
-        <a href="#">아시아를 한눈에 하나로</a>
+        <a href="<%=contextPath%>">아시아를 한눈에 하나로</a>
     </div>
     <div id="logolow">
-        <a href="#">아시<b>하</b>나</a>
+        <a href="<%=contextPath%>">아시<b>하</b>나</a>
     </div>
     <div id="menubar">
         <ul id="navi">

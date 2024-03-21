@@ -88,7 +88,14 @@
                        BY
                          CREATE_DATE DESC))
 			WHERE
-		         RNUM BETWEEN ? AND ?       
+		         RNUM BETWEEN ? AND (SELECT
+							     		  (? - COUNT(*)) COUNT
+							  		  FROM
+							      		  TB_NOTICE
+							 		 WHERE
+							      		  NOTICE_HOLD = 'Y'
+							      	   AND
+							      	      STATUS = 'Y' )       
 	</entry>
 	
 	

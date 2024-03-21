@@ -84,32 +84,32 @@ public class CustomerDao {
 		return result;
 	}
 	
-	public int selectHoldCount(Connection conn) {
-		
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectHoldCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				result = rset.getInt("COUNT");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
+//	public int selectHoldCount(Connection conn) {
+//		
+//		int result = 0;
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		
+//		String sql = prop.getProperty("selectHoldCount");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			if(rset.next()) {
+//				result = rset.getInt("COUNT");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return result;
+//	}
 	
-	public ArrayList<Notice> noticeList(Connection conn, PageInfo pi, int holdCount){
+	public ArrayList<Notice> noticeList(Connection conn, PageInfo pi){
 		
 		ArrayList<Notice> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -121,7 +121,7 @@ public class CustomerDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1 - holdCount;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);

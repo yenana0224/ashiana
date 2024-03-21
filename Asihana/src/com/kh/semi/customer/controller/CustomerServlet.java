@@ -42,7 +42,7 @@ public class CustomerServlet extends HttpServlet {
 		case "faq" : view = "/views/customer/faq.jsp"; break;
 		case "notice" : view = customer.noticeList(request, response); break;
 		}
-		System.out.println(view);
+		//System.out.println(view);
 		
 		request.getRequestDispatcher(view).forward(request, response);
 		

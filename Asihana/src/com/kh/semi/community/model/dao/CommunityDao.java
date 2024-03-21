@@ -2,7 +2,7 @@ package com.kh.semi.community.model.dao;
 
 
 
-public class communityDao {
+public class CommunityDao {
 
 	
 	

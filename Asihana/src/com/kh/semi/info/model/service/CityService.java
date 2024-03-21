@@ -13,8 +13,12 @@ public class CityService {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<City> list = new ArrayList<City>();
 		list = new CityDao().cityList(conn);
-		
+		JDBCTemplate.close(conn);
 		return list;
+	}
+	
+	public City searchCity(City c) {
+		
 	}
 
 }

@@ -12,13 +12,15 @@
      	  CITY_NO,
      	  CITY_NAME,
      	  NATION_NO,
-    	  NATION_NAME
+    	  NATION_NAME,
+    	  COUNT
 	  FROM 
 	  	  (SELECT
     		  	 CITY_NO,
    				 CITY_NAME,
     			 TB_CITY.NATION_NO,
-    			 NATION_NAME
+    			 NATION_NAME,
+    			 COUNT
  			 FROM
     			 TB_CITY
  			 JOIN

@@ -11,6 +11,10 @@
 	</entry>
 
 	<entry key="insertMember">
+	INSERT INTO MEMBER(MEM_NO, MEM_ID, MEM_PWD,
+		NICKNAME, ENROLL_DATE, STATUS, MODIFY_DATE)
+		VALUES(SEQ_UNO.NEXTVAL,?,?,?,?,?,?)
+	
 	</entry>
 
 
@@ -28,6 +32,9 @@
 	</entry>
 
 	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_ID = ?
 
 	</entry>
 </properties>

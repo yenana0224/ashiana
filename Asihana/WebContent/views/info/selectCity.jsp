@@ -107,7 +107,7 @@
             <br><br><br>
             <h2 id="mainComent">어디로 떠나고 싶으세요?</h2>
             <div class="selectbar">
-                <form action="<%=contextPath%>/search.info" method="GET" name="nation">
+                <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange(this)">
                         <option> 국가 선택 </option>
                         <option value="60">말레이시아</option>
@@ -126,10 +126,10 @@
                         <option value="880">방글라데시</option>
                         <option value="886">대만</option>
                     </select>
-                    <select name="city" id="selectCity" name="city">
+                    <select name="city" id="selectCity">
                         <option>도시</option>
                     </select> 
-                    <button type="submit" class="btn btn-sm btn-basic" width="20px"> 검색 </button>
+                    <button type="submit" class="btn btn-sm btn-basic" width="20px"> Go </button>
                 </form>
             </div>
 

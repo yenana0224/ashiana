@@ -96,7 +96,7 @@
         height: 40%;
     }
 
-    p {
+    .outer p {
         border : 1px solid black;
         width: 100%;
         height: 100%;
@@ -170,6 +170,8 @@
 </style>
 
 <body>
+
+	<%@ include file="../common/headerbar.jsp"%>
 
     <div class="outer">
         <div class="selectbar">
@@ -281,25 +283,10 @@
                     <p>여기서 놀아요</p>
                 </div>
             </div>
-            <div class="atcontent">
-                <div class="atphoto">
-                    <img src="" alt="">
-                </div>
-                <div class="atname">썬월드바나힐</div>
-                <div class="atInfo">
-                    <p>여기서 놀아요</p>
-                </div>
-            </div>
-            <div class="atcontent">
-                <div class="atphoto">
-                    <img src="" alt="">
-                </div>
-                <div class="atname">썬월드바나힐</div>
-                <div class="atInfo">
-                    <p>여기서 놀아요</p>
-                </div>
-            </div>
+
         </div>
+        
+        <%@ include file="../common/footer.jsp" %>
 
 </body>
 </html>

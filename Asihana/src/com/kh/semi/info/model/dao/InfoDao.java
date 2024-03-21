@@ -53,5 +53,14 @@ public class InfoDao {
 		}		
 		return list;
 	}
+	
+	public City searchCity(Connection conn, City c) {
+		City city = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchCity");
+		
+		return city;
+	}
 
 }

@@ -16,5 +16,13 @@ public class InfoService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	
+	public City searchCity(City c) {
+		Connection conn = JDBCTemplate.getConnection();
+		City city = new InfoDao().searchCity(conn, c);
+				
+		JDBCTemplate.close(conn);
+		return city;
+	}
 
 }

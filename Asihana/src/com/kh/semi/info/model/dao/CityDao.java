@@ -42,6 +42,7 @@ public class CityDao {
 				c.setCityName(rset.getString("CITY_NAME"));
 				c.setNationNo(rset.getInt("NATION_NO"));
 				c.setNationName(rset.getString("NATION_NAME"));
+				c.setCount(rset.getInt("COUNT"));
 				list.add(c);
 			}
 		} catch (SQLException e) {

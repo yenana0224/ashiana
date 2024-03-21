@@ -81,6 +81,12 @@ public class City {
 	public void setCount(int count) {
 		this.count = count;
 	}
+
+	@Override
+	public String toString() {
+		return "City [cityNo=" + cityNo + ", cityName=" + cityName + ", cityContent=" + cityContent + ", nationNo="
+				+ nationNo + ", nationName=" + nationName + ", flyingTime=" + flyingTime + ", count=" + count + "]";
+	}
 	
 	
 

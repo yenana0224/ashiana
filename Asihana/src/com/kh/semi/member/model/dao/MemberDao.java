@@ -26,6 +26,45 @@ public class MemberDao {
 	}
 	
 	/***
+	 * 로그인세션
+	 * @param conn
+	 * @param userId
+	 * @param userPwd
+	 * @return
+	 */
+	public Member login(Connection conn, String userId, String userPwd) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+
+		String sql = prop.getProperty("login");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("MEM_NO"),
+								rset.getString("MEM_ID"),
+								rset.getString("MEM_PWD"),
+								rset.getString("NICKNAME"),
+								rset.getDate("ENORLL_DATE"),
+								rset.getDate("MODIFY_DATE"),
+								rset.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return m;
+	}
+	
+	
+	/***
 	 * 회원가입
 	 * @param conn
 	 * @param member
@@ -89,4 +128,42 @@ public class MemberDao {
 		}
 		return count;
 	}
+	
+	/**
+	 * 로그인 
+	 * @param conn
+	 * @param userId
+	 * @return
+	 */
+
+	public Member selectMember(Connection conn, String userId) {
+		Member updateMem=null;
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,userId);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updateMem=new Member(rset.getInt("MEM_NO"),
+									rset.getString("MEM_ID"),
+									rset.getString("MEM_PWD"),
+									rset.getString("NICKNAME"),
+									rset.getDate("ENORLL_DATE"),
+									rset.getDate("MODIFY_DATE"),
+									rset.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return updateMem;
+	}
+	
 }

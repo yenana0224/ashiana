@@ -8,11 +8,13 @@
 	
 	<entry key="selectcommunity">
 		SELECT
-				COMMN_NO,
+				COMU_NO,
 				CITY_NO,
 				MEM_NO,
-				
-				fdsfdsfds
+				COMU_CONTENT,
+				COMUDATE,
+		  WHERE 
+				STATUS = 'Y';
 				
 	
 		

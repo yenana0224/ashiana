@@ -8,6 +8,24 @@ import com.kh.semi.member.model.vo.Member;
 
 public class MemberService {
 
+	/**
+	 * 로그인 세션
+	 * @param userId
+	 * @param userPwd
+	 * @return
+	 */
+	public Member login(String userId, String userPwd) {
+		// Service => Connection 객체 생성
+
+		// 1) Connection객체 생성
+		Connection conn = JDBCTemplate.getConnection();
+
+		// 2) Controller에서 넘어온 전달값과 Connection객체를 DAO메소드를 호출하면서 전달
+		Member loginUSer = new MemberDao().login(conn, userId, userPwd);
+		JDBCTemplate.close(conn);
+
+		return loginUSer;
+	}
 	
 	/**
 	 *	회원가입
@@ -40,5 +58,19 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return count;
+	}
+	
+	/**
+	 * 로그인
+	 * @param userId
+	 * @return
+	 */
+	public Member selectMember(String userId) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		Member updateMem = new MemberDao().selectMember(conn, userId);
+		JDBCTemplate.close(conn);
+
+		return updateMem;
 	}
 }

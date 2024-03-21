@@ -22,6 +22,9 @@
        font-weight: bold;
        margin-top: 50px;
    }
+   #login-form{
+		background-color: rgb(247, 240, 233);
+	}
 
 	</style>
 
@@ -33,6 +36,25 @@
 			<div id="noticetext">
 	     	   <p>로그인</p>
 	   		</div>
+	<form id = "login-form"  action="<%=contextPath%>/login" method="post">
+			<table align="center">
+				<tr>
+					<th>아이디</th>
+					<th><input type="text" name="userId" id="" required /></th>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<th><input type="password" name="userPwd" id="" required /></th>
+				</tr>
+				<tr>
+					<th colspan="2">
+						<button type="submit" class="btn btn-sm btn-primary">로그인</button>
+						<button type="button" class="btn btn-sm btn-secondary" href="<%=contextPath%>/views/member/memberEnrollForm.jsp">회원가입</button>
+					</th>
+				</tr>
+			</table>
+		</form>   		
+		
 
 
 	<%@ include file="../common/footer.jsp" %>

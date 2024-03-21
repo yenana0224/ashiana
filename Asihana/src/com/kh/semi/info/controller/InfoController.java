@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.info.model.service.CityService;
 import com.kh.semi.info.model.service.InfoService;
 import com.kh.semi.info.model.vo.City;
 

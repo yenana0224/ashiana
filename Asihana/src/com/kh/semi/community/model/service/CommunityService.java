@@ -1,14 +1,19 @@
 package com.kh.semi.community.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*; 
+import static com.kh.semi.common.JDBCTemplate.*;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.kh.semi.community.model.vo.Community; 
  
 public class CommunityService {
 
 	
-	public void selectCommu() {
+	public ArrayList<Community> selectCommu() {
 		Connection conn= getConnection();
 		
-		String 
+		ArrayList<Community> 
 		
 		
 		

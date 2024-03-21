@@ -13,7 +13,7 @@
 				MEM_NO,
 				COMU_CONTENT,
 				COMUDATE,
-			WHERE 
+		  WHERE 
 				STATUS = 'Y';
 				
 	

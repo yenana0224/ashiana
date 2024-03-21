@@ -136,7 +136,8 @@
         </div>
         <div id="content">
             <h2>여행자 실시간 커뮤니티 <div class="spinner-border text-dark"></div> </h2> 
-        <a href="<%=contextPath %>/insert.commu" ></a>
+        <a href="<%=contextPath %>/insert.commu" >글 등록하기</a>
+        <!-- 중간영역의 왼쪽에 위치하여 순서대로 도시에 대한 사진을 보이게 할 예정 -->
  <!-- swiper.js 라이브러리추가 -->
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
@@ -211,12 +212,16 @@
             }
         }); 
     </script>
+    
+    <!-- 중간영역의 오른쪽에 배치를 할 예정  사진에 따른 도시에 따른 커뮤니티에   최근 작성한글을 보이게 할 예정 -->
 
 
 
 
         </div>
         <div id="footer" float;>
+        <!-- 전체기간,통합 분류로 기간, 국가별,도시별, 제목+내용, 내용으로 검색어를 입력하여 검색이 가능하다 -->
+        <a href="<%=contextPath%>/read.commu
             <form action="term.do" float:right;></form><br>
             <span>
                 <select  id="g1" >
@@ -244,6 +249,8 @@
             <span><input type="text" size="30px" placeholder="검색어를 입력해주세요"></span>
 
             <button  id="g3">검색</button>
+            
+            
 
 
 

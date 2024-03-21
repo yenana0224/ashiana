@@ -23,7 +23,16 @@
 		      ROWNUM BETWEEN 1 AND 3
 	</entry>
 	
-	
+	<entry key="noticeList">
+		SELECT
+		      NOTICE_NO,
+		      NOTICE_TITLE,
+		      CREATE_DATE
+		  FROM
+		      TB_NOTICE
+		 WHERE
+		      STATUS = 'Y'         
+	</entry>
 	
 	
 </properties>

@@ -148,14 +148,13 @@
                 <a href="#">여행플랜</a>
             </li>
             <li>
-                <a href="#">커뮤니티</a>
+                <a href="<%=contextPath%>/read.commu">커뮤니티</a> 
             </li>
             <li>
                 <a href="<%=contextPath%>/customer.customer">고객센터</a>
                 <ul>
                     <li><a href="<%=contextPath%>/notice.customer">공지사항</a></li>
                     <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
-                    <li><a href="<%=contextPath%>/read.commu">커뮤니티</a></li>
                     <li><a href="#">Q & A</a></li>
                 </ul>
             </li>

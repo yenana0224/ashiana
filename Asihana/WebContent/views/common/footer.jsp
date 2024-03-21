@@ -10,7 +10,7 @@
             height: 200px;
         }
         #footerLine{
-            height: 10%;
+            height: 50px;
         }
         #footer_1, #footer_2{
             width: 100%;

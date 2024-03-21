@@ -4,7 +4,6 @@ import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import com.kh.semi.customer.model.dao.CustomerDao;
 import com.kh.semi.customer.model.vo.Notice;
@@ -23,17 +22,7 @@ public class CustomerService {
 	}
 	
 	
-	public ArrayList<Notice> noticeList(){
-		
-		Connection conn = getConnection();
-		
-		ArrayList<Notice> noticeList = new customerDao().noticeList(conn);
-		
-		close(conn);
-		
-		return noticeList;
-		
-	}
+	
 	
 	
 }

@@ -7,12 +7,16 @@ public class Notice {
 	private String noticeWriter;
 	private String noticeHold;
 	private String status;
+	private int noticeType;
 	private String imageFile;
+	
+	
 	public Notice() {
 		super();
 	}
+	
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, String noticeHold,
-			String status, String imageFile) {
+			String status, int noticeType, String imageFile) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
@@ -20,8 +24,10 @@ public class Notice {
 		this.noticeWriter = noticeWriter;
 		this.noticeHold = noticeHold;
 		this.status = status;
+		this.noticeType = noticeType;
 		this.imageFile = imageFile;
 	}
+	
 	public int getNoticeNo() {
 		return noticeNo;
 	}
@@ -58,18 +64,26 @@ public class Notice {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getNoticeType() {
+		return noticeType;
+	}
+	public void setNoticeType(int noticeType) {
+		this.noticeType = noticeType;
+	}
 	public String getImageFile() {
 		return imageFile;
 	}
 	public void setImageFile(String imageFile) {
 		this.imageFile = imageFile;
 	}
+	
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", noticeWriter=" + noticeWriter + ", noticeHold=" + noticeHold + ", status=" + status
-				+ ", imageFile=" + imageFile + "]";
+				+ ", noticeType=" + noticeType + ", imageFile=" + imageFile + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,6 +93,7 @@ public class Notice {
 		result = prime * result + ((noticeHold == null) ? 0 : noticeHold.hashCode());
 		result = prime * result + noticeNo;
 		result = prime * result + ((noticeTitle == null) ? 0 : noticeTitle.hashCode());
+		result = prime * result + noticeType;
 		result = prime * result + ((noticeWriter == null) ? 0 : noticeWriter.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
@@ -114,6 +129,8 @@ public class Notice {
 				return false;
 		} else if (!noticeTitle.equals(other.noticeTitle))
 			return false;
+		if (noticeType != other.noticeType)
+			return false;
 		if (noticeWriter == null) {
 			if (other.noticeWriter != null)
 				return false;
@@ -126,7 +143,6 @@ public class Notice {
 			return false;
 		return true;
 	}
-	
 	
 	
 }

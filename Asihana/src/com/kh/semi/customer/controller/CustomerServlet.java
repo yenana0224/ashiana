@@ -38,9 +38,8 @@ public class CustomerServlet extends HttpServlet {
 		
 		String view = "";
 		switch(mapping) {
-		case "customer" : view = customer.notice(request, response); break;
+		case "notice" : view = customer.notice(request, response); break;
 		case "faq" : view = "/views/customer/faq.jsp"; break;
-		case "notice" : view = customer.noticeList(request, response); break;
 		}
 		System.out.println(view);
 		

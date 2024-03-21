@@ -1,6 +1,5 @@
 package com.kh.semi.customer.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,16 +20,7 @@ public class CustomerController {
 	}
 	
 	
-	public String noticeList(HttpServletRequest request, HttpServletResponse response){
-		
-		new CustomerService().noticeList();
-		
-		
-		String view = "/views/customer/notice.jsp";
-		
-		return view;
-		
-	}
+	
 	
 	
 	

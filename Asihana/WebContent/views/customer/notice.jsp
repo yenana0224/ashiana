@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice" %>    
+<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice , com.kh.semi.pageInfo.model.vo.PageInfo" %>    
 
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
 	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
 %>
 
@@ -32,7 +33,7 @@
             width: 800px;
             height: 100px;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 50px;
             background-color: rgb(247, 240, 233);
             border-radius: 15px;
         }
@@ -110,10 +111,34 @@
         td{
             border-bottom: 1px solid #b18282c4;
             padding: 15px;
-            background-color: rgba(247, 240, 233, 0.377);
+            background-color: rgba(247, 240, 233, 0.253);
             font-size: 15px;
         }
-
+	    #buttonBox{
+            width: 1000px;
+            text-align: center;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        #backButton, #nextButton{
+            width: 45px;
+            height: 30px;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        .numButton{
+            width: 30px;
+            height: 30px;
+            background-color: rgba(250, 160, 160, 0.685);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 15px;
+        }
 
 </style>
 </head>
@@ -135,7 +160,7 @@
         </form>
     </div>
 
-    <div style="height: 30px;"></div>
+    <div style="height: 70px;"></div>
 
     <table class="table">
         <thead>
@@ -146,17 +171,41 @@
             </tr>
         </thead>
         <tbody>
-        <% for(Notice notice : noticeList){ %>
-            <tr>
-                <td class="td noticeNo"><%= notice.getNoticeNo() %></td>
-                <td class="td title"><%= notice.getNoticeTitle() %></td>
-                <td class="td date"><%= notice.getCreateDate() %></td>
+        <% if(noticeList.isEmpty()) { %>
+        	<tr>
+               <td colspan="3" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
             </tr>
-        <% } %>   
+        <% } else { %>
+	        <% for(Notice notice : noticeList){ %>
+	            <tr>
+	            	<% if(notice.getNoticeHold().equals("Y")) {%>
+	                	<td class="td noticeNo" style="color:red;">[공지]</td>
+	                <% } else { %>
+	                	<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
+	                <% } %>	
+	                <td class="td title"><%= notice.getNoticeTitle() %></td>
+	                <td class="td date"><%= notice.getCreateDate() %></td>
+	            </tr>
+	        <% } %>   
+        <% } %>
         </tbody>
     </table>
 	
-	
+	<div id="buttonBox">
+		<% if(pi.getCurrentPage() > 1){ %>
+        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+        <% } %>
+        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+        	<% if( pi.getCurrentPage() != i) { %>
+        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%=i%>'"><%= i %></button>
+        	<% } else{ %>
+        		<button class="numButton"><%= i %></button>
+        	<% } %>
+        <% } %>
+        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+        <% } %>
+    </div>
 	
 	
 	

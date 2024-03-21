@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.semi.info.model.service.CityService;
+import com.kh.semi.info.model.service.InfoService;
 import com.kh.semi.info.model.vo.City;
 
 public class InfoController {
 
 	
 	public String main(HttpServletRequest request, HttpServletResponse response) {
-		ArrayList<City> list = new CityService().cityList();
+		ArrayList<City> list = new InfoService().cityList();
 		request.setAttribute("list", list);
 		String view = "views/info/selectCity.jsp";
 		return view;
@@ -27,8 +27,8 @@ public class InfoController {
 		c.setNationNo(nationNo);
 		c.setCityName(cityName);
 
-		City city = new CityService().searchCity(c);
-		String view = "";
+		City city = new InfoService().searchCity(c);
+		String view = "views/info/cityInfo.jsp";
 		return view;
 	}
 	

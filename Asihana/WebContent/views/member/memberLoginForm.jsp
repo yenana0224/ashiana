@@ -14,6 +14,15 @@
             padding-top: 80px;
             font-size: 30px;
         }
+    #noticetext{
+       margin: auto;
+       width: 1000px;
+       text-align: center;
+       font-size: 30px;
+       font-weight: bold;
+       margin-top: 50px;
+   }
+
 	</style>
 
 </head>
@@ -21,9 +30,9 @@
 
 	<%@ include file="../common/headerbar.jsp" %>
 	
-	<div id="content">
-		로그인 페이지
-    </div>
+			<div id="noticetext">
+	     	   <p>로그인</p>
+	   		</div>
 
 
 	<%@ include file="../common/footer.jsp" %>

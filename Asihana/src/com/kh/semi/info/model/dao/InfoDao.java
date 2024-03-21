@@ -12,12 +12,12 @@ import java.util.Properties;
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.info.model.vo.City;
 
-public class CityDao {
+public class InfoDao {
 	
 	private Properties prop = new Properties();
 	
-	public CityDao() {
-		String filePath = CityDao.class.getResource("/sql/info/info-mapper.xml").getPath();
+	public InfoDao() {
+		String filePath = InfoDao.class.getResource("/sql/info/info-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));

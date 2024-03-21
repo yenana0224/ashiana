@@ -12,8 +12,8 @@
 
 	<entry key="insertMember">
 	INSERT INTO MEMBER(MEM_NO, MEM_ID, MEM_PWD,
-		NICKNAME, ENROLL_DATE, STATUS, MODIFY_DATE)
-		VALUES(SEQ_UNO.NEXTVAL,?,?,?,?,?,?)
+		NICKNAME)
+		VALUES(SEQ_MEM.NEXTVAL,?,?,?)
 	
 	</entry>
 

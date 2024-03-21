@@ -116,7 +116,6 @@
                         <option value="65">싱가포르</option>
                         <option value="66">태국</option>
                         <option value="81">일본</option>
-                        <option value="82">대한민국</option>
                         <option value="84">베트남</option>
                         <option value="852">홍콩</option>
                         <option value="853">마카오</option>

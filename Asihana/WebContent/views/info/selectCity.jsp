@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         *{
             box-sizing: border-box;
@@ -180,6 +180,7 @@
             </div>
             <br>
             <div class="cityView">
+                <!-- 조회 많은 순서대로 도시 8개 노출 -->
             <% for(City c : list) { %>
                 <div class="city">
                     <div class="cityPhoto">
@@ -192,6 +193,14 @@
                 </div>
  			<% } %>
             </div>
+
+            <script>
+                $(document).on('click', '.city', function(event){
+                    location.href="<%=contextPath%>/search.info?nation=66&city=끄라비"
+                })
+
+            </script>
+
         </div>
     </div>
     

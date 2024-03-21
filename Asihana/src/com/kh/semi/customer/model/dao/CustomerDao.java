@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.customer.model.vo.Notice;
@@ -57,6 +58,14 @@ public class CustomerDao {
 		return notice;
 	}
 	
+	public ArrayList<Notice> noticeList(Connection conn){
+		
+		ArrayList<Notice> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("noticeList");
+	}
 	
 	
 	

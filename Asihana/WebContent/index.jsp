@@ -181,7 +181,7 @@
 <body>
 	
 	<%@ include file="views/common/headerbar.jsp" %>
-
+	
     <div class="outer">
         <div class="main">
 
@@ -206,7 +206,7 @@
                 <img src="https://content.skyscnr.com/m/64f1189bc1e2bf0e/original/UK-ST3-165-TRAVELTRENDS-Q323-Article2-1-2.jpg?crop=1224px:647px&position=attention" alt="">
                 <div id="detail"><a href="#" id="storypage">상세보기 ></a></div>
             </div>
-            
+
             <br><br><br>
             <div>
                 <h4>추천여행지</h4>

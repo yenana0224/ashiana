@@ -35,16 +35,11 @@ public class CustomerController {
 		
 		listCount = new CustomerService().selectCount();
 		
-		// 사용자가 요청한 페이지 번호 값 뽑기
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-		// 하단 페이징바 최대 10개
 		pageLimit = 10;
-		// 한 페이지에 최대 15개 게시물
 		boardLimit = 15;
 		
-		// 가장 마지막 페이지 = 게시글 총개수를 실수로 변환(23.0)(나누기 /)(15.0)한페이지에 보여질 게시글<더 작은 int가 형변환> 
-		// Math클래스에 ceil로 올림처리 마지막으로 int로 형변환후 대입
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
 		startPage = (currentPage -1) / pageLimit * pageLimit + 1;

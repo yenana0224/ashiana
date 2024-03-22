@@ -8,6 +8,10 @@ public class City {
 	private int nationNo;
 	private String nationName;
 	private String flyingTime;
+	private String visaName;
+	private String language;
+	private String voltage;
+	private String currency;
 	private int count;
 	
 	public City() {
@@ -24,6 +28,40 @@ public class City {
 		this.nationName = nationName;
 		this.flyingTime = flyingTime;
 		this.count = count;
+	}
+	
+	
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public String getVisaName() {
+		return visaName;
+	}
+
+	public void setVisaName(String visaName) {
+		this.visaName = visaName;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getVoltage() {
+		return voltage;
+	}
+
+	public void setVoltage(String voltage) {
+		this.voltage = voltage;
 	}
 
 	public int getCityNo() {

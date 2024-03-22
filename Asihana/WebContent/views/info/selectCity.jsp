@@ -122,7 +122,6 @@
                         <option value="855">캄보디아</option>
                         <option value="856">라오스</option>
                         <option value="86">중국</option>
-                        <option value="880">방글라데시</option>
                         <option value="886">대만</option>
                     </select>
                     <select name="city" id="selectCity">

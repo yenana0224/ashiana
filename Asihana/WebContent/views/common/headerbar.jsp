@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
         #login_join{
             height: 50px;
@@ -164,7 +165,7 @@
 	                <a href="#">여행기</a>
 	            </li>
 	            <li>
-	                <a href="#">여행플랜</a>
+	                <a href="<%=contextPath%>/planMain.plan">여행플랜</a>
 	            </li>
 	            <li>
 	                <a href="<%=contextPath%>/read.commu">커뮤니티</a> 

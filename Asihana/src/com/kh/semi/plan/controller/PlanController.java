@@ -26,9 +26,17 @@ public class PlanController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uri = request.getRequestURI();
+		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+		System.out.println(mapping);
 		
+		String view = "";
 		
+		switch(mapping) {
+		case "planMain" : view = "views/plan/planMain.jsp"; break;
+		}
 		
+		request.getRequestDispatcher(view).forward(request, response);
 		
 	}
 

@@ -7,9 +7,8 @@
 <title>아시하나 플랜</title>
 </head>
 <body>
-	
 	<style>
-        div{
+	div{
             box-sizing: border-box;
             width: 1200px;
         }
@@ -180,14 +179,11 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp" %>
-
     <div id="outer">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
             <div class="my-plan-card">
-                <button class="btn button btn-danger" style="margin-right: 5px;">삭제</button>
-                <button class="btn button btn-success">수정</button>
+    
                 <div>
                     <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
                     <h5>도시</h5>
@@ -205,20 +201,11 @@
                         </div>
                     </div>
                 </div>
+                <button class="btn button btn-danger" style="right: 5px;">삭제</button>
+                <button class="btn button btn-success"style="right: 37px;">수정</button>
             </div>
-            <div class="my-plan-card">
-
-                <div>
-                    <img src="https://i.pinimg.com/564x/5a/d8/19/5ad81992bcd98c50dd965d3adaf14b21.jpg" width="200" height="200">
-                </div>
-            </div>
-            <div class="my-plan-card">
-
-                <div>
-                    <img src="https://i.pinimg.com/564x/e0/2b/59/e02b59210908dd6e04f6d82098399ada.jpg" width="200" height="200">
-                </div>
-            </div>
-
+            
+    
             <div class="my-plan-card">
                 <div class="planning-card">   
                     <h5>계획된 여행이 없습니다.</h5>
@@ -228,6 +215,7 @@
                     <button class="btn btn-sm btn-success">여행 플랜 추가</button>
                 </div>
             </div>
+            
         </div>
 
         <div id="start-plan-area">

@@ -213,7 +213,70 @@
         }); 
     </script>
     
-    <!-- 중간영역의 오른쪽에 배치를 할 예정  사진에 따른 도시에 따른 커뮤니티에   최근 작성한글을 보이게 할 예정 -->
+    <!-- 중간영역의 오른쪽에 배치를 할 예정  사진에 따른 도시에 따른 커뮤니티에    싫시간으로 작성한글을 보이게 할 예정(AJAX 사용할 예정 -->
+
+	<button onclick="push();" id="click1">실시간</button>
+	
+	<script>
+		
+		function push(){
+			
+			$.ajax({
+				url : 'jqAjax1.do',
+				data : {comuNo:$('#click').val()},
+				type : 'get'
+			},
+			success :function(result){
+				
+			}
+			});
+		}
+	
+	
+	
+	</script>
+	
+
+
+
+
+
+
+
+
+
+
+ <!-- 페이징 바 영역 -->
+        
+        
+        <div class="paging-area" align="center">
+        
+        	<% if(currentPage > 1) { %>
+        		<button 
+				class="btn btn-danger" style="color:##ff52a0;"
+				onclick="location.href='<%=contextPath%>/page?currentPage=<%=currentPage -1 %>'">이전</button>
+          	<% } %>   
+        	
+			<% for(int i = startPage; i <= endPage; i++){ %>
+			
+				<% if(currentPage != i){ %>
+				<button 
+				class="btn btn-outline-danger" style="color:##ff52a0;"
+				onclick="location.href='<%=contextPath%>/page?currentPage=<%=i%>'"><%= i %></button>
+				<%} else {%>
+					<button disabled class="btn btn-outline-secondary"><%=i %></button>
+				<%} %>
+			<%} %>
+			
+			<% if(currentPage != maxPage) { %>
+			  <button 
+				class="btn btn-danger" style="color:##ff52a0;"
+				onclick="location.href='<%=contextPath%>/page?currentPage=<%=currentPage + 1%>'">다음</button>
+			<% } %>
+        </div>
+     </div>
+     
+
 
 
 
@@ -250,6 +313,36 @@
 
             <button  id="g3">검색</button>
             
+             <!-- 페이징 바 영역 -->
+        
+        
+        <div class="paging-area" align="center">
+        
+        	<% if(currentPage > 1) { %>
+        		<button 
+				class="btn btn-danger" style="color:##ff52a0;"
+				onclick="location.href='<%=contextPath%>/boardList?currentPage=<%=currentPage -1 %>'">이전</button>
+          	<% } %>   
+        	
+			<% for(int i = startPage; i <= endPage; i++){ %>
+			
+				<% if(currentPage != i){ %>
+				<button 
+				class="btn btn-outline-danger" style="color:##ff52a0;"
+				onclick="location.href='<%=contextPath%>/boardList?currentPage=<%=i%>'"><%= i %></button>
+				<%} else {%>
+					<button disabled class="btn btn-outline-secondary"><%=i %></button>
+				<%} %>
+			<%} %>
+			
+			<% if(currentPage != maxPage) { %>
+			  <button 
+				class="btn btn-danger" style="color:##ff52a0;"
+				onclick="location.href='<%=contextPath%>/boardList?currentPage=<%=currentPage + 1%>'">다음</button>
+			<% } %>
+        </div>
+     </div>
+     
             
 
 

@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice , com.kh.semi.pageInfo.model.vo.PageInfo" %>    
+<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice , com.kh.semi.pageInfo.model.vo.PageInfo
+				 , java.util.List" %>    
 
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
+	List<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
+	String select = (String)request.getAttribute("select");
+	String searchContent = (String)request.getAttribute("searchContent");
+	
 %>
 
 <!DOCTYPE html>
@@ -148,13 +152,14 @@
         <p>공지사항</p>
     </div>
     <div id="search">
-        <form action="" method="get">
+        <form action="<%=contextPath %>/notice.customer" method="get">
             <select name="select" id="select">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
+	            <option value="title" selected>제목</option>
+	            <option value="content">내용</option>
             </select>
-            <input type="text" id="searchText">
-            <button>검색</button>
+            <input type="text" id="searchText" name="searchContent">
+            <input type="hidden" name="currentPage" value="1">
+            <button type="submit">검색</button>
         </form>
     </div>
 
@@ -189,21 +194,42 @@
         </tbody>
     </table>
 	
-	<div id="buttonBox">
+	<% if(searchContent != null) { %>
+		<div id="buttonBox">
 		<% if(pi.getCurrentPage() > 1){ %>
-        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
         <% } %>
         <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
         	<% if( pi.getCurrentPage() != i) { %>
-        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%=i%>'"><%= i %></button>
+        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
         	<% } else{ %>
         		<button class="numButton"><%= i %></button>
         	<% } %>
         <% } %>
         <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
-       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
         <% } %>
     </div>
+	<% } else { %>
+	
+		<div id="buttonBox">
+			<% if(pi.getCurrentPage() > 1){ %>
+	        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+	        <% } %>
+	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+	        	<% if( pi.getCurrentPage() != i) { %>
+	        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%=i%>'"><%= i %></button>
+	        	<% } else{ %>
+	        		<button class="numButton"><%= i %></button>
+	        	<% } %>
+	        <% } %>
+	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+	        <% } %>
+	    </div>
+	<% } %>
+	
+	
 	<script>
 		function mouseIn(e){
 			e.style.backgroundColor = 'lightgray';
@@ -214,6 +240,7 @@
 
 	</script>
 
+	
 	
 	<%@ include file="../common/footer.jsp" %>
 

@@ -21,6 +21,8 @@
 
 
 	<entry key="updateMember">
+		UPDATE MEMBER SET NICKNAME =?, MODIFY_DATE = SYSDATE
+		WHERE MEM_ID =? AND (STATUS = 'U' OR STATUS = 'A')
 	</entry>
 
 	<entry key="selectMember">

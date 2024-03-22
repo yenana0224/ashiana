@@ -45,6 +45,22 @@ public class MemberService {
 	}
 	
 	/**
+	 * 회원정보수정
+	 * @param member
+	 * @return
+	 */
+	public int updateMember(Member member) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().updateMember(conn, member);
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	/**
 	 * 아디 중복체크
 	 * @param checkId
 	 * @return

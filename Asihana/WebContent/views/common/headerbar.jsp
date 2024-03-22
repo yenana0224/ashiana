@@ -26,6 +26,13 @@
             left: 90%;
             font-size: 13px;
         }
+         #login_join > p{
+              text-decoration: none;
+            color: rgb(85, 83, 83);
+            position: relative;
+            left: 90%;
+            font-size: 13px;
+        }
         #logotop{
             height: 40px;
             width: 1000px;
@@ -133,8 +140,9 @@
     <%}else{ %>
 	    	<!-- 로그인시 -->
     	<div id="login_join">
-	        <a href="<%=contextPath%>/myPage">마이페이지</a>
+	        <a href="<%=contextPath%>/views/member/myPage.jsp">마이페이지</a>
 	        <a href="<%=contextPath%>/logout">로그아웃</a>
+	        <p><%=loginUser.getNickName()%>님 환영합니다!</p>
 	    </div>
 	 <%} %>
 	 

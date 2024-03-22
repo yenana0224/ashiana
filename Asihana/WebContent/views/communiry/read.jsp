@@ -225,7 +225,8 @@
 				url : 'jqAjax1.do',
 				data : {comuNo:$('#click').val()},
 				type : 'get'
-			},
+			}
+			
 			success :function(result){
 				
 			}
@@ -284,7 +285,7 @@
         </div>
         <div id="footer" float;>
         <!-- 전체기간,통합 분류로 기간, 국가별,도시별, 제목+내용, 내용으로 검색어를 입력하여 검색이 가능하다 -->
-        <a href="<%=contextPath%>/read.commu
+        <a href="<%=contextPath%>/read.commu>
             <form action="term.do" float:right;></form><br>
             <span>
                 <select  id="g1" >

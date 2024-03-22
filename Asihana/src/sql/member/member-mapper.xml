@@ -33,7 +33,7 @@
 	</entry>
 
 	<entry key="deleteMember">
-
+		UPDATE MEMBER SET STATUS ='N' WHERE MEM_PWD =? AND MEM_NO =? AND (STATUS = 'U' OR STATUS = 'A')
 	</entry>
 
 	<entry key="idCheck">

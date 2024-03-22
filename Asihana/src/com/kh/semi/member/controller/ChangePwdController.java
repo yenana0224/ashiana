@@ -64,7 +64,8 @@ public class ChangePwdController extends HttpServlet {
 		
 		//성공실패 여부와는 상관없이 응답화면은 myPage.jsp
 		//contextRoot
-		response.sendRedirect(request.getContextPath()+"/myPage");
+		
+		response.sendRedirect(request.getContextPath());
 		}
 
 	/**

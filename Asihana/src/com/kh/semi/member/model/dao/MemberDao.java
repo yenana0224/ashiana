@@ -225,4 +225,38 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	/**
+	 * 비밀번호 수정
+	 * @param conn
+	 * @param userNo
+	 * @param userPwd
+	 * @param changePwd
+	 * @return
+	 */
+	public int updatePwd(Connection conn, int userNo, String userPwd, String changePwd) {
+		
+		//UPDATE문 => 처리된 행의 개수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, changePwd);
+			pstmt.setInt(2, userNo);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+
+		
+	}
 }

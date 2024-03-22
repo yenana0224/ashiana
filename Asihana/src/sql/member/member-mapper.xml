@@ -30,6 +30,8 @@
 	</entry>
 
 	<entry key="updatePwd">
+		UPDATE MEMBER SET MEM_PWD =? , MODIFY_DATE = SYSDATE
+		WHERE MEM_NO =? AND MEM_PWD =? AND (STATUS = 'U' OR STATUS = 'A')
 	</entry>
 
 	<entry key="deleteMember">

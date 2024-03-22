@@ -107,4 +107,27 @@ public class MemberService {
 		return result;
 	}
 	
+	/***
+	 * 비밀번호 수정
+	 * @param userNo
+	 * @param userPwd
+	 * @param updatePwd
+	 * @return
+	 */
+	public int updatePwd(int userNo, String userPwd, String updatePwd) {
+
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new MemberDao().updatePwd(conn, userNo, userPwd, updatePwd);
+
+		if (result > 0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+
+		JDBCTemplate.close(conn);
+
+		return result;
+
+	}
 }

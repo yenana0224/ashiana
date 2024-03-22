@@ -1,8 +1,6 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.plan.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyPageController
+ * Servlet implementation class PlanController
  */
-@WebServlet("/myPage")
-public class MyPageController extends HttpServlet {
+@WebServlet("*.plan")
+public class PlanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageController() {
+    public PlanController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,10 +26,19 @@ public class MyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("/views/member/myPage.jsp");
-		view.forward(request, response);
+		String uri = request.getRequestURI();
+		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+		System.out.println(mapping);
+		
+		String view = "";
+		
+		switch(mapping) {
+		case "planMain" : view = "views/plan/planMain.jsp"; break;
+		}
+		
+		request.getRequestDispatcher(view).forward(request, response);
+		
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

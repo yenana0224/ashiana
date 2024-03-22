@@ -1,6 +1,7 @@
 package com.kh.semi.customer.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +34,12 @@ public class CustomerController {
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
 		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
 		
-		listCount = new CustomerService().selectCount();
+		String select = request.getParameter("select");
+		String searchContent = request.getParameter("searchContent");
+
+
+		listCount = new CustomerService().selectCount(select, searchContent);
+
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
@@ -53,19 +59,42 @@ public class CustomerController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Notice> noticeList = new CustomerService().noticeList(pi);
+		
+		List<Notice> noticeList = new ArrayList();
+		
+		if(select != null) {
+			noticeList = new CustomerService().noticeSearch(select, searchContent, pi);
+		} else {
+			noticeList = new CustomerService().noticeList(pi);
+		}
+		
+		
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("noticeList", noticeList);
+		request.setAttribute("searchContent", searchContent);
+		request.setAttribute("select", select);
+		
 		
 		String view = "/views/customer/notice.jsp";
 		
 		return view;
 		
-		
 	}
 	
-	
+//	public String noticeSearch(HttpServletRequest request, HttpServletResponse response) {
+//		
+//		
+//		String select = request.getParameter("select");
+//		String searchContent = request.getParameter("searchContent");
+//		
+//		new CustomerService().noticeSearch(select, searchContent);
+//		
+//		String view = "/views/customer/notice.jsp";
+//		
+//		return view;
+//		
+//	}
 	
 	
 }

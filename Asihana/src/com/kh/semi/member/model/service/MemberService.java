@@ -21,10 +21,9 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 
 		// 2) Controller에서 넘어온 전달값과 Connection객체를 DAO메소드를 호출하면서 전달
-		Member loginUSer = new MemberDao().login(conn, userId, userPwd);
+		Member loginUser = new MemberDao().login(conn, userId, userPwd);
 		JDBCTemplate.close(conn);
-
-		return loginUSer;
+		return loginUser;
 	}
 	
 	/**

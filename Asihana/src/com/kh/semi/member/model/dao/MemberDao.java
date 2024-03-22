@@ -50,7 +50,7 @@ public class MemberDao {
 								rset.getString("MEM_ID"),
 								rset.getString("MEM_PWD"),
 								rset.getString("NICKNAME"),
-								rset.getDate("ENORLL_DATE"),
+								rset.getDate("ENROLL_DATE"),
 								rset.getDate("MODIFY_DATE"),
 								rset.getString("STATUS"));
 			}
@@ -60,7 +60,9 @@ public class MemberDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		
 		return m;
+		
 	}
 	
 	

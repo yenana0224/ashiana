@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import ="com.kh.semi.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
-
+	Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -122,44 +123,54 @@
     </style>
 </head>
 <body>
-	<div id="login_join">
-        <a href="<%=contextPath%>/views/member/memberLoginForm.jsp">로그인</a>
-        <a href="<%=contextPath%>/views/member/memberEnrollForm.jsp">회원가입</a>
-    </div>
-    <div id="logotop">
-        <a href="<%=contextPath%>">아시아를 한눈에 하나로</a>
-    </div>
-    <div id="logolow">
-        <a href="<%=contextPath%>">아시<b>하</b>나</a>
-    </div>
-    <div id="menubar">
-        <ul id="navi">
-            <li>
-                <a href="#">살펴보기</a>
-                <ul>
-                    <li><a href="#">여행스토리</a></li>
-                    <li><a href="<%=contextPath%>/main.info">여행정보</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">여행기</a>
-            </li>
-            <li>
-                <a href="#">여행플랜</a>
-            </li>
-            <li>
-                <a href="<%=contextPath%>/read.commu">커뮤니티</a> 
-            </li>
-            <li>
-                <a href="<%=contextPath%>/customer.customer">고객센터</a>
-                <ul>
-                    <li><a href="<%=contextPath%>/notice.customer?currentPage=1">공지사항</a></li>
-                    <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
-                    <li><a href="#">Q & A</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+			<!-- 비로그인  -->
+	<%if(loginUser == null) {%>
+		<div id="login_join">
+	        <a href="<%=contextPath%>/views/member/memberLoginForm.jsp">로그인</a>
+	        <a href="<%=contextPath%>/views/member/memberEnrollForm.jsp">회원가입</a>
+	    </div>
+    <%}else{ %>
+	    	<!-- 로그인시 -->
+    	<div id="login_join">
+	        <a href="<%=contextPath%>/myPage">마이페이지</a>
+	        <a href="<%=contextPath%>/logout">로그아웃</a>
+	    </div>
+	 <%} %>
+	 
+	    <div id="logotop">
+	        <a href="<%=contextPath%>">아시아를 한눈에 하나로</a>
+	    </div>
+	    <div id="logolow">
+	        <a href="<%=contextPath%>">아시<b>하</b>나</a>
+	    </div>
+	    <div id="menubar">
+	        <ul id="navi">
+	            <li>
+	                <a href="#">살펴보기</a>
+	                <ul>
+	                    <li><a href="#">여행스토리</a></li>
+	                    <li><a href="<%=contextPath%>/main.info">여행정보</a></li>
+	                </ul>
+	            </li>
+	            <li>
+	                <a href="#">여행기</a>
+	            </li>
+	            <li>
+	                <a href="#">여행플랜</a>
+	            </li>
+	            <li>
+	                <a href="<%=contextPath%>/read.commu">커뮤니티</a> 
+	            </li>
+	            <li>
+	                <a href="<%=contextPath%>/customer.customer">고객센터</a>
+	                <ul>
+	                    <li><a href="<%=contextPath%>/notice.customer?currentPage=1">공지사항</a></li>
+	                    <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
+	                    <li><a href="#">Q & A</a></li>
+	                </ul>
+	            </li>
+	        </ul>
+	    </div>
 
 </body>
 </html>

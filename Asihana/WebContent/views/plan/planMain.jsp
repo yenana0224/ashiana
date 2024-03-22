@@ -33,9 +33,6 @@
             #start-plan-area{
                 height: 500px;
             }
-            #plans-area{
-                height: 500px;
-            }
             .my-plan-card{
                 background-color: white;
                 border: 1px solid lightgrey;
@@ -274,18 +271,9 @@
             </div>
 
         </div>
-        <div id="plans-area"></div>
+
     </div>
 
-
-
     
-</body>
-</html>
-	
-
-
-
-
 </body>
 </html>

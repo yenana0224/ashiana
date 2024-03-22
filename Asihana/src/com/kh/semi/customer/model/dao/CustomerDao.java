@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.customer.model.vo.Notice;
@@ -58,6 +59,63 @@ public class CustomerDao {
 		}
 		return notice;
 	}
+	public int selectTitleCount(Connection conn, String searchContent) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectTitleCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, searchContent);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
+	
+	public int selectContentCount(Connection conn, String searchContent) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectContentCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, searchContent);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
 	
 	public int selectCount(Connection conn) {
 		
@@ -84,34 +142,10 @@ public class CustomerDao {
 		return result;
 	}
 	
-//	public int selectHoldCount(Connection conn) {
-//		
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		String sql = prop.getProperty("selectHoldCount");
-//		
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()) {
-//				result = rset.getInt("COUNT");
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return result;
-//	}
 	
-	public ArrayList<Notice> noticeList(Connection conn, PageInfo pi){
+	public List<Notice> noticeList(Connection conn, PageInfo pi){
 		
-		ArrayList<Notice> list = new ArrayList();
+		List<Notice> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -149,6 +183,89 @@ public class CustomerDao {
 		return list;
 	}
 	
+	public List<Notice> noticeTitleSearch(Connection conn, String searchContent, PageInfo pi){
+		
+		List<Notice> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("noticeTitleSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, searchContent);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Notice notice = new Notice();
+				
+				notice.setNoticeNo(rset.getInt("NOTICE_NO"));
+				notice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				notice.setCreateDate(rset.getDate("CREATE_DATE"));
+				notice.setNoticeHold(rset.getString("NOTICE_HOLD"));
+				
+				list.add(notice);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
-	
+	public List<Notice> noticeContentSearch(Connection conn, String searchContent, PageInfo pi){
+		
+		List<Notice> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("noticeContentSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, searchContent);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Notice notice = new Notice();
+				
+				notice.setNoticeNo(rset.getInt("NOTICE_NO"));
+				notice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				notice.setCreateDate(rset.getDate("CREATE_DATE"));
+				notice.setNoticeHold(rset.getString("NOTICE_HOLD"));
+				
+				list.add(notice);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

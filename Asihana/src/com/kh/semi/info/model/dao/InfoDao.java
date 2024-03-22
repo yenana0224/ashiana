@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Voltage;
@@ -208,5 +209,30 @@ public class InfoDao {
 		}
 		return list;
 	};
+	
+	public List<Currency> searchCur(Connection conn, int nationNo){
+		List<Currency> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchCur");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Currency cur = new Currency();
+				cur.setCurrencyName(rset.getString("CURRENCY_NAME"));
+				list.add(cur);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 
 }

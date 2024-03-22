@@ -253,9 +253,10 @@
             <a href="<%=contextPath%>/main.info">홈</a> 
             <span> > </span>
             <a href="#"><%= city.getNationName() %></a>
-            
+            <% if(city.getNationNo() != 65 && city.getNationNo() != 852) { %>
             <span> > </span>
             <a href="#"><%= city.getCityName() %></a>
+            <% } %>
         </div>
 
         <div class="cityIntro">
@@ -287,7 +288,7 @@
 			                    전압 : <%= city.getVoltage() %><br>
 			                    비자 : <%= city.getVisaName() %><br>
 			                    사용언어 : <%= city.getLanguage() %> <br>
-			                    화폐 : <br>
+			                    화폐 : <%=city.getCurrency() %><br>
                 </p>
             </div>
         </div>

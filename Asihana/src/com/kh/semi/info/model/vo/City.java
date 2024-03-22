@@ -11,6 +11,7 @@ public class City {
 	private String visaName;
 	private String language;
 	private String voltage;
+	private String currency;
 	private int count;
 	
 	public City() {
@@ -27,6 +28,16 @@ public class City {
 		this.nationName = nationName;
 		this.flyingTime = flyingTime;
 		this.count = count;
+	}
+	
+	
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	public String getVisaName() {

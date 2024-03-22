@@ -115,6 +115,19 @@
 	      	  TB_NATION.NATION_NO = ?
 	</entry>
 	
+	<entry key="searchCur">
+	SELECT
+	      CURRENCY_NAME
+	  FROM
+	      CURRENCY
+	  JOIN
+	      BRTB_CURRENCY ON (BRTB_CURRENCY.CURRENCY_NO = CURRENCY.CURRENCY_NO)
+	  JOIN
+	      TB_NATION ON (BRTB_CURRENCY.NATION_NO = TB_NATION.NATION_NO)
+	 WHERE
+	      TB_NATION.NATION_NO = ?
+	</entry>
+	
 	
 	
 </properties>

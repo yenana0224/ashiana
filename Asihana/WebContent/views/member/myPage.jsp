@@ -65,7 +65,12 @@
 				<button type="button" data-toggle="modal" data-target="#updatePwd">비밀번호수정</button>
                 <button type="button" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
 			</div>
-
+			<br>	
+			<div align="center">
+                <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">My여행플랜</button>
+                <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyTrip.jsp'">My여행기</button>
+                <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">플랜</button>
+			</div>
 			<br><br>
 		
 		</form>

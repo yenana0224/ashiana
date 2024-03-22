@@ -57,7 +57,9 @@
 		            NOTICE_HOLD,
                     ROWNUM RNUM
 		       FROM
-		       	    TB_NOTICE)    
+		       	    TB_NOTICE
+               WHERE
+                    STATUS = 'Y')    
 		  WHERE
 			   NOTICE_HOLD = 'Y'
 		  UNION ALL
@@ -66,7 +68,7 @@
 		        NOTICE_TITLE,
 		        CREATE_DATE,
 		        NOTICE_HOLD,
-                ROWNUM RNUM
+                RNUM
            FROM(SELECT
                     NOTICE_NO,
                     NOTICE_TITLE,
@@ -95,7 +97,7 @@
 							 		 WHERE
 							      		  NOTICE_HOLD = 'Y'
 							      	   AND
-							      	      STATUS = 'Y' )       
+							      	      STATUS = 'Y' )      
 	</entry>
 	
 	

@@ -50,7 +50,7 @@ public class MemberDao {
 								rset.getString("MEM_ID"),
 								rset.getString("MEM_PWD"),
 								rset.getString("NICKNAME"),
-								rset.getDate("ENORLL_DATE"),
+								rset.getDate("ENROLL_DATE"),
 								rset.getDate("MODIFY_DATE"),
 								rset.getString("STATUS"));
 			}
@@ -60,7 +60,9 @@ public class MemberDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		
 		return m;
+		
 	}
 	
 	
@@ -99,6 +101,34 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * 회원정보수정
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
+	public int updateMember(Connection conn, Member member) {
+		//UPDATE => 처리된 행의 개수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1,member.getNickName());
+			pstmt.setString(2,member.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+		
+	}
 	/***
 	 * 아디중복체크
 	 * @param conn
@@ -166,4 +196,67 @@ public class MemberDao {
 		return updateMem;
 	}
 	
+	/***
+	 * 회원탈퇴
+	 * @param conn
+	 * @param userPwd
+	 * @param userNo
+	 * @return
+	 */
+	public int delete(Connection conn, String userPwd, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userPwd);
+			pstmt.setInt(2,userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 * 비밀번호 수정
+	 * @param conn
+	 * @param userNo
+	 * @param userPwd
+	 * @param changePwd
+	 * @return
+	 */
+	public int updatePwd(Connection conn, int userNo, String userPwd, String changePwd) {
+		
+		//UPDATE문 => 처리된 행의 개수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, changePwd);
+			pstmt.setInt(2, userNo);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+
+		
+	}
 }

@@ -23,6 +23,31 @@
 		      ROWNUM BETWEEN 1 AND 3
 	</entry>
 	
+	<entry key="selectTitleCount">
+		SELECT
+		     COUNT(*) COUNT
+		 FROM
+		     TB_NOTICE
+		WHERE    
+		     NOTICE_TITLE LIKE '%' || ? || '%'
+		  AND
+		     STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="selectContentCount">
+	
+	   SELECT
+		     COUNT(*) COUNT
+		 FROM
+		     TB_NOTICE
+		WHERE    
+		     NOTICE_CONTENT LIKE '%' || ? || '%'
+		  AND
+		     STATUS = 'Y'
+	
+	</entry>
+	
 	<entry key="selectCount">
 		SELECT
 	     	  COUNT(*) COUNT
@@ -31,6 +56,7 @@
 		 WHERE
 	     	  STATUS = 'Y'
 	</entry>
+	
 	
 	<entry key="selectHoldCount">
 		SELECT
@@ -100,6 +126,65 @@
 							      	      STATUS = 'Y' )      
 	</entry>
 	
+	<entry key="noticeTitleSearch">
+		SELECT
+		      NOTICE_NO,
+		      NOTICE_TITLE,
+		      CREATE_DATE,
+		      NOTICE_HOLD
+		FROM(SELECT
+		          NOTICE_NO,
+		          NOTICE_TITLE,
+		          CREATE_DATE,
+		          NOTICE_HOLD,
+		          ROWNUM RNUM
+		      FROM(SELECT
+				          NOTICE_NO,
+				          NOTICE_TITLE,
+				          CREATE_DATE,
+				          NOTICE_HOLD
+				      FROM
+				          TB_NOTICE
+				     WHERE
+				          NOTICE_TITLE LIKE '%' || ? || '%'
+				       AND
+				          STATUS = 'Y'
+				     ORDER
+				        BY 
+				          CREATE_DATE DESC))
+		 WHERE
+		      RNUM BETWEEN ? AND ?
+	</entry>
 	
+	<entry key="noticeContentSearch">
+		SELECT
+		      NOTICE_NO,
+		      NOTICE_TITLE,
+		      CREATE_DATE,
+		      NOTICE_HOLD
+		FROM(SELECT
+		          NOTICE_NO,
+		          NOTICE_TITLE,
+		          CREATE_DATE,
+		          NOTICE_HOLD,
+		          ROWNUM RNUM
+		      FROM(SELECT
+				          NOTICE_NO,
+				          NOTICE_TITLE,
+				          CREATE_DATE,
+				          NOTICE_HOLD
+				      FROM
+				          TB_NOTICE
+				     WHERE
+				          NOTICE_CONTENT LIKE '%' || ? || '%'
+				       AND
+				          STATUS = 'Y'
+				     ORDER
+				        BY 
+				          CREATE_DATE DESC))
+		 WHERE
+		      RNUM BETWEEN ? AND ?
+	
+	</entry>
 	
 </properties>

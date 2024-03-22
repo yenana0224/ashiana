@@ -21,10 +21,9 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 
 		// 2) Controller에서 넘어온 전달값과 Connection객체를 DAO메소드를 호출하면서 전달
-		Member loginUSer = new MemberDao().login(conn, userId, userPwd);
+		Member loginUser = new MemberDao().login(conn, userId, userPwd);
 		JDBCTemplate.close(conn);
-
-		return loginUSer;
+		return loginUser;
 	}
 	
 	/**
@@ -45,6 +44,22 @@ public class MemberService {
 		return result;
 	}
 	
+	/**
+	 * 회원정보수정
+	 * @param member
+	 * @return
+	 */
+	public int updateMember(Member member) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().updateMember(conn, member);
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	/**
 	 * 아디 중복체크
 	 * @param checkId
@@ -72,5 +87,47 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 
 		return updateMem;
+	}
+	
+	/***
+	 * 회원탈퇴
+	 * @param userPwd
+	 * @param userNo
+	 * @return
+	 */
+	public int delete(String userPwd, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().delete(conn, userPwd, userNo);
+		if (result > 0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	
+	/***
+	 * 비밀번호 수정
+	 * @param userNo
+	 * @param userPwd
+	 * @param updatePwd
+	 * @return
+	 */
+	public int updatePwd(int userNo, String userPwd, String updatePwd) {
+
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new MemberDao().updatePwd(conn, userNo, userPwd, updatePwd);
+
+		if (result > 0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+
+		JDBCTemplate.close(conn);
+
+		return result;
+
 	}
 }

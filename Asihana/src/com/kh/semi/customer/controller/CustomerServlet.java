@@ -41,12 +41,12 @@ public class CustomerServlet extends HttpServlet {
 		case "customer" : view = customer.notice(request, response); break;
 		case "faq" : view = "/views/customer/faq.jsp"; break;
 		case "notice" : view = customer.noticeList(request, response); break;
+		//case "noticeSearch" : view = customer.noticeSearch(request, response); break;
 		}
 		//System.out.println(view);
 		
 		request.getRequestDispatcher(view).forward(request, response);
 		
-	
 	}
 
 	/**

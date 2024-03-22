@@ -47,7 +47,6 @@ public class CustomerServlet extends HttpServlet {
 		
 		request.getRequestDispatcher(view).forward(request, response);
 		
-	
 	}
 
 	/**

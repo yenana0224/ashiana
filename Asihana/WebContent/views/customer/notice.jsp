@@ -237,7 +237,13 @@
 		function mouseOut(e){
 			e.style.backgroundColor = 'rgba(247, 240, 233, 0.253)';
 		}
-
+		
+		$('.td').click(function(){
+			
+			
+		})
+		
+		
 	</script>
 
 	

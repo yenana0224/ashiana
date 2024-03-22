@@ -21,6 +21,8 @@
 
 
 	<entry key="updateMember">
+		UPDATE MEMBER SET NICKNAME =?, MODIFY_DATE = SYSDATE
+		WHERE MEM_ID =? AND (STATUS = 'U' OR STATUS = 'A')
 	</entry>
 
 	<entry key="selectMember">
@@ -28,10 +30,12 @@
 	</entry>
 
 	<entry key="updatePwd">
+		UPDATE MEMBER SET MEM_PWD =? , MODIFY_DATE = SYSDATE
+		WHERE MEM_NO =? AND MEM_PWD =? AND (STATUS = 'U' OR STATUS = 'A')
 	</entry>
 
 	<entry key="deleteMember">
-
+		UPDATE MEMBER SET STATUS ='N' WHERE MEM_PWD =? AND MEM_NO =? AND (STATUS = 'U' OR STATUS = 'A')
 	</entry>
 
 	<entry key="idCheck">

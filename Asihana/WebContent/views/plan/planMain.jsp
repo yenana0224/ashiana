@@ -19,13 +19,11 @@
             width: 1200px;
         }
         #outer{
-            border: 1px solid orange;
             margin : auto;
             margin-top: 50px;
         }
         #my-plans-area{  /* 나의 여행 플랜 영역 */
                 overflow: auto;
-                border: 1px solid red;
                 height: 430px;
                 padding-left: 110px;
                 padding-top: 20px;
@@ -33,11 +31,6 @@
             }
             #my-plans-area > h3{font-weight: 600;}
             #start-plan-area{
-                border: 1px solid red;
-                height: 500px;
-            }
-            #plans-area{
-                border: 1px solid red;
                 height: 500px;
             }
             .my-plan-card{
@@ -109,14 +102,19 @@
                     margin: 30px 0 30px 0;
                 }
             }
+            .btn-card{
+                visibility: hidden;
+            }
             .my-plan-card:hover{
                 cursor: pointer;
                 box-shadow: 0px 0px 2px 2px lightgrey;
+                .btn-card{
+                    visibility: visible;
+                }
             }
 
         /*----------------------------------*/
         #start-plan-area{
-            border: 1px solid red;
             height: 500px;
             padding-left: 100px;
             padding-right: 50px;
@@ -209,8 +207,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn button btn-danger" style="right: 5px;">삭제</button>
-                <button class="btn button btn-success"style="right: 37px;">수정</button>
+                <button class="btn button btn-danger btn-card" style="right: 5px;">삭제</button>
+                <button class="btn button btn-success btn-card"style="right: 37px;">수정</button>
             </div>
             
     
@@ -218,7 +216,7 @@
                 <div class="planning-card">   
                     <h5>계획된 여행이 없습니다.</h5>
                     <p>
-                        목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
+                        	목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
                     </p>
                     <button class="btn btn-sm btn-success">여행 플랜 추가</button>
                 </div>
@@ -273,18 +271,9 @@
             </div>
 
         </div>
-        <div id="plans-area"></div>
+
     </div>
 
-
-
     
-</body>
-</html>
-	
-
-
-
-
 </body>
 </html>

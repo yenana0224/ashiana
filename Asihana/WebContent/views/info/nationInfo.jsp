@@ -104,6 +104,16 @@
             width: 100%;
             height: 100%;
         }
+        
+        #nationContent{
+        	width : 50%;
+        	height : 25%;
+        }
+        
+        #nationContent>pre{
+        	width : 100%;
+        	height : 100%;
+        }
 
         .cityList{
             width: 100%;
@@ -175,14 +185,12 @@
                         <option value="65">싱가포르</option>
                         <option value="66">태국</option>
                         <option value="81">일본</option>
-                        <option value="82">대한민국</option>
                         <option value="84">베트남</option>
                         <option value="852">홍콩</option>
                         <option value="853">마카오</option>
                         <option value="855">캄보디아</option>
                         <option value="856">라오스</option>
                         <option value="86">중국</option>
-                        <option value="880">방글라데시</option>
                         <option value="886">대만</option>
                     </select>
                     <select name="city" id="selectCity">
@@ -191,47 +199,51 @@
                     <button type="submit" class="btn btn-sm btn-basic" width="20px">　검색　</button>
                 </form>
             </div>
-        </div>
-       <script>
             
-           function nationChange(e){
-               var mal = ["도시선택", "말라카", "랑카위", "조호르바루", "코타키나발루", "쿠알라룸푸르", "페낭"];
-               var ind = ["도시선택", "롬복", "발리", "빈탄", "욕야카르타", "자카르타"];
-               var phi = ["도시선택", "마닐라", "보라카이", "보홀", "세부"];
-               var tha = ["도시선택", "끄라비", "방콕", "코사무이", "푸켓", "후아힌"];
-               var jap = ["도시선택", "고베", "교토", "도쿄", "오사카", "오키나와", "후쿠오카", "홋카이도"];
-               var vie = ["도시선택", "나트랑", "푸꾸옥", "하노이", "호치민"];
-               var chi = ["도시선택", "대련", "베이징", "상해", "서안", "장가계", "중경", "하얼빈", "하이난"];
-               var cam = ["도시선택", "프놈펜", "씨엠립"];
-               var lao = ["도시선택", "비엔티안", "루앙프라방", "방비엥", "팍세"];
-               var tai = ["도시선택", "가오슝", "타이베이", "타이중"];
+    <script>
 
-               var target = document.getElementById("selectCity");
+	    function nationChange(e){
+	
+	        var mal = ["도시선택", "말라카", "랑카위", "조호르바루", "코타키나발루", "쿠알라룸푸르", "페낭"];
+	        var ind = ["도시선택", "롬복", "발리", "빈탄", "욕야카르타", "자카르타"];
+	        var phi = ["도시선택", "마닐라", "보라카이", "보홀", "세부"];
+	        var tha = ["도시선택", "끄라비", "방콕", "코사무이", "푸켓", "후아힌"];
+	        var jap = ["도시선택", "고베", "교토", "도쿄", "오사카", "오키나와", "후쿠오카", "홋카이도"];
+	        var vie = ["도시선택", "나트랑", "푸꾸옥", "하노이", "호치민"];
+	        var chi = ["도시선택", "대련", "베이징", "상해", "서안", "장가계", "중경", "하얼빈", "하이난"];
+	        var cam = ["도시선택", "프놈펜", "씨엠립"];
+	        var lao = ["도시선택", "비엔티안", "루앙프라방", "방비엥", "팍세"];
+	        var tai = ["도시선택", "가오슝", "타이베이", "타이중"];
+	
+	        var target = document.getElementById("selectCity");
+	
+	        if(e.value == "60") var d = mal;
+	        else if(e.value == "62") var d = ind;
+	        else if(e.value == "63") var d = phi;
+	        else if(e.value == "65") var d = ["싱가포르"];
+	        else if(e.value == "66") var d = tha;
+	        else if(e.value == "81") var d = jap;
+	        else if(e.value == "84") var d = vie;
+	        else if(e.value == "852") var d = ["홍콩"];
+	        else if(e.value == "853") var d = ["마카오"];
+	        else if(e.value == "855") var d = cam;
+	        else if(e.value == "856") var d = lao;
+	        else if(e.value == "86") var d = chi;
+	        else if(e.value == "886") var d = tai;
+	
+	        $('#selectCity').empty();
+	
+	        for(x in d){
+	            var opt = document.createElement("option");
+	            opt.value = d[x];
+	            opt.innerHTML = d[x];
+	            target.appendChild(opt);
+	        }
+	    }
+	</script>
 
-               if(e.value == "60") var d = mal;
-               else if(e.value == "62") var d = ind;
-               else if(e.value == "63") var d = phi;
-               else if(e.value == "65") var d = ["싱가포르"];
-               else if(e.value == "66") var d = tha;
-               else if(e.value == "81") var d = jap;
-               else if(e.value == "84") var d = vie;
-               else if(e.value == "852") var d = ["홍콩"];
-               else if(e.value == "853") var d = ["마카오"];
-               else if(e.value == "855") var d = cam;
-               else if(e.value == "856") var d = lao;
-               else if(e.value == "86") var d = chi;
-               else if(e.value == "886") var d = tai;
+        </div>
 
-               $('#selectCity').empty();
-
-               for(x in d){
-                   var opt = document.createElement("option");
-                   opt.value = d[x];
-                   opt.innerHTML = d[x];
-                   target.appendChild(opt);
-               }
-           }
-        </script>
         
         <br><br><br><br>
         <div class="currentPage">
@@ -244,7 +256,11 @@
             <div id="nationPhoto">
                 <img src="http://d3b39vpyptsv01.cloudfront.net/photo/1/2/9331fa26a6d4d1ba7e62333d8bd95a86.jpg" alt="">
             </div>
-            
+            <div id="nationContent">
+            	<pre>
+            		<%= nation.getNationContent() %>
+            	</pre>
+            </div>
             <br><br>
             <h4> 여행객들이 많이 찾는 관광지</h4>
             <br>
@@ -266,49 +282,7 @@
         </div>
 
     </div>
-
-    <script>
-
-        function nationChange(e){
-
-            var mal = ["말라카", "랑카위", "조호르바루", "코타키나발루", "쿠알라룸푸르", "페낭"];
-            var ind = ["롬복", "발리", "빈탄", "욕야카르타", "자카르타"];
-            var phi = ["마닐라", "보라카이", "보홀", "세부"];
-            var tha = ["끄라비", "방콕", "코사무이", "푸켓", "후아힌"];
-            var jap = ["고베", "교토", "도쿄", "오사카", "오키나와", "후쿠오카", "홋카이도"];
-            var vie = ["나트랑", "푸꾸옥", "하노이", "호치민"];
-            var chi = ["대련", "베이징", "상해", "서안", "장가계", "중경", "하얼빈", "하이난"];
-            var cam = ["프놈펜", "씨엠립"];
-            var lao = ["비엔티안", "루앙프라방", "방비엥", "팍세"];
-            var tai = ["가오슝", "타이베이", "타이중"];
-
-            var target = document.getElementById("selectCity");
-
-            if(e.value == "60") var d = mal;
-            else if(e.value == "62") var d = ind;
-            else if(e.value == "63") var d = phi;
-            else if(e.value == "65") var d = ["싱가포르"];
-            else if(e.value == "66") var d = tha;
-            else if(e.value == "81") var d = jap;
-            else if(e.value == "84") var d = vie;
-            else if(e.value == "852") var d = ["홍콩"];
-            else if(e.value == "853") var d = ["마카오"];
-            else if(e.value == "855") var d = cam;
-            else if(e.value == "856") var d = lao;
-            else if(e.value == "86") var d = chi;
-            else if(e.value == "886") var d = tai;
-
-            $('#selectCity').empty();
-
-            for(x in d){
-                var opt = document.createElement("option");
-                opt.value = d[x];
-                opt.innerHTML = d[x];
-                target.appendChild(opt);
-            }
-        }
-    </script>
-    
+ 
     	<%@ include file="../common/footer.jsp" %>
 
 </body>

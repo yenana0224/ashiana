@@ -101,6 +101,34 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * 회원정보수정
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
+	public int updateMember(Connection conn, Member member) {
+		//UPDATE => 처리된 행의 개수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1,member.getNickName());
+			pstmt.setString(2,member.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+		
+	}
 	/***
 	 * 아디중복체크
 	 * @param conn

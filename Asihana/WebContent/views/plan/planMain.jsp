@@ -210,8 +210,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn button btn-danger" style="right: 5px;">삭제</button>
-                <button class="btn button btn-success"style="right: 37px;">수정</button>
+                <button class="btn button btn-danger btn-card" style="right: 5px;">삭제</button>
+                <button class="btn button btn-success btn-card"style="right: 37px;">수정</button>
             </div>
             
     

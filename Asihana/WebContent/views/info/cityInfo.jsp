@@ -206,7 +206,7 @@
         <br><br><br><br>
 
         <div class="currentPage">
-            <a href="#">홈</a> 
+            <a href="<%=contextPath%>/main.info">홈</a> 
             <span> > </span>
             <a href="#">나라이름</a>
             <span> > </span>

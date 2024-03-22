@@ -43,6 +43,17 @@
     	   
 	</entry>
 	
+	<entry key="nationCity">
+	SELECT 
+	      CITY_NO,
+	      CITY_NAME,
+	      CITY_CONTENT
+	  FROM
+	      TB_CITY
+	 WHERE
+	      NATION_NO = ?
+	</entry>
+	
 	
 	
 	

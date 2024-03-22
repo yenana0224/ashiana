@@ -21,7 +21,17 @@ public class InfoService {
 	public Nation searchNation(int nationNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Nation nation = new InfoDao().searchNation(conn, nationNo);
+		
+		JDBCTemplate.close(conn);
+		
 		return nation;
+	}
+	
+	public ArrayList<City> nationCity(int nationNo){
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<City> list = new InfoDao().nationCity(conn, nationNo);
+		JDBCTemplate.close(conn);
+		return list;
 	}
 	
 	public City searchCity(City c) {
@@ -31,5 +41,7 @@ public class InfoService {
 		JDBCTemplate.close(conn);
 		return city;
 	}
+	
+	
 
 }

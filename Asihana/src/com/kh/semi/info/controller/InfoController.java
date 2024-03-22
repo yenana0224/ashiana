@@ -27,14 +27,18 @@ public class InfoController {
 		
 		if(cityName.equals("도시선택")) {
 			Nation nation = new InfoService().searchNation(nationNo);
+			ArrayList<City> cityList = new InfoService().nationCity(nationNo);				
 			request.setAttribute("nation", nation);
+			request.setAttribute("cityList", cityList);
 			view = "views/info/nationInfo.jsp";
+			
 			
 		} else {
 			City c = new City();
 			c.setNationNo(nationNo);
 			c.setCityName(cityName);
 			City city = new InfoService().searchCity(c);
+			
 			request.setAttribute("City", city);
 			view = "views/info/cityInfo.jsp";
 		}

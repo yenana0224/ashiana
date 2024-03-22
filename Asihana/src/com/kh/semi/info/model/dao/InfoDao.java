@@ -81,6 +81,34 @@ public class InfoDao {
 		return nation;
 	}
 	
+	public ArrayList<City> nationCity(Connection conn, int nationNo){
+		ArrayList<City> cityList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("nationCity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				City city = new City();
+				city.setCityNo(rset.getInt("CITY_NO"));
+				city.setCityName(rset.getString("CITY_NAME"));
+				city.setCityContent(rset.getString("CITY_CONTENT"));
+				
+				cityList.add(city);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return cityList;
+	}
+	
 	public City searchCity(Connection conn, City c) {
 		City city = null;
 		PreparedStatement pstmt = null;

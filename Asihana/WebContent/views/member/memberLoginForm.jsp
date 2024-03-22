@@ -48,8 +48,8 @@
 				</tr>
 				<tr>
 					<th colspan="2">
-						<button type="submit" class="btn btn-sm btn-primary">로그인</button>
-						<button type="button" class="btn btn-sm btn-secondary" href="<%=contextPath%>/views/member/memberEnrollForm.jsp">회원가입</button>
+						<button type="submit" class="btn btn-sm btn-primary" >로그인</button>
+						<button type="button" class="btn btn-sm btn-secondary" onclick="location.href='<%=contextPath%>/views/member/memberEnrollForm.jsp'">회원가입</button>
 					</th>
 				</tr>
 			</table>

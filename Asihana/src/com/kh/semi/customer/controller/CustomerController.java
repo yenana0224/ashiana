@@ -68,8 +68,6 @@ public class CustomerController {
 			noticeList = new CustomerService().noticeList(pi);
 		}
 		
-		
-		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("noticeList", noticeList);
 		request.setAttribute("searchContent", searchContent);
@@ -82,19 +80,16 @@ public class CustomerController {
 		
 	}
 	
-//	public String noticeSearch(HttpServletRequest request, HttpServletResponse response) {
-//		
-//		
-//		String select = request.getParameter("select");
-//		String searchContent = request.getParameter("searchContent");
-//		
-//		new CustomerService().noticeSearch(select, searchContent);
-//		
-//		String view = "/views/customer/notice.jsp";
-//		
-//		return view;
-//		
-//	}
+	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
+	
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		
+		
+		String view = "/views/customer/noticeDetail.jsp";
+		
+		return view;
+	}
 	
 	
 }

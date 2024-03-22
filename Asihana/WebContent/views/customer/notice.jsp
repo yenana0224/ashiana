@@ -182,7 +182,7 @@
 	        <% for(Notice notice : noticeList){ %>
 	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
 	            	<% if(notice.getNoticeHold().equals("Y")) {%>
-	                	<td class="td noticeNo" style="color:red;">[공지]</td>
+	                	<td class="td noticeNo" style="color:red;"><input type="hidden" class="hiddenNo" value="<%= notice.getNoticeNo()%>">[공지]</td>
 	                <% } else { %>
 	                	<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
 	                <% } %>	
@@ -239,11 +239,14 @@
 		}
 		
 		$('.td').click(function(){
+		
+			let noticeNo = $(this).siblings().eq(0).text();
 			
-			
+			if(noticeNo === '[공지]'){
+				noticeNo = $(this).siblings().eq(0).children('.hiddenNo').val();
+			}
+			location.href='<%=contextPath%>/noticeDetail.customer?noticeNo=' + noticeNo;
 		})
-		
-		
 	</script>
 
 	

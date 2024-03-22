@@ -51,7 +51,6 @@ public class CustomerService {
 		
 		Connection conn = getConnection();
 		
-		//int holdCount = new CustomerDao().selectHoldCount(conn);
 		
 		List<Notice> list = new CustomerDao().noticeList(conn, pi);
 		

@@ -114,7 +114,6 @@ public class CustomerDao {
 		
 		return result;
 		
-		
 	}
 	
 	public int selectCount(Connection conn) {

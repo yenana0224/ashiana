@@ -4,6 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 <title>아시하나 플랜</title>
 </head>
 <body>
@@ -220,26 +226,26 @@
 
         <div id="start-plan-area">
             <div id="start-plan-pic">
-                <img src="resources/123.png" width="100%" height="100%">
+                <img src="resources/여행플랜유도.png" width="100%" height="100%">
             </div>
             <div id="start-plan-msg">
                 <div class="plan-msg">
                     <p>
-                        상상 속의 여행을 현실로!<br>
-                        아시하나의 여행 플래너를 이용해보세요!
+			                        상상 속의 여행을 현실로!<br>
+			                        아시하나의 여행 플래너를 이용해보세요!
                     </p>
                     <button class="btn btn-outline-danger">나의 여행 플랜하기</button>
                 </div>
                 <div class="plan-msg">
                     <p>
-                        어디로 떠나야할지 고민되신다면<br>
-                        다른 여행자들의 여행기를 둘러보세요!
+			                        어디로 떠나야할지 고민되신다면<br>
+			                        다른 여행자들의 여행기를 둘러보세요!
                     </p>
                     <button class="btn btn-outline-success">여행기 탐방하기</button>
                 </div>
                 <div id="city-area">
                     <p>
-                        아시하나의 추천 여행지로 떠나보세요!
+                       	아시하나의 추천 여행지로 떠나보세요!
                     </p>
                     <div id="card-area">
                         <div class="city-card">

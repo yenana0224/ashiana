@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, java.util.List, com.kh.semi.pageInfo.model.vo.PageInfo" %>
+<%
+	List<Story> list = (List<Story>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,21 +20,29 @@
             width : 1000px;
             margin : auto;
         }
+        
+        .mainTitle{
+        	width : 100%;
+        	height : 40px;
+        	margin : 20px 0px 20px 0px;
+        	text-align : center;
+        	font-size : 30px;
+        	font-weight : bold;
+        	
+        }
 
         .story {
             width: 900px;
             height: auto;
             margin : auto;
             padding : 20px 10px 20px 10px;
-            background-color: white;
-            border : 1px solid blue;
         }
 
         .storyphoto{
             width: 900px;
             height: 300px;
             margin : auto;
-            border : 1px solid red;
+            background-color : white;
         }
 
         .storyphoto>img{
@@ -37,7 +54,7 @@
             width: 900px;
             height: 150px;
             margin : auto;
-            border : 1px solid black;
+            background-color : white;
         }
 
         .title{
@@ -45,11 +62,9 @@
             padding : 0px;
             width: 100%;
             height: 120px;
-            border : 1px solid yellowgreen;
         }
 
         .title>p{
-            border : 1px solid black;
             margin-top : 20px;
             padding : 20px 0px 20px 0px;
             width: 100%;
@@ -66,11 +81,9 @@
             height: 30px;
             text-align: right;
             color : darkgray;
-            border : 1px solid orchid;
         }
 
         .createDate>p{
-            border : 1px solid black;
             margin : 0px;
             padding : 5px 20px 0px 0px;
             width: auto;
@@ -102,19 +115,42 @@
     <div class="outer">
 
         <div class="main">
-            <div class="story">
-                <div class="storyphoto">
-                    <img src="" alt="">
-                </div>
-                <div class="content">
-                    <div class="title"><p>이곳에서는 이런게 유명해요 꼭 가보기!</p></div>
-                    <div class="createDate"><p>2024/03/15</p></div>
-                    </div>
-                </div>
-            </div>
+        
+            <div class="mainTitle"> S T O R Y </div>
+            
+            <% if(list.isEmpty()){ %>
 
-        </div>
-    </div>
-<%@ include file="../common/footer.jsp" %>
+            <div class="story">
+            	<div class="content">
+            		<div class="title"><p>등록된 게시글이 없습니다</p></div>
+            	</div>
+           	</div>
+           	
+            <% } else { %>
+            
+	         <% for(Story s : list) { %>
+	            <div class="story">
+	                <div class="storyphoto">
+	                    <img src="" alt="">
+	                </div>
+	                <div class="content">
+	                	<div class="createDate"><p><%=s.getCreateDate() %></p></div>
+	                    <div class="title"><p><%=s.getStoryTitle() %></p></div>
+
+	                </div>
+            	</div>
+	            <% } %>
+	        </div>
+	      <% } %>
+	         
+
+	        
+	        
+	         
+       </div>
+
+   </div>
+   <%@ include file="../common/footer.jsp" %>
+   
 </body>
 </html>

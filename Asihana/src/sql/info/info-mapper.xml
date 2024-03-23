@@ -128,6 +128,28 @@
 	      TB_NATION.NATION_NO = ?
 	</entry>
 	
+	<entry key="countStory">
+	SELECT
+	      COUNT(*) COUNT
+	 FROM
+	      TB_STORY
+	WHERE
+	      STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectList">
+	SELECT
+		 STORY_NO,
+	     STORY_TITLE,
+	     TO_CHAR(STORY_DATE, 'YYYY/MM/DD') CREATE_DATE
+	  FROM
+	    TB_STORY
+	 WHERE
+	    STATUS = 'Y'
+     ORDER
+        BY
+          STORY_DATE DESC
+	</entry>
 	
 	
 </properties>

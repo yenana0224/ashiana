@@ -6,9 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.info.model.service.InfoService;
-import com.kh.semi.info.model.vo.Attraction;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
+import com.kh.semi.info.model.vo.Story;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoController {
 
@@ -58,9 +59,23 @@ public class InfoController {
 	
 	public String story(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int listCount = new InfoService().countStory();
+		int pageLimit = 10;
+		int boardLimit = 10;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		List<Story> storyList = new InfoService().selectList();
+		
 		String view = "";
 		
-		List<Story> storyList = new InfoService().selectList(currentPage);
+		request.setAttribute("pageInfo", pi);
+		request.setAttribute("list", storyList);
+		
+		view = "views/info/storyMain.jsp";
 		
 		return view;
 	}

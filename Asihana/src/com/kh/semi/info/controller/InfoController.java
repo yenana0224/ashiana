@@ -1,11 +1,12 @@
 package com.kh.semi.info.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.info.model.service.InfoService;
+import com.kh.semi.info.model.vo.Attraction;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 
@@ -13,7 +14,7 @@ public class InfoController {
 
 	
 	public String main(HttpServletRequest request, HttpServletResponse response) {
-		ArrayList<City> list = new InfoService().cityList();
+		List<City> list = new InfoService().cityList();
 		request.setAttribute("list", list);
 		String view = "views/info/selectCity.jsp";
 		return view;
@@ -28,7 +29,7 @@ public class InfoController {
 		// 나라만 선택하는 경우
 		if(cityName.equals("도시선택")) {
 			Nation nation = new InfoService().searchNation(nationNo);
-			ArrayList<City> cityList = new InfoService().nationCity(nationNo);				
+			List<City> cityList = new InfoService().nationCity(nationNo);				
 			request.setAttribute("nation", nation);
 			request.setAttribute("cityList", cityList);
 			view = "views/info/nationInfo.jsp";
@@ -42,13 +43,25 @@ public class InfoController {
 			// City 조회수 1증가
 			int result = new InfoService().increaseCity(c);
 			if(result > 0) {
+				// 도시정보 조회
 				City city = new InfoService().searchCity(c);
+				// 도시 내 즐길거리 조회
+				//List<Attraction> attraction = new InfoService().searchAttraction(c);
 				request.setAttribute("City", city);
 				view = "views/info/cityInfo.jsp";
 			} else {
 				view = "views/common/errorPage.jsp";
 			}
 		}
+		return view;
+	}
+	
+	public String story(HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		String view = "";
+		
+		List<Story> storyList = new InfoService().selectList(currentPage);
+		
 		return view;
 	}
 	

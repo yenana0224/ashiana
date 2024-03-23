@@ -201,6 +201,7 @@ public class InfoDao {
 				vol.setVolName(rset.getString("VOL_NAME"));
 				list.add(vol);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

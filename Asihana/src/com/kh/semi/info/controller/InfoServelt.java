@@ -38,6 +38,7 @@ public class InfoServelt extends HttpServlet {
 		switch(mapping) {
 		case "main" : view = ic.main(request, response); break;
 		case "search" : view = ic.search(request, response); break;
+		case "story" : view = ic.story(request, response); break;
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);

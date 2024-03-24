@@ -81,4 +81,14 @@ public class InfoController {
 		return view;
 	}
 	
+	public String detailStory(HttpServletRequest request, HttpServletResponse response) {
+		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
+		Story story = new InfoService().detailStory(storyNo);
+		
+		request.setAttribute("pageNo", Integer.parseInt(request.getParameter("pageNo")));
+		request.setAttribute("story", story);
+		
+		return "views/info/storyDetail.jsp";
+	}
+	
 }

@@ -96,6 +96,12 @@ public class InfoService {
 		return list;
 	}
 	
+	public Story detailStory(int storyNo) {
+		Connection conn = getConnection();
+		Story story = new InfoDao().detailStory(conn, storyNo);
+		return story;
+	}
+	
 	
 	
 

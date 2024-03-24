@@ -16,6 +16,12 @@
 <title>Insert title here</title>
 <style>
 
+        .outer{
+            width: 1200px;
+            margin : auto;
+            margin-bottom : 100px;
+        }
+
         .main{
             width : 1000px;
             margin : auto;
@@ -162,7 +168,7 @@
         	$(function(){
         		
         		$('.story').click(function(){
-        			location.href='<%=contextPath%>/detail.story?storyNo='+$(this).attr('id');
+        			location.href='<%=contextPath%>/detailStory.info?pageNo=<%=currentPage%>&storyNo='+$(this).attr('id');
  
         		});
         	})

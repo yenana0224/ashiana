@@ -293,5 +293,33 @@ public class InfoDao {
 		}
 		return list;
 	}
+	
+	public Story detailStory(Connection conn, int storyNo) {
+		Story story = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("detailStory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, storyNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				story = new Story();
+				story.setStoryNo(rset.getInt("STORY_NO"));
+				story.setStoryTitle(rset.getString("STORY_TITLE"));
+				story.setStoryContent(rset.getString("STORY_CN"));
+				story.setCreateDate(rset.getString("STORY_DATE"));
+				story.setStoryFrom(rset.getString("STORY_FROM"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return story;
+	}
 
 }

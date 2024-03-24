@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.*"%>
-<% 	Member loginUser = (Member) session.getAttribute("loginUser"); %>
+<% 	
+	String contextPath = request.getContextPath();
+	Member loginUser = (Member) session.getAttribute("loginUser"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,8 +111,8 @@
         <h2>관리자페이지</h2>
         <ul class="adminMenu">
             <ul class="menu"> <span>메뉴 관리</span>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">여행스토리</a></li>
+                <li><a href="<%=contextPath %>/notice.admin?currentPage=1">공지사항</a></li>
+                <li><a href="<%=contextPath %>/story.admin?currentPage=1">여행스토리</a></li>
                 <li><a href="#">여행정보</a></li>
             </ul>
             <ul class="menu"> <span>회원 관리</span>
@@ -121,7 +124,7 @@
             </ul>
         </ul>
         <div class="mainbtn">
-            <a href="#">메인화면</a>
+            <a href="<%=contextPath %>">메인화면</a>
             <a href="#">로그아웃</a>
         </div>
     </div>

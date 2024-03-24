@@ -143,7 +143,7 @@
     		<% if(!loginUser.getUserId().equals("admin")) {%>
 	        <a href="<%=contextPath%>/views/member/myPage.jsp">마이페이지</a>
 	        <% } else {%>
-	        <a href="#">관리자페이지</a>
+	        <a href="<%=contextPath%>/main.admin">관리자페이지</a>
 	        <% } %>
 	        <a href="<%=contextPath%>/logout">로그아웃</a>
 	        <p><%=loginUser.getNickName()%>님 환영합니다!</p>

@@ -164,76 +164,8 @@
 
 <%@ include file="adminbar.jsp" %>
 
-    <div class="outer">
-        <div class="main">
-
-            <div class="searchbar">
-                <form action="#" name="search" id="searchform">
-                    <input type="text" name="query" id="searchtext" placeholder="검색어를 입력하세요">
-                    <button type="submit" id="searchbtn"></button>
-                </form>
-            </div>
-
-            <div class="tag">
-                <div class="tagbtn">#아이와함께</div>
-                <div class="tagbtn">#태그2</div>
-                <div class="tagbtn">#태그3</div>
-                <div class="tagbtn">#태그4</div>
-                <div class="tagbtn">#태그5</div>
-            </div>
-
-            <div class="storyBoardView">
-                <div id="title"> S T O R Y </div>
-                <div id="boardTitle">여행스토리의 제목</div>
-                <img src="https://content.skyscnr.com/m/64f1189bc1e2bf0e/original/UK-ST3-165-TRAVELTRENDS-Q323-Article2-1-2.jpg?crop=1224px:647px&position=attention" alt="">
-                <div id="detail"><a href="#" id="storypage">상세보기 ></a></div>
-            </div>
-
-            <br><br><br>
-            <div>
-                <h4>추천여행지</h4>
-            </div>
-            <br>
-            <div class="cityView">
-                <div class="city">
-                    <div class="cityPhoto">
-                        <img src="https://tourimage.interpark.com//Spot/187/15599/202112/6377508663314465670.jpg" alt="">
-                    </div>
-                    <div class="cityName">
-                        <h5>피렌체</h5>
-                        <h6>이탈리아</h6>
-                    </div>
-                </div>
-                <div class="city">
-                    <div class="cityPhoto">
-                        <img src=https://ak-d.tripcdn.com/images/1i6192224syebo5lcFD0D_W_400_0_R5_Q90.jpg?proc=source/trip" alt="">
-                    </div>
-                    <div class="cityName">
-                        <h5>도쿄</h5>
-                        <h6>일본</h6>
-                    </div>
-                </div>
-                <div class="city">
-                    <div class="cityPhoto">
-                        <img src="https://mblogthumb-phinf.pstatic.net/MjAxNjEyMDZfMjc2/MDAxNDgwOTUzMzQ2NDMy.XZTVP0zjye6zsCzTNFiRM72yprWmzNRuF_yrZvYRD8cg.r-VzTAWxS9qAxdpTcXcNdWIUPoc0MlwQdMFswLi1O5Qg.JPEG.minzsnap/IMG_3725.JPG?type=w420" alt="">
-                    </div>
-                    <div class="cityName">
-                        <h5>어디지</h5>
-                        <h6>스위스</h6>
-                    </div>
-                </div>
-                <div class="city">
-                    <div class="cityPhoto">
-                        <img src="https://st3.depositphotos.com/22201120/37041/i/1600/depositphotos_370410358-stock-photo-jinbi-square-golden-horse-jade.jpg" alt="">
-                    </div>
-                    <div class="cityName">
-                        <h5>아마</h5>
-                        <h6>중국</h6>
-                    </div>
-                </div>   
-            </div>
-        </div>
-    </div>
+    
+   
     
 </body>
 </html>

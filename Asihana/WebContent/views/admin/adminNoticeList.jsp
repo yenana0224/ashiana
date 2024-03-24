@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.info.model.vo.*, com.kh.semi.pageInfo.model.vo.PageInfo
+<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice, com.kh.semi.pageInfo.model.vo.PageInfo
 				 , java.util.List" %>    
 
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Story> list = (ArrayList<Story>)request.getAttribute("list");
+	List<Notice> list = (ArrayList<Notice>)request.getAttribute("noticeList");
 %>
 
 <!DOCTYPE html>
@@ -60,7 +60,7 @@
             font-size : 15px;
         }
 
-        .storyList{
+        .noticeList{
             border-top : 1px solid lightgray;
             border-collapse: collapse;
             width: 80%;
@@ -74,19 +74,19 @@
             margin-top: 10px;
         }
 
-        .storyList th{
+        .noticeList th{
             background-color: lightgray;
             border-bottom: 1px solid lightgray;
         }
 
-        .storyList tbody tr:hover{
-            #storyTitle {
+        .noticeList tbody tr:hover{
+            #noticeTitle {
                 text-decoration: underline;
                 cursor : pointer;
             }
         }
         
-        .storyList tbody td{
+        .noticeList tbody td{
         	text-align : center;
         	border-bottom: 1px solid lightgray;
         	padding : 5px 0px 5px 0px;
@@ -119,8 +119,8 @@
     <div class="outer">
 
         <div class="title">
-            <h2>여행스토리</h2>
-            <h3>여행스토리목록</h3>
+            <h2>공지사항</h2>
+            <h3>공지사항목록</h3>
         </div>
 
         <div class="search">
@@ -135,10 +135,10 @@
         </div>
 
         <form action="#" name="status">
-            <table class="storyList">
+            <table class="noticeList">
                 <thead>
                     <tr>
-                        <th> <input type="checkbox" name="storyNo" id="checkAll"></th>
+                        <th> <input type="checkbox" name="noticeNo" id="checkAll"></th>
                         <th>글번호</th>
                         <th>제목</th>
                         <th>작성일</th>
@@ -150,12 +150,12 @@
                             <td colspan="4"> 게시글이 없습니다</td>
                         </tr>
                     <% } else { %>
-                        <% for(Story s : list) { %>
+                        <% for(Notice n : list) { %>
                             <tr>
-                                <td><input type="checkbox" value="<%=s.getStoryNo() %>"></td>
-                                <td><%=s.getStoryNo() %></td>
-                                <td id="storyTitle"><%=s.getStoryTitle() %></td>
-                                <td><%=s.getCreateDate() %></td>
+                                <td><input type="checkbox" value="<%=n.getNoticeNo() %>"></td>
+                                <td><%=n.getNoticeNo() %></td>
+                                <td id="noticeTitle"><%=n.getNoticeTitle() %></td>
+                                <td><%=n.getCreateDate() %></td>
                             </tr>
                         <% } %>
                     <% } %>
@@ -163,12 +163,13 @@
             </table>
             <div class="btn">
                 선택 게시물 
+                <button type="submit">고정</button>
                 <button type="submit">삭제</button>
             </div>
         </form>
 
 		<div class="btn">
-        	<a href="<%=contextPath %>/storyInsert.admin>">글작성하기</a>
+        	<a href="<%=contextPath %>/noticeInsert.admin>">글작성하기</a>
         </div>
 
     </div>

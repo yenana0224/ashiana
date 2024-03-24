@@ -1,5 +1,7 @@
 package com.kh.semi.info.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.info.model.vo.Voltage;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoDao {
 	
@@ -260,14 +262,20 @@ public class InfoDao {
 		
 	}
 	
-	public List<Story> selectList(Connection conn){
+	public List<Story> storyList(Connection conn, PageInfo pi){
 		List<Story> list = new ArrayList<Story>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("storyList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage()- 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
+
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

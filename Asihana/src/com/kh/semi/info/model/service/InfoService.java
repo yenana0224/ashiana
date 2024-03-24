@@ -1,11 +1,13 @@
 package com.kh.semi.info.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kh.semi.common.JDBCTemplate.*;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
 import com.kh.semi.info.model.dao.InfoDao;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
@@ -13,6 +15,7 @@ import com.kh.semi.info.model.vo.Language;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.info.model.vo.Voltage;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoService {
 	
@@ -84,9 +87,9 @@ public class InfoService {
 		return count;
 	}
 	
-	public List<Story> selectList(){
+	public List<Story> storyList(PageInfo pi){
 		Connection conn = getConnection();
-		List<Story> list = new InfoDao().selectList(conn);
+		List<Story> list = new InfoDao().storyList(conn, pi);
 		
 		close(conn);
 		

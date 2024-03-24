@@ -137,18 +137,31 @@
 	      STATUS = 'Y'
 	</entry>
 	
-	<entry key="selectList">
+	<entry key="storyList">
 	SELECT
-		 STORY_NO,
-	     STORY_TITLE,
-	     TO_CHAR(STORY_DATE, 'YYYY/MM/DD') CREATE_DATE
-	  FROM
-	    TB_STORY
-	 WHERE
-	    STATUS = 'Y'
-     ORDER
-        BY
-          STORY_DATE DESC
+		STORY_NO,
+		STORY_TITLE,
+		CREATE_DATE
+	FROM
+		(SELECT 
+			S.STORY_NO STORY_NO,
+			S.STORY_TITLE STORY_TITLE,
+			S.CREATE_DATE CREATE_DATE,
+			ROWNUM RNUM
+		FROM
+			(SELECT
+				 STORY_NO,
+			     STORY_TITLE,
+			     TO_CHAR(STORY_DATE, 'YYYY/MM/DD') CREATE_DATE
+			  FROM
+			    TB_STORY
+			 WHERE
+			    STATUS = 'Y'
+		     ORDER
+		        BY
+		          STORY_DATE DESC) S)
+     WHERE
+     	 RNUM BETWEEN ? AND ?
 	</entry>
 	
 	

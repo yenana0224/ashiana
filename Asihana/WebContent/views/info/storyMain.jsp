@@ -31,11 +31,15 @@
         	
         }
 
-        .story {
+        .story .storyEmpty {
             width: 900px;
             height: auto;
             margin : auto;
             padding : 20px 10px 20px 10px;
+        }
+        
+        .story:hover{
+			cursor : pointer;        
         }
 
         .storyphoto{
@@ -65,7 +69,7 @@
         }
 
         .title>p{
-            margin-top : 20px;
+            margin-top : 0px;
             padding : 20px 0px 20px 0px;
             width: 100%;
             line-height: 100%;
@@ -106,6 +110,17 @@
             text-decoration: none;
             color : white;
         }
+        
+        .paging-area>button{
+            text-align: center;
+            padding : 5px 10px 5px 10px;
+            border-radius: 10px;
+            background-color: #ff595e;
+            color : white;
+            border : none;
+            font-size : 15px;
+        }
+        
 
 </style>
 </head>
@@ -120,7 +135,7 @@
             
             <% if(list.isEmpty()){ %>
 
-            <div class="story">
+            <div class="storyEmpty">
             	<div class="content">
             		<div class="title"><p>등록된 게시글이 없습니다</p></div>
             	</div>
@@ -129,7 +144,7 @@
             <% } else { %>
             
 	         <% for(Story s : list) { %>
-	            <div class="story">
+	            <div class="story" id="<%=s.getStoryNo() %>">
 	                <div class="storyphoto">
 	                    <img src="" alt="">
 	                </div>
@@ -142,7 +157,38 @@
 	            <% } %>
 	        </div>
 	      <% } %>
-	         
+	      
+	     <script>
+        	$(function(){
+        		
+        		$('.story').click(function(){
+        			location.href='<%=contextPath%>/detail.story?storyNo='+$(this).attr('id');
+ 
+        		});
+        	})
+        </script> 
+        
+        
+       <div class="paging-area" align="center">
+        
+        	<% if(currentPage > 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage -1 %>'">이전</button>
+          	<% } %>   
+        	
+			<% for(int i = startPage; i <= endPage; i++){ %>
+			
+				<% if(currentPage != i){ %>
+				<button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=i%>'"><%= i %></button>
+				<%} else {%>
+					<button disabled><%=i %></button>
+				<%} %>
+			<%} %>
+			
+			<% if(currentPage != maxPage) { %>
+			  <button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage + 1%>'">다음</button>
+			<% } %>
+        </div>
+        
 
 	        
 	        

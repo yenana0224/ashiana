@@ -60,15 +60,16 @@ public class InfoController {
 	public String story(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new InfoService().countStory();
-		int pageLimit = 10;
+		int pageLimit = 5;
 		int boardLimit = 10;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
+		if(maxPage < endPage) endPage = maxPage;
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Story> storyList = new InfoService().selectList();
+		List<Story> storyList = new InfoService().storyList(pi);
 		
 		String view = "";
 		

@@ -14,7 +14,7 @@ public class CommunityService {
 	public ArrayList<Community> selectCommu() {
 		Connection conn= getConnection();
 		
-		ArrayList<Community> list = new CommunityDao().selectcommu();
+		//ArrayList<Community> list = new CommunityDao().selectcommu();
 		
 		
 		

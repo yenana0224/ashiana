@@ -69,12 +69,12 @@
             border-bottom: 1px solid lightgray;
         }
 
-        .noticeList tbody tr:hover{
-            #noticeTitle {
-                text-decoration: underline;
-                cursor : pointer;
-            }
-        }
+
+          #noticeTitle:hover {
+              text-decoration: underline;
+              cursor : pointer;
+          }
+
         
         .noticeList tbody td{
         	text-align : center;
@@ -124,7 +124,7 @@
             </form>
         </div>
 
-        <form action="/changeHold.admin" name="status">
+        <form action="<%=contextPath %>/changeHold.admin" name="status" method="get">
             <table class="noticeList">
                 <thead>
                     <tr>
@@ -155,6 +155,7 @@
                             </tr>
                         <% } %>
                     <% } %>
+                    
                     <script>
                     	$(function(){
                     		$('#checkAll').click(function(){
@@ -174,6 +175,7 @@
                     </script>
                 </tbody>
             </table>
+         
             <script>
             
             $(function(){

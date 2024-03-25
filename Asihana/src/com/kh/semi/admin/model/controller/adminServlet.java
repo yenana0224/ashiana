@@ -33,6 +33,7 @@ public class adminServlet extends HttpServlet {
 		adminController ac = new adminController();
 		
 		String view = "";
+		boolean flag = true;
 		
 		switch(mapping){
 		case "main" : view = "views/admin/adminMain.jsp"; break;
@@ -43,7 +44,11 @@ public class adminServlet extends HttpServlet {
 		case "changeHold" : view = ac.changeHold(request, response); break;
 		}
 		
-		request.getRequestDispatcher(view).forward(request, response);
+		if(flag) {
+			request.getRequestDispatcher(view).forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + view);
+		}
 	
 	}
 

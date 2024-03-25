@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.friendShip.model.service.FriendShipService;
 import com.kh.semi.friendShip.model.vo.FriendShip;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 /**
@@ -34,6 +35,7 @@ public class FriendListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		
 		

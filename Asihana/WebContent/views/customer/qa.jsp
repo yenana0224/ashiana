@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.QNA , com.kh.semi.pageInfo.model.vo.PageInfo
+				 , java.util.List" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
+	List<QNA> noticeList = (ArrayList<QNA>)request.getAttribute("qnaList");
+	String select = (String)request.getAttribute("select");
+	String searchContent = (String)request.getAttribute("searchContent");
+%>
 <!DOCTYPE html>
+
+
 <html>
 <head>
 <meta charset="UTF-8">

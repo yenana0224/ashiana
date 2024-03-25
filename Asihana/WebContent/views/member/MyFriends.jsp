@@ -34,7 +34,7 @@
 	<%@ include file="../common/headerbar.jsp" %>
 	
 			<div id="noticetext">
-	     	   <p>MyPlan</p>
+	     	   <p>MyFriends</p>
 	   		</div>
 
     <div id="login-form">

@@ -274,7 +274,7 @@
         <div id="noticeBoard">
             <div id="noticeAll" class="notice">
                 <p>공지사항</p>
-                <a href="">더보기</a>
+                <a href="<%=contextPath%>/notice.customer?currentPage=1">더보기</a>
             </div>
             <div id="first" class="notice">
                 <div id="firstNotice">

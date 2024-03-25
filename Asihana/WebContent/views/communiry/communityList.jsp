@@ -29,7 +29,7 @@
 
     #wrap{
 
-        width: 800px;
+        width: 1000px;
         height: 1200px;
         margin: auto;
         
@@ -37,32 +37,43 @@
 
     #header{width: 100%; height: 25%;}
     #content{width: 80%; height: 50%;}
-    #footer{width: 100%; height: 25%;}
+  
 
 
     #header{
-        background-color: green;
+        background-color: rgba(224, 224, 205, 0.63);
+        
          
     }
 
     #h1{
-        margin-right: 50px;
+      
+        margin-left:  250px;
+        margin-top: 30px;
     }
 
     #key{
       
-        margin-left:50px;
+        margin-left:250px;
         width: 450px;
         height: 30px;
 
 
     }
 
-    #content{
+    #content_1{
         background-color: beige;
         margin: auto;
+
     }
-    
+
+
+    #content_2{
+        background-color: white;
+        margin: auto;
+    }
+
+
     #h2{
         margin: center;
     }
@@ -222,7 +233,23 @@
         }); 
     </script>
     
-    <!-- 커뮤니티의 글이  -->
+    <!-- 커뮤니티의 글이  있는 곳 되도록 실시간으로 소통이 된다는 전제로!!!-->
+  
+  
+    <div>
+        
+
+
+
+
+
+
+
+
+
+
+    </div>
+  
   
 
 
@@ -240,7 +267,7 @@
 
 
         </div>
-        <div id="footer" float;>
+        <div id="contetn_2" float;>
         <!-- 전체기간,통합 분류로 기간, 국가별,도시별, 제목+내용, 내용으로 검색어를 입력하여 검색이 가능하다 -->
         <a href="<%=contextPath%>/read.commu>
             <form action="term.do" float:right;></form><br>

@@ -52,8 +52,8 @@ public class CommunityController extends HttpServlet {
 		
 		// Service단으로 SELECT요청~
 		// 커뮤니티 목록 => 가져올 행의 개수 : 최소 0개 ~~~ ?? => List
-		ArrayList<Community> list = new CommunityServiceImpl().selectCommunityList();
-		request.setAttribute("community",list); // 커뮤니티에서만 본다  => request, 커뮤니티에서만 보는게 아니다~ => session
+		//ArrayList<Community> list = new CommunityServiceImpl().selectCommunityList();
+		//request.setAttribute("community",list); // 커뮤니티에서만 본다  => request, 커뮤니티에서만 보는게 아니다~ => session
 	
 		// 화면지정
 		request.getRequestDispatcher("views/communiry/communityList.jsp").forward(request, response);

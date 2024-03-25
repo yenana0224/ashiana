@@ -1,10 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	
+	<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice , com.kh.semi.pageInfo.model.vo.PageInfo
+				 , java.util.List" %>    
+	
+	<%
+	List<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
+	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
+	//페이징바 만들 떄 필요한 변수 미리 세팅
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>친구</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,6 +87,9 @@
 
 	<%@ include file="../common/headerbar.jsp"%>
 
+	<%
+		String userId = loginUser.getUserId();
+	%>
 	<div id="noticetext">
 		<p>팔로우</p>
 	<div id = "searchtext">
@@ -81,6 +99,7 @@
 	
 	<br>
 	<div>
+	<!--  
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
@@ -123,6 +142,27 @@
 				</tr>
 			</tbody>
 		</table>
+		 -->
+		 <table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th>닉네임</th>
+					<th>여행기 바로가기</th>
+					<th>여행플랜 바로가기</th>
+					<th>팔로우 하기</th>
+					<th>팔로우 취소</th>
+				</tr>
+			</thead>
+			<tbody id="myTable">
+				<tr>
+					<td>John</td>
+					<td><i class="fas fa-cloud"></i></td>
+					<td><i class="fas fa-coffee"></i></td>
+					<td><i class="fas fa-file"></i></td>
+					<td><i class="fas fa-bars"></i></td>
+				</tr>
+			 </tbody>
+			</table>
 		<br><br><br><br><br>
 	</div>
 	<script>

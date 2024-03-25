@@ -48,7 +48,7 @@
 		</div>
 		<div id="counter">(0 / 1000)</div>
 		<div class="form-group">
-			<input type="file" name="upfile">
+			<input type="file" name="qnaFile">
 		</div>
 	
 		<div align="center" style="margin-top: 40px;">

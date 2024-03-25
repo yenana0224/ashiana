@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
@@ -32,19 +33,11 @@
 	font-weight: bold;
 	margin-top: 50px;
 }
-#searchtext {
-	margin: auto;
-	width: 200px;
-	text-align: left;
-	font-size: 30px;
-	font-weight: bold;
-	margin-top: 50px;
-	margin-right: 10px;
-}
 
 #login-form {
 	background-color: rgb(247, 240, 233);
 }
+
 .table {
 	width: 1000px;
 	margin: auto;
@@ -57,73 +50,43 @@
 
 	<%@ include file="../common/headerbar.jsp"%>
 
-
 	<div id="noticetext">
-		<p>My여행기</p>
-	<div id = "searchtext">
-	<input class="form-control" id="myInput" type="text" placeholder="Search..">
-	</div>
+		<p>팔로우</p>
 	</div>
 
-	<br>
 	<div>
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
-					<th>No</th>
-					<th>제목</th>
-					<th>작성일</th>
-					<th>조회수</th>
+					<th>닉네임</th>
+					<th>여행기 바로가기</th>
+					<th>여행플랜 바로가기</th>
+					<th>팔로우 하기</th>
+					<th>팔로우 취소</th>
+					
 				</tr>
 			</thead>
-			<tbody id="myTable">
+			<tbody>
 				<tr>
-					<td>1</td>
-					<td>핀란드여행기</td>
-					<td>2023.11.15</td>
-					<td>30</td>
+					<td>John</td>
+					<td>Doe</td>
+					<td>john@example.com</td>
 				</tr>
 				<tr>
-					<td>2</td>
-					<td>중국여행기</td>
-					<td>2024.1.15</td>
-					<td>32</td>
+					<td>Mary</td>
+					<td>Moe</td>
+					<td>mary@example.com</td>
 				</tr>
 				<tr>
-					<td>3</td>
-					<td>태국여행기</td>
-					<td>2023.11.05</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>미국여행기</td>
-					<td>2023.11.25</td>
-					<td>10</td>
+					<td>July</td>
+					<td>Dooley</td>
+					<td>july@example.com</td>
 				</tr>
 			</tbody>
 		</table>
-		
-	<div align="center">
-         <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">글작성하러가기</button>
 	</div>
-	</div>
-
-	<br><br><br>
-	<script>
-		$(document).ready(function(){
-		  $("#myInput").on("keyup", function() {
-		    var value = $(this).val().toLowerCase();
-		    $("#myTable tr").filter(function() {
-		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		    });
-		  });
-		});
-	</script>
 
 	<%@ include file="../common/footer.jsp"%>
-
-
 
 </body>
 </html>

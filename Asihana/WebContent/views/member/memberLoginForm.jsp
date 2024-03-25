@@ -43,9 +43,26 @@
 					<th><input type="text" name="userId" id="" required /></th>
 				</tr>
 				<tr>
+					<td class="space" colspan="2"><td>
+				<tr>
+				<tr>
+					<td class="space" colspan="2"><td>
+				<tr>
+				<tr>
+					<td class="space" colspan="2"><td>
+				<tr>
 					<th>비밀번호</th>
 					<th><input type="password" name="userPwd" id="" required /></th>
 				</tr>
+				<tr>
+					<td class="space" colspan="2"><td>
+				<tr>
+				<tr>
+					<td class="space" colspan="2"><td>
+				<tr>
+				<tr>
+					<td class="space" colspan="2"><td>
+				<tr>
 				<tr>
 					<th colspan="2">
 						<button type="submit" class="btn btn-sm btn-primary" >로그인</button>
@@ -55,7 +72,8 @@
 			</table>
 		</form>   		
 		
-
+		
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 	<%@ include file="../common/footer.jsp" %>
 

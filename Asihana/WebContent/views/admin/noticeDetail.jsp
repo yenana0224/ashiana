@@ -88,10 +88,10 @@
             <form action="<%=contextPath %>/noticeInsert.customer" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
                 <div class="title-area">
-                    <input type="text" name="title" value="<%= notice.getNoticeTitle() %> "> 
+                    <input type="text" name="title" value="<%= notice.getNoticeTitle() %>"> 
                 </div>
                 <div class="content-area" style="resize: none;">
-                    <textarea name="content" cols="30" rows="20"><%= notice.getNoticeContent() %></textarea>
+                    <textarea name="content" cols="30" rows="20"><%= notice.getNoticeContent()%></textarea>
                 </div>
 
                 <div class="fileAt">

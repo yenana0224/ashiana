@@ -37,14 +37,24 @@ public class CustomerServlet extends HttpServlet {
 		CustomerController customer = new CustomerController();
 		
 		String view = "";
+		
+		boolean flag = true;
+		
 		switch(mapping) {
 		case "customer" : view = customer.notice(request, response); break;
 		case "faq" : view = "/views/customer/faq.jsp"; break;
 		case "notice" : view = customer.noticeList(request, response); break;
 		case "noticeDetail" : view = customer.noticeDetail(request, response); break;
+		case "noticeInsert" : view = customer.noticeInsert(request, response); flag = false; break;
+		case "qa" : view = customer.qaList(request, response); break;
+		case "enrollQa" : view = "/views/customer/enrollQa.jsp"; break;
 		}
 		
-		request.getRequestDispatcher(view).forward(request, response);
+		if(flag == true) {
+			request.getRequestDispatcher(view).forward(request, response);			
+		} else {
+			response.sendRedirect(request.getContextPath() + view);
+		}
 		
 	}
 

@@ -242,15 +242,26 @@
 			e.style.backgroundColor = 'rgba(247, 240, 233, 0.253)';
 		}
 		
-		$('.title').click(function(){
-		
-			let noticeNo = $(this).siblings().eq(0).text();
+		$('.td').click(function(){
 			
-			if(noticeNo === '[공지]'){
-				noticeNo = $(this).siblings().eq(0).children('.hiddenNo').val();
+			let noticeNo;
+			
+			if($(this).hasClass('noticeNo')){
+				noticeNo = $(this).text();
+				if(noticeNo === '[공지]'){
+					noticeNo = $(this).children('.hiddenNo').val();
+				}
 			}
+			else{
+				noticeNo = $(this).siblings().eq(0).text();
+				if(noticeNo === '[공지]'){
+					noticeNo = $(this).siblings().children('.hiddenNo').val();
+				}
+			}
+			
 			location.href='<%=contextPath%>/noticeDetail.customer?noticeNo=' + noticeNo;
 		})
+		
 	</script>
 
 	

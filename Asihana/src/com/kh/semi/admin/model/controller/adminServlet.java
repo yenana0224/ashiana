@@ -38,7 +38,7 @@ public class adminServlet extends HttpServlet {
 		case "main" : view = "views/admin/adminMain.jsp"; break;
 		case "notice" : view = ac.noticeList(request, response); break;
 		case "story" : view = ac.storyList(request, response); break;
-		//case "noticeInsert" : view = ac.noticeInsert(request, response); break;
+		case "noticeInsertForm" : view = ac.noticeInsertForm(request, response); break;
 
 		}
 		

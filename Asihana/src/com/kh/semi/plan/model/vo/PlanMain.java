@@ -6,18 +6,22 @@ public class PlanMain {
 	private String endDate;
 	private String travelDate;
 	private String dDay;
+	private String planCitys;
 	
 	public PlanMain() {
 		super();
 	}
-	public PlanMain(int planNo, String startDate, String endDate, String travelDate, String dDay) {
+	
+	public PlanMain(int planNo, String startDate, String endDate, String travelDate, String dDay, String planCitys) {
 		super();
 		this.planNo = planNo;
 		StartDate = startDate;
 		this.endDate = endDate;
 		this.travelDate = travelDate;
 		this.dDay = dDay;
+		this.planCitys = planCitys;
 	}
+
 	public int getPlanNo() {
 		return planNo;
 	}
@@ -48,6 +52,13 @@ public class PlanMain {
 	public void setdDay(String dDay) {
 		this.dDay = dDay;
 	}
+	public String getPlanCitys() {
+		return planCitys;
+	}
+	public void setPlanCitys(String planCitys) {
+		this.planCitys = planCitys;
+	}
+
 	@Override
 	public String toString() {
 		return "PlanMain [planNo=" + planNo + ", StartDate=" + StartDate + ", endDate=" + endDate + ", travelDate="

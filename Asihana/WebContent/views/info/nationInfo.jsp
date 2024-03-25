@@ -106,13 +106,15 @@
         }
         
         #nationContent{
-        	width : 50%;
-        	height : 25%;
+        	margin-top : 20px;
+        	width : 100%;
+        	height : auto;
         }
         
         #nationContent>pre{
         	width : 100%;
         	height : 100%;
+        	border : 1px solid blue;
         }
 
         .cityList{
@@ -258,7 +260,7 @@
             </div>
             <div id="nationContent">
             	<pre>
-            		<%= nation.getNationContent() %>
+<%= nation.getNationContent() %>
             	</pre>
             </div>
             <br><br>

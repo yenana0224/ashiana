@@ -249,4 +249,48 @@
 	
 	</entry>
 	
+	<entry key="insertQa">
+		INSERT 
+		  INTO 
+		      TB_QNA(
+		             Q_NO,
+		             QA_TITLE,
+		             QA_CONTENT,
+		             QA_WRITER
+		             )
+		      VALUES     
+		            (
+		            SEQ_QNA.NEXTVAL,
+		            ?,
+		            ?,
+		            ?
+		            )
+	</entry>
+	
+	<entry key="qnaInsertFile">
+		INSERT
+		  INTO
+		      TB_FILE
+		VALUES
+		      (
+		      SEQ_FILE.NEXTVAL,
+		      SEQ_QNA.CURRVAL,
+		      ?,
+		      ?,
+		      ?,
+		      8
+		      )     
+	
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </properties>

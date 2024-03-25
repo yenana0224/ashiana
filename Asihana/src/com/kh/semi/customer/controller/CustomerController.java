@@ -136,5 +136,28 @@ public class CustomerController {
 		return view;
 	}
 	
+	public String qaList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String view = "/views/customer/qa.jsp";
+		
+		return view;
+		
+	}
+	
+	public String insertQa(HttpServletRequest request, HttpServletResponse response) {
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			
+			
+			
+			
+		}
+		
+		String view = "/views/customer/qa.jsp";
+		
+		return view;
+	}
+	
 	
 }

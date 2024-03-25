@@ -2,11 +2,12 @@ div{
     box-sizing: border-box;
 }
 #outer{
+    
     width: 1200px;
     margin : auto;
     margin-top: 50px;
 }
-    #my-plans-area{  /* 나의 여행 플랜 영역 */
+#my-plans-area{  /* 나의 여행 플랜 영역 */
         overflow: auto;
         /*border: 1px solid red;*/
         height: 430px;

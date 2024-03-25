@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -13,6 +15,7 @@ import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
+import com.kh.semi.customer.model.vo.QNA;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -144,13 +147,40 @@ public class CustomerController {
 		
 	}
 	
-	public String insertQa(HttpServletRequest request, HttpServletResponse response) {
+	public String insertQa(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
 			
+			HttpSession session = request.getSession();
+			ServletContext application = session.getServletContext();
+			String savePath = application.getRealPath("/resources/qa_files/");// 파일 경로
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			String userNo = multiRequest.getParameter("userNo");
+			String title = multiRequest.getParameter("title");
+			String content = multiRequest.getParameter("content");
+			
+			QNA qna = new QNA();
+			qna.setQnaWriter(userNo);
+			qna.setQnaTitle(title);
+			qna.setQnaContent(content);
 			
 			
+			NoticeFile file = null;
+			
+			if(multiRequest.getOriginalFileName("qnaFile") != null) {
+				
+				file = new NoticeFile();
+				file.setOriginName(multiRequest.getOriginalFileName("qnaFile"));
+				file.setChangeName(multiRequest.getFilesystemName("qnaFile"));
+				file.setFilePath("resources/qa_files");
+				
+			}
+			
+			int result = new CustomerService().insertQa(qna, file);
+				
 			
 		}
 		

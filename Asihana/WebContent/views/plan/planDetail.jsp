@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	int planNo = (int)request.getAttribute("planNo");
+	System.out.println(planNo);
+%>
 <!DOCTYPE html>
 <html>
 <head>

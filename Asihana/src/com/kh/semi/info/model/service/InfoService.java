@@ -1,53 +1,58 @@
 package com.kh.semi.info.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.info.model.dao.InfoDao;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
 import com.kh.semi.info.model.vo.Nation;
+import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.info.model.vo.Voltage;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoService {
 	
 	public ArrayList<City> cityList(){
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		ArrayList<City> list = new ArrayList<City>();
 		list = new InfoDao().cityList(conn);
-		JDBCTemplate.close(conn);
+		close(conn);
 		return list;
 	}
 	
 	public Nation searchNation(int nationNo) {
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		Nation nation = new InfoDao().searchNation(conn, nationNo);
 		
-		JDBCTemplate.close(conn);
+		close(conn);
 		
 		return nation;
 	}
 	
 	public ArrayList<City> nationCity(int nationNo){
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		ArrayList<City> list = new InfoDao().nationCity(conn, nationNo);
-		JDBCTemplate.close(conn);
+		close(conn);
 		return list;
 	}
 	
 	public int increaseCity(City c) {
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		int result = new InfoDao().increaseCity(conn, c);
-		if(result > 0) JDBCTemplate.commit(conn);
-		JDBCTemplate.close(conn);
+		if(result > 0) commit(conn);
+		close(conn);
 		return result;
 	}
 	
 	public City searchCity(City c) {
-		Connection conn = JDBCTemplate.getConnection();
+		Connection conn = getConnection();
 		
 		// 국가기본정보
 		City city = new InfoDao().searchCity(conn, c);
@@ -67,9 +72,36 @@ public class InfoService {
 			city.setNationNo(c.getNationNo());
 		}
 		
-		JDBCTemplate.close(conn);
+		close(conn);
 		return city;
 	}
+	
+	//public List<Attraction> searchAttraction(City c){
+		
+	//}
+	
+	public int countStory() {
+		Connection conn = getConnection();
+		int count = new InfoDao().countStory(conn);
+		close(conn);
+		return count;
+	}
+	
+	public List<Story> storyList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Story> list = new InfoDao().storyList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public Story detailStory(int storyNo) {
+		Connection conn = getConnection();
+		Story story = new InfoDao().detailStory(conn, storyNo);
+		return story;
+	}
+	
 	
 	
 

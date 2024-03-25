@@ -1,51 +1,31 @@
 package com.kh.semi.plan.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class PlanController
- */
-@WebServlet("*.plan")
-public class PlanController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PlanController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.plan.model.service.PlanService;
+import com.kh.semi.plan.model.vo.PlanMain;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = request.getRequestURI();
-		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
-		System.out.println(mapping);
-		
-		String view = "";
-		
-		switch(mapping) {
-		case "planMain" : view = "views/plan/planMain.jsp"; break;
-		}
-		
-		request.getRequestDispatcher(view).forward(request, response);
-		
-	}
+public class PlanController {
+	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	public String selectPlanList(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		List<PlanMain> list = new PlanService().selectPlanList(loginUser.getUserNo());
+		
+		request.setAttribute("list", list);
+		
+		String view = "views/plan/planMain.jsp";
+		
+		return view;
 	}
+	
+	
 
 }

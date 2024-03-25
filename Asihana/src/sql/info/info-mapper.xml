@@ -106,9 +106,9 @@
 		SELECT
 	   		  VOL_NAME
 	  	  FROM
-	     	  VOLTAGE
+	     	  TB_VOLTAGE
 	  	  JOIN
-	      	  BRTB_VOL ON (VOLTAGE.VOL_NO = BRTB_VOL.VOL_NO)
+	      	  BRTB_VOL ON (TB_VOLTAGE.VOL_NO = BRTB_VOL.VOL_NO)
 	  	  JOIN
 	      	  TB_NATION ON (BRTB_VOL.NATION_NO = TB_NATION.NATION_NO)
 	 	 WHERE
@@ -119,15 +119,66 @@
 	SELECT
 	      CURRENCY_NAME
 	  FROM
-	      CURRENCY
+	      TB_CURRENCY
 	  JOIN
-	      BRTB_CURRENCY ON (BRTB_CURRENCY.CURRENCY_NO = CURRENCY.CURRENCY_NO)
+	      BRTB_CURRENCY ON (BRTB_CURRENCY.CURRENCY_NO = TB_CURRENCY.CURRENCY_NO)
 	  JOIN
 	      TB_NATION ON (BRTB_CURRENCY.NATION_NO = TB_NATION.NATION_NO)
 	 WHERE
 	      TB_NATION.NATION_NO = ?
 	</entry>
 	
+	<entry key="countStory">
+	SELECT
+	      COUNT(*) COUNT
+	 FROM
+	      TB_STORY
+	WHERE
+	      STATUS = 'Y'
+	</entry>
 	
+	<entry key="storyList">
+	SELECT
+		STORY_NO,
+		STORY_TITLE,
+		CREATE_DATE
+	FROM
+		(SELECT 
+			S.STORY_NO STORY_NO,
+			S.STORY_TITLE STORY_TITLE,
+			S.CREATE_DATE CREATE_DATE,
+			ROWNUM RNUM
+		FROM
+			(SELECT
+				 STORY_NO,
+			     STORY_TITLE,
+			     TO_CHAR(STORY_DATE, 'YYYY/MM/DD') CREATE_DATE
+			  FROM
+			    TB_STORY
+			 WHERE
+			    STATUS = 'Y'
+		     ORDER
+		        BY
+		          STORY_NO DESC) S)
+     WHERE
+     	 RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="detailStory">
+	
+	SELECT
+		 STORY_NO,
+		 STORY_TITLE,
+		 STORY_CN,
+		 TO_CHAR(STORY_DATE, 'YYYY/MM/DD') STORY_DATE,
+		 STORY_FROM
+	 FROM
+	 	 TB_STORY
+ 	WHERE
+ 		 STORY_NO = ?
+	  AND
+	  	 STATUS = 'Y'
+	
+	</entry>
 	
 </properties>

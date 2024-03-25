@@ -181,10 +181,14 @@
         <% } else { %>
 	        <% for(Notice notice : noticeList){ %>
 	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
-	            	<% if(notice.getNoticeHold().equals("Y")) {%>
-	                	<td class="td noticeNo" style="color:red;">[공지]</td>
-	                <% } else { %>
-	                	<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
+	            	<% if(searchContent == null) {%>
+		            	<% if(notice.getNoticeHold().equals("Y")) {%>
+		                		<td class="td noticeNo" style="color:red;"><input type="hidden" class="hiddenNo" value="<%= notice.getNoticeNo()%>">[공지]</td>
+		                <% } else { %>
+		                		<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
+		                <% } %>
+	                <% } else {%>
+	                		<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
 	                <% } %>	
 	                <td class="td title"><%= notice.getNoticeTitle() %></td>
 	                <td class="td date"><%= notice.getCreateDate() %></td>
@@ -203,7 +207,7 @@
         	<% if( pi.getCurrentPage() != i) { %>
         		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
         	<% } else{ %>
-        		<button class="numButton"><%= i %></button>
+        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
         	<% } %>
         <% } %>
         <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
@@ -220,7 +224,7 @@
 	        	<% if( pi.getCurrentPage() != i) { %>
 	        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%=i%>'"><%= i %></button>
 	        	<% } else{ %>
-	        		<button class="numButton"><%= i %></button>
+	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
 	        	<% } %>
 	        <% } %>
 	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
@@ -240,9 +244,23 @@
 		
 		$('.td').click(function(){
 			
+			let noticeNo;
 			
+			if($(this).hasClass('noticeNo')){
+				noticeNo = $(this).text();
+				if(noticeNo === '[공지]'){
+					noticeNo = $(this).children('.hiddenNo').val();
+				}
+			}
+			else{
+				noticeNo = $(this).siblings().eq(0).text();
+				if(noticeNo === '[공지]'){
+					noticeNo = $(this).siblings().children('.hiddenNo').val();
+				}
+			}
+			
+			location.href='<%=contextPath%>/noticeDetail.customer?noticeNo=' + noticeNo;
 		})
-		
 		
 	</script>
 

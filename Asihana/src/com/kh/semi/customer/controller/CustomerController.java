@@ -1,14 +1,20 @@
 package com.kh.semi.customer.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
+import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
+import com.oreilly.servlet.MultipartRequest;
 
 public class CustomerController {
 	
@@ -68,8 +74,6 @@ public class CustomerController {
 			noticeList = new CustomerService().noticeList(pi);
 		}
 		
-		
-		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("noticeList", noticeList);
 		request.setAttribute("searchContent", searchContent);
@@ -82,19 +86,62 @@ public class CustomerController {
 		
 	}
 	
-//	public String noticeSearch(HttpServletRequest request, HttpServletResponse response) {
-//		
-//		
-//		String select = request.getParameter("select");
-//		String searchContent = request.getParameter("searchContent");
-//		
-//		new CustomerService().noticeSearch(select, searchContent);
-//		
-//		String view = "/views/customer/notice.jsp";
-//		
-//		return view;
-//		
-//	}
+	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 	
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+
+		String view = "/views/customer/noticeDetail.jsp";
+		
+		return view;
+	}
+	
+	public String noticeInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			request.setCharacterEncoding("UTF-8");
+			String view = "";
+
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024* 1024* 10;
+			String savePath = request.getServletContext().getRealPath("/resources/notice");
+
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			String noticeTitle = multiRequest.getParameter("title");
+			String noticeContent = multiRequest.getParameter("content");
+			String noticeWriter = multiRequest.getParameter("userNo");
+			String noticeHold = "";
+			if (multiRequest.getParameter("hold") == null) noticeHold = "N"; 
+			else if(multiRequest.getParameter("hold").equals("Y")) noticeHold = "Y";
+			
+			Notice notice = new Notice();
+			notice.setNoticeTitle(noticeTitle);
+			notice.setNoticeContent(noticeContent);
+			notice.setNoticeWriter(noticeWriter);
+			notice.setNoticeHold(noticeHold);
+			
+			String key = "noticeFile";
+			NoticeFile noticeFile = null;
+
+			if(multiRequest.getOriginalFileName(key)!=null) {
+				noticeFile = new NoticeFile();
+				noticeFile.setOriginName(multiRequest.getOriginalFileName(key));
+				noticeFile.setChangeName(multiRequest.getFilesystemName(key));
+				noticeFile.setFilePath("resources/notice");
+			}
+				
+			if(new CustomerService().noticeInsert(notice, noticeFile) > 0) {
+				view = "/notice.admin?currentPage=1";
+			} else {
+				view = "";
+			}
+		}
+		return view;
+	}
+	
+	public String qaList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String view = "/views/customer/qa.jsp";
+		
+		return view;
+		
+	}
 	
 }

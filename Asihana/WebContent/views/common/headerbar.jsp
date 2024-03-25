@@ -140,7 +140,11 @@
     <%}else{ %>
 	    	<!-- 로그인시 -->
     	<div id="login_join">
+    		<% if(!loginUser.getUserId().equals("admin")) {%>
 	        <a href="<%=contextPath%>/views/member/myPage.jsp">마이페이지</a>
+	        <% } else {%>
+	        <a href="<%=contextPath%>/main.admin">관리자페이지</a>
+	        <% } %>
 	        <a href="<%=contextPath%>/logout">로그아웃</a>
 	        <p><%=loginUser.getNickName()%>님 환영합니다!</p>
 	    </div>
@@ -157,12 +161,12 @@
 	            <li>
 	                <a href="#">살펴보기</a>
 	                <ul>
-	                    <li><a href="#">여행스토리</a></li>
+	                    <li><a href="<%=contextPath%>/story.info?currentPage=1">여행스토리</a></li>
 	                    <li><a href="<%=contextPath%>/main.info">여행정보</a></li>
 	                </ul>
 	            </li>
 	            <li>
-	                <a href="#">여행기</a>
+	                <a href="<%=contextPath%>/travelReviewMain">여행기</a>
 	            </li>
 	            <li>
 	                <a href="<%=contextPath%>/planMain.plan">여행플랜</a>
@@ -175,7 +179,7 @@
 	                <ul>
 	                    <li><a href="<%=contextPath%>/notice.customer?currentPage=1">공지사항</a></li>
 	                    <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
-	                    <li><a href="#">Q & A</a></li>
+	                    <li><a href="<%=contextPath%>/qa.customer">Q & A</a></li>
 	                </ul>
 	            </li>
 	        </ul>

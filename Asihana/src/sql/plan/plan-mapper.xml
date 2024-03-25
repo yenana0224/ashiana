@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>
+		Plan Mapper
+	</comment>
+
+	<entry key="selectPlanList">
+		SELECT
+		      D.PLAN_NO,
+		      TO_CHAR(S_DATE, 'MM"월 "DD"일 출발"') START_DATE,
+		      TO_CHAR(E_DATE, 'MM"월 "DD"일 도착"') END_DATE,
+		      FLOOR(E_DATE - S_DATE) || '박' || CEIL(E_DATE - S_DATE) || '일' AS TRAVEL_DATE,
+		      'D-' || FLOOR(S_DATE - SYSDATE) AS D_DAY,
+		      SUBSTR(SUBSTR(CITYS, 1, INSTR(CITYS, '-', -1) -1), INSTR(CITYS, '-') + 1) PLAN_CITYS,
+		      REPLACE(TO_CHAR(SUM_PRICE), SUBSTR(TO_CHAR(SUM_PRICE), -4), '만') TOTAL_PRICE, 
+		      P.UPLOAD_DATE
+		 FROM
+		      TB_DESTINATION D,
+		      (SELECT
+		             PLAN_NO,
+		             MIN(RETURN_DATE) OVER(PARTITION BY PLAN_NO) AS S_DATE
+		         FROM
+		             TB_DESTINATION     
+		        ORDER
+		           BY
+		             RETURN_DATE NULLS LAST) SD,
+		      (SELECT
+		             PLAN_NO,
+		             MAX(ARRIVAL) OVER(PARTITION BY PLAN_NO) AS E_DATE
+		         FROM
+		             TB_DESTINATION     
+		        ORDER
+		           BY
+		             ARRIVAL DESC NULLS LAST) ED,
+		      TB_PLAN P,
+		      (SELECT
+		             PLAN_NO,
+		             SUBSTR(XMLAGG(
+		                    XMLELEMENT(COL ,'-', CITY_NAME) ORDER BY DEST_NO).EXTRACT('//text()'
+		                    ).GETSTRINGVAL(), 2) AS CITYS
+		         FROM
+		             TB_DESTINATION
+		         JOIN
+		             TB_CITY USING(CITY_NO)
+		        GROUP
+		           BY
+		             PLAN_NO) C,
+		       (SELECT
+		              PLAN_NO,
+		              SUM(TRANS_PRICE) + SUM(SCHED_COST) AS SUM_PRICE
+		          FROM
+		              TB_DESTINATION
+		          JOIN
+		              TB_SCHEDULE USING(DEST_NO)
+		         GROUP
+		            BY
+		              PLAN_NO) S
+		 WHERE
+		      D.PLAN_NO = ED.PLAN_NO
+		   AND
+		      D.PLAN_NO = SD.PLAN_NO
+		   AND
+		      D.PLAN_NO = P.PLAN_NO
+		   AND
+		      D.PLAN_NO = C.PLAN_NO
+		   AND
+		      D.PLAN_NO = S.PLAN_NO
+		   AND
+		      MEM_NO = ?
+		 GROUP
+		    BY
+		      D.PLAN_NO, S_DATE, E_DATE, CITYS, UPLOAD_DATE, SUM_PRICE
+		 ORDER
+		    BY
+		      D.PLAN_NO      
+
+	</entry>
+
+
+</properties>

@@ -274,37 +274,45 @@
         <div id="noticeBoard">
             <div id="noticeAll" class="notice">
                 <p>공지사항</p>
-                <a href="">더보기</a>
+                <a href="<%=contextPath%>/notice.customer?currentPage=1">더보기</a>
             </div>
             <div id="first" class="notice">
                 <div id="firstNotice">
                     <label>아시하나 소식</label>
-                    <a href="" class="noticeContent"><%= notice[0].getNoticeTitle() %></a>
+                    <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[0].getNoticeNo()%>" class="noticeContent detail"><%= notice[0].getNoticeTitle() %></a>
                 </div>
-                    <a href="" class="noticePlus">+</a>
+                    <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[0].getNoticeNo()%>" class="noticePlus detailPlus">+</a>
             </div>
             <div id="second" class="notice">
                 <div id="secondNotice">
                     <label>아시하나 소식</label>
-                    <a href="" class="noticeContent"><%= notice[1].getNoticeTitle() %></a>
+                    <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[1].getNoticeNo()%>" class="noticeContent detail"><%= notice[1].getNoticeTitle() %></a>
                 </div>
-                <a href="" class="noticePlus">+</a>
+                <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[1].getNoticeNo()%>" class="noticePlus detailPlus">+</a>
             </div>
             <div id="third" class="notice">
                 <div id="thirdNotice">
                     <label>아시하나 소식</label>
-                    <a href="" class="noticeContent"><%= notice[2].getNoticeTitle() %></a>
+                    <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[2].getNoticeNo()%>" class="noticeContent detail"><%= notice[2].getNoticeTitle() %></a>
                 </div>
-                <a href="" class="noticePlus">+</a>
+                <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[2].getNoticeNo()%>" class="noticePlus detailPlus">+</a>
             </div>
         </div>
+        <script>
+        	$('.detail').click(function(){
+        		
+        		let noticeNo = $(this).text();
+        		
+        	})
+        
+        </script>
         <div id="contentLine"></div>
         <div id="boardAll">
             <div id="faq">
                 <button onclick="faq();">GO</button>
             </div>
             <div id="qa">
-                <button>GO</button>
+                <button onclick="qa();">GO</button>
             </div>
         </div>
     </div>
@@ -313,7 +321,10 @@
       	function faq(){
       		location.href = "<%=contextPath%>/faq.customer";
       	}
-      
+      	function qa(){
+      		location.href = "<%=contextPath%>/qa.customer";
+      	}
+      	
       </script>
       
       

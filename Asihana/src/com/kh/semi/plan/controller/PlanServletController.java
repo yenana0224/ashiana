@@ -29,10 +29,11 @@ public class PlanServletController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 		
+		PlanController pc = new PlanController();
 		String view = "";
 		
 		switch(mapping) {
-		case "planMain" : view = "views/plan/planMain.jsp"; break;
+		case "planMain" : view = pc.selectPlanList(request, response); break;
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);

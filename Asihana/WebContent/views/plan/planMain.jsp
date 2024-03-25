@@ -56,7 +56,7 @@
 
         <div id="start-plan-area">
             <div id="start-plan-pic">
-                <img src="resources/123.png" width="100%" height="100%">
+                <img src="resources/plan/travel.png" width="100%" height="100%">
             </div>
             <div id="start-plan-msg">
                 <div class="plan-msg">

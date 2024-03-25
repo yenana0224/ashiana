@@ -33,6 +33,15 @@
 	font-weight: bold;
 	margin-top: 50px;
 }
+#searchtext {
+	margin: auto;
+	width: 200px;
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 50px;
+	margin-right: 10px;
+}
 
 #login-form {
 	background-color: rgb(247, 240, 233);
@@ -43,6 +52,7 @@
 	margin: auto;
 	text-align: center;
 }
+
 </style>
 
 </head>
@@ -51,37 +61,63 @@
 	<%@ include file="../common/headerbar.jsp"%>
 
 	<div id="noticetext">
-		<p>MyPlan</p>
+		<p>My여행플랜</p>
+	<div id = "searchtext">
+	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>
-
+	</div>
+	
+	
+	<br>
 	<div>
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Email</th>
+					<th>No</th>
+					<th>제목</th>
+					<th>도시</th>
+					<th>게시상태</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="myTable">
 				<tr>
-					<td>John</td>
-					<td>Doe</td>
-					<td>john@example.com</td>
+					<td>1</td>
+					<td>멕시코 플랜</td>
+					<td>멕시코 시티</td>
+					<td>Y</td>
 				</tr>
 				<tr>
-					<td>Mary</td>
-					<td>Moe</td>
-					<td>mary@example.com</td>
+					<td>2</td>
+					<td>단풍국 플랜</td>
+					<td>오타와</td>
+					<td>Y</td>
 				</tr>
 				<tr>
-					<td>July</td>
-					<td>Dooley</td>
-					<td>july@example.com</td>
+					<td>3</td>
+					<td>베이징 플랜</td>
+					<td>베이징</td>
+					<td>Y</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>태국 플랜</td>
+					<td>치앙마이</td>
+					<td>N</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	<script>
+		$(document).ready(function(){
+		  $("#myInput").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#myTable tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	</script>
 
 	<%@ include file="../common/footer.jsp"%>
 

@@ -99,7 +99,11 @@
                 </div>
 
                 <div class="check-area">
-                    <input type="checkbox" name="hold" value="Y"> <label>상단고정</label>
+                	<% if(notice.getNoticeHold().equals("Y")) { %>
+                    <input type="checkbox" name="hold" checked disable> <label>상단고정</label>
+                    <% } else {%>
+                    <input type="checkbox" name="hold" disable> <label>상단고정</label>
+                    <% } %>
                 </div>
                 <script>
                 

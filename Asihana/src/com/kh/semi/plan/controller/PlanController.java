@@ -27,15 +27,6 @@ public class PlanController {
 		return view;
 	}
 
-	public String selectPlan(HttpServletRequest request, HttpServletResponse response) {
-
-		request.setAttribute("planNo", request.getParameter("planNo"));
-		
-		String view = "views/plan/planDetail.jsp";
-		
-		return view;
-	}
-	
 	
 
 }

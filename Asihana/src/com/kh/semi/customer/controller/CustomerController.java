@@ -46,7 +46,6 @@ public class CustomerController {
 		String select = request.getParameter("select");
 		String searchContent = request.getParameter("searchContent");
 
-
 		listCount = new CustomerService().selectCount(select, searchContent);
 
 		
@@ -153,7 +152,7 @@ public class CustomerController {
 		String select = request.getParameter("select");
 		String searchContent = request.getParameter("searchContent");
 		
-		listCount = new CustomerService().selectCount(select, searchContent);
+		listCount = new CustomerService().selectQnaCount(select, searchContent);
 
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -181,6 +180,8 @@ public class CustomerController {
 		} else {
 			qnaList = new CustomerService().qnaList(pi);
 		}
+		
+		request.setAttribute("qnaList", qnaList);
 		
 		String view = "/views/customer/qa.jsp";
 		

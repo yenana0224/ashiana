@@ -283,11 +283,127 @@
 	
 	</entry>
 	
+	<entry key="selectTitleCount">
+		SELECT
+		     COUNT(*) COUNT
+		 FROM
+		     TB_QNAS
+		WHERE    
+		     QA_TITLE LIKE '%' || ? || '%'
+		  AND
+		     STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="selectContentCount">
+	
+		   SELECT
+			     COUNT(*) COUNT
+			 FROM
+			     TB_QNA
+			WHERE    
+			     QA_CONTENT LIKE '%' || ? || '%'
+			  AND
+			     STATUS = 'Y'
+	
+	</entry>
 	
 	
+	<entry key="qnaTitleSearch">
+		SELECT
+		       Q_NO,
+		       QA_STATUS,
+		       QA_TITLE,
+		       CREATE_DATE
+		   FROM(SELECT
+		              Q_NO,
+		              QA_STATUS,
+		              QA_TITLE,
+		              CREATE_DATE,
+		              ROWNUM RNUM
+		          FROM(SELECT
+		                      Q_NO,
+		                      QA_STATUS,
+		                      QA_TITLE,
+		                      CREATE_DATE
+		                  FROM
+		                      TB_QNA
+		                 WHERE
+		                      QA_TITLE LIKE '%' || ? || '%'
+		                   AND
+		                      STATUS = 'Y'
+		                 ORDER
+		                    BY
+		                      CREATE_DATE DESC))
+		  WHERE
+		       RNUM BETWEEN ? AND ?
+		
+	</entry>
+	
+	<entry key="qnaContentSearch">
+		SELECT
+		       Q_NO,
+		       QA_STATUS,
+		       QA_TITLE,
+		       CREATE_DATE
+		   FROM(SELECT
+		              Q_NO,
+		              QA_STATUS,
+		              QA_TITLE,
+		              CREATE_DATE,
+		              ROWNUM RNUM
+		          FROM(SELECT
+		                      Q_NO,
+		                      QA_STATUS,
+		                      QA_TITLE,
+		                      CREATE_DATE
+		                  FROM
+		                      TB_QNA
+		                 WHERE
+		                      QA_CONTENT LIKE '%' || ? || '%'
+		                   AND
+		                      STATUS = 'Y'
+		                 ORDER
+		                    BY
+		                      CREATE_DATE DESC))
+		  WHERE
+		       RNUM BETWEEN ? AND ?
+		
+	</entry>
+	
+	<entry key="qnaList">
+		SELECT
+		      Q_NO,
+		      QA_TITLE,
+		      QA_CONTENT,
+		      CREATE_DATE,
+		      QA_STATUS,
+		      STATUS,
+		      NICKNAME,
+		      ROWNUM RNUM
+		 FROM(SELECT
+		              Q_NO,
+		              QA_TITLE,
+		              QA_CONTENT,
+		              CREATE_DATE,
+		              QA_STATUS,
+		              Q.STATUS,
+		              NICKNAME,
+		              ROWNUM RNUM
+		          FROM
+		              TB_QNA Q
+		          JOIN
+		              MEMBER M ON(MEM_NO = QA_WRITER)
+		         WHERE
+		              Q.STATUS = 'Y'
+		         ORDER
+		            BY
+		              RNUM DESC)
+		 WHERE
+		      RNUM BETWEEN ? AND ?
 	
 	
-	
+	</entry>
 	
 	
 	

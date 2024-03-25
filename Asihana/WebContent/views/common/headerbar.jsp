@@ -4,6 +4,7 @@
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -184,6 +185,15 @@
 	            </li>
 	        </ul>
 	    </div>
+    <script>
+    
+		const msg = '<%= alertMsg %>';
+		
+		if(msg != 'null'){
+			alert(msg);
+			<% session.removeAttribute("alertMsg"); %>
+		};
+	</script>
 
 </body>
 </html>

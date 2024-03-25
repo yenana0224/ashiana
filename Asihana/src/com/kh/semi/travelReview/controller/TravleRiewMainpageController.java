@@ -27,7 +27,7 @@ public class TravleRiewMainpageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getRequestDispatcher("views/travelReivewMain.jsp").forward(request, response);
+		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	
 	}
 

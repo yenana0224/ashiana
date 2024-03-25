@@ -166,7 +166,7 @@
 	                </ul>
 	            </li>
 	            <li>
-	                <a href="#">여행기</a>
+	                <a href="<%=contextPath%>/travelReviewMain">여행기</a>
 	            </li>
 	            <li>
 	                <a href="<%=contextPath%>/planMain.plan">여행플랜</a>

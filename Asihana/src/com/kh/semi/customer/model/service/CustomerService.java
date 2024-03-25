@@ -12,6 +12,7 @@ import java.util.List;
 import com.kh.semi.customer.model.dao.CustomerDao;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
+import com.kh.semi.customer.model.vo.QNA;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class CustomerService {
@@ -105,5 +106,26 @@ public class CustomerService {
 		
 		Notice notice = new CustomerDao().noticeDetail(conn, noticeNo);
 		return notice;
+	}
+	
+	public int insertQa(QNA qna, NoticeFile file) {
+		
+		Connection conn = getConnection();
+
+		int qnaResult = new CustomerDao().insertQa(conn, qna);
+		
+		int fileResult = 1;
+		if(file != null) {
+			fileResult = new CustomerDao().qnaInsertFile(conn, file);
+		}
+		if((qnaResult * fileResult) > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return (qnaResult * fileResult);
 	}
 }

@@ -26,6 +26,14 @@ public class PlanController {
 		
 		return view;
 	}
+
+	public String selectPlan(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		String view = "views/plan/planDetail.jsp";
+		
+		return view;
+	}
 	
 	
 

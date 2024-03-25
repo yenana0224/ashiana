@@ -5,21 +5,20 @@ import com.kh.semi.plan.model.vo.PlanMain;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PlanService {
 	
 
-	public ArrayList<PlanMain> selectPlanList(int userNo) {
+	public List<PlanMain> selectPlanList(int userNo) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<PlanMain> list = new PlanDao().selectPlanList(conn, userNo);
+		List<PlanMain> list = new PlanDao().selectPlanList(conn, userNo);
 		
 		close(conn);
 		
 		return list;
-		
 	}
 
 }

@@ -41,6 +41,7 @@
                     <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
                     <h5><%= p.getPlanCitys() %></h5>
                     <div class="card-content">
+                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
                         <div class="card-content-1">
                             <label><%= p.getStartDate() %></label> <br>
                             <label><%= p.getdDay() %></label>
@@ -59,9 +60,6 @@
             </div>
             	<% } %>
             <% } %>
-            
-    
-            
             
         </div>
 
@@ -115,5 +113,14 @@
     </div>
 
     <%@ include file="../common/footer.jsp" %>
+    
+    <script>
+    	$(function(){
+	    	$('#my-plans-area').on('click', '.my-plan-card-hover', function(){
+	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
+	    	});
+    	})	
+    </script>
+    
 </body>
 </html>

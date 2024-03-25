@@ -1,0 +1,88 @@
+.show{
+}
+#addDesModal{
+    margin-left: 120px;
+    margin-top: 100px;
+    width: 800px;
+    height: auto;
+    >div{
+        width: 100%;
+    }
+}
+
+#modal-dialog{
+    height: 100%;
+}
+#modal-content{
+    height: 100%;
+}
+
+#modal-header{
+    height: 60px;
+    background-color: #dc3545;
+    color: white;
+    >h4{
+        font-weight: 600;
+        font-size: 24px;
+        display: inline-block;
+        margin-bottom: 0;
+        line-height: 2.4;
+        margin-left: 20px;
+        height: 100%;
+    }
+}
+
+#modal-body{
+    background-color: white;
+    height: 400px;
+    >div{
+        float: left;
+        height: 100%;
+        width: 395px;
+        margin: 0px;
+    }
+}
+
+#modal-footer{
+    background-color: white;
+    height: 50px;
+    padding: 5px 5px 5px 655px;
+    >button{
+        margin-left: 5px;
+    }
+}
+
+
+#modal-form-area{
+    padding: 20px;
+    > *{
+        margin: 4px;
+    }
+}
+
+#des-sum{
+    display: inline-block;
+    width: 345px;
+    background-color: beige;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -14,7 +14,7 @@
 
 </head>
 <body>
-
+	<%@ include file="../common/headerbar.jsp" %>
     <div id="outer">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>

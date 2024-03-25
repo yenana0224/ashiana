@@ -180,7 +180,10 @@ public class CustomerController {
 			}
 			
 			int result = new CustomerService().insertQa(qna, file);
+			
+			if(result > 0) {
 				
+			}
 			
 		}
 		

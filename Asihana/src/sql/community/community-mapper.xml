@@ -6,18 +6,20 @@
 		Community Mapper
 	</comment>
 	
-	<entry key="selectcommunity">
+	<entry key="selectCommunity">
 		SELECT
 				COMU_NO,
 				CITY_NO,
 				MEM_NO,
 				COMU_CONTENT,
-				COMUDATE,
-		  WHERE 
-				STATUS = 'Y';
-				
-	
-		
+				COMU_DATE
+		    FROM
+			 	COMMUNITY
+	    	WHERE 
+				COMMUNITY.STATUS = 'Y'
+		   ORDER
+		 	BY
+				COMU_DATE DESC;
 	</entry>
 	
 	

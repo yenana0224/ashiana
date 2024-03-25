@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.community.model.service.CommunityService;
+import com.kh.semi.community.model.service.CommunityServiceImpl;
 import com.kh.semi.community.model.vo.Community;
 
 /**
  * Servlet implementation class communityController
  */
-@WebServlet("/read.commu")
+@WebServlet("/commu.List")
 public class CommunityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,21 +36,27 @@ public class CommunityController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	
-		// 1.어떤 방식인지 생각 => GET방식 => 인코딩 불필요
-		
-		// 2.값 뽑아보기
+		// 1) 어떤 방식인지 생각!!! => a태그로 들어온다!!! => GET방식 => 인코딩 불필요
 		
 		
 		
 		
-		// 값 가공 => 할게 없다
+		// 2) 값 뽑기
 		
-		// service지정 => 얼마나 조회가 되는지 모른다!!!
-		ArrayList<Community> list = new CommunityService().selectCommu();
+		
+		
+		
+		// 3) 값 가공 => 할게 없다
+		
+		// 화면을 띄워주기 전 COMMUNITY테이블에 있는 전체 행의 데이터를 조회해서 응답페이지에 전달해야함!!
+		
+		// Service단으로 SELECT요청~
+		// 커뮤니티 목록 => 가져올 행의 개수 : 최소 0개 ~~~ ?? => List
+		ArrayList<Community> list = new CommunityServiceImpl().selectCommunityList();
 		request.setAttribute("community",list);
 	
 		// 화면지정
-		request.getRequestDispatcher("views/community/read.jsp").forward(request, response);
+		request.getRequestDispatcher("views/community/commu.List").forward(request, response);
 	}
 
 	/**

@@ -59,6 +59,7 @@ public class CommunityDao {
 				community.setMemNo(rset.getInt("MEM_NO"));
 				community.setComuContent(rset.getString("COMU_CONTENT"));
 				community.setComuDate(rset.getDate("COMU_DATE"));
+				community.setStatus(rset.getString("STATUS").charAt(0));
 			
 				list.add(community);
 			}

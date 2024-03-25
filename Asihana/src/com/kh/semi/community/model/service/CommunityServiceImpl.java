@@ -22,7 +22,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		
 		// 메소드 바디만 채우면 된다!!!!
-		return null;
+		return list;
 	}
 
 	@Override

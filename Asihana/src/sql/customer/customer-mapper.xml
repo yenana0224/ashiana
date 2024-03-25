@@ -187,4 +187,29 @@
 	
 	</entry>
 	
+	<entry key="noticeInsert">
+	INSERT
+	  INTO
+	  	  TB_NOTICE
+	  	  (
+	  	  NOTICE_NO,
+	  	  NOTICE_TITLE,
+	  	  NOTICE_CONTENT,
+	  	  NOTICE_WRITER,
+	  	  NOTICE_HOLD,
+	  	  CREATE_DATE,
+	  	  STATUS
+	  	  )
+  	VALUES
+  		 (
+  		 SEQ_NOTI.NEXTVAL,
+  		 ?,
+  		 ?,
+  		 ?,
+  		 ?,
+  		 SYSDATE,
+  		 DEFAULT
+  		 )
+	</entry>
+	
 </properties>

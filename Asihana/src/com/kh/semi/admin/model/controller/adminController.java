@@ -47,10 +47,8 @@ public class adminController {
 		request.setAttribute("noticeList", noticeList);
 		request.setAttribute("searchContent", searchContent);
 		request.setAttribute("select", select);
-		
-		String view = "views/admin/adminNoticeList.jsp";
-		
-		return view;
+
+		return "views/admin/adminNoticeList.jsp";
 	}
 	
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
@@ -75,6 +73,11 @@ public class adminController {
 		view = "views/admin/adminStoryList.jsp";
 		
 		return view;
+	}
+	
+	public String noticeInsertForm(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "views/admin/noticeInsertForm.jsp";
 	}
 
 }

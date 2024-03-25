@@ -17,8 +17,7 @@ public class InfoController {
 	public String main(HttpServletRequest request, HttpServletResponse response) {
 		List<City> list = new InfoService().cityList();
 		request.setAttribute("list", list);
-		String view = "views/info/selectCity.jsp";
-		return view;
+		return "views/info/selectCity.jsp";
 	};
 
 	public String search(HttpServletRequest request, HttpServletResponse response) {
@@ -60,8 +59,8 @@ public class InfoController {
 	public String story(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new InfoService().countStory();
-		int pageLimit = 5;
-		int boardLimit = 10;
+		int pageLimit = 10;
+		int boardLimit = 5;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
@@ -75,10 +74,9 @@ public class InfoController {
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", storyList);
+
 		
-		view = "views/info/storyMain.jsp";
-		
-		return view;
+		return "views/info/storyMain.jsp";
 	}
 	
 	public String detailStory(HttpServletRequest request, HttpServletResponse response) {

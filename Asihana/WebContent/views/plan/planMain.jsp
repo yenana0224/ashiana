@@ -36,7 +36,7 @@
             
             <% } else { %>
             	<% for(PlanMain p: list) { %>
-            <div class="my-plan-card">
+            <div class="my-plan-card my-plan-card-hover">
                 <div>
                     <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
                     <h5><%= p.getPlanCitys() %></h5>

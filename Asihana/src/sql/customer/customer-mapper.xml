@@ -114,7 +114,7 @@
                          NOTICE_HOLD = 'N'
                     ORDER
                        BY
-                         CREATE_DATE DESC))
+                         NOTICE_NO DESC))
 			WHERE
 		         RNUM BETWEEN ? AND (SELECT
 							     		  (? - COUNT(*)) COUNT
@@ -210,6 +210,29 @@
   		 SYSDATE,
   		 DEFAULT
   		 )
+	</entry>
+	
+	<entry key="attInsert">
+	INSERT
+	  INTO
+	  	 TB_FILE
+	  	 (
+		 FILE_NO,
+		 BOARD_NO,
+		 FILE_PATH,
+		 ORIGIN_NAME,
+		 CHANGE_NAME,
+		 BOARD_TYPE
+	  	 )
+  	VALUES
+	  	 (
+	  	 SEQ_FILE.NEXTVAL,
+	  	 SEQ_NOTI.CURRVAL,
+	  	 ?,
+	  	 ?,
+	  	 ?,
+	  	 4
+	  	 )
 	</entry>
 	
 </properties>

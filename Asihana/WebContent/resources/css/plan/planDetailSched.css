@@ -1,0 +1,11 @@
+.sched-tr-sum{
+    display: inline-block;
+    text-align: right;
+    width: 90%;
+    height: 30px;
+    margin-left: 5%;
+    > label{
+        height: 100%;
+        margin: 0;
+    }
+}

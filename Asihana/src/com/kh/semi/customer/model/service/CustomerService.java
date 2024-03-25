@@ -83,17 +83,11 @@ public class CustomerService {
 		int noticeResult = 0;
 		int fileResult = 1;
 		
+		noticeResult = new CustomerDao().noticeInsert(conn, notice);
+
 		if(noticeFile != null) {
-			// 첨부파일 있음
-			//fileResult = new CustomerDao().attInsert(conn, noticeFile);
-			
-			if(fileResult > 0) {
-				noticeResult = new CustomerDao().noticeInsert(conn, notice);
-			}
-		} else {
-			// 첨부파일 없음
-			noticeResult = new CustomerDao().noticeInsert(conn, notice);
-		}
+			fileResult = new CustomerDao().attInsert(conn, noticeFile);
+		} 
 		
 		int result = noticeResult * fileResult;
 		

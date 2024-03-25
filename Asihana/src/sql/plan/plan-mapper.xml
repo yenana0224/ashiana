@@ -16,66 +16,44 @@
 		      SUBSTR(SUBSTR(CITYS, 1, INSTR(CITYS, '-', -1) -1), INSTR(CITYS, '-') + 1) PLAN_CITYS,
 		      REPLACE(TO_CHAR(SUM_PRICE), SUBSTR(TO_CHAR(SUM_PRICE), -4), '만') TOTAL_PRICE, 
 		      TO_CHAR(P.UPLOAD_DATE, 'YYYY"년" MM"월" DD"일" "작성/수정"') AS UPLOAD_DATE
-		 FROM
+		  FROM
 		      TB_DESTINATION D,
-		      (SELECT
-		             PLAN_NO,
-		             MIN(RETURN_DATE) OVER(PARTITION BY PLAN_NO) AS S_DATE
-		         FROM
-		             TB_DESTINATION     
+		      (SELECT PLAN_NO,
+		              MIN(RETURN_DATE) OVER(PARTITION BY PLAN_NO) AS S_DATE
+		         FROM TB_DESTINATION     
 		        ORDER
-		           BY
-		             RETURN_DATE NULLS LAST) SD,
-		      (SELECT
-		             PLAN_NO,
-		             MAX(ARRIVAL) OVER(PARTITION BY PLAN_NO) AS E_DATE
-		         FROM
-		             TB_DESTINATION     
+		           BY RETURN_DATE NULLS LAST) SD,
+		      (SELECT PLAN_NO,
+		              MAX(ARRIVAL) OVER(PARTITION BY PLAN_NO) AS E_DATE
+		         FROM TB_DESTINATION     
 		        ORDER
-		           BY
-		             ARRIVAL DESC NULLS LAST) ED,
+		           BY ARRIVAL DESC NULLS LAST) ED,
 		      TB_PLAN P,
-		      (SELECT
-		             PLAN_NO,
-		             SUBSTR(XMLAGG(
+		      (SELECT PLAN_NO,
+		              SUBSTR(XMLAGG(
 		                    XMLELEMENT(COL ,'-', CITY_NAME) ORDER BY DEST_NO).EXTRACT('//text()'
 		                    ).GETSTRINGVAL(), 2) AS CITYS
-		         FROM
-		             TB_DESTINATION
-		         JOIN
-		             TB_CITY USING(CITY_NO)
+		         FROM TB_DESTINATION
+		         JOIN TB_CITY USING(CITY_NO)
 		        GROUP
-		           BY
-		             PLAN_NO) C,
-		       (SELECT
-		              PLAN_NO,
+		           BY PLAN_NO) C,
+		      (SELECT PLAN_NO,
 		              SUM(TRANS_PRICE) + SUM(SCHED_COST) AS SUM_PRICE
-		          FROM
-		              TB_DESTINATION
-		          JOIN
-		              TB_SCHEDULE USING(DEST_NO)
-		         GROUP
-		            BY
-		              PLAN_NO) S
-		 WHERE
-		      D.PLAN_NO = ED.PLAN_NO
-		   AND
-		      D.PLAN_NO = SD.PLAN_NO
-		   AND
-		      D.PLAN_NO = P.PLAN_NO
-		   AND
-		      D.PLAN_NO = C.PLAN_NO
-		   AND
-		      D.PLAN_NO = S.PLAN_NO
-		   AND
-		      MEM_NO = ?
+		         FROM TB_DESTINATION
+		         JOIN TB_SCHEDULE USING(DEST_NO)
+		        GROUP
+		           BY PLAN_NO) S
+		 WHERE D.PLAN_NO = ED.PLAN_NO
+		   AND D.PLAN_NO = SD.PLAN_NO
+		   AND D.PLAN_NO = P.PLAN_NO
+		   AND D.PLAN_NO = C.PLAN_NO
+		   AND D.PLAN_NO = S.PLAN_NO
+		   AND MEM_NO = 1
+		   AND STATUS = 'Y'
 		 GROUP
-		    BY
-		      D.PLAN_NO, S_DATE, E_DATE, CITYS, UPLOAD_DATE, SUM_PRICE
+		    BY D.PLAN_NO, S_DATE, E_DATE, CITYS, UPLOAD_DATE, SUM_PRICE
 		 ORDER
-		    BY
-		      D.PLAN_NO      
-
+		    BY D.PLAN_NO;     
 	</entry>
 
 

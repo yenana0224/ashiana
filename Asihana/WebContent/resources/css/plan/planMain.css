@@ -170,8 +170,7 @@ div{
 
 
 #footer_1, #footer_2{
-	text-align: center;
-    width: auto;
+	margin: 100%;
 }
 
 

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.customer.model.vo.Notice;
+import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 
@@ -279,6 +280,25 @@ public class CustomerDao {
 			pstmt.setString(2, notice.getNoticeContent());
 			pstmt.setInt(3, Integer.parseInt(notice.getNoticeWriter()));
 			pstmt.setString(4, notice.getNoticeHold());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int attInsert(Connection conn, NoticeFile noticeFile) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("attInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, noticeFile.getOriginName());
+			pstmt.setString(2, noticeFile.getChangeName());
+			pstmt.setString(3, noticeFile.getFilePath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

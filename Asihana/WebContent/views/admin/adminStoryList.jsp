@@ -15,17 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .outer{
-            position: relative;
-            z-index: 1;
-            float : left;
-            width: 78%;
-            height: 1000px;
-            margin : auto;
-            padding-top : 30px;
-            padding-left: 25%;
-            padding-right: 30px;
-        }
 
         .title{
             padding-left: 20px;

@@ -141,8 +141,9 @@
                     <% } else { %>
                         <% for(Notice n : list) { %>
                             <tr>
-                                <td><input type="checkbox" value="<%=n.getNoticeNo() %>"></td>
-                                <td><%=n.getNoticeNo() %></td>
+                                <td><input name="selectNotice" type="checkbox" value="<%=n.getNoticeNo() %>"></td>
+                                <td><%=n.getNoticeNo() %>
+                                	<%=n.getNoticeHold() %></td>
                                 <td id="noticeTitle"><%=n.getNoticeTitle() %></td>
                                 <td><%=n.getCreateDate() %></td>
                             </tr>
@@ -150,11 +151,13 @@
                     <% } %>
                 </tbody>
             </table>
+
             <div class="btn">
                 선택 게시물 
-                <button type="submit">고정</button>
-                <button type="submit">삭제</button>
+                <button type="submit" id="hold">고정</button>
+                <button type="submit" id="del">삭제</button>
             </div>
+
         </form>
 
 		<div class="btn">

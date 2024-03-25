@@ -86,5 +86,9 @@ public class adminController {
 		request.setAttribute("notice", notice);
 		return "views/admin/noticeDetail.jsp";
 	}
+	
+	public String changeHold(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
 
 }

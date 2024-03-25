@@ -40,6 +40,7 @@ public class adminServlet extends HttpServlet {
 		case "story" : view = ac.storyList(request, response); break;
 		case "noticeInsertForm" : view = ac.noticeInsertForm(request, response); break;
 		case "noticeDetail" : view = ac.noticeDetail(request, response); break;
+		case "changeHold" : view = ac.changeHold(request, response); break;
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);

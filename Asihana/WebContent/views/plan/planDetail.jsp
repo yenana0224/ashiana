@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	int planNo = (int)request.getAttribute("planNo");
-	System.out.println(planNo);
+	int planNo = Integer.parseInt((String)request.getAttribute("planNo"));
 %>
 <!DOCTYPE html>
 <html>
@@ -199,6 +198,12 @@
 	
 	<%@ include file="../common/footer.jsp" %>
     
+    <script>
+    	
+    
+    
+    
+    </script>
     
     
     

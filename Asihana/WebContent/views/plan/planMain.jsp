@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
+<%
+	List<PlanMain> list = (List<PlanMain>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,39 +22,46 @@
     <div id="outer">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
+            
+            <% if(loginUser == null || list.isEmpty()) { %> <!-- 로그인 상태가 아니거나 여행플랜이 없을 경우 -->
             <div class="my-plan-card">
-    
+                <div class="planning-card">   
+                    <h5>계획된 여행이 없습니다.</h5>
+                    <p>
+                                                       목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
+                    </p>
+                    <button class="btn btn-sm btn-success">여행 플랜 추가</button>
+                </div>
+            </div>
+            
+            <% } else { %>
+            	<% for(PlanMain p: list) { %>
+            <div class="my-plan-card my-plan-card-hover">
                 <div>
                     <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
-                    <h5>도시</h5>
+                    <h5><%= p.getPlanCitys() %></h5>
                     <div class="card-content">
                         <div class="card-content-1">
-                            <label>12월 27일 출발</label> <br>
-                            <label>D-11</label>
+                            <label><%= p.getStartDate() %></label> <br>
+                            <label><%= p.getdDay() %></label>
                         </div>
                         <div class="card-content-2">
-                            <label>6박 7일</label> <br>
-                            <label>132만</label>
+                            <label><%= p.getTravelDate() %></label> <br>
+                            <label><%= p.getTotalPrice() %></label>
                         </div>
                         <div class="card-content-3">
-                            <label>2023년 12월 3일 작성/수정</label>
+                            <label><%= p.getUploadDate() %></label>
                         </div>
                     </div>
                 </div>
                 <button id="card-delete" class="btn button btn-danger btn-card" style="right: 5px;">삭제</button>
                 <button id="card-edit" class="btn button btn-success btn-card" style="right: 37px;">수정</button>
             </div>
+            	<% } %>
+            <% } %>
             
     
-            <div class="my-plan-card">
-                <div class="planning-card">   
-                    <h5>계획된 여행이 없습니다.</h5>
-                    <p>
-                        목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
-                    </p>
-                    <button class="btn btn-sm btn-success">여행 플랜 추가</button>
-                </div>
-            </div>
+            
             
         </div>
 
@@ -103,7 +114,7 @@
         </div>
     </div>
 
-
+	<%@ include file="../common/footer.jsp" %>
 
     
 </body>

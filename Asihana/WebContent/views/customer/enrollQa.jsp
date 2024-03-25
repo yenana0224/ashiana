@@ -32,7 +32,7 @@
 
 	<div style="height:80px ;"></div>
 
-	<form action="" method="post" id="insert-form" enctype="multipart/form-data">
+	<form action="<%=contextPath%>/insertQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
 
 		<input type="hidden" name="userNo"
 			value="<%= loginUser.getUserNo() %>">

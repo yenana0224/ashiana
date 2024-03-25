@@ -144,4 +144,20 @@ public class CustomerController {
 		
 	}
 	
+	public String insertQa(HttpServletRequest request, HttpServletResponse response) {
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			
+			
+			
+			
+		}
+		
+		String view = "/views/customer/qa.jsp";
+		
+		return view;
+	}
+	
+	
 }

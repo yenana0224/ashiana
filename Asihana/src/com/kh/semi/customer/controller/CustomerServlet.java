@@ -48,6 +48,7 @@ public class CustomerServlet extends HttpServlet {
 		case "noticeInsert" : view = customer.noticeInsert(request, response); flag = false; break;
 		case "qa" : view = customer.qaList(request, response); break;
 		case "enrollQa" : view = "/views/customer/enrollQa.jsp"; break;
+		case "insertQa" : view = customer.insertQa(request, response); break;
 		}
 		
 		if(flag == true) {

@@ -1,6 +1,6 @@
 package com.kh.semi.plan.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +17,10 @@ public class PlanController {
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		ArrayList<PlanMain> list = new PlanService().selectPlanList(loginUser.getUserNo());
-		
-		request.setAttribute("list", list);
+		if(loginUser != null) {
+			List<PlanMain> list = new PlanService().selectPlanList(loginUser.getUserNo());
+			request.setAttribute("list", list);
+		}
 		
 		String view = "views/plan/planMain.jsp";
 		

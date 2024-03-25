@@ -1,12 +1,13 @@
+
 div{
     box-sizing: border-box;
-    width: 1200px;
 }
 #outer{
+    width: 1200px;
     margin : auto;
     margin-top: 50px;
 }
-#my-plans-area{  /* 나의 여행 플랜 영역 */
+    #my-plans-area{  /* 나의 여행 플랜 영역 */
         overflow: auto;
         /*border: 1px solid red;*/
         height: 430px;
@@ -14,8 +15,8 @@ div{
         padding-top: 20px;
         background-color: rgb(250, 243, 221);
     }
-    #my-plans-area > h3{font-weight: 600;}
-    .my-plan-card{
+#my-plans-area > h3{font-weight: 600;}
+.my-plan-card{
         background-color: white;
         border: 1px solid lightgrey;
         border-radius: 3px;
@@ -25,75 +26,78 @@ div{
         height: 320px;
         margin: 16px 10px 20px 10px;
         position: relative;       
-    }
-    .my-plan-card > div{
-        width: 200px;
-        height: 300px;
-        margin: 10px;
-        position: absolute;
-        > h5{
-            text-align: center;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-    }
-    .button{
-        float: right;
-        font-size: 12px;
-        width: 32px;
-        height: 24px;
-        padding: 0;
+}
+.my-plan-card > div{
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+    position: absolute;
+    > h5{
+        text-align: center;
+        font-weight: 600;
         margin-top: 5px;
-        position: absolute;
     }
-    .card-content{
-        width: 190px;
-        font-size: 15px;
-        line-height: 1.2;
-        margin-left: 5px;
-        margin-right: 5px;
+}
+.button{
+    float: right;
+    font-size: 12px;
+    width: 32px;
+    height: 24px;
+    padding: 0;
+    margin-top: 5px;
+    position: absolute;
+}
+.card-content{
+    width: 190px;
+    font-size: 15px;
+    line-height: 1.2;
+    margin-left: 5px;
+    margin-right: 5px;
 
-    }
-    .card-content-1{
-        float: left;
-        width: 60%;
-        text-align: left;
+}
+.card-content-1{
+    float: left;
+    width: 60%;
+    text-align: left;
 
+}
+.card-content-2{
+    float: right;
+    width: 40%;
+    text-align: right;
+}
+.card-content-3{
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: rgb(145, 145, 145);
+}
+.planning-card{
+    padding-top: 40px;
+    width: 200px;
+    text-align: center;
+    >h5{
+        font-size: 16px;
     }
-    .card-content-2{
-        float: right;
-        width: 40%;
-        text-align: right;
-    }
-    .card-content-3{
+    >p{
+        font-size: 14px;
         width: 100%;
-        text-align: center;
-        font-size: 10px;
-        color: rgb(145, 145, 145);
+        margin: 30px 0 30px 0;
     }
-    .planning-card{
-        padding-top: 40px;
-        width: 200px;
-        text-align: center;
-        >h5{
-            font-size: 16px;
-        }
-        >p{
-            font-size: 14px;
-            width: 100%;
-            margin: 30px 0 30px 0;
-        }
-    }
+}
+.btn-card{
+    visibility: hidden;
+}
+.my-plan-card:hover{
+	box-shadow: 0px 0px 2px 2px lightgrey;
+}
+.my-plan-card-hover:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 2px lightgrey;
     .btn-card{
-        visibility: hidden;
+        visibility: visible;
     }
-    .my-plan-card:hover{
-        cursor: pointer;
-        box-shadow: 0px 0px 2px 2px lightgrey;
-        .btn-card{
-            visibility: visible;
-        }
-    }
+}
 
 /*----------------------------------*/
 #start-plan-area{
@@ -162,3 +166,19 @@ div{
         opacity: 0.9;
     }
 }
+
+
+
+#footer_1, #footer_2{
+	text-align: center;
+    width: auto;
+}
+
+
+
+
+
+
+
+
+

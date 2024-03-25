@@ -7,12 +7,14 @@ public class PlanMain {
 	private String travelDate;
 	private String dDay;
 	private String planCitys;
+	private String totalPrice;
+	private String uploadDate;
 	
 	public PlanMain() {
 		super();
 	}
-	
-	public PlanMain(int planNo, String startDate, String endDate, String travelDate, String dDay, String planCitys) {
+	public PlanMain(int planNo, String startDate, String endDate, String travelDate, String dDay, String planCitys,
+			String totalPrice, String uploadDate) {
 		super();
 		this.planNo = planNo;
 		StartDate = startDate;
@@ -20,6 +22,8 @@ public class PlanMain {
 		this.travelDate = travelDate;
 		this.dDay = dDay;
 		this.planCitys = planCitys;
+		this.totalPrice = totalPrice;
+		this.uploadDate = uploadDate;
 	}
 
 	public int getPlanNo() {
@@ -58,11 +62,23 @@ public class PlanMain {
 	public void setPlanCitys(String planCitys) {
 		this.planCitys = planCitys;
 	}
-
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public String getUploadDate() {
+		return uploadDate;
+	}
+	public void setUploadDate(String uploadDate) {
+		this.uploadDate = uploadDate;
+	}
 	@Override
 	public String toString() {
 		return "PlanMain [planNo=" + planNo + ", StartDate=" + StartDate + ", endDate=" + endDate + ", travelDate="
-				+ travelDate + ", dDay=" + dDay + "]";
+				+ travelDate + ", dDay=" + dDay + ", planCitys=" + planCitys + ", totalPrice=" + totalPrice
+				+ ", uploadDate=" + uploadDate + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -71,8 +87,11 @@ public class PlanMain {
 		result = prime * result + ((StartDate == null) ? 0 : StartDate.hashCode());
 		result = prime * result + ((dDay == null) ? 0 : dDay.hashCode());
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + ((planCitys == null) ? 0 : planCitys.hashCode());
 		result = prime * result + planNo;
+		result = prime * result + ((totalPrice == null) ? 0 : totalPrice.hashCode());
 		result = prime * result + ((travelDate == null) ? 0 : travelDate.hashCode());
+		result = prime * result + ((uploadDate == null) ? 0 : uploadDate.hashCode());
 		return result;
 	}
 	@Override
@@ -99,13 +118,30 @@ public class PlanMain {
 				return false;
 		} else if (!endDate.equals(other.endDate))
 			return false;
+		if (planCitys == null) {
+			if (other.planCitys != null)
+				return false;
+		} else if (!planCitys.equals(other.planCitys))
+			return false;
 		if (planNo != other.planNo)
+			return false;
+		if (totalPrice == null) {
+			if (other.totalPrice != null)
+				return false;
+		} else if (!totalPrice.equals(other.totalPrice))
 			return false;
 		if (travelDate == null) {
 			if (other.travelDate != null)
 				return false;
 		} else if (!travelDate.equals(other.travelDate))
 			return false;
+		if (uploadDate == null) {
+			if (other.uploadDate != null)
+				return false;
+		} else if (!uploadDate.equals(other.uploadDate))
+			return false;
 		return true;
 	}
+
+	
 }

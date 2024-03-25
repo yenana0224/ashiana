@@ -58,7 +58,9 @@ public class MemberService {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
+		System.out.println(result);
 		return result;
+		
 	}
 	/**
 	 * 아디 중복체크

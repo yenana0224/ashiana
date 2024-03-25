@@ -235,4 +235,18 @@
 	  	 )
 	</entry>
 	
+	<entry key="noticeDetail">
+	SELECT
+	     NOTICE_NO,
+	     NOTICE_TITLE,
+	     NOTICE_CONTENT,
+	     NOTICE_HOLD,
+	     TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') CREATE_DATE
+	 FROM
+	     TB_NOTICE
+	WHERE
+	     NOTICE_NO = ?
+	
+	</entry>
+	
 </properties>

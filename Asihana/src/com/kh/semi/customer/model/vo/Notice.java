@@ -11,6 +11,7 @@ public class Notice {
 	private Date createDate;
 	private String status;
 	private String imageFile;
+	private String cdate;
 	
 	
 	public Notice() {
@@ -29,6 +30,16 @@ public class Notice {
 		this.createDate = createDate;
 		this.status = status;
 		this.imageFile = imageFile;
+	}
+
+
+	public String getCdate() {
+		return cdate;
+	}
+
+
+	public void setCdate(String cdate) {
+		this.cdate = cdate;
 	}
 
 

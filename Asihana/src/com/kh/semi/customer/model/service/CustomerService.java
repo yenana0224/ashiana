@@ -1,8 +1,9 @@
 package com.kh.semi.customer.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -99,4 +100,10 @@ public class CustomerService {
 		return result;
 	}
 	
+	public Notice noticeDetail(int noticeNo) {
+		Connection conn = getConnection();
+		
+		Notice notice = new CustomerDao().noticeDetail(conn, noticeNo);
+		return notice;
+	}
 }

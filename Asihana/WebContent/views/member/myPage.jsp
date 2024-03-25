@@ -61,7 +61,7 @@
 			<br><br>
 
 			<div align="center">
-				<button type="submit" >정보수정</button>
+				<button type="submit" onclick="showAlert()">정보수정</button>
 				<button type="button" data-toggle="modal" data-target="#updatePwd">비밀번호수정</button>
                 <button type="button" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
 			</div>
@@ -74,6 +74,13 @@
 			<br><br>
 		
 		</form>
+		
+		<script>
+			function showAlert() {
+			    alert("정보를 수정하시겠습니까?");
+			}
+		</script>
+				
 	
 	<!-- 회원 탈퇴 모달 -->
 	<div class="modal" id="deleteForm">

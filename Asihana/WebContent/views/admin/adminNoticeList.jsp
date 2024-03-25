@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
 
         .title{
@@ -141,23 +142,34 @@
                     <% } else { %>
                         <% for(Notice n : list) { %>
                             <tr>
-                                <td><input name="selectNotice" type="checkbox" value="<%=n.getNoticeNo() %>"></td>
-                                <td><%=n.getNoticeNo() %>
-                                	<%=n.getNoticeHold() %></td>
-                                <td id="noticeTitle"><%=n.getNoticeTitle() %></td>
+                                <td><input type="checkbox" value="<%=n.getNoticeNo() %>"> 
+                                
+                                </td>
+                                <td><%=n.getNoticeNo() %></td>
+                                <td class="noticeTitle" id="<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></td>
                                 <td><%=n.getCreateDate() %></td>
                             </tr>
                         <% } %>
                     <% } %>
                 </tbody>
             </table>
+            <script>
+            
+            $(function(){
+            	
+            	$('.noticeTitle').click(function(){
+            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
+            		
+            	});
+            })
 
+        
+            </script>
             <div class="btn">
                 선택 게시물 
-                <button type="submit" id="hold">고정</button>
-                <button type="submit" id="del">삭제</button>
+                <button type="submit">고정</button>
+                <button type="submit">삭제</button>
             </div>
-
         </form>
 
 		<div class="btn">

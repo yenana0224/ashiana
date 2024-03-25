@@ -16,6 +16,19 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
 #content {
 	width: 1000px;
@@ -43,6 +56,15 @@
 	margin: auto;
 	text-align: center;
 }
+#searchtext {
+	margin: auto;
+	width: 200px;
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 50px;
+	margin-right: 10px;
+}
 </style>
 
 </head>
@@ -52,8 +74,12 @@
 
 	<div id="noticetext">
 		<p>팔로우</p>
+	<div id = "searchtext">
+	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>
-
+	</div>
+	
+	<br>
 	<div>
 		<table class="table">
 			<thead class="thead-light">
@@ -63,28 +89,52 @@
 					<th>여행플랜 바로가기</th>
 					<th>팔로우 하기</th>
 					<th>팔로우 취소</th>
-					
+
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="myTable">
 				<tr>
 					<td>John</td>
-					<td>Doe</td>
-					<td>john@example.com</td>
+					<td><i class="fas fa-cloud"></i></td>
+					<td><i class="fas fa-coffee"></i></td>
+					<td><i class="fas fa-file"></i></td>
+					<td><i class="fas fa-bars"></i></td>
 				</tr>
 				<tr>
 					<td>Mary</td>
-					<td>Moe</td>
-					<td>mary@example.com</td>
+					<td><i class="fas fa-cloud"></i></td>
+					<td><i class="fas fa-coffee"></i></td>
+					<td><i class="fas fa-file"></i></td>
+					<td><i class="fas fa-bars"></i></td>
 				</tr>
 				<tr>
 					<td>July</td>
-					<td>Dooley</td>
-					<td>july@example.com</td>
+					<td><i class="fas fa-cloud"></i></td>
+					<td><i class="fas fa-coffee"></i></td>
+					<td><i class="fas fa-file"></i></td>
+					<td><i class="fas fa-bars"></i></td>
+				</tr>
+				<tr>
+					<td>Kelly</td>
+					<td><i class="fas fa-cloud"></i></td>
+					<td><i class="fas fa-coffee"></i></td>
+					<td><i class="fas fa-file"></i></td>
+					<td><i class="fas fa-bars"></i></td>
 				</tr>
 			</tbody>
 		</table>
+		<br><br><br><br><br>
 	</div>
+	<script>
+		$(document).ready(function(){
+		  $("#myInput").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#myTable tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	</script>
 
 	<%@ include file="../common/footer.jsp"%>
 

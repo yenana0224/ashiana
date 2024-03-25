@@ -1,8 +1,9 @@
 package com.kh.semi.customer.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 import com.kh.semi.customer.model.dao.CustomerDao;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
+import com.kh.semi.customer.model.vo.QNA;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class CustomerService {
@@ -99,4 +101,31 @@ public class CustomerService {
 		return result;
 	}
 	
+	public Notice noticeDetail(int noticeNo) {
+		Connection conn = getConnection();
+		
+		Notice notice = new CustomerDao().noticeDetail(conn, noticeNo);
+		return notice;
+	}
+	
+	public int insertQa(QNA qna, NoticeFile file) {
+		
+		Connection conn = getConnection();
+
+		int qnaResult = new CustomerDao().insertQa(conn, qna);
+		
+		int fileResult = 1;
+		if(file != null) {
+			fileResult = new CustomerDao().qnaInsertFile(conn, file);
+		}
+		if((qnaResult * fileResult) > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return (qnaResult * fileResult);
+	}
 }

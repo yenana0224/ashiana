@@ -235,4 +235,62 @@
 	  	 )
 	</entry>
 	
+	<entry key="noticeDetail">
+	SELECT
+	     NOTICE_NO,
+	     NOTICE_TITLE,
+	     NOTICE_CONTENT,
+	     NOTICE_HOLD,
+	     TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') CREATE_DATE
+	 FROM
+	     TB_NOTICE
+	WHERE
+	     NOTICE_NO = ?
+	
+	</entry>
+	
+	<entry key="insertQa">
+		INSERT 
+		  INTO 
+		      TB_QNA(
+		             Q_NO,
+		             QA_TITLE,
+		             QA_CONTENT,
+		             QA_WRITER
+		             )
+		      VALUES     
+		            (
+		            SEQ_QNA.NEXTVAL,
+		            ?,
+		            ?,
+		            ?
+		            )
+	</entry>
+	
+	<entry key="qnaInsertFile">
+		INSERT
+		  INTO
+		      TB_FILE
+		VALUES
+		      (
+		      SEQ_FILE.NEXTVAL,
+		      SEQ_QNA.CURRVAL,
+		      ?,
+		      ?,
+		      ?,
+		      8
+		      )     
+	
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </properties>

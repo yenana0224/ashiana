@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	int planNo = (int)request.getAttribute("planNo");
+	System.out.println(planNo);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,8 +46,11 @@
 	    <form method="post">
 	        <div id="planning-interface">
 	             
-	                           출국일시 : <input type="date" name="start-date" id="start-date" required disabled value="2024-04-06">
+	                            출국일시 : <input type="date" name="start-date" id="start-date" required disabled value="2024-04-06">
 	            <input type="time" name="start-time" id="start-time"  class="timepicker" disabled value="12:00">
+	           	 &nbsp;
+	           	 귀국일시 : <input type="date" name="end-date" id="end-date" required disabled value="2024-04-06">
+	            <input type="time" name="end-time" id="end-time"  class="timepicker" disabled value="12:00">
 	 
 	            <button class="btn btn-sm btn-success btn-int" type="submit">여행 플랜 수정</button>
 	        </div>

@@ -1,12 +1,16 @@
 package com.kh.semi.friendShip.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.friendShip.model.service.FriendShipService;
+import com.kh.semi.friendShip.model.vo.FriendShip;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 /**
@@ -146,13 +150,13 @@ public class FriendListController extends HttpServlet {
 
 		
 		//4)Service 호출
-		ArrayList<Board> boardlist = new BoardService().selectList(pi);
+		ArrayList<FriendShip> friendList = new FriendShipService().selectList(pi);
 		
 		//5)응답화면 지정
-		request.setAttribute("boardList", boardlist);
+		request.setAttribute("friendList", friendList);
 		request.setAttribute("pageInfo", pi);
 		
-		request.getRequestDispatcher("/views/board/boardList.jsp").forward(request,response);
+		request.getRequestDispatcher("/views/board/MyFriends.jsp").forward(request,response);
 		
 	}
 

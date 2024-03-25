@@ -153,6 +153,11 @@
 					<th>팔로우 취소</th>
 				</tr>
 			</thead>
+			<% if(list.isEmpty()){ %>
+			 <tr>
+          		<td colspan="6"  style="color: #ff52a0;" id="">조회된 게시글이없습니다.</td>
+             </tr>
+              <% }else{ %>
 			<tbody id="myTable">
 				<tr>
 					<td>John</td>

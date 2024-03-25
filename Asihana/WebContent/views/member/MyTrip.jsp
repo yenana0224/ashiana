@@ -109,6 +109,7 @@
 	</div>
 	</div>
 
+	<br><br><br>
 	<script>
 		$(document).ready(function(){
 		  $("#myInput").on("keyup", function() {

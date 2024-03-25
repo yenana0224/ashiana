@@ -136,5 +136,12 @@ public class CustomerController {
 		return view;
 	}
 	
+	public String qaList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String view = "/views/customer/qa.jsp";
+		
+		return view;
+		
+	}
 	
 }

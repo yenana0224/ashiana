@@ -312,7 +312,7 @@
                 <button onclick="faq();">GO</button>
             </div>
             <div id="qa">
-                <button>GO</button>
+                <button onclick="qa();">GO</button>
             </div>
         </div>
     </div>
@@ -321,7 +321,10 @@
       	function faq(){
       		location.href = "<%=contextPath%>/faq.customer";
       	}
-      
+      	function qa(){
+      		location.href = "<%=contextPath%>/qa.customer";
+      	}
+      	
       </script>
       
       

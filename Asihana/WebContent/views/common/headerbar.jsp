@@ -179,7 +179,7 @@
 	                <ul>
 	                    <li><a href="<%=contextPath%>/notice.customer?currentPage=1">공지사항</a></li>
 	                    <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
-	                    <li><a href="#">Q & A</a></li>
+	                    <li><a href="<%=contextPath%>/qa.customer">Q & A</a></li>
 	                </ul>
 	            </li>
 	        </ul>

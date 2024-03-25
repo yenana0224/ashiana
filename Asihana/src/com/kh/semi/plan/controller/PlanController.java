@@ -28,7 +28,6 @@ public class PlanController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
-		System.out.println(mapping);
 		
 		String view = "";
 		

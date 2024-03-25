@@ -159,7 +159,7 @@
 			    STATUS = 'Y'
 		     ORDER
 		        BY
-		          STORY_DATE DESC) S)
+		          STORY_NO DESC) S)
      WHERE
      	 RNUM BETWEEN ? AND ?
 	</entry>

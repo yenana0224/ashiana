@@ -267,4 +267,24 @@ public class CustomerDao {
 		}
 		return list;
 	}
+	
+	public int noticeInsert(Connection conn, Notice notice) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("noticeInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, notice.getNoticeTitle());
+			pstmt.setString(2, notice.getNoticeContent());
+			pstmt.setInt(3, Integer.parseInt(notice.getNoticeWriter()));
+			pstmt.setString(4, notice.getNoticeHold());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

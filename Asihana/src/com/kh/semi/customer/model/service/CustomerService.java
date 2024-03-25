@@ -2,6 +2,7 @@ package com.kh.semi.customer.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import com.kh.semi.customer.model.dao.CustomerDao;
 import com.kh.semi.customer.model.vo.Notice;
+import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class CustomerService {
@@ -74,6 +76,33 @@ public class CustomerService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public int noticeInsert(Notice notice, NoticeFile noticeFile) {
+		Connection conn = getConnection();
+		int noticeResult = 0;
+		int fileResult = 1;
+		
+		if(noticeFile != null) {
+			// 첨부파일 있음
+			//fileResult = new CustomerDao().attInsert(conn, noticeFile);
+			
+			if(fileResult > 0) {
+				noticeResult = new CustomerDao().noticeInsert(conn, notice);
+			}
+		} else {
+			// 첨부파일 없음
+			noticeResult = new CustomerDao().noticeInsert(conn, notice);
+		}
+		
+		int result = noticeResult * fileResult;
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	}
 	
 }

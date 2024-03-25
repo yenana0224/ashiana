@@ -51,16 +51,19 @@
 	<%@ include file="../common/headerbar.jsp"%>
 
 	<div id="noticetext">
-		<p>MyFriends</p>
+		<p>팔로우</p>
 	</div>
 
 	<div>
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Email</th>
+					<th>닉네임</th>
+					<th>여행기 바로가기</th>
+					<th>여행플랜 바로가기</th>
+					<th>팔로우 하기</th>
+					<th>팔로우 취소</th>
+					
 				</tr>
 			</thead>
 			<tbody>

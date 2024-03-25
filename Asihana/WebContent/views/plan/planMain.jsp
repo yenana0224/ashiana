@@ -3,7 +3,6 @@
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
 <%
 	List<PlanMain> list = (List<PlanMain>)request.getAttribute("list");
-	System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
@@ -43,7 +42,7 @@
                     <h5><%= p.getPlanCitys() %></h5>
                     <div class="card-content">
                         <div class="card-content-1">
-                            <label>출발일 <%= p.getStartDate() %></label> <br>
+                            <label><%= p.getStartDate() %></label> <br>
                             <label><%= p.getdDay() %></label>
                         </div>
                         <div class="card-content-2">

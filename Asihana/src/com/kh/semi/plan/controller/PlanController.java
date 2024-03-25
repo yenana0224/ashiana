@@ -17,11 +17,20 @@ public class PlanController {
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		List<PlanMain> list = new PlanService().selectPlanList(loginUser.getUserNo());
-		
-		request.setAttribute("list", list);
+		if(loginUser != null) {
+			List<PlanMain> list = new PlanService().selectPlanList(loginUser.getUserNo());
+			request.setAttribute("list", list);
+		}
 		
 		String view = "views/plan/planMain.jsp";
+		
+		return view;
+	}
+
+	public String selectPlan(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		String view = "views/plan/planDetail.jsp";
 		
 		return view;
 	}

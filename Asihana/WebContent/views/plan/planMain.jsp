@@ -3,7 +3,6 @@
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
 <%
 	List<PlanMain> list = (List<PlanMain>)request.getAttribute("list");
-	System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
@@ -37,13 +36,14 @@
             
             <% } else { %>
             	<% for(PlanMain p: list) { %>
-            <div class="my-plan-card">
+            <div class="my-plan-card my-plan-card-hover">
                 <div>
                     <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
                     <h5><%= p.getPlanCitys() %></h5>
                     <div class="card-content">
+                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
                         <div class="card-content-1">
-                            <label>출발일 <%= p.getStartDate() %></label> <br>
+                            <label><%= p.getStartDate() %></label> <br>
                             <label><%= p.getdDay() %></label>
                         </div>
                         <div class="card-content-2">
@@ -60,9 +60,6 @@
             </div>
             	<% } %>
             <% } %>
-            
-    
-            
             
         </div>
 
@@ -115,8 +112,15 @@
         </div>
     </div>
 
-
-
+    <%@ include file="../common/footer.jsp" %>
+    
+    <script>
+    	$(function(){
+	    	$('#my-plans-area').on('click', '.my-plan-card-hover', function(){
+	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
+	    	});
+    	})	
+    </script>
     
 </body>
 </html>

@@ -1,0 +1,168 @@
+
+#required-msg{ /* 알림 메시지 */
+    background-color: darkgrey;
+    margin-top: 20px;
+    height: 60px;
+    > div{
+        display: inline-block;
+        margin-top: 9px;
+        height: 70%;
+        padding-top: 8px;
+        width: 300px;
+        margin-left: 120px;
+        background-color: white;
+        box-shadow: 0px 0px 2px 2px rgb(120, 120, 120);
+        border-radius: 3px;
+        > label{
+            margin-left: 8px;
+        }
+    }
+}
+
+#planning-interface{ /* 상단 버튼 */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    width: 960px;
+    margin-left: 120px;
+    >.btn-int{
+        float: right;
+        margin-right: 5px;
+    }
+}
+
+#planning-area{
+    height: 500px;
+    padding-left: 115px;
+    > #date-area, #root-area{
+        display: inline-block;
+        width: 480px;
+        height: 100%;
+        
+    }
+}
+#root-area{
+    background-color: beige;
+    padding: 40px;
+    overflow: auto;
+    > .root-icon{
+        display: inline-block;
+        margin-left: 29px;
+        margin-top: 4px;
+        width: 26px;
+        height: 26px;
+        >img{
+            width: 100%;
+            height: 100%;
+            vertical-align: 0;
+        }
+        >.des-add-btn:hover{
+            cursor: pointer;
+            scale: 1.03;
+        }
+    }
+    > .root-info{
+        display: inline-block;
+        height: 26px;
+        width: 280px;
+        float: right;
+        margin-right: 40px;
+        margin-top: 4px;
+        >label{
+            font-size: 14px;
+            height: 100%;
+            margin: 0;
+
+        }
+    }
+    > .root-line{
+        margin-left: 40px;
+        border: 2px dotted rgb(130, 130, 130);
+        width: 2px;
+        height: 30px;
+    }
+    > .root-card{
+        background-color: blanchedalmond;
+        box-shadow: 0px 0px 2px 2px rgb(250, 250, 230);
+        width: 380px;
+        height: 100px;
+        >div{
+            display: inline-block;
+        }
+        >.des-img{
+            width: 100px;
+            height: 100%;
+            >img{
+                width: 100%;
+                height: 100%;
+                vertical-align: 0;
+            }
+        }
+        >.des-info{
+            width: 260px;
+            margin-right: 10px;
+            margin-top: 16px;
+            float: right;
+            > span{
+                font-weight: 600;
+                margin-right: 10px;
+            }
+            >input[type=color]{
+                width: 25px;
+                height: 27px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                visibility: hidden;
+            }
+            >img{
+                margin-bottom: 8px;
+                margin-left: 4px;
+                margin-right: 2px;
+                visibility: hidden;
+            }
+            >img:hover{
+                scale: 1.02;
+                cursor: pointer;
+            }
+            
+        }
+        
+    }
+
+    > .root-card:hover{
+        box-shadow: 0px 0px 2px 2px white;
+        .des-info-btn{
+            visibility: visible;
+        }
+        .des-info-btn[type=color]{
+            visibility: visible;
+        }
+    }
+
+}
+
+
+#submit-area{
+    border-top: 2px solid darkgray;
+    height: 200px;
+    text-align: center;
+    word-spacing: 3px;
+    color: rgb(50, 50, 50);
+    line-height: 2.5;
+    >label{
+        margin: 0;
+    }
+}
+.plan-sum-price{
+    font-weight: 600;
+    font-size: 16px;
+    
+}
+.plan-sum-total{
+    font-weight: 600;
+    font-size: 18px;
+}

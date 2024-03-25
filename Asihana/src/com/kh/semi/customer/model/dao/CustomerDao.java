@@ -307,4 +307,31 @@ public class CustomerDao {
 		}
 		return result;
 	}
+	
+	public Notice noticeDetail(Connection conn, int noticeNo) {
+		Notice notice = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("noticeDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				notice = new Notice();
+				notice.setNoticeNo(rset.getInt("NOTICE_NO"));
+				notice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				notice.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+				notice.setNoticeHold(rset.getString("NOTICE_HOLD"));
+				notice.setCdate(rset.getString("CREATE_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return notice;
+	}
 }

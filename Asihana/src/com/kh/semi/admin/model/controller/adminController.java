@@ -54,7 +54,7 @@ public class adminController {
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new InfoService().countStory();
-		int pageLimit = 5;
+		int pageLimit = 15;
 		int boardLimit = 10;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
@@ -78,6 +78,13 @@ public class adminController {
 	public String noticeInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		return "views/admin/noticeInsertForm.jsp";
+	}
+	
+	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		Notice notice = new CustomerService().noticeDetail(noticeNo);
+		request.setAttribute("notice", notice);
+		return "views/admin/noticeDetail.jsp";
 	}
 
 }

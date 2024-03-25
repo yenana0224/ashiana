@@ -15,11 +15,12 @@
 				COMU_DATE
 		    FROM
 			 	COMMUNITY
+		
 	    	WHERE 
 				COMMUNITY.STATUS = 'Y'
 		   ORDER
 		 	BY
-				COMU_DATE DESC;
+				COMU_DATE DESC
 	</entry>
 	
 	

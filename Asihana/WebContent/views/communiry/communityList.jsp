@@ -153,8 +153,9 @@
     <style>
     /* 이미지 영역 사이즈 조절 */
     .swiper {
-        width: 1200px;
-        height: 500px;
+    	float: left;
+        width: 300px;
+        height: 400px;
     }
 
     /* 이미지 사이즈 조절 */
@@ -221,6 +222,7 @@
         }); 
     </script>
     
+    <!-- 커뮤니티의 글이  -->
   
 
 

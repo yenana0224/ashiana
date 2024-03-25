@@ -545,7 +545,7 @@ public class CustomerDao {
 				
 				qna.setQnaNo(rset.getInt("Q_NO"));
 				qna.setQnaTitle(rset.getString("QA_TITLE"));
-				qna.setQnaContent(rset.getString("AQ_CONTENT"));
+				qna.setQnaContent(rset.getString("QA_CONTENT"));
 				qna.setCreateDate(rset.getDate("CREATE_DATE"));
 				qna.setQnaStatus(rset.getString("QA_STATUS"));
 				qna.setStatus(rset.getString("STATUS"));

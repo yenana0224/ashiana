@@ -4,7 +4,7 @@
 				 , java.util.List" %>
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<QNA> noticeList = (ArrayList<QNA>)request.getAttribute("qnaList");
+	List<QNA> qnaList = (ArrayList<QNA>)request.getAttribute("qnaList");
 	String select = (String)request.getAttribute("select");
 	String searchContent = (String)request.getAttribute("searchContent");
 %>
@@ -193,12 +193,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="td qaNo">1</td>
-                <td class="td status">답변완료</td>
-                <td class="td title">Doe</td>
-                <td class="td date">22.06.07</td>
+        <% if(qnaList.isEmpty()) { %>
+        	<tr>
+               <td colspan="4" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
             </tr>
+        <% } else { %>
+        	<% for(QNA qna : qnaList){ %>
+            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
+                <td class="td qaNo"><%=qna.getQnaNo() %></td>
+                <% if(qna.getQnaStatus().equals("Y")) {%>
+                	<td class="td status" style="color:red;font-weight:bold;">답변완료</td>
+                <% } else { %>
+                	<td class="td status"></td>
+                <% } %>
+                <td class="td title"><%=qna.getQnaTitle() %></td>
+                <td class="td date"><%=qna.getCreateDate() %></td>
+            </tr>
+         	<% } %>
+        <% } %> 	
         </tbody>
     </table>
     <% if(loginUser != null) { %>
@@ -217,6 +229,12 @@
 		$('#insertQa>button').click(function(){
 			location.href='<%=contextPath%>/enrollQa.customer';
 		})
+		function mouseIn(e){
+			e.style.backgroundColor = 'lightgray';
+		}
+		function mouseOut(e){
+			e.style.backgroundColor = 'rgba(247, 240, 233, 0.253)';
+		}
 	
 	</script>
 	

@@ -236,12 +236,7 @@
             		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
             	});
             });
-            
-            function(change)
-            
-            
-            
-            
+
             </script>
 
     </div>

@@ -144,7 +144,7 @@ public class CustomerService {
 				result = new CustomerDao().qnaContentCount(conn, searchContent);
 			}
 		}else {
-			result = new CustomerDao().selectCount(conn);
+			result = new CustomerDao().selectQnaCount(conn);
 		}
 		
 		close(conn);
@@ -181,6 +181,13 @@ public class CustomerService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public NoticeFile selectFile(int noticeNo) {
+		Connection conn = getConnection();
+		NoticeFile file = new CustomerDao().selectFile(conn, noticeNo);
+		close(conn);
+		return file;
 	}
 	
 }

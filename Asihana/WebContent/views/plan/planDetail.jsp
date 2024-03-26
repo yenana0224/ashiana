@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	int planNo = Integer.parseInt((String)request.getAttribute("planNo"));
+	int planNo = (int)request.getAttribute("planNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -44,12 +44,12 @@
     <div id="outer">
 	    <form method="post">
 	        <div id="planning-interface">
-	             
-	                            출국일시 : <input type="date" name="start-date" id="start-date" required disabled value="2024-04-06">
-	            <input type="time" name="start-time" id="start-time"  class="timepicker" disabled value="12:00">
+	            <input type="hidden" name="planNo" id="planNo" value="<%= planNo %>">
+	                            출국일시 : <input type="date" name="start-date" id="start-date" required disabled>
+	            <input type="time" name="start-time" id="start-time"  class="timepicker" disabled>
 	           	 &nbsp;
-	           	 귀국일시 : <input type="date" name="end-date" id="end-date" required disabled value="2024-04-06">
-	            <input type="time" name="end-time" id="end-time"  class="timepicker" disabled value="12:00">
+	           	 귀국일시 : <input type="date" name="end-date" id="end-date" required disabled>
+	            <input type="time" name="end-time" id="end-time"  class="timepicker" disabled>
 	 
 	            <button class="btn btn-sm btn-success btn-int" type="submit">여행 플랜 수정</button>
 	        </div>
@@ -89,7 +89,7 @@
 	        </div>
 	        <div id="sched-area">
 	            <div id="sched-box">
-	                <h2>예약 및 일정</h2> <label id="sched-date-sum">6박 7일</label>
+	                <h2>예약 및 일정</h2> <label id="sched-date-sum"></label>
 	                <div class="sched-des">
 	                    <span class="sched-des-city">대련-중국</span>
 	                    <span class="sched-des-date">3박 4일</span>
@@ -156,8 +156,8 @@
 	            </div>
 	        </div>
 	        <div id="plan-sum">
-	            <span>이동 수단 가격 </span><label class="plan-sum-price">450,000원</label> +
-	            <span>예약 및 일정 예산 </span><label class="plan-sum-price"> 720,000원</label> =
+	            <span>이동 수단 가격 </span><label class="plan-sum-price" id="trans-sum"></label> + 
+	            <span>예약 및 일정 예산 </span><label class="plan-sum-price" id="sched-sum"></label> =
 	            <label class="plan-sum-total">총 예산 1,320,000원</label>
 	        </div>
 	    </form>
@@ -200,24 +200,46 @@
     <script>
     	function selectPlan(){
     		$.ajax({
-    			url : 'selectDetail.ajaxplan',
+    			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
     				planNo : <%= planNo %>
     			},
     			success : function(result){
-    				
+    				// 상단 출국일시 귀국일시
+    				$('#start-date').val(result.startDate);
+    				$('#start-time').val(result.startTime);
+    				$('#end-date').val(result.endDate);
+    				$('#end-time').val(result.endTime);
+    				// 몇박몇일
+    				$('#sched-date-sum').text(result.travelDate);
+    				// 하단 총 예산
+    				$('#trans-sum').text(result.transSum + '원');
+    				$('#sched-sum').text(result.schedSum + '원');
+    				$('.plan-sum-total').text('총 예산 ' + result.totalSum + '원');
+    			}
+    		})
+    	};
+    	function selectDestination(){
+    		$.ajax({
+    			url : 'selectDesDetail.ajaxplan',
+    			type : 'post',
+    			data : {
+    				planNo : <%= planNo %>
+    			},
+    			success : function(result){
     				console.log(result);
     				
     			}
     			
     		})
-    		
-    		
-    	}
-    
+    	};	
+    	
+    	
+    	
     	$(function(){
     		selectPlan();
+    		selectDestination();
     	})
     	
     	

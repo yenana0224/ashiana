@@ -7,12 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.kh.semi.admin.model.service.AdminService;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
+import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.info.model.service.InfoService;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
+import com.oreilly.servlet.MultipartRequest;
 
 public class adminController {
 	
@@ -84,8 +88,12 @@ public class adminController {
 	
 	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+
 		Notice notice = new CustomerService().noticeDetail(noticeNo);
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		
 		request.setAttribute("notice", notice);
+		request.setAttribute("noticeFile", noticeFile);
 		return "views/admin/noticeDetail.jsp";
 	}
 	
@@ -96,11 +104,17 @@ public class adminController {
 		return "/notice.admin?currentPage=1";
 	}
 	
-	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) {
-		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		Notice notice = new CustomerService().noticeDetail(noticeNo);
+	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
 		
-		request.setAttribute("Notice", notice);
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+
+
+		}
+		
+		
+		
 		return "views/admin/noticeUpdateForm.jsp";		
 	}
 

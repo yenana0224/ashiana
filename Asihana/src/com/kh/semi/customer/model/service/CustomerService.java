@@ -144,7 +144,7 @@ public class CustomerService {
 				result = new CustomerDao().qnaContentCount(conn, searchContent);
 			}
 		}else {
-			result = new CustomerDao().selectCount(conn);
+			result = new CustomerDao().selectQnaCount(conn);
 		}
 		
 		close(conn);

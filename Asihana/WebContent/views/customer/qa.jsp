@@ -241,14 +241,14 @@
 			<% if(pi.getCurrentPage() > 1){ %>
 	        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
 	        <% } %>
-	        <% for(int i = pi.getStartPage(); i < pi.getEndPage(); i++) { %>
+	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
 	        	<% if( pi.getCurrentPage() != i) { %>
 	        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%=i%>'"><%= i %></button>
 	        	<% } else{ %>
 	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
 	        	<% } %>
 	        <% } %>
-	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+	        <% if(pi.getCurrentPage() < pi.getMaxPage()) {%>
 	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
 	        <% } %>
 	    </div>

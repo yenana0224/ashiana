@@ -15,6 +15,7 @@ import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.plan.model.vo.DestinationDetail;
 import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
+import com.kh.semi.plan.model.vo.Schedule;
 
 
 public class PlanDao {
@@ -151,6 +152,32 @@ public class PlanDao {
 						                       rset.getString("RETURN_DATE"),
 						                       rset.getString("DEST_DATE"),
 						                       rset.getString("SCHED_COST_SUM")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public List<Schedule> selectSchedule(Connection conn, int planNo) {
+		
+		List<Schedule> list = new ArrayList();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectSchedule");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Schedule());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <style>
 
         #qnaMark{
@@ -173,8 +174,8 @@
                     <label>첨부파일 / </label><a download="/01_HTML_workspace/resources/image/1.jpg" href="">다운로드파일</a>
                 </div>
                 <div id="buttonBox">
-                    <button>목록</button>
-                    <button>삭제</button>
+                    <button class="btn btn-sm btn-secondary">목록</button>
+                    <button class="btn btn-sm btn-danger">삭제</button>
                 </div>
                 
                 

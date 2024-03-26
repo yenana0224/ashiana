@@ -60,11 +60,17 @@
 
 
     }
+    
 
     #content_1{
         background-color: beige;
         margin: auto;
 
+    }
+    
+    #roll{
+    
+    	marg
     }
 
 
@@ -78,12 +84,6 @@
         margin: center;
     }
 
-    #footer{
-        background-color: white;
-        text-align: center;
-      
-
-    }
 
     
 
@@ -155,7 +155,7 @@
         </div>
         <div id="content">
             <h2>여행자 실시간 커뮤니티 <div class="spinner-border text-dark"></div> </h2> 
-        <a href="<%=contextPath %>/insert.commu" >글 등록하기</a>
+      <span id="roll"><a href="<%=contextPath %>/insert.commu" >글 등록하기</a></span>  
         <!-- 중간영역의 왼쪽에 위치하여 순서대로 도시에 대한 사진을 보이게 할 예정 -->
  <!-- swiper.js 라이브러리추가 -->
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
@@ -267,38 +267,66 @@
 
 
         </div>
-        <div id="contetn_2" float;>
+        <div id="content_2">
         <!-- 전체기간,통합 분류로 기간, 국가별,도시별, 제목+내용, 내용으로 검색어를 입력하여 검색이 가능하다 -->
-        <a href="<%=contextPath%>/read.co>
-            <form action="term.do" float:right;></form><br>
+       
+            <br>
             <span>
-                <select  id="g1" >
+                <select id="g1">
                     <option>전체기간</option>
                     <option>1일</option>
                     <option>1주일</option>
                     <option>1개월</option>
                 </select>
-
-                
             </span>
 
-            <form action="term.do"></form>
+          
             <span>
-                <select  id="g2">
+                <select id="g2">
                     <option>통합</option>
                     <option>도시별</option>
                     <option>제목+내용</option>
                     <option>내용</option>
                 </select>
-                
             </span>
             
 
-            <span><input type="text" size="30px" placeholder="검색어를 입력해주세요"></span>
+            <span><input type="text" size="30px" placeholder="검색어를 입력해주세요" id="g3"></span>
 
-            <button  id="g3">검색</button>
+            <button id="g3" onclick="ajax요청()">검색</button>
             
+           <script>
+           		function ajax요청(){
+           			
+           			// console.log($('select :selected')[1].innerHTML);
+           			// console.log($('select :selected')[2].innerHTML);
+           			
+           			
+           			$.ajax({
+           				url:'search.do',
+           				type : 'post',
+           				data : {
+           					$('select: selected')[1],
+           					$('select: selected').val()
+           					
+           					
+           					
+           				},
+           				success : function(result){
+           					
+           				}
+           				
+           				
+           				
+           				
+           				
+           			});
+           		}
+           		
+           		
+           		
            
+           </script>
      
             
 

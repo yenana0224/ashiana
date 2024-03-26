@@ -114,7 +114,7 @@
             <ul class="menu"> <span>메뉴 관리</span>
                 <li><a href="<%=contextPath %>/notice.admin?currentPage=1">공지사항</a></li>
                 <li><a href="<%=contextPath %>/story.admin?currentPage=1">여행스토리</a></li>
-                <li><a href="#">여행정보</a></li>
+                <li><a href="<%=contextPath %>/info.admin?currentPage=1">여행정보</a></li>
             </ul>
             <ul class="menu"> <span>회원 관리</span>
                 <li><a href="#">전체 회원 조회</a></li>

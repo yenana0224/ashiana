@@ -16,6 +16,8 @@ import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.info.model.service.InfoService;
+import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.oreilly.servlet.MultipartRequest;
@@ -180,6 +182,53 @@ public class adminController {
 			view = "/story.admin?currentPage=1";
 		}
 		return view;
+	}
+	
+	public String storyInsertForm(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "views/admin/storyInsertForm.jsp";
+	}
+	
+	public String nationList(HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int listCount = new InfoService().countNation();
+		int pageLimit = 10;
+		int boardLimit = 15;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		if(maxPage < endPage) endPage = maxPage;
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		List<Nation> nationList = new InfoService().nationList(pi);
+		
+		request.setAttribute("pageInfo", pi);
+		request.setAttribute("list", nationList);
+		
+		return  "views/admin/adminInfoList.jsp";
+	}
+	
+	public String allCityList(HttpServletRequest request, HttpServletResponse response) {
+		
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int listCount = new InfoService().countCity();
+		int pageLimit = 10;
+		int boardLimit = 15;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		if(maxPage < endPage) endPage = maxPage;
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		List<City> cityList = new InfoService().allCityList(pi);
+		
+		request.setAttribute("pageInfo", pi);
+		request.setAttribute("list", cityList);
+		
+		return "views/admin/adminCityList.jsp";
+		
 	}
 	
 }

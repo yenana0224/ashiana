@@ -38,13 +38,17 @@ public class adminServlet extends HttpServlet {
 		switch(mapping){
 		case "main" : view = "views/admin/adminMain.jsp"; break;
 		case "notice" : view = ac.noticeList(request, response); break;
-		case "story" : view = ac.storyList(request, response); break;
 		case "noticeInsertForm" : view = ac.noticeInsertForm(request, response); break;
 		case "noticeDetail" : view = ac.noticeDetail(request, response); break;
-		case "changeHold" : view = ac.changeHold(request, response); flag = false; break;
 		case "noticeUpdateForm" : view = ac.noticeUpdateForm(request, response); break;
 		case "noticeUpdate" : view = ac.noticeUpdate(request, response); flag = false; break;
+		case "changeHold" : view = ac.changeHold(request, response); flag = false; break;
+		case "story" : view = ac.storyList(request, response); break;
 		case "storyDel" : view = ac.storyDel(request, response); flag = false;  break;
+		case "storyInsertForm" : view = ac.storyInsertForm(request, response); break;
+		case "info" : view = ac.nationList(request, response); break;
+		case "nationCityList" : view = ac.allCityList(request, response); break;
+		case "" : break;
 		}
 		
 		if(flag) {

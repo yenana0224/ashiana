@@ -38,7 +38,6 @@ public class PlanServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);
-		
 	}
 
 	/**

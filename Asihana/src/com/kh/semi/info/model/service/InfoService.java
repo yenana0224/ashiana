@@ -19,6 +19,30 @@ import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoService {
 	
+	public List<Nation> nationList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Nation> list = new ArrayList<Nation>();
+		list = new InfoDao().nationList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	public List<City> allCityList(PageInfo pi){
+		Connection conn = getConnection();
+		List<City> list = new ArrayList<City>();
+		list = new InfoDao().allCityList(conn, pi);
+		close(conn);
+		return list;
+	}
+	 
+	
+	public int countNation() {
+		Connection conn = getConnection();
+		int count = new InfoDao().countNation(conn);
+		close(conn);
+		return count;
+	}
+	
 	public ArrayList<City> cityList(){
 		Connection conn = getConnection();
 		ArrayList<City> list = new ArrayList<City>();
@@ -96,9 +120,16 @@ public class InfoService {
 	public Story detailStory(int storyNo) {
 		Connection conn = getConnection();
 		Story story = new InfoDao().detailStory(conn, storyNo);
+		close(conn);
 		return story;
 	}
 	
+	public int countCity() {
+		Connection conn = getConnection();
+		int count = new InfoDao().countCity(conn);
+		close(conn);
+		return count;
+	}
 	
 	
 

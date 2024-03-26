@@ -105,6 +105,7 @@ public class CustomerService {
 		Connection conn = getConnection();
 		
 		Notice notice = new CustomerDao().noticeDetail(conn, noticeNo);
+		close(conn);
 		return notice;
 	}
 	

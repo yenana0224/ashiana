@@ -92,11 +92,16 @@ public class adminController {
 	public String changeHold(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		String[] holds = request.getParameterValues("hold");
 		int result = new AdminService().changeHolds(holds);
-		
-		if (result > 0) request.getSession().setAttribute("alertMsg", "수정되었습니다");
-		else request.getSession().setAttribute("alertMsg", "수정되지 않았습니다");
 
-		return "notice.admin?currentPage=1";
+		return "/notice.admin?currentPage=1";
+	}
+	
+	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) {
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		Notice notice = new CustomerService().noticeDetail(noticeNo);
+		
+		request.setAttribute("Notice", notice);
+		return "views/admin/noticeUpdateForm.jsp";		
 	}
 
 }

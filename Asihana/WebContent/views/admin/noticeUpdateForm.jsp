@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.customer.model.vo.*"%>
+<%
+	NoticeFile atFile = (NoticeFile)request.getAttribute("atFile");
+	Notice notice = (Notice)request.getAttribute("notice");
+	String hold = notice.getNoticeHold();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <style> 
+   <style> 
         .title{
             padding-left: 20px;
             width: 100%;
@@ -76,17 +81,19 @@
         
         <div class="title">
             <h2>공지사항</h2>
-            <h3>공지사항등록</h3>
+            <h3>공지사항조회</h3>
         </div>
 
         <div class="form-area">
-            <form action="<%=contextPath %>/noticeInsert.customer" method="post" enctype="multipart/form-data">
+            <form action="<%=contextPath %>/noticeUpdate.admin" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+            	<input type="hidden" name="noticeNo" value="<%= notice.getNoticeNo() %>">
+            	
                 <div class="title-area">
-                    <input type="text" placeholder="제목을 입력해주세요" name="title"> 
+                    <input type="text" name="title" value="<%= notice.getNoticeTitle() %>"> 
                 </div>
-                <div class="content-area" >
-                    <textarea name="content" cols="30" rows="20" style="resize: none;"></textarea>
+                <div class="content-area">
+                    <textarea name="content" cols="30" rows="20"  style="resize: none;"><%= notice.getNoticeContent()%></textarea>
                 </div>
 
                 <div class="fileAt">
@@ -94,17 +101,21 @@
                 </div>
 
                 <div class="check-area">
-                    <input type="checkbox" name="hold" value="Y"> <label>상단고정</label>
+                	<% if(notice.getNoticeHold().equals("Y")) { %>
+                    <input type="checkbox" name="hold" checked> <label>상단고정</label>
+                    <% } else {%>
+                    <input type="checkbox" name="hold"> <label>상단고정</label>
+                    <% } %>
                 </div>
-
+           
                 <div class="btn">
-                    <button type="submit"> 등록 </button>
-                    <button>취소</button>
+                    <button type="submit"> 확인 </button>
+                    <button> 목록으로 </button>
                 </div>
             </form>
         </div>
     </div>
     
-</body>
+
 </body>
 </html>

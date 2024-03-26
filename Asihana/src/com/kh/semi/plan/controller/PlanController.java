@@ -64,11 +64,8 @@ public class PlanController {
 
 	public List<Schedule> selectSchedule(HttpServletRequest request, HttpServletResponse response) {
 		
-		String[] destNo = request.getParameterValues("destNo");
-		for(String s : destNo) {
-			
-			System.out.println(s);
-		}
+		int destNo = Integer.parseInt(request.getParameter("destNo"));
+		System.out.println(destNo);
 		
 		return null;//new PlanService().selectSchedule();
 	}

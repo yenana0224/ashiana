@@ -201,8 +201,7 @@
 	
 	<%@ include file="../common/footer.jsp" %>
     
-    <script> // AJAX
-    	let destNo = [];  
+    <script> // AJAX 
     	function selectPlan(){
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
@@ -265,9 +264,7 @@
 			                	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
 			                }
     					}
-    					else{ // 도시
-    						// 목적지 번호 배열에 추가
-    						destNo.push(result[i].destNo);
+    					else{ // 도시			
     						// 목적지 구역
     						rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
@@ -321,6 +318,8 @@
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
+				    	               
+				    		selectSchedule();
     					}
     				} // for문
     					$('#root-area').html(rootArea);
@@ -334,7 +333,7 @@
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : JSON.stringify(destNo)
+    				destNo : destNo
     			},
     			success : function(result){
     				console.log(result);
@@ -348,9 +347,6 @@
     	$(function(){
     		selectPlan();
     		selectDestination();
-    		console.log(destNo);
-    		selectSchedule();
-    		
     	})
     	
     	

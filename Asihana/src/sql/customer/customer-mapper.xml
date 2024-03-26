@@ -437,7 +437,42 @@
    	 	   	  BOARD_TYPE = 4
 	</entry>
 	
+	<entry key="attUpdate">
+	    UPDATE
+	          TB_FILE
+	       SET
+	          FILE_PATH = ?,
+	          ORIGIN_NAME = ?,
+	          CHANGE_NAME = ?
+	    WHERE
+	          BOARD_NO = ?
+	     AND
+	          BOARD_TYPE = ?
 	
+	</entry>
+	
+	<entry key="newAttInsert">
+	INSERT
+	  INTO
+	  	 TB_FILE
+	  	 (
+		 FILE_NO,
+		 BOARD_NO,
+		 FILE_PATH,
+		 ORIGIN_NAME,
+		 CHANGE_NAME,
+		 BOARD_TYPE
+	  	 )
+  	VALUES
+	  	 (
+	  	 SEQ_FILE.NEXTVAL,
+	  	 ?,
+	  	 ?,
+	  	 ?,
+	  	 ?,
+	  	 ?
+	  	 )
+	</entry>
 	
 	
 	

@@ -230,6 +230,22 @@
     			success : function(result){
     				console.log(result);
     				
+    				let resultStr = '';
+    				resultStr += '<div class="root-icon">' // 루트 아이콘
+	                    	   +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+	                		   + '</div>';
+	                		   //+ '<div class="root-info"><label>항공(1시간)</label></div>';
+    				for(let i = 0; i < result.length - 1; i++){
+    					if(i = 0){
+    						console.log(result[i]);
+    					}
+    					
+    					
+    					
+    					
+    					
+    				}
+    				
     			}
     			
     		})

@@ -43,6 +43,8 @@ public class adminServlet extends HttpServlet {
 		case "noticeDetail" : view = ac.noticeDetail(request, response); break;
 		case "changeHold" : view = ac.changeHold(request, response); flag = false; break;
 		case "noticeUpdateForm" : view = ac.noticeUpdateForm(request, response); break;
+		case "noticeUpdate" : view = ac.noticeUpdate(request, response); flag = false; break;
+		case "storyDel" : view = ac.storyDel(request, response); flag = false;  break;
 		}
 		
 		if(flag) {

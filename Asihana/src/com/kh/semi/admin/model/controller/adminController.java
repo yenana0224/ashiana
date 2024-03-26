@@ -1,5 +1,6 @@
 package com.kh.semi.admin.model.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.admin.model.service.AdminService;
+import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
@@ -60,8 +62,8 @@ public class adminController {
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new InfoService().countStory();
-		int pageLimit = 15;
-		int boardLimit = 10;
+		int pageLimit = 10;
+		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
@@ -106,16 +108,77 @@ public class adminController {
 	
 	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
+		Notice notice = new CustomerService().noticeDetail(noticeNo);
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
-
-
-		}
-		
-		
+		request.setAttribute("notice", notice);
+		request.setAttribute("noticeFile", noticeFile);
 		
 		return "views/admin/noticeUpdateForm.jsp";		
 	}
+	
+	public String noticeUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		String view = "";
 
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024* 1024* 10;
+			String savePath = request.getServletContext().getRealPath("/resources/notice");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			int noticeNo = Integer.parseInt(multiRequest.getParameter("noticeNo"));
+			String noticeTitle = multiRequest.getParameter("title");
+			String noticeContent = multiRequest.getParameter("content");
+			String noticeWriter = multiRequest.getParameter("userNo");
+			String noticeHold = "N";
+			if(multiRequest.getParameter("hold") != null ) noticeHold = "Y";
+			
+			Notice notice = new Notice();
+			notice.setNoticeNo(noticeNo);
+			notice.setNoticeTitle(noticeTitle);
+			notice.setNoticeContent(noticeContent);
+			notice.setNoticeWriter(noticeWriter);
+			notice.setNoticeHold(noticeHold);
+
+			NoticeFile noticeFile = null;
+			String key = "newFile";
+			// 새로운 업로드 파일이 존재한다면
+			if(multiRequest.getOriginalFileName(key) != null) {
+				noticeFile = new NoticeFile();
+				noticeFile.setOriginName(multiRequest.getOriginalFileName(key));
+				noticeFile.setChangeName(multiRequest.getFilesystemName(key));
+				noticeFile.setBoardType(Integer.parseInt(multiRequest.getParameter("boardType")));
+				noticeFile.setFilePath("resources/notice");
+				
+				// 원본파일 존재시 DB update필요 > 원본 fileNo
+				if(multiRequest.getParameter("fileNo") != null) {
+					noticeFile.setFileNo(Integer.parseInt(multiRequest.getParameter("fileNo")));
+				} else {
+					// 원본파일 X > DB insert 필요. 게시글번호 필요
+					noticeFile.setBoardNo(noticeNo);
+				}
+			}
+			
+			if(new AdminService().updateNotice(notice, noticeFile) > 0) {
+				view = "/noticeDetail.admin?noticeNo=" + noticeNo;
+			} else {
+				view = "/notice.admin?currentPage=1";
+			}
+		}
+		return view;
+	}
+	
+	
+	public String storyDel(HttpServletRequest request, HttpServletResponse response) {
+		String view = "";
+		String[] storyNos = request.getParameterValues("storyNo");
+		if(new AdminService().storyDel(storyNos) > 0) {
+			view = "/story.admin?currentPage=1";
+		}
+		return view;
+	}
+	
 }

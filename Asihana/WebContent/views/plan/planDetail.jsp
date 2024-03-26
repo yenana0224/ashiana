@@ -319,7 +319,7 @@
 				    	               +       '</table>'
 				    	               + '</div>';
 				    	               
-				    		selectSchedule();
+				    		selectSchedule(destNo);
     					}
     				} // for문
     					$('#root-area').html(rootArea);
@@ -328,12 +328,12 @@
     		})
     	};
     	
-    	function selectSchedule(){
+    	function selectSchedule(tata){
     		$.ajax({
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : destNo
+    				destNo : tata
     			},
     			success : function(result){
     				console.log(result);

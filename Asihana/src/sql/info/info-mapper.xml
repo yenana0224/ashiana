@@ -6,6 +6,49 @@
 		info Mapper
 	</comment>
 	
+	<entry key="nationList">
+	  SELECT
+		      NATION_NO,
+		      NATION_NAME,
+		      NATION_CONTENT
+	    FROM
+	        (SELECT
+	             ROWNUM,
+	             NATION_NO,
+	             NATION_NAME,
+	             NATION_CONTENT
+	        FROM
+	            (SELECT
+	                  NATION_NO,
+	                  NATION_NAME,
+	                  NATION_CONTENT
+	             FROM
+	                 TB_NATION
+	            WHERE
+	                 NOT TB_NATION.NATION_NO = 82
+	            ORDER
+	               BY
+	                 NATION_NO) A )
+	    WHERE
+	         ROWNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="countNation">
+	SELECT
+		 COUNT(*) COUNT
+	  FROM
+	  	 TB_NATION
+  	 WHERE
+  	 	 NOT TB_NATION.NATION_NO = 82
+	</entry>
+	
+	<entry key="countCity">
+	SELECT
+		  COUNT(*) COUNT
+	  FROM
+	  	  TB_CITY
+	</entry>
+	
 	<entry key="cityList">
 	
 	SELECT
@@ -178,6 +221,40 @@
  		 STORY_NO = ?
 	  AND
 	  	 STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="allCityList">
+	SELECT
+		  NATION_NO,
+	      NATION_NAME,
+	      CITY_NO,
+	      CITY_NAME,
+	      COUNT
+	FROM
+		    (SELECT
+		         ROWNUM,
+		         NATION_NO,
+		         NATION_NAME,
+		         CITY_NO,
+		         CITY_NAME,
+		         COUNT
+		     FROM
+			        (SELECT
+			        	 TB_CITY.NATION_NO NATION_NO,
+			             NATION_NAME,
+			             CITY_NO,
+			             CITY_NAME,
+			             COUNT
+			         FROM
+			             TB_CITY
+			         JOIN
+			             TB_NATION ON (TB_CITY.NATION_NO = TB_NATION.NATION_NO)
+			        ORDER
+			           BY
+			             TB_NATION.NATION_NO ASC))
+	 WHERE
+	     ROWNUM BETWEEN ? AND ?
 	
 	</entry>
 	

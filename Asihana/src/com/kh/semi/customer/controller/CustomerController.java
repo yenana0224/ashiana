@@ -1,5 +1,6 @@
 package com.kh.semi.customer.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -225,6 +226,10 @@ public class CustomerController {
 			
 			if(result > 0) {
 				
+			}else {
+				if(file != null) {
+					new File(savePath + file.getChangeName()).delete();
+				}
 			}
 			
 		}

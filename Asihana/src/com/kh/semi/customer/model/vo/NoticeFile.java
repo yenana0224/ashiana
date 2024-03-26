@@ -7,6 +7,7 @@ public class NoticeFile {
 	private String filePath;
 	private String originName;
 	private String changeName;
+	
 	public NoticeFile() {
 		super();
 	}

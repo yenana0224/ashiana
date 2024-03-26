@@ -4,6 +4,7 @@
 	NoticeFile atFile = (NoticeFile)request.getAttribute("noticeFile");
 	Notice notice = (Notice)request.getAttribute("notice");
 	String hold = notice.getNoticeHold();
+	NoticeFile noticeFile = (NoticeFile)request.getAttribute("noticeFile");
 %>
 <!DOCTYPE html>
 <html>
@@ -97,7 +98,12 @@
                 </div>
 
                 <div class="fileAt">
-                    <input type="file" name="noticeFile">
+                	<input type="hidden" name="boardType" value="4">
+                    <input type="file" name="newFile">
+                    <% if(noticeFile != null) { %>
+                    	첨부파일 : <label> <%=noticeFile.getOriginName() %></label>
+                    	<input type="hidden" name="fileNo" value="<%= noticeFile.getFileNo() %>">
+                    <% } %>
                 </div>
 
                 <div class="check-area">
@@ -110,7 +116,6 @@
            
                 <div class="btn">
                     <button type="submit"> 확인 </button>
-                    <button> 목록으로 </button>
                 </div>
             </form>
         </div>

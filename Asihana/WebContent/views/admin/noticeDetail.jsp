@@ -86,7 +86,7 @@
         </div>
 
         <div class="form-area">
-            <form action="<%=contextPath %>/noticeUpdateForm.admin" method="post" enctype="multipart/form-data">
+            <form action="<%=contextPath %>/noticeUpdateForm.admin" method="post">
             	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
             	<input type="hidden" name="noticeNo" value="<%= notice.getNoticeNo() %>">
             	
@@ -114,13 +114,14 @@
                 </div>
            
                 <div class="btn">
-                    <button type="submit"> 수정 </button>
-                    <button> 목록으로 </button>
+                    <button type="submit"> 수정하기 </button>
                 </div>
             </form>
+            	<div class="btn">
+                    <button onclick="location.href='<%=contextPath %>/notice.admin?currentPage=1'"> 목록으로 </button>
+            	</div>
         </div>
     </div>
-    
 
 </body>
 </html>

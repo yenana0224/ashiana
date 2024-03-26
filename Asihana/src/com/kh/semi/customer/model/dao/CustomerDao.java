@@ -297,9 +297,9 @@ public class CustomerDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, noticeFile.getOriginName());
-			pstmt.setString(2, noticeFile.getChangeName());
-			pstmt.setString(3, noticeFile.getFilePath());
+			pstmt.setString(1, noticeFile.getFilePath());
+			pstmt.setString(2, noticeFile.getOriginName());
+			pstmt.setString(3, noticeFile.getChangeName());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -589,6 +589,48 @@ public class CustomerDao {
 			close(pstmt);
 		}
 		return file;
+	}
+	
+	public int attUpdate(Connection conn, NoticeFile noticeFile) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("attUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, noticeFile.getFilePath());
+			pstmt.setString(2, noticeFile.getOriginName());
+			pstmt.setString(3, noticeFile.getChangeName());
+			pstmt.setInt(4, noticeFile.getBoardNo());
+			pstmt.setInt(5, noticeFile.getBoardType());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int newAttInsert(Connection conn, NoticeFile noticeFile) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("attInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeFile.getBoardNo());
+			pstmt.setString(2, noticeFile.getFilePath());
+			pstmt.setString(3, noticeFile.getOriginName());
+			pstmt.setString(4, noticeFile.getChangeName());
+			pstmt.setInt(5, noticeFile.getBoardType());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

@@ -23,9 +23,7 @@ public class PlanController {
 			request.setAttribute("list", list);
 		}
 		
-		String view = "views/plan/planMain.jsp";
-		
-		return view;
+		return "views/plan/planMain.jsp";
 	}
 
 	public String userPlanCheck(HttpServletRequest request, HttpServletResponse response) {
@@ -62,6 +60,17 @@ public class PlanController {
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
 		return new PlanService().selectDesDetail(planNo);
+	}
+
+	public List<Schedule> selectSchedule(HttpServletRequest request, HttpServletResponse response) {
+		
+		String[] destNo = request.getParameterValues("destNo");
+		for(String s : destNo) {
+			
+			System.out.println(s);
+		}
+		
+		return null;//new PlanService().selectSchedule();
 	}
 
 	

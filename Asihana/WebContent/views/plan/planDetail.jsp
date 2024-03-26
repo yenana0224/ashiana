@@ -202,6 +202,7 @@
 	<%@ include file="../common/footer.jsp" %>
     
     <script> // AJAX
+    	let destNo = [];  
     	function selectPlan(){
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
@@ -265,6 +266,8 @@
 			                }
     					}
     					else{ // 도시
+    						// 목적지 번호 배열에 추가
+    						destNo.push(result[i].destNo);
     						// 목적지 구역
     						rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
@@ -295,6 +298,7 @@
 	    	                
 	    	                // 예약 및 일정 구역
 	    	                schedArea += '<div class="sched-des">' // 아코디언 div
+	    	                		   +     '<input type="hidden" value="' + result[i].destNo + '">'
 				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
 				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
 				    	               +     '<div class="sched-btn-area">'
@@ -327,7 +331,14 @@
     	
     	function selectSchedule(){
     		$.ajax({
-    			url : '',
+    			url : 'selectSchedule.ajaxplan',
+    			type : 'post',
+    			data : {
+    				destNo : JSON.stringify(destNo)
+    			},
+    			success : function(result){
+    				console.log(result);
+    			}
     			
     		})
     	}
@@ -337,6 +348,9 @@
     	$(function(){
     		selectPlan();
     		selectDestination();
+    		console.log(destNo);
+    		selectSchedule();
+    		
     	})
     	
     	

@@ -4,6 +4,8 @@ import com.kh.semi.plan.model.dao.PlanDao;
 import com.kh.semi.plan.model.vo.DestinationDetail;
 import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
+import com.kh.semi.plan.model.vo.Schedule;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
@@ -50,6 +52,17 @@ public class PlanService {
 		Connection conn = getConnection();
 		
 		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Schedule> selectSchedule(int planNo) {
+		
+		Connection conn = getConnection();
+		
+		List<Schedule> list = new PlanDao().selectSchedule(conn, planNo);
 		
 		close(conn);
 		

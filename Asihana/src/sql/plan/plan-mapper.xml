@@ -147,5 +147,9 @@
 		 ORDER
 		    BY DEST_NO
 	</entry>
+	
+	<entry key="selectSchedule">
+	
+	</entry>
 
 </properties>

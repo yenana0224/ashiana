@@ -265,6 +265,20 @@
 		function mouseOut(e){
 			e.style.backgroundColor = 'rgba(247, 240, 233, 0.253)';
 		}
+		
+		$('.td').click(function(){
+			
+			let qaNo;
+			
+			if($(this).hasClass('qaNo')){
+				qaNo = $(this).text();
+			}
+			else{
+				qaNo = $(this).siblings().eq(0).text();
+			}
+			
+			location.href='<%=contextPath%>/qnaDetail.customer?qnaNo=' + qaNo + '&currentPage=' + <%=pi.getCurrentPage()%>;
+		})
 	
 	</script>
 	

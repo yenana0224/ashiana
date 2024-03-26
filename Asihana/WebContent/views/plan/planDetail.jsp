@@ -58,6 +58,7 @@
 	
 	            </div> 
 	            <div id="root-area">
+	                <!--  
 	                <div class="root-icon">
 	                    <img src="resources/icons/arrow-down-square-fill.svg">
 	                </div>
@@ -82,9 +83,8 @@
 	                <div class="root-icon-home">
 	                    <img  src="resources/icons/house-door-fill.svg">
 	                </div>
-	                
+	                -->
 	            </div>
-	            
 	            
 	        </div>
 	        <div id="sched-area">
@@ -230,19 +230,61 @@
     			success : function(result){
     				console.log(result);
     				
-    				let resultStr = '';
-    				resultStr += '<div class="root-icon">' // 루트 아이콘
-	                    	   +		'<img src="resources/icons/arrow-down-square-fill.svg">'
-	                		   + '</div>';
-	                		   //+ '<div class="root-info"><label>항공(1시간)</label></div>';
-    				for(let i = 0; i < result.length - 1; i++){
-    					if(i = 0){
-    						console.log(result[i]);
+    				let departure = '';
+    				let arrival = '';
+    				let rootInfo = '';
+    				
+    				let rootArea = '';
+    				for(let i = 0; i < result.length; i++){
+    					if(i == 0){ // 출발
+    						departure = result[i].returnDate;
     					}
-    					
-    					
-    					
-    					
+    					else if(i == result.length - 1) { // 귀국
+    						rootArea += '<div class="root-icon">' // 루트 아이콘
+			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+			                		  + '</div>';
+							arrival = result[i].arrival;
+							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
+							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
+							rootInfo = result[i].trans + '(' + rootHour + '시간';
+							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
+							rootInfo += ')';
+							rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
+							departure = result[i].returnDate;
+							rootArea += '<div class="root-line"></div>'; // 루트 라인 
+							rootArea += '<div class="root-icon">' // 루트 아이콘
+			                    	  +		'<img src="resources/icons/house-door-fill.svg">'
+			                		  + '</div>';
+    					}
+    					else{ // 도시
+    						rootArea += '<div class="root-icon">' // 루트 아이콘
+			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+			                		  + '</div>';
+    						arrival = result[i].arrival;
+    						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
+    						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
+    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+    						if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
+    						rootInfo += ')';
+    						rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
+    						departure = result[i].returnDate;
+    						rootArea += '<div class="root-line"></div>'; // 루트 라인 
+    						
+    						let startDate = new Date(arrival).getMonth() + 1 + '월' + new Date(arrival).getDate() + '일'; 
+    						let endDate = new Date(departure).getMonth() + 1 + '월' + new Date(departure).getDate() + '일';
+    						
+    						rootArea += '<div class="root-card">' // 루트 카드
+	    	                    	  +	'<div class="des-img">'
+	    	                          +		'<img src="resources/대련.jpg">'
+	    	                    	  + 	'</div>'
+	    	                          + 	'<div class="des-info">'
+	    	                          + 		'<span>' + result[i].cityName + '</span> <br>'
+	    	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
+	    	                    	  + 	'</div>'
+	    	                          + '</div>';
+	    	                rootArea += '<div class="root-line"></div>'; // 루트 라인 
+    					}
+    					$('#root-area').html(rootArea);
     					
     				}
     				

@@ -76,13 +76,10 @@ public class InfoService {
 		return city;
 	}
 	
-	//public List<Attraction> searchAttraction(City c){
-		
-	//}
-	
 	public int countStory() {
 		Connection conn = getConnection();
 		int count = new InfoDao().countStory(conn);
+		if(count > 0) commit(conn);
 		close(conn);
 		return count;
 	}

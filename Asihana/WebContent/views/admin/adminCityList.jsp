@@ -104,6 +104,20 @@
             margin: 0px 5px 10px 0px;
             float : left;
         }
+        
+       .paging-area{
+      		margin-top : 20px;
+       }
+        
+       .paging-area>button{
+            text-align: center;
+            padding : 5px 10px 5px 10px;
+            border-radius: 10px;
+            background-color: #ff595e;
+            color : white;
+            border : none;
+            font-size : 15px;
+        }
 
 
     </style>

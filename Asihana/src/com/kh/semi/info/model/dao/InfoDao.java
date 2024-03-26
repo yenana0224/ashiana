@@ -101,11 +101,14 @@ public class InfoDao {
 	public int countNation(Connection conn) {
 		int count = 0;
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		String sql = prop.getProperty("countNation");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			count = pstmt.executeUpdate();
+			rset = pstmt.executeQuery();
+			if(rset.next()) count = rset.getInt("COUNT");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -117,11 +120,14 @@ public class InfoDao {
 	public int countCity(Connection conn) {
 		int count = 0;
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		String sql = prop.getProperty("countCity");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			count = pstmt.executeUpdate();
+			rset = pstmt.executeQuery();
+			if(rset.next()) count = rset.getInt("COUNT");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

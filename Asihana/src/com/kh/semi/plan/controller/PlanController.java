@@ -5,10 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonElement;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.plan.model.service.PlanService;
-import com.kh.semi.plan.model.vo.PlanDetail;
-import com.kh.semi.plan.model.vo.PlanMain;
+import com.kh.semi.plan.model.vo.*;
 
 public class PlanController {
 	
@@ -54,9 +54,14 @@ public class PlanController {
 		
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
-		PlanDetail planDetail = new PlanService().selectPlanDetail(planNo);
+		return new PlanService().selectPlanDetail(planNo);
+	}
+
+	public List<DestinationDetail> selectDesDetail(HttpServletRequest request, HttpServletResponse response) {
 		
-		return planDetail;
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
+		
+		return new PlanService().selectDesDetail(planNo);
 	}
 
 	

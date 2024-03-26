@@ -12,6 +12,7 @@ import java.util.Properties;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.plan.model.vo.DestinationDetail;
 import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
 
@@ -114,7 +115,8 @@ public class PlanDao {
 						                    rset.getString("START_TIME"),
 						                    rset.getString("TRAVEL_DATE"),
 						                    rset.getString("TRANS_SUM"),
-						                    rset.getString("SCHED_SUM"));
+						                    rset.getString("SCHED_SUM"),
+						                    rset.getString("TOTAL_SUM"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -123,6 +125,40 @@ public class PlanDao {
 			close(pstmt);
 		}
 		return planDetail;
+	}
+
+
+	public List<DestinationDetail> selectDesDetail(Connection conn, int planNo) {
+		
+		List<DestinationDetail> list = new ArrayList();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectDesDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new DestinationDetail(rset.getInt("DEST_NO"),
+						                       rset.getString("CITY_NAME"),
+						                       rset.getString("TRANS"),
+						                       rset.getString("TRIP"),
+						                       rset.getString("TRANS_PRICE"),
+						                       rset.getString("ARRIVAL"),
+						                       rset.getString("RETURN_DATE"),
+						                       rset.getString("DEST_DATE"),
+						                       rset.getString("SCHED_COST_SUM")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

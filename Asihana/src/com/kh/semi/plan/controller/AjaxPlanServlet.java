@@ -40,7 +40,8 @@ public class AjaxPlanServlet extends HttpServlet {
 		
 		PlanController pc = new PlanController();
 		switch(mapping) {
-		case "selectDetail" : new Gson().toJson(pc.selectPlanDetail(request, response), response.getWriter()); break;
+		case "selectPlanDetail" : new Gson().toJson(pc.selectPlanDetail(request, response), response.getWriter()); break;
+		case "selectDesDetail" : new Gson().toJson(pc.selectDesDetail(request, response), response.getWriter()); break;
 		}
 		
 		

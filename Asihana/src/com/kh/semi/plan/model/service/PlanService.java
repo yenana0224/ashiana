@@ -1,6 +1,7 @@
 package com.kh.semi.plan.model.service;
 
 import com.kh.semi.plan.model.dao.PlanDao;
+import com.kh.semi.plan.model.vo.DestinationDetail;
 import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -42,6 +43,17 @@ public class PlanService {
 		close(conn);
 		
 		return planDetail;
+	}
+
+	public List<DestinationDetail> selectDesDetail(int planNo) {
+		
+		Connection conn = getConnection();
+		
+		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

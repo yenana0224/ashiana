@@ -1,11 +1,13 @@
 package com.kh.semi.admin.model.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.admin.model.service.AdminService;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.info.model.service.InfoService;
@@ -85,6 +87,16 @@ public class adminController {
 		Notice notice = new CustomerService().noticeDetail(noticeNo);
 		request.setAttribute("notice", notice);
 		return "views/admin/noticeDetail.jsp";
+	}
+	
+	public String changeHold(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		String[] holds = request.getParameterValues("hold");
+		int result = new AdminService().changeHolds(holds);
+		
+		if (result > 0) request.getSession().setAttribute("alertMsg", "수정되었습니다");
+		else request.getSession().setAttribute("alertMsg", "수정되지 않았습니다");
+
+		return "notice.admin?currentPage=1";
 	}
 
 }

@@ -322,7 +322,7 @@
       		location.href = "<%=contextPath%>/faq.customer";
       	}
       	function qa(){
-      		location.href = "<%=contextPath%>/qa.customer";
+      		location.href = "<%=contextPath%>/qa.customer?currentPage=1";
       	}
       	
       </script>

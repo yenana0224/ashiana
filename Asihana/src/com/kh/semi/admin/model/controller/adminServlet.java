@@ -33,6 +33,7 @@ public class adminServlet extends HttpServlet {
 		adminController ac = new adminController();
 		
 		String view = "";
+		boolean flag = true;
 		
 		switch(mapping){
 		case "main" : view = "views/admin/adminMain.jsp"; break;
@@ -40,9 +41,14 @@ public class adminServlet extends HttpServlet {
 		case "story" : view = ac.storyList(request, response); break;
 		case "noticeInsertForm" : view = ac.noticeInsertForm(request, response); break;
 		case "noticeDetail" : view = ac.noticeDetail(request, response); break;
+		case "changeHold" : view = ac.changeHold(request, response); break;
 		}
 		
-		request.getRequestDispatcher(view).forward(request, response);
+		if(flag) {
+			request.getRequestDispatcher(view).forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + view);
+		}
 	
 	}
 

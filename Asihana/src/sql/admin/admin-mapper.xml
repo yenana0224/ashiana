@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>
+		admin-Mapper
+	</comment>
+	
+	<entry key="holdN">
+
+		UPDATE 
+			  TB_NOTICE
+	  	   SET 
+	  	   	  NOTICE_HOLD = 'N'
+  	</entry>
+  	
+  	<entry key="changeHolds">
+		UPDATE 
+			  TB_NOTICE
+	   	   SET 
+	   	  	  NOTICE_HOLD = 'Y'
+  	  	 WHERE
+  	  	 	  NOTICE_NO = ?
+  	</entry>
+  	
+  	
+</properties>

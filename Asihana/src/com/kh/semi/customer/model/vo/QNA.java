@@ -7,20 +7,23 @@ public class QNA {
 	private String QnaTitle; // 제목
 	private String QnaContent; // 내용
 	private Date CreateDate; // 작성일
-	private String status; // 답변상태
+	private String status; // 게시글 상태
+	private String QnaStatus; // 답변상태
 	private String QnaWriter; // 작성자
 
 	public QNA() {
 		super();
 	}
-	
-	public QNA(int qnaNo, String qnaTitle, String qnaContent, Date createDate, String status, String qnaWriter) {
+
+	public QNA(int qnaNo, String qnaTitle, String qnaContent, Date createDate, String status, String qnaStatus,
+			String qnaWriter) {
 		super();
 		QnaNo = qnaNo;
 		QnaTitle = qnaTitle;
 		QnaContent = qnaContent;
 		CreateDate = createDate;
 		this.status = status;
+		QnaStatus = qnaStatus;
 		QnaWriter = qnaWriter;
 	}
 
@@ -64,6 +67,14 @@ public class QNA {
 		this.status = status;
 	}
 
+	public String getQnaStatus() {
+		return QnaStatus;
+	}
+
+	public void setQnaStatus(String qnaStatus) {
+		QnaStatus = qnaStatus;
+	}
+
 	public String getQnaWriter() {
 		return QnaWriter;
 	}
@@ -75,7 +86,7 @@ public class QNA {
 	@Override
 	public String toString() {
 		return "QNA [QnaNo=" + QnaNo + ", QnaTitle=" + QnaTitle + ", QnaContent=" + QnaContent + ", CreateDate="
-				+ CreateDate + ", status=" + status + ", QnaWriter=" + QnaWriter + "]";
+				+ CreateDate + ", status=" + status + ", QnaStatus=" + QnaStatus + ", QnaWriter=" + QnaWriter + "]";
 	}
 
 	@Override
@@ -85,6 +96,7 @@ public class QNA {
 		result = prime * result + ((CreateDate == null) ? 0 : CreateDate.hashCode());
 		result = prime * result + ((QnaContent == null) ? 0 : QnaContent.hashCode());
 		result = prime * result + QnaNo;
+		result = prime * result + ((QnaStatus == null) ? 0 : QnaStatus.hashCode());
 		result = prime * result + ((QnaTitle == null) ? 0 : QnaTitle.hashCode());
 		result = prime * result + ((QnaWriter == null) ? 0 : QnaWriter.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -112,6 +124,11 @@ public class QNA {
 			return false;
 		if (QnaNo != other.QnaNo)
 			return false;
+		if (QnaStatus == null) {
+			if (other.QnaStatus != null)
+				return false;
+		} else if (!QnaStatus.equals(other.QnaStatus))
+			return false;
 		if (QnaTitle == null) {
 			if (other.QnaTitle != null)
 				return false;
@@ -129,6 +146,7 @@ public class QNA {
 			return false;
 		return true;
 	}
+		
 	
 	
 	

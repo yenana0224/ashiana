@@ -405,6 +405,20 @@
 	
 	</entry>
 	
+	<entry key="selectFile">
+		SELECT
+			  FILE_NO,
+			  ORIGIN_NAME,
+			  CHANGE_NAME,
+			  FILE_PATH
+		  FROM
+		  	  TB_FILE
+	   	 WHERE
+	   	 	  BOARD_NO = ?
+   	 	   AND
+   	 	   	  BOARD_TYPE = 4
+	</entry>
+	
 	
 	
 	

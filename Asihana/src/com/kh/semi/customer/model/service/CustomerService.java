@@ -183,4 +183,11 @@ public class CustomerService {
 		return list;
 	}
 	
+	public NoticeFile selectFile(int noticeNo) {
+		Connection conn = getConnection();
+		NoticeFile file = new CustomerDao().selectFile(conn, noticeNo);
+		close(conn);
+		return file;
+	}
+	
 }

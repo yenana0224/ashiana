@@ -434,7 +434,7 @@
 	   	 WHERE
 	   	 	  BOARD_NO = ?
    	 	   AND
-   	 	   	  BOARD_TYPE = 4
+   	 	   	  BOARD_TYPE = ?
 	</entry>
 	
 	<entry key="attUpdate">
@@ -474,6 +474,21 @@
 	  	 )
 	</entry>
 	
-	
+	<entry key="selectAnswer">
+		SELECT
+		      REPLY_NO,
+		      QNA_NO,
+		      REPLY_COMMENT,
+		      REPLY_WRITER,
+		      COMMENT_DATE,
+		      STATUS
+		  FROM
+		      TB_ANSWER
+		 WHERE
+		      QNA_NO = ?
+		 ORDER
+		    BY
+		      COMMENT_DATE DESC
+	</entry>
 	
 </properties>

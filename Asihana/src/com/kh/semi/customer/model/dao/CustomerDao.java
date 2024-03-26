@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.customer.model.vo.Answer;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.customer.model.vo.QNA;
@@ -590,7 +591,7 @@ public class CustomerDao {
 		return list;
 	}
 	
-	public NoticeFile selectFile(Connection conn, int noticeNo) {
+	public NoticeFile selectFile(Connection conn, int noticeNo, int boardType) {
 		NoticeFile file = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -599,6 +600,7 @@ public class CustomerDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(2, boardType);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				file = new NoticeFile();
@@ -658,7 +660,69 @@ public class CustomerDao {
 		return result;
 	}
 	
+	public List<Answer> selectAnswer(Connection conn, int qnaNo){
+		
+		List<Answer> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, qnaNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				list.add(new Answer(rset.getInt("REPLY_NO"),
+						 			rset.getInt("QNA_NO"),
+						 			rset.getString("REPLY_COMMENT"),
+						 			rset.getString("REPLY_WRITER"),
+						 			rset.getDate("COMMENT_DATE"),
+						 			rset.getString("STATUS")));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
-	
+	public QNA selectQna(Connection conn, int qnaNo) {
+		
+		QNA qna = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, qnaNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				qna = new QNA(rset.get);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+				
+		
+		
+		return qna;
+	}
 	
 }

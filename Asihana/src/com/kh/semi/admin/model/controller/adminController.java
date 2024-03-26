@@ -90,9 +90,10 @@ public class adminController {
 	
 	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-
+		int boardType = 4;
 		Notice notice = new CustomerService().noticeDetail(noticeNo);
-		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
 		request.setAttribute("notice", notice);
 		request.setAttribute("noticeFile", noticeFile);
@@ -109,9 +110,9 @@ public class adminController {
 	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		
+		int boardType = 4;
 		Notice notice = new CustomerService().noticeDetail(noticeNo);
-		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
 		request.setAttribute("notice", notice);
 		request.setAttribute("noticeFile", noticeFile);

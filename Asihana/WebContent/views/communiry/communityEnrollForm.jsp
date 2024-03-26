@@ -67,6 +67,7 @@
 </head>
 <body>
 
+<%@ include file="../common/headerbar.jsp" %>
 
 
 

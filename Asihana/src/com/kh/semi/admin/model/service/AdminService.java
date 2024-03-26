@@ -1,10 +1,14 @@
 package com.kh.semi.admin.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 
 import com.kh.semi.admin.model.dao.AdminDao;
+import com.kh.semi.customer.model.dao.CustomerDao;
+import com.kh.semi.customer.model.vo.Notice;
+import com.kh.semi.customer.model.vo.NoticeFile;
 public class AdminService {
 	
 	
@@ -28,5 +32,26 @@ public class AdminService {
 		return change;
 		
 		}
+	
+	public int updateNotice(Notice notice, NoticeFile noticeFile) {
+		Connection conn = getConnection();
+
+		int fileResult = 1;
+		
+		int noticeResult = new AdminDao().updateNotice(conn, notice);
+		
+		// 파일이 있다면 update 없다면 insert
+		if (noticeFile != null) {
+			// 기존 파일이 있는지 확인 == fileNo
+			if(noticeFile.getFileNo() > 0) {
+				fileResult = new CustomerDao().attUpdate(conn, noticeFile);
+			} else {
+				fileResult = new CustomerDao().newAttInsert(conn, noticeFile);
+			}
+		}
+		close(conn);
+		
+		return fileResult * noticeResult;
+	}
 
 }

@@ -23,5 +23,20 @@
   	  	 	  NOTICE_NO = ?
   	</entry>
   	
+  	<entry key="updateNotice">
+  	    UPDATE
+	         TB_NOTICE
+	      SET     
+	         NOTICE_TITLE = ?,
+	         NOTICE_CONTENT = ?,
+	         NOTICE_WRITER = ?,
+	         NOTICE_HOLD = ?,
+	         CREATE_DATE = SYSDATE
+	    WHERE
+	         NOTICE_NO = ?
+	      AND
+	         STATUS = 'Y'
+  	
+  	</entry>
   	
 </properties>

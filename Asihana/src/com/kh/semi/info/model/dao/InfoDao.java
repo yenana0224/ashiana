@@ -34,6 +34,102 @@ public class InfoDao {
 		}
 	}
 	
+	public List<Nation> nationList(Connection conn, PageInfo pi){
+		List<Nation> list = new ArrayList<Nation>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("nationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage()- 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Nation nation = new Nation();
+				nation.setNationNo(rset.getInt("NATION_NO"));
+				nation.setNationName(rset.getString("NATION_NAME"));
+				nation.setNationContent(rset.getString("NATION_CONTENT"));
+				list.add(nation);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<City> allCityList(Connection conn, PageInfo pi){
+		List<City> list = new ArrayList<City>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("allCityList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage()- 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				City city = new City();
+				city.setNationNo(rset.getInt("NATION_NO"));
+				city.setNationName(rset.getString("NATION_NAME"));
+				city.setCityNo(rset.getInt("CITY_NO"));
+				city.setCityName(rset.getString("CITY_NAME"));
+				city.setCount(rset.getInt("COUNT"));
+				list.add(city);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int countNation(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("countNation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public int countCity(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("countCity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return count;
+	}
+	
 	public ArrayList<City> cityList(Connection conn){
 		ArrayList<City> list = new ArrayList<City>();
 		PreparedStatement pstmt = null;

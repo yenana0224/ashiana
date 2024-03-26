@@ -5,7 +5,7 @@
 
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Story> list = (ArrayList<Story>)request.getAttribute("list");
+	List<Nation> list = (ArrayList<Nation>)request.getAttribute("list");
 %>
 
 <!DOCTYPE html>
@@ -50,11 +50,12 @@
             font-size : 15px;
         }
 
-        .storyList{
+        .nationList{
             border-top : 1px solid lightgray;
             border-collapse: collapse;
             width: 80%;
             margin : auto;
+            margin-top : 20px;
             
         }
 
@@ -64,19 +65,19 @@
             margin-top: 10px;
         }
 
-        .storyList th{
+        .nationList th{
             background-color: lightgray;
             border-bottom: 1px solid lightgray;
         }
 
-        .storyList tbody tr:hover{
-            .storyTitle {
+        .nationList tbody tr:hover{
+            .nationName {
                 text-decoration: underline;
                 cursor : pointer;
             }
         }
         
-        .storyList tbody td{
+        .nationList tbody td{
         	text-align : center;
         	border-bottom: 1px solid lightgray;
         	padding : 5px 0px 5px 0px;
@@ -91,13 +92,14 @@
         }
 
         .btn>a{
+        	display : block;
             text-decoration: none;
             color : white;
             background-color: #ff595e;
             border-radius: 10px;
             padding : 5px 10px 5px 10px;
-            margin-right: 20px;
-            float : right;
+            margin: 0px 5px 10px 0px;
+            float : left;
         }
 
 
@@ -109,64 +111,56 @@
     <div class="outer">
 
         <div class="title">
-            <h2>여행스토리</h2>
-            <h3>여행스토리목록</h3>
+            <h2>국가/도시정보</h2>
+            <h3>국가목록</h3>
         </div>
 
         <div class="search">
             <form action="#" method="get">
                 <select name="category">
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
+                    <option value="title">국가</option>
+                    <option value="content">도시</option>
                 </select>
                 <input type="text" name="keyword">
                 <button type="submit">검색</button>
             </form>
         </div>
 
-        <form action="storyDel.admin" name="status">
-            <table class="storyList">
+		<div class="btn">
+        	<a href="<%=contextPath%>/nationCityList.admin?currentPage=1">도시 보기</a>
+        </div>
+        
+
+            <table class="nationList">
                 <thead>
                     <tr>
-                        <th> <input type="checkbox" name="storyNo" id="checkAll"></th>
-                        <th>글번호</th>
-                        <th>제목</th>
-                        <th>작성일</th>
+                        <th>국가번호</th>
+                        <th>국가이름</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% if(list.isEmpty()) { %>
                         <tr>
-                            <td colspan="4"> 게시글이 없습니다</td>
+                            <td colspan="2"> 게시글이 없습니다</td>
                         </tr>
                     <% } else { %>
-                        <% for(Story s : list) { %>
+                        <% for(Nation n : list) { %>
                             <tr>
-                                <td><input type="checkbox" name="storyNo" value="<%=s.getStoryNo() %>"></td>
-                                <td><%=s.getStoryNo() %></td>
-                                <td class="storyTitle" id="<%=s.getStoryNo() %>"><%=s.getStoryTitle() %></td>
-                                <td><%=s.getCreateDate() %></td>
+                                <td><%=n.getNationNo() %></td>
+                                <td class="nationName" id="<%=n.getNationNo() %>"><%=n.getNationName() %></td>
                             </tr>
                         <% } %>
                     <% } %>
                 </tbody>
             </table>
-            <div class="btn">
-                선택 게시물 
-                <input type="hidden" name="boardType" value="7">
-                <button type="submit">삭제</button>
-            </div>
-        </form>
 
-		<div class="btn">
-        	<a href="<%=contextPath %>/storyInsertForm.admin">글작성하기</a>
-        </div>
-        
         <script>
+        
         $(function(){
 
-        	$('.storyTitle').click(function(){
-        		location.href="<%=contextPath%>/storyDetail.admin?storyNo=" + $(this).attr('id');
+        	$('.nationName').click(function(){
+        		console.log('클릭');
+        		location.href="<%=contextPath%>/nationInfo.admin?nationNo=" + $(this).attr('id');
         	});
         	
         })

@@ -283,11 +283,11 @@
 	
 	</entry>
 	
-	<entry key="selectTitleCount">
+	<entry key="qnaTitleCount">
 		SELECT
 		     COUNT(*) COUNT
 		 FROM
-		     TB_QNAS
+		     TB_QNA
 		WHERE    
 		     QA_TITLE LIKE '%' || ? || '%'
 		  AND
@@ -295,7 +295,7 @@
 	
 	</entry>
 	
-	<entry key="selectContentCount">
+	<entry key="qnaContentCount">
 	
 		   SELECT
 			     COUNT(*) COUNT
@@ -398,7 +398,7 @@
 		              Q.STATUS = 'Y'
 		         ORDER
 		            BY
-		              RNUM DESC)
+		              CREATE_DATE DESC)
 		 WHERE
 		      RNUM BETWEEN ? AND ?
 	

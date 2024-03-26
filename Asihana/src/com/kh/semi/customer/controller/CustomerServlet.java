@@ -37,7 +37,6 @@ public class CustomerServlet extends HttpServlet {
 		CustomerController customer = new CustomerController();
 		
 		String view = "";
-		
 		boolean flag = true;
 		
 		switch(mapping) {
@@ -48,7 +47,12 @@ public class CustomerServlet extends HttpServlet {
 		case "noticeInsert" : view = customer.noticeInsert(request, response); flag = false; break;
 		case "qa" : view = customer.qaList(request, response); break;
 		case "enrollQa" : view = "/views/customer/enrollQa.jsp"; break;
-		case "insertQa" : view = customer.insertQa(request, response); break;
+		case "insertQa" : 
+			view = customer.insertQa(request, response);
+			if(view.equals("/qa.customer?currentPage=1")) {
+				flag = false;
+			}
+			break;
 		}
 		
 		if(flag == true) {
@@ -57,7 +61,12 @@ public class CustomerServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + view);
 		}
 		
-	}
+}
+		
+		
+		
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

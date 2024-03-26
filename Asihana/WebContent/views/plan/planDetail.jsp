@@ -90,6 +90,7 @@
 	        <div id="sched-area">
 	            <div id="sched-box">
 	                <h2>예약 및 일정</h2> <label id="sched-date-sum"></label>
+	                <!--
 	                <div class="sched-des">
 	                    <span class="sched-des-city">대련-중국</span>
 	                    <span class="sched-des-date">3박 4일</span>
@@ -97,7 +98,7 @@
 	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
 	                    </div>
 	                    <span class="sched-des-price">예약 및 일정 예산 <label>260,000원</label></span>
-	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
+	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> + </span>
 	                </div>
 	                <div class="sched-des sched-des-detail">
 	                    <table class="table table-hover table-bordered">
@@ -125,8 +126,9 @@
 	                            
 	                        </tbody>
 	                      </table>
+	                      
 	                </div>
-	    
+	    			
 	                <div class="sched-des">
 	                    <span class="sched-des-city">대련-중국</span>
 	                    <span class="sched-des-date">3박 4일</span>
@@ -153,12 +155,14 @@
 	                        </tbody>
 	                      </table>
 	                </div>
+	                -->
 	            </div>
 	        </div>
 	        <div id="plan-sum">
-	            <span>이동 수단 가격 </span><label class="plan-sum-price" id="trans-sum"></label> + 
-	            <span>예약 및 일정 예산 </span><label class="plan-sum-price" id="sched-sum"></label> =
-	            <label class="plan-sum-total">총 예산 1,320,000원</label>
+	            <!-- <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> + -->
+	            <span>이동 수단 가격 <label class="plan-sum-price" id="trans-sum"></label> + </span>
+	            <span>예약 및 일정 예산 <label class="plan-sum-price" id="sched-sum"></label> = </span>
+	            <label class="plan-sum-total">총 예산 <label></label>원</label>
 	        </div>
 	    </form>
     </div>
@@ -176,7 +180,7 @@
         // 등록 유도 행
         var trEmpty = '<tr class="sched-tr-empty"><td colspan="5">등록된 예약 및 일정이 없습니다.</td></tr>';
         
-        $('.sched-des').on('click', '.sched-btn-area>img', function(){
+        $('#sched-box').on('click', '.sched-btn-area>img', function(){
             let $div = $(this).parent().parent().next();
             if($div.css('display') == 'none'){
                 $div.slideDown(500);
@@ -197,7 +201,7 @@
 	
 	<%@ include file="../common/footer.jsp" %>
     
-    <script>
+    <script> // AJAX
     	function selectPlan(){
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
@@ -216,7 +220,7 @@
     				// 하단 총 예산
     				$('#trans-sum').text(result.transSum + '원');
     				$('#sched-sum').text(result.schedSum + '원');
-    				$('.plan-sum-total').text('총 예산 ' + result.totalSum + '원');
+    				$('.plan-sum-total').find('label').text(result.totalSum);
     			}
     		})
     	};
@@ -227,14 +231,13 @@
     			data : {
     				planNo : <%= planNo %>
     			},
-    			success : function(result){
-    				console.log(result);
-    				
+    			success : function(result){    				
     				let departure = '';
     				let arrival = '';
     				let rootInfo = '';
     				
     				let rootArea = '';
+    				let schedArea = '';
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
@@ -255,8 +258,14 @@
 							rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/house-door-fill.svg">'
 			                		  + '</div>';
+			                		  
+			                // 귀국 항공편이 있을 시
+			                if(result[i].transPrice > 0){
+			                	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
+			                }
     					}
     					else{ // 도시
+    						// 목적지 구역
     						rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
 			                		  + '</div>';
@@ -283,15 +292,45 @@
 	    	                    	  + 	'</div>'
 	    	                          + '</div>';
 	    	                rootArea += '<div class="root-line"></div>'; // 루트 라인 
+	    	                
+	    	                // 예약 및 일정 구역
+	    	                schedArea += '<div class="sched-des">' // 아코디언 div
+				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
+				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
+				    	               +     '<div class="sched-btn-area">'
+				    	               +         '<button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
+				    	               +     '</div>'
+				    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+				    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
+				    	               + '</div>'
+				    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
+				    	               +     '<table class="table table-hover table-bordered">'
+				    	               +         '<thead>'
+				    	               +             '<tr>'
+				    	               +                 '<th class="th1">카테고리</th>'
+				    	               +                 '<th class="th2">예약/일정 명</th>'
+				    	               +                 '<th class="th3">상세 내용</th>'
+				    	               +                 '<th class="th4">예상 금액</th>'
+				    	               +             '</tr>'
+				    	               +         '</thead>'
+				    	               +         '<tbody class="sched-des-detail-body">'
+				    	               +         '</tbody>'
+				    	               +       '</table>'
+				    	               + '</div>';
     					}
+    				} // for문
     					$('#root-area').html(rootArea);
-    					
-    				}
-    				
+    					$('#sched-box').append(schedArea);
     			}
+    		})
+    	};
+    	
+    	function selectSchedule(){
+    		$.ajax({
+    			url : '',
     			
     		})
-    	};	
+    	}
     	
     	
     	

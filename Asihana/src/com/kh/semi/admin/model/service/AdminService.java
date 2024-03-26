@@ -46,7 +46,6 @@ public class AdminService {
 			if(noticeFile.getFileNo() > 0) {
 				fileResult = new CustomerDao().attUpdate(conn, noticeFile);
 			} else {
-				System.out.println(noticeFile.getChangeName());
 				fileResult = new CustomerDao().newAttInsert(conn, noticeFile);
 			}
 		}
@@ -54,5 +53,14 @@ public class AdminService {
 		
 		return fileResult * noticeResult;
 	}
+	/*
+	public int storyDel(String[] storyNos) {
+		Connection conn = getConnection();
+		
+		for(int i = 0; i<storyNos.length; i++) {
+			int storyNo = Integer.parseInt(storyNos[i]);
+		}
+	}
+	*/
 
 }

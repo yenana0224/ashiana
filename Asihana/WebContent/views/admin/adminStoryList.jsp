@@ -123,7 +123,7 @@
             </form>
         </div>
 
-        <form action="#" name="status">
+        <form action="storyDel.admin" name="status">
             <table class="storyList">
                 <thead>
                     <tr>
@@ -141,7 +141,7 @@
                     <% } else { %>
                         <% for(Story s : list) { %>
                             <tr>
-                                <td><input type="checkbox" value="<%=s.getStoryNo() %>"></td>
+                                <td><input type="checkbox" name="storyNo" value="<%=s.getStoryNo() %>"></td>
                                 <td><%=s.getStoryNo() %></td>
                                 <td id="storyTitle"><%=s.getStoryTitle() %></td>
                                 <td><%=s.getCreateDate() %></td>
@@ -152,6 +152,7 @@
             </table>
             <div class="btn">
                 선택 게시물 
+                <input type="hidden" name="boardType" value="7">
                 <button type="submit">삭제</button>
             </div>
         </form>

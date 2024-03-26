@@ -92,12 +92,15 @@ public class CustomerController {
 	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 	
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		String currentPage = request.getParameter("currentPage");
 		
 		Notice noticeDetail = new CustomerService().noticeDetail(noticeNo);
 		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
 		
+		
 		request.setAttribute("noticeDetail", noticeDetail);
 		request.setAttribute("noticeFile", noticeFile);
+		request.setAttribute("currentPage", currentPage);
 		
 		String view = "/views/customer/noticeDetail.jsp";
 		

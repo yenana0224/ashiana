@@ -27,13 +27,26 @@ public class PlanController {
 		return view;
 	}
 
-	public void selectPlanDetail(HttpServletRequest request, HttpServletResponse response) {
+	public String userPlanCheck(HttpServletRequest request, HttpServletResponse response) {
 		
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
+		String view = "";
+		int result = 0;
+		if(loginUser != null) {
+			result = new PlanService().userPlanCheck(loginUser.getUserNo(), planNo);
+		} 
 		
+		if(result > 0) {
+			request.setAttribute("planNo", planNo);
+			view = "views/plan/planDetail.jsp";
+		} else {
+			request.setAttribute("errorMsg", "니가 짠 플랜이 아니잖어~ 로그인은 했니~?");
+			view = "views/common/errorPage.jsp";
+		}
 		
-	
-	
+		return view;
 	}
 
 	

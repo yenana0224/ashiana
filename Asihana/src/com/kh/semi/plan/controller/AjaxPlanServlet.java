@@ -35,6 +35,8 @@ public class AjaxPlanServlet extends HttpServlet {
 		
 		PlanController pc = new PlanController();
 		
+		
+		
 		switch(mapping) {
 		case "selectDetail" : pc.selectPlanDetail(request, response); break;
 		}

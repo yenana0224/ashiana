@@ -21,4 +21,15 @@ public class PlanService {
 		return list;
 	}
 
+	public int userPlanCheck(int userNo, int planNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().userPlanCheck(conn, userNo, planNo);
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

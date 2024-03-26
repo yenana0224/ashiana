@@ -55,6 +55,17 @@
 		 ORDER
 		    BY D.PLAN_NO     
 	</entry>
+	
+	<entry key="userPlanCheck">
+		SELECT
+		      COUNT(*)
+		  FROM
+		      TB_PLAN
+		 WHERE
+		      MEM_NO = ?
+		   AND
+		      PLAN_NO = ?
+	</entry>
 
 
 </properties>

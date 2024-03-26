@@ -65,4 +65,30 @@ public class PlanDao {
 		return list;
 	}
 
+
+	public int userPlanCheck(Connection conn, int userNo, int planNo) {
+		int result = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("userPlanCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, planNo);
+			rset = pstmt.executeQuery();
+			
+			rset.next();
+			result = rset.getInt("COUNT(*)");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

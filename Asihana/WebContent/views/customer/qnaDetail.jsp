@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.customer.model.vo.* , java.util.ArrayList, java.util.List" %>
+<%
+	NoticeFile qnaFile = (NoticeFile)request.getAttribute("qnaFile");
+	List<Answer> answerList = (ArrayList<Answer>)request.getAttribute("answer");
+	QNA qna = (QNA)request.getAttribute("qna");
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,17 +168,22 @@
             <div id="qnaBox">
 
                 <div id="titleBox">
-                    <p>12월여행</p>
+                    <p><%=qna.getQnaTitle() %></p>
                 </div>
                 <div id="dateBox">
                     <label style="font-size: 12px;">작성일</label>
-                    <p>22.04.06</p>
+                    <p><%= qna.getCreateDate() %></p>
                 </div>
                 <div id="qnaText">
-                    <p>12월 이벤트 일정입니다</p>
+                    <p><%= qna.getQnaContent() %></p>
                 </div>
                 <div id="downloadBox">
-                    <label>첨부파일 / </label><a download="/01_HTML_workspace/resources/image/1.jpg" href="">다운로드파일</a>
+                <% if(qnaFile != null){ %>
+                    <label>첨부파일 / </label><a download="<%=contextPath + "/" +qnaFile.getFilePath() + "/" + qnaFile.getChangeName()%>"><%= qnaFile.getOriginName() %></a>
+                <% } else { %>
+                    <label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
+                
+                <% } %>    
                 </div>
                 <div id="buttonBox">
                     <button class="btn btn-sm btn-secondary">목록</button>

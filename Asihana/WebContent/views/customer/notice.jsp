@@ -259,7 +259,7 @@
 				}
 			}
 			
-			location.href='<%=contextPath%>/noticeDetail.customer?noticeNo=' + noticeNo;
+			location.href='<%=contextPath%>/noticeDetail.customer?noticeNo=' + noticeNo + '&currentPage=' + <%=pi.getCurrentPage()%>;
 		})
 		
 	</script>

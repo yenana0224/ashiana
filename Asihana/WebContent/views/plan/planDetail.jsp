@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	int planNo = Integer.parseInt((String)request.getAttribute("planNo"));
+	int planNo = (int)request.getAttribute("planNo");
 %>
 <!DOCTYPE html>
 <html>

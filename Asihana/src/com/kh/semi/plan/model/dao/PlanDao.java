@@ -12,6 +12,7 @@ import java.util.Properties;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
 
 
@@ -89,6 +90,39 @@ public class PlanDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+
+	public PlanDetail selectPlanDetail(Connection conn, int planNo) {
+		
+		PlanDetail planDetail = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectPlanDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				planDetail = new PlanDetail(rset.getInt("PLAN_NO"),
+						                    rset.getString("START_DATE"),
+						                    rset.getString("START_TIME"),
+						                    rset.getString("END_DATE"),
+						                    rset.getString("START_TIME"),
+						                    rset.getString("TRAVEL_DATE"),
+						                    rset.getString("TRANS_SUM"),
+						                    rset.getString("SCHED_SUM"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return planDetail;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.kh.semi.plan.model.service;
 
 import com.kh.semi.plan.model.dao.PlanDao;
+import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -30,6 +31,17 @@ public class PlanService {
 		close(conn);
 		
 		return result;
+	}
+
+	public PlanDetail selectPlanDetail(int planNo) {
+		
+		Connection conn = getConnection();
+		
+		PlanDetail planDetail = new PlanDao().selectPlanDetail(conn, planNo);
+		
+		close(conn);
+		
+		return planDetail;
 	}
 
 }

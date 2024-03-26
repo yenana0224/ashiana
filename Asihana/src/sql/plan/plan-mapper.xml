@@ -66,6 +66,53 @@
 		   AND
 		      PLAN_NO = ?
 	</entry>
-
+	
+	<entry key="selectPlanDetail">
+		SELECT
+		      P.PLAN_NO,
+		      TO_CHAR(S_DATE, 'YYYY-MM-DD') AS START_DATE,
+		      TO_CHAR(S_DATE, 'HH24:MI') AS START_TIME,
+		      TO_CHAR(E_DATE, 'YYYY-MM-DD') AS END_DATE,
+		      TO_CHAR(E_DATE, 'HH24:MI') AS END_TIME,
+		      FLOOR(E_DATE - S_DATE) || '박' || CEIL(E_DATE - S_DATE) || '일' AS TRAVEL_DATE,
+		      TO_CHAR(TRANSFER_SUM, 'FM999,999,999,999') AS TRANS_SUM,
+		      TO_CHAR(SCH_SUM, 'FM999,999,999,999') AS SCHED_SUM
+		  FROM
+		      TB_PLAN P,
+		      (SELECT PLAN_NO,
+		              MIN(RETURN_DATE) OVER(PARTITION BY PLAN_NO) AS S_DATE
+		         FROM TB_DESTINATION     
+		        ORDER
+		           BY RETURN_DATE NULLS LAST) SD,
+		      (SELECT PLAN_NO,
+		              MAX(ARRIVAL) OVER(PARTITION BY PLAN_NO) AS E_DATE
+		         FROM TB_DESTINATION     
+		        ORDER
+		           BY ARRIVAL DESC NULLS LAST) ED,
+		      (SELECT PLAN_NO,
+		              SUM(TRANS_PRICE) AS TRANSFER_SUM
+		         FROM TB_DESTINATION
+		        GROUP
+		           BY PLAN_NO) TP,
+		      (SELECT PLAN_NO,
+		              SUM(S_SUM) SCH_SUM
+		         FROM TB_DESTINATION
+		         JOIN (SELECT DEST_NO,
+		                      SUM(SCHED_COST) AS S_SUM
+		                 FROM TB_SCHEDULE
+		                GROUP 
+		                   BY DEST_NO) USING(DEST_NO)
+		        GROUP
+		           BY PLAN_NO) SS
+		 WHERE P.PLAN_NO = SD.PLAN_NO
+		   AND P.PLAN_NO = ED.PLAN_NO
+		   AND P.PLAN_NO = SS.PLAN_NO
+		   AND P.PLAN_NO = ?
+		   AND P.STATUS = 'Y'
+		 GROUP
+		    BY P.PLAN_NO, S_DATE, E_DATE, TRANSFER_SUM, SCH_SUM
+		 ORDER
+		    BY P.PLAN_NO
+	</entry>
 
 </properties>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.plan.model.service.PlanService;
+import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
 
 public class PlanController {
@@ -47,6 +48,15 @@ public class PlanController {
 		}
 		
 		return view;
+	}
+
+	public PlanDetail selectPlanDetail(HttpServletRequest request, HttpServletResponse response) {
+		
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
+		
+		PlanDetail planDetail = new PlanService().selectPlanDetail(planNo);
+		
+		return planDetail;
 	}
 
 	

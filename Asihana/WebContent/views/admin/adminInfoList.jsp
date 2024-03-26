@@ -159,7 +159,6 @@
         $(function(){
 
         	$('.nationName').click(function(){
-        		console.log('클릭');
         		location.href="<%=contextPath%>/nationInfo.admin?nationNo=" + $(this).attr('id');
         	});
         	

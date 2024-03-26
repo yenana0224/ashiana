@@ -63,8 +63,6 @@
             
         }
 
-
-
         .cityList th{
             background-color: lightgray;
             border-bottom: 1px solid lightgray;
@@ -141,6 +139,7 @@
                     <tr>
                         <th>국가이름</th>
                         <th>도시이름</th>
+                        <th>조회수</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,6 +152,7 @@
                             <tr>
                                 <td><%=c.getNationName() %></td>
                                 <td class="cityName" id="<%=c.getCityNo() %>"><%=c.getCityName() %></td>
+                                <td><%=c.getCount() %></td>
                             </tr>
                         <% } %>
                     <% } %>

@@ -34,7 +34,6 @@
         	text-align : center;
         	font-size : 30px;
         	font-weight : bold;
-        	
         }
 
         .story .storyEmpty {
@@ -126,7 +125,6 @@
             border : none;
             font-size : 15px;
         }
-        
 
 </style>
 </head>
@@ -174,7 +172,6 @@
         	})
         </script> 
         
-        
        <div class="paging-area" align="center">
         
         	<% if(currentPage > 1) { %>
@@ -193,14 +190,8 @@
 			<% if(currentPage != maxPage) { %>
 			  <button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage + 1%>'">다음</button>
 			<% } %>
-        </div>
-        
-
-	        
-	        
-	         
+        </div>   
        </div>
-
    </div>
    <%@ include file="../common/footer.jsp" %>
    

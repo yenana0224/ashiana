@@ -5,7 +5,7 @@
 
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Notice> list = (ArrayList<Notice>)request.getAttribute("noticeList");
+	List<Notice> list = (List<Notice>)request.getAttribute("noticeList");
 %>
 
 <!DOCTYPE html>
@@ -70,7 +70,7 @@
         }
 
 
-          #noticeTitle:hover {
+          .noticeTitle:hover {
               text-decoration: underline;
               cursor : pointer;
           }
@@ -88,6 +88,10 @@
         	color : white;
         	padding : 5px 10px 5px 10px;
         	border-radius: 10px;
+        }
+        
+        button:hover{
+        	cursor : pointer;
         }
 
         .btn>a{
@@ -124,7 +128,7 @@
             </form>
         </div>
 
-        <form action="<%=contextPath %>/changeHold.admin" name="status" method="get">
+        <form action="<%=contextPath %>/changeHold.admin" method="get">
             <table class="noticeList">
                 <thead>
                     <tr>
@@ -175,18 +179,6 @@
                     </script>
                 </tbody>
             </table>
-         
-            <script>
-            
-            $(function(){
-            	
-            	$('.noticeTitle').click(function(){
-            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
-            	});
-            })
-
-        
-            </script>
             <div class="btn">
                 선택 게시물 
                 <button type="submit">고정</button>
@@ -196,6 +188,17 @@
 		<div class="btn">
         	<a href="<%=contextPath %>/noticeInsertForm.admin">글작성하기</a>
         </div>
+        
+           <script>
+            
+            $(function(){
+            	
+            	$('.noticeTitle').click(function(){
+            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
+            	});
+            })
+            
+            </script>
 
     </div>
 </body>

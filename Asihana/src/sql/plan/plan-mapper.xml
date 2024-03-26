@@ -48,12 +48,12 @@
 		   AND D.PLAN_NO = P.PLAN_NO
 		   AND D.PLAN_NO = C.PLAN_NO
 		   AND D.PLAN_NO = S.PLAN_NO
-		   AND MEM_NO = 1
-		   AND STATUS = 'Y'
+		   AND MEM_NO = ?
+		   AND P.STATUS = 'Y'
 		 GROUP
 		    BY D.PLAN_NO, S_DATE, E_DATE, CITYS, UPLOAD_DATE, SUM_PRICE
 		 ORDER
-		    BY D.PLAN_NO;     
+		    BY D.PLAN_NO     
 	</entry>
 
 

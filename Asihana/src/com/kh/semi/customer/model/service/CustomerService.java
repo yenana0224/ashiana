@@ -105,6 +105,7 @@ public class CustomerService {
 		Connection conn = getConnection();
 		
 		Notice notice = new CustomerDao().noticeDetail(conn, noticeNo);
+		close(conn);
 		return notice;
 	}
 	
@@ -180,6 +181,13 @@ public class CustomerService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public NoticeFile selectFile(int noticeNo) {
+		Connection conn = getConnection();
+		NoticeFile file = new CustomerDao().selectFile(conn, noticeNo);
+		close(conn);
+		return file;
 	}
 	
 }

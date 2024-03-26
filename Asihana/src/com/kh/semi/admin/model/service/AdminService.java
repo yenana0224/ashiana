@@ -12,19 +12,21 @@ public class AdminService {
 		Connection conn = getConnection();
 		int change = 1;
 		
-		System.out.println(new AdminDao().holdN(conn));
-		/*
+		// 전체 고정 해제
 		if(new AdminDao().holdN(conn) > 0) {
 			for(int i = 0; i<holds.length; i++) {
-				int hold = Integer.parseInt(holds[i].toString());
-				
-				change *= new AdminDao().changeHolds(conn, hold);
+				//System.out.println(holds[i]);
+				int hold = Integer.parseInt(holds[i]);
+				//System.out.println(hold);
+				int holdResult = new AdminDao().changeHolds(conn, hold);
+				// System.out.println(holdResult);
+				change = change*holdResult;
 			}
 		}
-		*/
 		
 		close(conn);
 		return change;
-	}
+		
+		}
 
 }

@@ -1,7 +1,6 @@
-package com.kh.semi.admin.model.controller;
+package com.kh.semi.plan.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class adminController
+ * Servlet implementation class AjaxPlanServlet
  */
-@WebServlet("*.admin")
-public class adminServlet extends HttpServlet {
+@WebServlet("*.ajaxplan")
+public class AjaxPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminServlet() {
+    public AjaxPlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,30 +26,21 @@ public class adminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// POST => 인코딩
+		request.setCharacterEncoding("UTF-8");
+		
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 		
-		adminController ac = new adminController();
+		PlanController pc = new PlanController();
 		
-		String view = "";
-		boolean flag = true;
-		
-		switch(mapping){
-		case "main" : view = "views/admin/adminMain.jsp"; break;
-		case "notice" : view = ac.noticeList(request, response); break;
-		case "story" : view = ac.storyList(request, response); break;
-		case "noticeInsertForm" : view = ac.noticeInsertForm(request, response); break;
-		case "noticeDetail" : view = ac.noticeDetail(request, response); break;
-		case "changeHold" : view = ac.changeHold(request, response); flag = false; break;
-		case "noticeUpdateForm" : view = ac.noticeUpdateForm(request, response); break;
+		switch(mapping) {
+		case "selectDetail" : pc.selectPlanDetail(request, response); break;
 		}
 		
-		if(flag) {
-			request.getRequestDispatcher(view).forward(request, response);
-		} else {
-			response.sendRedirect(request.getContextPath() + view);
-		}
-	
+		
+		
 	}
 
 	/**

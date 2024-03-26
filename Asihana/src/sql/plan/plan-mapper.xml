@@ -118,7 +118,7 @@
 	
 	<entry key="selectDesDetail">
 		SELECT DEST_NO,
-		       CITY_NAME,
+		       CITY_NAME || '-' || NATION_NAME AS CITY_NAME,
 		       TRANS,
 		       TRIP,
 		       TO_CHAR(TRANS_PRICE, 'FM999,999,999,999') AS TRANS_PRICE,
@@ -128,7 +128,11 @@
 		       TO_CHAR(SUM_COST, 'FM999,999,999,999') AS SCHED_COST_SUM
 		  FROM TB_DESTINATION
 		  LEFT
-		  JOIN TB_CITY USING(CITY_NO)
+		  JOIN (SELECT CITY_NO,
+		               CITY_NAME,
+		               NATION_NAME
+		          FROM TB_CITY
+		          JOIN TB_NATION USING(NATION_NO)) USING(CITY_NO)
 		  LEFT
 		  JOIN (SELECT
 		              DEST_NO,

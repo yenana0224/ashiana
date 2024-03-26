@@ -46,6 +46,7 @@ public class AdminService {
 			if(noticeFile.getFileNo() > 0) {
 				fileResult = new CustomerDao().attUpdate(conn, noticeFile);
 			} else {
+				System.out.println(noticeFile.getChangeName());
 				fileResult = new CustomerDao().newAttInsert(conn, noticeFile);
 			}
 		}

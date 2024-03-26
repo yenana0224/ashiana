@@ -1,6 +1,7 @@
 package com.kh.semi.plan.model.vo;
 
 public class PlanDetail {
+	
 	private int planNo;
 	private String startDate;
 	private String startTime;
@@ -9,6 +10,7 @@ public class PlanDetail {
 	private String travelDate;
 	private String transSum;
 	private String schedSum;
+	
 	public PlanDetail() {
 		super();
 	}

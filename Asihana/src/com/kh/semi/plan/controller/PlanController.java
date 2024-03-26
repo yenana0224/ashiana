@@ -27,6 +27,15 @@ public class PlanController {
 		return view;
 	}
 
+	public void selectPlanDetail(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		
+	
+	
+	}
+
 	
 
 }

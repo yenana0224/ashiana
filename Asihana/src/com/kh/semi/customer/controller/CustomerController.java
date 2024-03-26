@@ -110,10 +110,7 @@ public class CustomerController {
 
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024* 1024* 10;
-			
-			HttpSession session = request.getSession();
-			ServletContext application = session.getServletContext();
-			String savePath = application.getRealPath("/resources/notice");// 파일 경로
+			String savePath = request.getServletContext().getRealPath("/resources/notice");
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			String noticeTitle = multiRequest.getParameter("title");

@@ -640,7 +640,7 @@ public class CustomerDao {
 	public int newAttInsert(Connection conn, NoticeFile noticeFile) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("attInsert");
+		String sql = prop.getProperty("newAttInsert");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

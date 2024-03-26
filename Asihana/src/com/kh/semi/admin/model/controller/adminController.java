@@ -143,9 +143,7 @@ public class adminController {
 			notice.setNoticeContent(noticeContent);
 			notice.setNoticeWriter(noticeWriter);
 			notice.setNoticeHold(noticeHold);
-			
-			
-			
+
 			NoticeFile noticeFile = null;
 			String key = "newFile";
 			// 새로운 업로드 파일이 존재한다면

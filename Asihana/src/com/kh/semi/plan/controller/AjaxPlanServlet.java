@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.kh.semi.plan.model.vo.PlanDetail;
+
 /**
  * Servlet implementation class AjaxPlanServlet
  */
@@ -33,12 +36,12 @@ public class AjaxPlanServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 		
+		response.setContentType("application/json; charset=UTF-8");
+		
 		PlanController pc = new PlanController();
-		
-		
-		
 		switch(mapping) {
-		case "selectDetail" : pc.selectPlanDetail(request, response); break;
+		case "selectPlanDetail" : new Gson().toJson(pc.selectPlanDetail(request, response), response.getWriter()); break;
+		case "selectDesDetail" : new Gson().toJson(pc.selectDesDetail(request, response), response.getWriter()); break;
 		}
 		
 		

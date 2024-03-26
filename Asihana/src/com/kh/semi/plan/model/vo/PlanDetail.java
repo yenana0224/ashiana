@@ -10,12 +10,14 @@ public class PlanDetail {
 	private String travelDate;
 	private String transSum;
 	private String schedSum;
+	private String totalSum;
 	
 	public PlanDetail() {
 		super();
 	}
+	
 	public PlanDetail(int planNo, String startDate, String startTime, String endDate, String endTime, String travelDate,
-			String transSum, String schedSum) {
+			String transSum, String schedSum, String totalSum) {
 		super();
 		this.planNo = planNo;
 		this.startDate = startDate;
@@ -25,7 +27,9 @@ public class PlanDetail {
 		this.travelDate = travelDate;
 		this.transSum = transSum;
 		this.schedSum = schedSum;
+		this.totalSum = totalSum;
 	}
+
 	public int getPlanNo() {
 		return planNo;
 	}
@@ -74,12 +78,20 @@ public class PlanDetail {
 	public void setSchedSum(String schedSum) {
 		this.schedSum = schedSum;
 	}
+	public String getTotalSum() {
+		return totalSum;
+	}
+	public void setTotalSum(String totalSum) {
+		this.totalSum = totalSum;
+	}
+
 	@Override
 	public String toString() {
 		return "PlanDetail [planNo=" + planNo + ", startDate=" + startDate + ", startTime=" + startTime + ", endDate="
 				+ endDate + ", endTime=" + endTime + ", travelDate=" + travelDate + ", transSum=" + transSum
-				+ ", schedSum=" + schedSum + "]";
+				+ ", schedSum=" + schedSum + ", totalSum=" + totalSum + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,10 +102,12 @@ public class PlanDetail {
 		result = prime * result + ((schedSum == null) ? 0 : schedSum.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
+		result = prime * result + ((totalSum == null) ? 0 : totalSum.hashCode());
 		result = prime * result + ((transSum == null) ? 0 : transSum.hashCode());
 		result = prime * result + ((travelDate == null) ? 0 : travelDate.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -130,6 +144,11 @@ public class PlanDetail {
 				return false;
 		} else if (!startTime.equals(other.startTime))
 			return false;
+		if (totalSum == null) {
+			if (other.totalSum != null)
+				return false;
+		} else if (!totalSum.equals(other.totalSum))
+			return false;
 		if (transSum == null) {
 			if (other.transSum != null)
 				return false;
@@ -142,6 +161,6 @@ public class PlanDetail {
 			return false;
 		return true;
 	}
-	
+
 	
 }

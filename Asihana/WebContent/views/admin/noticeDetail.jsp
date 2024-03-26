@@ -85,13 +85,15 @@
         </div>
 
         <div class="form-area">
-            <form action="<%=contextPath %>/noticeInsert.customer" method="post" enctype="multipart/form-data">
+            <form action="<%=contextPath %>/noticeUpdateForm.admin" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+            	<input type="hidden" name="noticeNo" value="<%= notice.getNoticeNo() %>">
+            	
                 <div class="title-area">
-                    <input type="text" name="title" value="<%= notice.getNoticeTitle() %>"> 
+                    <input type="text" name="title" value="<%= notice.getNoticeTitle() %>" readonly> 
                 </div>
-                <div class="content-area" style="resize: none;">
-                    <textarea name="content" cols="30" rows="20"><%= notice.getNoticeContent()%></textarea>
+                <div class="content-area">
+                    <textarea name="content" cols="30" rows="20"  style="resize: none;" readonly><%= notice.getNoticeContent()%></textarea>
                 </div>
 
                 <div class="fileAt">
@@ -100,15 +102,12 @@
 
                 <div class="check-area">
                 	<% if(notice.getNoticeHold().equals("Y")) { %>
-                    <input type="checkbox" name="hold" checked disable> <label>상단고정</label>
+                    <input type="checkbox" name="hold" checked disabled> <label>상단고정</label>
                     <% } else {%>
-                    <input type="checkbox" name="hold" disable> <label>상단고정</label>
+                    <input type="checkbox" name="hold" disabled> <label>상단고정</label>
                     <% } %>
                 </div>
-                <script>
-                
-                </script>
-                
+           
                 <div class="btn">
                     <button type="submit"> 수정 </button>
                     <button> 목록으로 </button>

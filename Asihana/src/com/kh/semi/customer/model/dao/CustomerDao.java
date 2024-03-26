@@ -708,19 +708,20 @@ public class CustomerDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				qna = new QNA(rset.get);
+				qna = new QNA(rset.getInt("Q_NO"),
+						      rset.getString("QA_TITLE"),
+						      rset.getString("QA_CONTENT"),
+						      rset.getDate("CREATE_DATE"),
+						      rset.getString("QA_STATUS"),
+						      rset.getString("STATUS"),
+						      rset.getString("QA_WRITER"));
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-				
-		
 		
 		return qna;
 	}

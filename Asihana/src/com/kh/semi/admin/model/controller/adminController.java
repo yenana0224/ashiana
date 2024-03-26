@@ -221,7 +221,6 @@ public class adminController {
 		if(maxPage < endPage) endPage = maxPage;
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		System.out.println(pi.toString());
 		
 		List<City> cityList = new InfoService().allCityList(pi);
 		

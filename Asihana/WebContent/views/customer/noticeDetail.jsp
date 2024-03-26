@@ -68,8 +68,6 @@
             height: 200px;
             margin: auto;
             padding-top: 50px;
-       }
-       #noticeText{
             word-wrap:break-word;
        }
        #buttonBox{

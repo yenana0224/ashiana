@@ -53,6 +53,7 @@ public class CustomerServlet extends HttpServlet {
 				flag = false;
 			}
 			break;
+		case "qnaDetail" : view = customer.qnaDetail(request, response); break;
 		}
 		
 		if(flag == true) {

@@ -257,4 +257,35 @@ public class CustomerController {
 	}
 	
 	
+	public String qnaDetail(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		
+		
+		
+		String view = "views/customer/qnaDetail.jsp";
+		
+		return view;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

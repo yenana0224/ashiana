@@ -2,6 +2,7 @@ package com.kh.semi.admin.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
@@ -27,7 +28,7 @@ public class AdminService {
 				change = change*holdResult;
 			}
 		}
-		
+		if(change > 0) commit(conn);
 		close(conn);
 		return change;
 		
@@ -46,13 +47,30 @@ public class AdminService {
 			if(noticeFile.getFileNo() > 0) {
 				fileResult = new CustomerDao().attUpdate(conn, noticeFile);
 			} else {
-				System.out.println(noticeFile.getChangeName());
 				fileResult = new CustomerDao().newAttInsert(conn, noticeFile);
 			}
 		}
+		
+		int result = fileResult * noticeResult;
+		if(result > 0) commit(conn);
 		close(conn);
 		
 		return fileResult * noticeResult;
 	}
+	
+	public int storyDel(String[] storyNos) {
+		Connection conn = getConnection();
+		int result = 1;
+		
+		for(int i = 0; i<storyNos.length; i++) {
+			int storyNo = Integer.parseInt(storyNos[i]);
+			int del = new AdminDao().storyDel(conn, storyNo);
+			result = result * del;
+		}
+		if(result > 0) commit(conn);
+		close(conn);
+		return result;
+	}
+	
 
 }

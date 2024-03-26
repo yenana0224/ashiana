@@ -62,8 +62,8 @@ public class adminController {
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new InfoService().countStory();
-		int pageLimit = 15;
-		int boardLimit = 10;
+		int pageLimit = 10;
+		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
@@ -133,9 +133,8 @@ public class adminController {
 			String noticeTitle = multiRequest.getParameter("title");
 			String noticeContent = multiRequest.getParameter("content");
 			String noticeWriter = multiRequest.getParameter("userNo");
-			String noticeHold = "";
-			if (multiRequest.getParameter("hold") == null) noticeHold = "N"; 
-			else if(multiRequest.getParameter("hold").equals("Y")) noticeHold = "Y";
+			String noticeHold = "N";
+			if(multiRequest.getParameter("hold") != null ) noticeHold = "Y";
 			
 			Notice notice = new Notice();
 			notice.setNoticeNo(noticeNo);
@@ -171,5 +170,15 @@ public class adminController {
 		}
 		return view;
 	}
-
+	
+	
+	public String storyDel(HttpServletRequest request, HttpServletResponse response) {
+		String view = "";
+		String[] storyNos = request.getParameterValues("storyNo");
+		if(new AdminService().storyDel(storyNos) > 0) {
+			view = "/story.admin?currentPage=1";
+		}
+		return view;
+	}
+	
 }

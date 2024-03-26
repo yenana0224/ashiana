@@ -4,6 +4,7 @@
 <%
 	Notice noticeDetail = (Notice)request.getAttribute("noticeDetail");
 	NoticeFile noticeFile = (NoticeFile)request.getAttribute("noticeFile");
+	String currentPage = (String)request.getAttribute("currentPage");
 %>
 <!DOCTYPE html>
 <html>
@@ -109,11 +110,30 @@
                 </div>
                 <% } %>
                 <div id="buttonBox">
-                    <button class="btn btn-sm btn-secondary">목록</button>
-                    <button class="btn btn-sm btn-danger">삭제</button>
+                <% if(loginUser != null) {%>
+                    <% if(loginUser.getUserId().equals("admin")){ %>
+	                    <button class="btn btn-sm btn-danger" onclick="noticeUpdate();">수정</button>
+	                    <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+                    <% } else { %>
+                    	<button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+                    <% } %>
+                <% } else { %>
+                	 <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+                <% } %>    
                 </div>
             </div>
-
+		
+		<script>
+			function noticeBack(){
+				location.href='<%=contextPath%>/notice.customer?currentPage=<%=currentPage%>'
+			}
+			function noticeUpdate(){
+				location.href='<%=contextPath%>/noticeUpdateForm.admin?noticeNo=<%=noticeDetail.getNoticeNo()%>'
+			}
+		
+		</script>
+		
+		
 	<%@ include file="../common/footer.jsp" %>
 
 

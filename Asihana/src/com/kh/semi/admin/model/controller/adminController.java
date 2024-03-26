@@ -171,12 +171,14 @@ public class adminController {
 		return view;
 	}
 	
-	/*
+	
 	public String storyDel(HttpServletRequest request, HttpServletResponse response) {
-		
+		String view = "";
 		String[] storyNos = request.getParameterValues("storyNo");
-		int result = new AdminService().storyDel(storyNos);
-		
+		if(new AdminService().storyDel(storyNos) > 0) {
+			view = "/story.admin?currentPage=1";
+		}
+		return view;
 	}
-	*/
+	
 }

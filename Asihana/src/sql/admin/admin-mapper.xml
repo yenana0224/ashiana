@@ -39,4 +39,13 @@
   	
   	</entry>
   	
+  	<entry key="storyDel">
+  		UPDATE
+  			  TB_STORY
+ 		  SET
+ 		  	  STATUS = 'N'
+		 WHERE
+		 	  STORY_NO = ?
+  	</entry>
+  	
 </properties>

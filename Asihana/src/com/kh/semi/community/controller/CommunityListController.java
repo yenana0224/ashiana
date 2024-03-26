@@ -17,13 +17,13 @@ import com.kh.semi.community.model.vo.Community;
  * Servlet implementation class communityController
  */
 @WebServlet("/commu.List")
-public class CommunityController extends HttpServlet {
+public class CommunityListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityController() {
+    public CommunityListController() {
         super();
         // TODO Auto-generated constructor stub
     }

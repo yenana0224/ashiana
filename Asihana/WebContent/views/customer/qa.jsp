@@ -148,11 +148,9 @@
             color: white;
             font-weight: bold;
         }
-        #numButton{
+        .numButton{
             width: 30px;
             height: 30px;
-            background-color: rgba(243, 101, 91, 0.877);
-            color: whitesmoke;
             border: none;
             border-radius: 5px;
             font-weight: bold;
@@ -171,12 +169,13 @@
         <p>Q & A</p>
     </div>
     <div id="search">
-        <form action="" method="get">
+        <form action="<%=contextPath %>/qa.customer" method="get">
             <select name="select" id="select">
             <option value="title">제목</option>
             <option value="content">내용</option>
             </select>
-            <input type="text" id="searchText">
+            <input type="text" id="searchText" name="searchContent">
+            <input type="hidden" name="currentPage" value="1">
             <button>검색</button>
         </form>
     </div>
@@ -218,11 +217,42 @@
         <button>작성</button>
     </div>
 	<% } %>
-    <div id="buttonBox">
-        <button id="backButton">이전</button>
-        <button id="numButton">1</button>
-        <button id="nextButton">다음</button>
+	
+	
+	<% if(searchContent != null) { %>
+		<div id="buttonBox">
+		<% if(pi.getCurrentPage() > 1){ %>
+        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+        <% } %>
+        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+        	<% if( pi.getCurrentPage() != i) { %>
+        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
+        	<% } else{ %>
+        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
+        	<% } %>
+        <% } %>
+        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+        <% } %>
     </div>
+	<% } else { %>
+	
+		<div id="buttonBox">
+			<% if(pi.getCurrentPage() > 1){ %>
+	        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+	        <% } %>
+	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+	        	<% if( pi.getCurrentPage() != i) { %>
+	        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%=i%>'"><%= i %></button>
+	        	<% } else{ %>
+	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
+	        	<% } %>
+	        <% } %>
+	        <% if(pi.getCurrentPage() < pi.getMaxPage()) {%>
+	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+	        <% } %>
+	    </div>
+	<% } %>
 	
 	
 	<script>

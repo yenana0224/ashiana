@@ -435,8 +435,33 @@ public class CustomerDao {
 		
 		return result;
 		
-		
 	}
+	
+	public int selectQnaCount(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQnaCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 	public List<QNA> qnaTitleSearch(Connection conn,String searchContent, PageInfo pi){
 		

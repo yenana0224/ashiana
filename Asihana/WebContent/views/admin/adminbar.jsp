@@ -2,7 +2,8 @@
     pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.*"%>
 <% 	
 	String contextPath = request.getContextPath();
-	Member loginUser = (Member) session.getAttribute("loginUser"); 
+	Member loginUser = (Member) session.getAttribute("loginUser");
+	//String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -128,5 +129,9 @@
             <a href="#">로그아웃</a>
         </div>
     </div>
+    
+
+
+    
 </body>
 </html>

@@ -1,30 +1,23 @@
-package com.kh.semi.friendShip.controller;
+package com.kh.semi.plan.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.friendShip.model.service.FriendShipService;
-import com.kh.semi.friendShip.model.vo.FriendShip;
-import com.kh.semi.member.model.vo.Member;
-import com.kh.semi.pageInfo.model.vo.PageInfo;
-
 /**
- * Servlet implementation class FriendListController
+ * Servlet implementation class AjaxPlanServlet
  */
-@WebServlet("/friendList")
-public class FriendListController extends HttpServlet {
+@WebServlet("*.ajaxplan")
+public class AjaxPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendListController() {
+    public AjaxPlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +26,20 @@ public class FriendListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		// POST => 인코딩
 		request.setCharacterEncoding("UTF-8");
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
+		String uri = request.getRequestURI();
+		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+		
+		PlanController pc = new PlanController();
+		
+		switch(mapping) {
+		case "selectDetail" : pc.selectPlanDetail(request, response); break;
+		}
 		
 		
-		
-		request.getRequestDispatcher("/views/board/MyFriends.jsp").forward(request,response);
 		
 	}
 

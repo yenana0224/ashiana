@@ -379,6 +379,193 @@ public class CustomerDao {
 		}
 		
 		return result;
-	
 	}
+	
+	public int qnaTitleCount(Connection conn, String searchContent) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("qnaTitleCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, searchContent);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public int qnaContentCount(Connection conn, String searchContent) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("qnaContentCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, searchContent);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
+	
+	public List<QNA> qnaTitleSearch(Connection conn,String searchContent, PageInfo pi){
+		
+		List<QNA> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("qnaTitleSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, searchContent);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				QNA qna = new QNA();
+				
+				qna.setQnaNo(rset.getInt("Q_NO"));
+				qna.setQnaStatus(rset.getString("QA_STATUS"));
+				qna.setQnaTitle(rset.getString("QA_TITLE"));
+				qna.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(qna);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	public List<QNA> qnaContentSearch(Connection conn,String searchContent, PageInfo pi){
+		
+		List<QNA> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("qnaContentSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, searchContent);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				QNA qna = new QNA();
+				
+				qna.setQnaNo(rset.getInt("Q_NO"));
+				qna.setQnaStatus(rset.getString("QA_STATUS"));
+				qna.setQnaTitle(rset.getString("QA_TITLE"));
+				qna.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(qna);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<QNA> qnaList(Connection conn, PageInfo pi){
+		
+		List<QNA> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("qnaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				
+				QNA qna = new QNA();
+				
+				qna.setQnaNo(rset.getInt("Q_NO"));
+				qna.setQnaTitle(rset.getString("QA_TITLE"));
+				qna.setQnaContent(rset.getString("QA_CONTENT"));
+				qna.setCreateDate(rset.getDate("CREATE_DATE"));
+				qna.setQnaStatus(rset.getString("QA_STATUS"));
+				qna.setStatus(rset.getString("STATUS"));
+				qna.setQnaWriter(rset.getString("NICKNAME"));
+				
+				list.add(qna);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
 }

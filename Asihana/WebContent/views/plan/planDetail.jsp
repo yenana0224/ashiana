@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	int planNo = (int)request.getAttribute("planNo");
-	System.out.println(planNo);
+	int planNo = Integer.parseInt((String)request.getAttribute("planNo"));
 %>
 <!DOCTYPE html>
 <html>
@@ -158,8 +157,7 @@
 	        </div>
 	        <div id="plan-sum">
 	            <span>이동 수단 가격 </span><label class="plan-sum-price">450,000원</label> +
-	            <span>예약 및 일정 예산 </span><label class="plan-sum-price"> 720,000원</label> +
-	            <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> =
+	            <span>예약 및 일정 예산 </span><label class="plan-sum-price"> 720,000원</label> =
 	            <label class="plan-sum-total">총 예산 1,320,000원</label>
 	        </div>
 	    </form>
@@ -199,6 +197,34 @@
 	
 	<%@ include file="../common/footer.jsp" %>
     
+    <script>
+    	function selectPlan(){
+    		$.ajax({
+    			url : 'selectDetail.ajaxplan',
+    			type : 'post',
+    			data : {
+    				planNo : <%= planNo %>
+    			},
+    			success : function(result){
+    				
+    				console.log(result);
+    				
+    			}
+    			
+    		})
+    		
+    		
+    	}
+    
+    	$(function(){
+    		selectPlan();
+    	})
+    	
+    	
+    
+    
+    
+    </script>
     
     
     

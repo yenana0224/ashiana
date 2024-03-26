@@ -105,6 +105,7 @@ public class CustomerService {
 		Connection conn = getConnection();
 		
 		Notice notice = new CustomerDao().noticeDetail(conn, noticeNo);
+		close(conn);
 		return notice;
 	}
 	
@@ -128,4 +129,58 @@ public class CustomerService {
 		
 		return (qnaResult * fileResult);
 	}
+	
+	public int selectQnaCount(String select, String searchContent) {
+		
+		Connection conn = getConnection();
+		
+		int result = 0;
+		
+		
+		if(searchContent != null) {
+			if(select.equals("title")) {
+				result = new CustomerDao().qnaTitleCount(conn, searchContent);
+			} else {
+				result = new CustomerDao().qnaContentCount(conn, searchContent);
+			}
+		}else {
+			result = new CustomerDao().selectCount(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	public List<QNA> qnaSearch(String search, String searchContent, PageInfo pi){
+		
+		Connection conn = getConnection();
+		
+		List<QNA> list = new ArrayList();
+		
+		if(search.equals("title")) {
+			list = new CustomerDao().qnaTitleSearch(conn, searchContent, pi);
+		} else {
+			list = new CustomerDao().qnaContentSearch(conn, searchContent, pi);
+		}
+		
+		close(conn);
+		
+		return list;
+		
+	}
+	
+	public List<QNA> qnaList(PageInfo pi){
+		
+		Connection conn = getConnection();
+		
+		
+		List<QNA> list = new CustomerDao().qnaList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 }

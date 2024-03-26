@@ -4,6 +4,7 @@
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -179,11 +180,20 @@
 	                <ul>
 	                    <li><a href="<%=contextPath%>/notice.customer?currentPage=1">공지사항</a></li>
 	                    <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
-	                    <li><a href="<%=contextPath%>/qa.customer">Q & A</a></li>
+	                    <li><a href="<%=contextPath%>/qa.customer?currentPage=1">Q & A</a></li>
 	                </ul>
 	            </li>
 	        </ul>
 	    </div>
+    <script>
+    
+		const msg = '<%= alertMsg %>';
+		
+		if(msg != 'null'){
+			alert(msg);
+			<% session.removeAttribute("alertMsg"); %>
+		};
+	</script>
 
 </body>
 </html>

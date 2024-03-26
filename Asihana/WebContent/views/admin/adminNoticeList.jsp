@@ -5,7 +5,7 @@
 
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Notice> list = (ArrayList<Notice>)request.getAttribute("noticeList");
+	List<Notice> list = (List<Notice>)request.getAttribute("noticeList");
 %>
 
 <!DOCTYPE html>
@@ -69,12 +69,12 @@
             border-bottom: 1px solid lightgray;
         }
 
-        .noticeList tbody tr:hover{
-            #noticeTitle {
-                text-decoration: underline;
-                cursor : pointer;
-            }
-        }
+
+          .noticeTitle:hover {
+              text-decoration: underline;
+              cursor : pointer;
+          }
+
         
         .noticeList tbody td{
         	text-align : center;
@@ -88,6 +88,10 @@
         	color : white;
         	padding : 5px 10px 5px 10px;
         	border-radius: 10px;
+        }
+        
+        button:hover{
+        	cursor : pointer;
         }
 
         .btn>a{
@@ -124,7 +128,7 @@
             </form>
         </div>
 
-        <form action="#" name="status">
+        <form action="<%=contextPath %>/changeHold.admin" method="get">
             <table class="noticeList">
                 <thead>
                     <tr>
@@ -142,8 +146,12 @@
                     <% } else { %>
                         <% for(Notice n : list) { %>
                             <tr>
-                                <td><input type="checkbox" value="<%=n.getNoticeNo() %>"> 
-                                
+                                <td>
+                                <% if(n.getNoticeHold().equals("Y")) { %>
+                                	<input class="ckOne" type="checkbox" name="hold" value="<%=n.getNoticeNo() %>" checked>
+                                <% } else { %>
+                                	<input class="ckOne" type="checkbox" name="hold" value="<%=n.getNoticeNo() %>"> 
+                                <% } %>
                                 </td>
                                 <td><%=n.getNoticeNo() %></td>
                                 <td class="noticeTitle" id="<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></td>
@@ -151,30 +159,46 @@
                             </tr>
                         <% } %>
                     <% } %>
+                    
+                    <script>
+                    	$(function(){
+                    		$('#checkAll').click(function(){
+                    			if($('#checkAll').prop('checked')){
+	                    			$('.ckOne').prop('checked', true);
+                    			} else {
+                    				$('.ckOne').prop('checked', false);
+                    			}
+                    		});
+                    		
+                    		$('#checkAll').on('change', function(){
+	                    		if($(this).prop('checked') == false){
+	                    			$('#checkAll').prop('checked', false);
+	                    		}
+                    		});
+                    	})
+                    </script>
                 </tbody>
             </table>
-            <script>
-            
-            $(function(){
-            	
-            	$('.noticeTitle').click(function(){
-            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
-            		
-            	});
-            })
-
-        
-            </script>
             <div class="btn">
                 선택 게시물 
                 <button type="submit">고정</button>
-                <button type="submit">삭제</button>
             </div>
         </form>
 
 		<div class="btn">
         	<a href="<%=contextPath %>/noticeInsertForm.admin">글작성하기</a>
         </div>
+        
+           <script>
+            
+            $(function(){
+            	
+            	$('.noticeTitle').click(function(){
+            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
+            	});
+            })
+            
+            </script>
 
     </div>
 </body>

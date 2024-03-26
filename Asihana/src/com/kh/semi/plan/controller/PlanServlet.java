@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class PlanController
  */
 @WebServlet("*.plan")
-public class PlanServletController extends HttpServlet {
+public class PlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlanServletController() {
+    public PlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,7 @@ public class PlanServletController extends HttpServlet {
 		
 		switch(mapping) {
 		case "planMain" : view = pc.selectPlanList(request, response); break;
-		case "planDetail" : view = pc.selectPlan(request, response); break;
+		case "planDetail" : request.setAttribute("planNo", request.getParameter("planNo")); view = "views/plan/planDetail.jsp"; break;
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);

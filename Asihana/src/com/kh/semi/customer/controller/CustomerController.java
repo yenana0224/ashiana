@@ -92,7 +92,13 @@ public class CustomerController {
 	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 	
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-
+		
+		Notice noticeDetail = new CustomerService().noticeDetail(noticeNo);
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		
+		request.setAttribute("noticeDetail", noticeDetail);
+		request.setAttribute("noticeFile", noticeFile);
+		
 		String view = "/views/customer/noticeDetail.jsp";
 		
 		return view;
@@ -104,8 +110,11 @@ public class CustomerController {
 
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024* 1024* 10;
-			String savePath = request.getServletContext().getRealPath("/resources/notice");
-
+			
+			HttpSession session = request.getSession();
+			ServletContext application = session.getServletContext();
+			String savePath = application.getRealPath("/resources/notice");// 파일 경로
+			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			String noticeTitle = multiRequest.getParameter("title");
 			String noticeContent = multiRequest.getParameter("content");

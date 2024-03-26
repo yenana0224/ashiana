@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.customer.model.vo.*"%>
 <%
-	NoticeFile atFile = (NoticeFile)request.getAttribute("atFile");
+	NoticeFile atFile = (NoticeFile)request.getAttribute("noticeFile");
 	Notice notice = (Notice)request.getAttribute("notice");
 	String hold = notice.getNoticeHold();
 %>

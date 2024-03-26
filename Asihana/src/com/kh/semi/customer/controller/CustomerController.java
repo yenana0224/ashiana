@@ -159,7 +159,7 @@ public class CustomerController {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
 		pageLimit = 10;
-		boardLimit = 15;
+		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
@@ -182,7 +182,10 @@ public class CustomerController {
 			qnaList = new CustomerService().qnaList(pi);
 		}
 		
+		request.setAttribute("pageInfo", pi);
 		request.setAttribute("qnaList", qnaList);
+		request.setAttribute("select", select);
+		request.setAttribute("searchContent", searchContent);
 		
 		String view = "/views/customer/qa.jsp";
 		
@@ -191,6 +194,8 @@ public class CustomerController {
 	}
 	
 	public String insertQa(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String view = "";
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
@@ -226,15 +231,18 @@ public class CustomerController {
 			
 			if(result > 0) {
 				
+				request.getSession().setAttribute("alertMsg", "저장 성공");;
+				view = "/qa.customer?currentPage=1";
+				
 			}else {
 				if(file != null) {
 					new File(savePath + file.getChangeName()).delete();
 				}
+				request.setAttribute("errorMsg", "게시글 작성 실패");
+				view = "views/common/errorPage.jsp";
 			}
 			
 		}
-		
-		String view = "/views/customer/qa.jsp";
 		
 		return view;
 	}

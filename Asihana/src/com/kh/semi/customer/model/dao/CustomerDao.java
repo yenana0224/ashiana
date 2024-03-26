@@ -565,6 +565,32 @@ public class CustomerDao {
 		return list;
 	}
 	
+	public NoticeFile selectFile(Connection conn, int noticeNo) {
+		NoticeFile file = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				file = new NoticeFile();
+				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setOriginName(rset.getString("ORIGIN_NAME"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return file;
+	}
+	
 	
 	
 	

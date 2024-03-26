@@ -231,7 +231,7 @@
     				console.log(result);
     				for(let i = 0; i < result.length; i++){
     					// 출발 
-    					if(i = 0){
+    					if(i == 0){
     						console.log(result[i]);
     					}
     					

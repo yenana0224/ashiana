@@ -97,7 +97,6 @@
                 <% if(noticeFile != null) { %>
                 <div id="imageBox">
                     <img src="<%=contextPath + "/" +noticeFile.getFilePath() + "/" + noticeFile.getChangeName()%>" alt="">
-                    <% System.out.println(noticeFile.getFilePath()+ "/" + noticeFile.getChangeName()); %>
                 </div>
                 <div id="noticeText">
                     <p><%= noticeDetail.getNoticeContent() %></p>

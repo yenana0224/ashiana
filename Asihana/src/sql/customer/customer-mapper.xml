@@ -491,4 +491,19 @@
 		      COMMENT_DATE DESC
 	</entry>
 	
+	<entry key="selectQna">
+		SELECT
+		      Q_NO,
+		      QA_TITLE,
+		      QA_CONTENT,
+		      CREATE_DATE,
+		      QA_STATUS,
+		      STATUS,
+		      QA_WRITER
+		  FROM
+		      TB_QNA
+		 WHERE
+		      Q_NO = ?
+	</entry>
+	
 </properties>

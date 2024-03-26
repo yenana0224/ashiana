@@ -264,14 +264,17 @@ public class CustomerController {
 		
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 		int boardType = 8;
-		String currentPage = request.getParameter("currentPage");
 		
 		
-		NoticeFile qnafile = new CustomerService().selectFile(qnaNo, boardType);
+		NoticeFile qnaFile = new CustomerService().selectFile(qnaNo, boardType);
 		
 		List<Answer> answer = new CustomerService().selectAnswer(qnaNo);
 		
 		QNA qna = new CustomerService().selectQna(qnaNo); 
+		
+		request.setAttribute("qnaFile", qnaFile);
+		request.setAttribute("answer", answer);
+		request.setAttribute("qna", qna);
 		
 		String view = "views/customer/qnaDetail.jsp";
 		

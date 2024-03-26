@@ -231,4 +231,9 @@ public class adminController {
 		
 	}
 	
+	public String selectNation(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "views/admin/nationInfoDetail.jsp";
+	}
+	
 }

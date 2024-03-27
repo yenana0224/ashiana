@@ -71,6 +71,10 @@
 	margin-top: 50px;
 	margin-right: 10px;
 }
+.table-container {
+    max-height: 300px; /* 최대 높이 지정 */
+    overflow-y: auto; /* 세로 스크롤 생성 */
+}
 </style>
 
 </head>
@@ -89,8 +93,8 @@
 	</div>
 	
 	<br>
-	<div>
 	
+	<div class="table-container">
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
@@ -101,58 +105,27 @@
 					<th>팔로우 취소</th>
 				</tr>
 			</thead>
-			<!--  
 			<tbody id="myTable">
+				<%if(list.isEmpty()) {%>
 				<tr>
-					<td>John</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
-				</tr>
+					<td colspan="5"> 친구가 없습니다.</td>
 				<tr>
-					<td>Mary</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
-				</tr>
+				<%}else{ %>
+				<%for(FriendShip friendShip :list){ %>
 				<tr>
-					<td>July</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
+					<td><%=friendShip.getNickNameF()%></td>
+					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
+					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
+					<td><a href="#"><i class="fas fa-file"></i></a></td>
+					<td><a href="#"><i class="fas fa-bars"></i></a></td>
 				</tr>
-				<tr>
-					<td>Kelly</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
-				</tr>
-			</tbody>-->
-			<tbody id="myTable">
-			<%if(list.isEmpty()) {%>
-			<tr>
-				<td colspan="5"> 친구가 없습니다.</td>
-			<tr>
-			<%}else{ %>
-			<%for(FriendShip friendShip :list){ %>
-			<tr>
-				<td><%=friendShip.getNickNameF()%></td>
-				<td><a href="#"><i class="fas fa-cloud"></i></a></td>
-				<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-				<td><a href="#"><i class="fas fa-file"></i></a></td>
-				<td><a href="#"><i class="fas fa-bars"></i></a></td>
-			</tr>
-			<%} %>
-			<%} %>
+				<%} %>
+				<%} %>
 			</tbody>
 		</table>
-		 
+	</div>	 
 		<br><br><br><br><br>
-	</div>
+	
 	<script>
 		$(document).ready(function(){
 		  $("#myInput").on("keyup", function() {

@@ -2,12 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+<head>    
     <!--데이트 타임 피커 https://www.delftstack.com/ko/howto/jquery/jquery-datetimepicker/-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     
@@ -42,7 +37,7 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	             
+	            <input type="hidden" name="planNo" id="planNo">
 	                            출국일시 : <input type="date" name="start-date" id="start-date">
 	            <input type="time" name="start-time" id="start-time"  class="timepicker">
 	
@@ -171,35 +166,32 @@
 	<%@ include file="../common/footer.jsp" %>
 	<!-- AJAX -->
 	<script>
-		function(){
+		$(function(){
 			$.ajax({
 				url : 'selectInsertPlan.ajaxplan',
 				type : 'post',
-				data : {
-					userNo : <%= loginUser.getUserNo() %>
-				},
 				success : function(plan){
-					
+					$('#planNo').val(plan);
 				}
 			})
-		}
-	
-	
+		})
 	</script>
 
-
-    <script> 
+	<script> 
+    $(function(){
         // 출국 날짜 요구 메세지 슬라이드 업
         $('#start-date').change(function(){
             $('#required-msg').slideUp(500);
         })
         // 목적지 추가 토스트
-        $(document).ready(function(){
-            $('.des-add-btn').click(function(){
-                $('.toast').toast('show');
-            })
-        });
+       
+        $('#root-area').on('click', '.des-add-btn', function(){
+            $('.toast').toast('show');
+        })
+    })
+        
     </script>
+
         
 
     <!-- 타임 피커 -->

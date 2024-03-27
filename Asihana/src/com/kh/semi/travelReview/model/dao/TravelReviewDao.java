@@ -71,9 +71,10 @@ public class TravelReviewDao {
 			
 			while(rset.next()) {
 				TravelReview t = new TravelReview();
-				
+					
 				t.setReviewNo(rset.getInt("REVIEW_NO"));
-				t.setReviewContent(rset.getString("REIVEW_CONTENT"));
+				t.setReviewTitle(rset.getString("REVIEW_TITLE"));
+				t.setReviewContent(rset.getString("REVIEW_CONTENT"));
 				t.setReviewWriter(rset.getString("NICKNAME"));
 				t.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
 				t.setLikes(rset.getInt("LIKES"));

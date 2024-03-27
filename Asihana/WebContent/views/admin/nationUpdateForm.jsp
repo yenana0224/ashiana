@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*"%>
 <%
 	Nation nation = (Nation)request.getAttribute("nation");
-	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
-	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +21,7 @@
         .title>h3{
         	margin-top : 10px;
         }
-
+        
         .titlePhoto{
         	width : 1000px;
         	height : 500px;
@@ -60,7 +58,6 @@
             margin-top : 10px;
             border : 1px solid darkgray;
             border-radius: 10px;
-            background-color: lightgray;
             margin: auto;
             margin-bottom: 8px;
         }
@@ -69,7 +66,6 @@
             border : none;
             width: 100%;
             background-color: rgba(0, 0, 0, 0);
-            focus : 
         }
         
        input:focus, textarea:focus{
@@ -102,6 +98,12 @@
         	margin-bottom : 50px;
         }
         
+        label{
+            font-size: 14px;
+            font-weight: bold;
+            margin : 0px;
+        }
+        
 
     </style>
 </head>
@@ -114,28 +116,34 @@
 
         <div class="title">
             <h2>국가/도시정보</h2>
-            <h3>국가정보 </h3>
+            <h3>국가정보수정</h3>
         </div>
        
         <div class="titlePhoto">
-            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>">
+            <img id="titlePhoto" src="" alt="">
         </div>
 
         <div class="photo">    
-            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>">
+            <img id="nationPhoto" src="https://pbs.twimg.com/profile_images/1615738154333667331/NTng-9ke_400x400.jpg" alt="">
         </div>
     
-        <form action="nationUpdateForm.admin" method="post">
+        <form action="nationUpdate.admin" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
-            <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>" readonly></div>
-            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly><%=nation.getNationContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
-            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
-            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
-            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
-
+            <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>"></div>
+            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"><%=nation.getNationContent() %></textarea></div>
+            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>"></div>
+            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>"></div>
+            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>"></div>
+            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>"></div>
+			
+			<div class="info-area">
+                <label>도시사진변경</label>
+                <div class="btn"><input type="file" name="newTitleFile" onchange="loadImg(this, 1);"> </div>
+			    <div class="btn"><input type="file" name="newFile" onchange="loadImg(this, 2);"> </div>
+            </div>
+            
             <div class="btn">
-            	<button type="submit" id="updateBtn"> 수정하기 </button>
+            	<button type="submit" id="updateBtn"> 확인 </button>
             </div>
         </form>
         
@@ -147,6 +155,22 @@
         $('#backBtn').click(function(){
         	location.href="<%=contextPath %>/info.admin?currentPage=1";
         })
+        
+        function loadImg(inputFile, num){
+        	
+        	if(inputFile.files.length){
+        		const reader = new FileReader();
+        		reader.readAsDataURL(inputFile.files[0]);
+        		reader.onload = function(e){
+        			
+        			switch(num){
+        			case 1 : $('#titlePhoto').attr('src', e.target.result); break; 
+        			case 2 : $('#nationPhoto').attr('src', e.target.result); break;
+        			}
+        			
+        		}
+        	};
+        }
         </script>
 
     </div>

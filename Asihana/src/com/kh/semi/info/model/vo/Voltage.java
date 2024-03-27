@@ -67,11 +67,12 @@ public class Voltage {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return volName;
 	}
+
+	
 	
 	
 }

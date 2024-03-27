@@ -28,6 +28,8 @@
         }
 
         h2{
+        	margin-top: 50px;
+        	margin-left: px;
             font-size: 50px;
 
 
@@ -36,8 +38,13 @@
         .form-group{
 
            
-            margin-left: 10px;
+            margin-left: 100px;
             width: 500px;
+        }
+        
+        .form-control{
+         	margin-left: 200px;
+        
         }
 
         .input-group-text{
@@ -76,56 +83,52 @@
     <div>
 
   
-        <h2>여행자 실시간 커뮤니티 <div class="spinner-border text-dark"></div> </h2>     
+        <h2>여행자 실시간 커뮤니티  </h2>     
                     
                     
                
        
        <form action="<%=contextPath%> /insert.commu" method="post" id="insert-form">
        <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
-       
+       <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
       
 
+       
         <div class="form-group">
-            <class for="comment"></class>
-            <textarea class="form-control" style="resize:none;" rows="5" id="comment" placeholder="게시글 작성은 로그인 후 이용 가능합니다."></textarea>
-            <button class="input-group-text" id="b1">등록</button>
-            <div id="limit">0/100</div>
+            <label for="comment">
+            <span> 
+            	<select>
+            		<option>도시이름</option>
+            		
+            	
+            	
+            	</select>
+            
+            
+            <select>
+            		
+            		<option>작성일</option>
+            		
+            	
+            	
+            	</select>
+            
+			             
+             
+             </span>
            
-        </div>
-
-
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control" style="resize:none;" rows="5" id="comment"placeholder="댓글작성은 로그인 후 이용가능합니다. " maxlength="30"></textarea>
-            <button class="input-group-text" id="b2"  >등록</button>
-            <span class="limit">0/100</span>
-        </div>                         
-
-
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control"  style="resize:none;" rows="5" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
+            
+            
+            
+            </label>
+            <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
             <button class="input-group-text"  id="b3" >등록</button>
             <span class="limit">0/100</span>
         </div>
 
 
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control"  style="resize:none;" rows="5" id="comment" placeholder="내용을 입력해주세요"  maxlength="30"></textarea>
-            <button class="input-group-text" id="b4" >등록</button>
-            <span class="limit">0/100</span>
-        </div>
-
-
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control"  style="resize:none;" rows="5" id="comment" placeholder="내용을 입력해주세요"  maxlength=""></textarea>
-            <button class="input-group-text" id="b5" >등록</button>
-            <span class="limit">0/100</span>
-        </div>
+       
 
     </form>
     

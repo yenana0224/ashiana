@@ -32,12 +32,12 @@ public class CommunityInsertFormController extends HttpServlet {
 		
 	
 	
-		// 화면 지정
-		if(request.getSession().getAttribute("loginUser") !=null) {
-		request.getRequestDispatcher("views/community/communityEnrollForm.jsp").forward(request, response);
+		// 화면 지정, 로그인을 한 상태에서만 넘어갈 수 있게 Servlet에서 지정
+		//if(request.getSession().getAttribute("loginUser") !=null) {
+		request.getRequestDispatcher("views/community/communityList.jsp").forward(request, response);
 		}
 	
-	}
+	//}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

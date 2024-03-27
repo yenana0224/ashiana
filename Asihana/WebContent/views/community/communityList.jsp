@@ -60,30 +60,39 @@
     #content{
         background-color: beige;
       
-        padding: 0px  30px  0px 0px;
+       
         width:1200px;
         flaot: right;
         
 
     }
     
-    #roll{
     
-    	margin: 110px;
-    	width: 50px;
-    	margin-bottom :40px;
-    }
-
 
     #content_2{
         background-color: white;
         margin: auto;
+        
     }
 
+	#roll{
+		text-decoratin: none;
+	
+	}
 
-    #h2{
-        margin: center;
-        margin : auto;
+    #h2_1{
+        margin-right: 500px;
+        font-size: 30px;
+        
+      
+   
+        
+    }
+    
+     #h2_2{
+        margin-left: 0px;
+        font-size: 30px;
+ 		
     }
 
 	#t{
@@ -139,6 +148,31 @@
         margin-right: 1px;
     }
 
+
+	#t1{
+	
+	text-align:center;
+	background: ligthcoral;
+	margin-right: 30px;
+	width:500px;
+	height: 200px;
+	
+	
+	
+	}
+	
+	
+	#t2{
+	
+	border-radius: 1px solid black;
+	width:1000px;
+	height: 200px;
+	
+	
+	
+	
+	
+	}
     
 
     
@@ -176,9 +210,9 @@
 
         </div>
         <div id="content">
-            <h2>여행자 실시간 커뮤니티 
-            
-            <a href="<%=contextPath %>/insert.commu" id="roll" >글 등록하기</a> </h2> 
+           <span id="h2_1">여행자 실시간 커뮤니티</span>
+            <span id="h2_2"> <a href="<%=contextPath %>/insert.commu" id="roll" >글 등록하기</a></span>
+      
     
         <!-- 중간영역의 왼쪽에 위치하여 순서대로 도시에 대한 사진을 보이게 할 예정 -->
         
@@ -260,11 +294,12 @@
   
   
     <div>
+ 
       <!-- 커뮤니티의 글이  있는 곳!!! 되도록 실시간으로 소통이 된다는 전제로!!!-->
       
       
       
-      <table  id="t">
+      <table  id="t1" text-align="center">
       <thead> 
       
       	<tr>
@@ -311,7 +346,7 @@
 		 --%>	
       </table>
      
-     
+ 
 
 
 
@@ -319,8 +354,7 @@
 
 
 
-
-
+	
     </div>
   
   
@@ -340,6 +374,7 @@
 
 
         </div>
+        
         <div id="content_2">
         <!-- 전체기간,통합 분류로 기간, 국가별,도시별, 제목+내용, 내용으로 검색어를 입력하여 검색이 가능하다 -->
        
@@ -366,47 +401,61 @@
 
             <span><input type="text" placeholder="검색어를 입력해주세요" id="g3"></span>
 
-            <button id="g4" onclick="ajax요청()">검색</button>
-            
-           <script>
-           		function ajax요청(){
-           			
-           			// console.log($('select :selected')[1].innerHTML);
-           			// console.log($('select :selected')[2].innerHTML);
-           			
-           			
-           			$.ajax({
-           				url:'search.do',
-           				type : 'post',
-           				data : {
-           					$('select: selected')[1],
-           					$('select: selected').val()
-           					
-           					
-           					
-           				},
-           				success : function(result){
-           					
-           				}
-           				
-           				
-           				
-           				
-           				
-           			});
-           		}
-           		
-           		
-           		
-           
-           </script>
-     
-            
-
-
-
-
-     
+          <button id="g4"> 검색</button>
+          
+          
+          <div>  
+          
+	          
+	         <table id="t2">
+	          	<thead >
+		    	    <tr>
+		          		<th>글 번호</th>
+			    		<th>도시 번호</th>
+			      		<th>멤버 번호</th>
+			      		<th>글 내용</th>
+			      		<th>조회수</th>
+			      		<th>작성일</th>
+			      		<th>회원상태</th>
+			    
+		        	</tr>
+	          	  </thead>
+	          	  <tbody>
+	      <%-- 
+	          	  <% if(list.isEmpty()) {%>
+					<tr>
+						<th colspan="6"> 실시간으로 대화하는 여행자가 없다!!!</th>
+					</tr> 
+			
+				<% } else { %>
+					
+					<% for(Community c : list) { %>
+					<tr>
+						<td<%= c.getComuNo() %>></td>
+						<td><%= c.getCityNo() %></td>
+						<td><%=c.getMemNo() %></td>
+						<td><%=c.getComuContent() %></td>
+						<td><%=c.getComuDate() %></td>
+						<td><%=c.getStatus() %></td>
+					</tr>
+			
+			
+			<% } %>	
+			
+		<% } %>
+		 --%>	
+	          	  	
+	          	  
+	          	  
+	          	  
+	          	  
+	          	  </tbody>
+	          	  
+	      	  </table>
+	          
+          </div>
+          
+        
      
      
      

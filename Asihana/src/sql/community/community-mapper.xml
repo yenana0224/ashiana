@@ -15,14 +15,57 @@
 				COMU_DATE
 		    FROM
 			 	COMMUNITY
+			JOIN
+		
+				MENBER  	
 		
 	    	WHERE 
 				COMMUNITY.STATUS = 'Y'
 		   ORDER
 		 	BY
-				COMU_DATE DESC;
+				COMU_DATE DESC
 	</entry>
 	
+	<entry key="increaseCount">
+	
+	
+	
+	
+	
+	
+	
+	</entry>
+	
+	<entry key="selectCommunity">
+	
+	
+	</entry>
+	
+	
+	<entry key="update">
+	
+	
+	
+	
+	
+	</entry>
+	
+	
+	<entry key="insert">
+	
+	
+	
+	
+	
+	</entry>
+	
+	<entry key="delete">
+	
+	
+	
+	
+	
+	</entry>
 	
 	
 	

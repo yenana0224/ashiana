@@ -29,11 +29,16 @@ public class CommunityInsertController extends HttpServlet {
 	
 		
 		// POST
-		request.setCharacterEncoding("UTF_8");
+		request.setCharacterEncoding("UTF-8");
+		
+		//
+		
+		
+		
 	
 	
-	
-	
+		// 응답화면 지정
+		request.getRequestDispatcher("views/community/communityEnrollForm.jsp").forward(request, response);
 	
 	}
 

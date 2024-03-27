@@ -40,13 +40,13 @@ public class TravelReviewDao {
 			
 			while(rset.next()) {
 				
-				TravelReview travelReview = new TravelReview();
+				TravelReview review = new TravelReview();
 				
-				travelReview.setReviewNo(rset.getInt("REVIEW_NO"));
-				travelReview.setReviewTitle(rset.getString("REVIEW_TITLE"));
-				travelReview.setReviewWriter(rset.getString("NICKNAME"));
-				travelReview.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
-				list.add(travelReview);
+				review.setReviewNo(rset.getInt("REVIEW_NO"));
+				review.setReviewTitle(rset.getString("REVIEW_TITLE"));
+				review.setReviewWriter(rset.getString("NICKNAME"));
+				review.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				list.add(review);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

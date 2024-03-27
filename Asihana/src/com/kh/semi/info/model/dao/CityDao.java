@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
@@ -20,7 +21,7 @@ public class CityDao {
 	private Properties prop = new Properties();
 	
 	public CityDao() {
-		String filePath = InfoDao.class.getResource("/sql/info/info-mapper.xml").getPath();
+		String filePath = CityDao.class.getResource("/sql/info/info-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -212,6 +213,34 @@ public class CityDao {
 			close(pstmt);
 		}
 		return count;
+	}
+	
+	public AttachmentFile selectPhoto(Connection conn, int cityNo) {
+		AttachmentFile file = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cityNo);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				file = new AttachmentFile();
+				file.setBoardType(rset.getInt("BOARD_TYPE"));
+				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setOriginName(rset.getString("ORIGIN_NAME"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return file;
 	}
 	
 	

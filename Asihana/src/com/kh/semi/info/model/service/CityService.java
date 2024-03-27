@@ -8,8 +8,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.dao.CityDao;
 import com.kh.semi.info.model.dao.InfoDao;
+import com.kh.semi.info.model.dao.NationDao;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
@@ -83,5 +85,12 @@ public class CityService {
 		int count = new CityDao().countCity(conn);
 		close(conn);
 		return count;
+	}
+	
+	public AttachmentFile selectPhoto(int cityNo) {
+		Connection conn = getConnection();
+		AttachmentFile file = new CityDao().selectPhoto(conn, cityNo);
+		close(conn);
+		return file;
 	}
 }

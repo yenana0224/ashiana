@@ -260,7 +260,7 @@
 			                		  + '</div>';
 			                		  
 			                // 귀국 항공편이 있을 시
-			                if(result[i].transPrice > 0){
+			                if(result[i].transPrice != 0){
 			                	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
 			                }
     					}

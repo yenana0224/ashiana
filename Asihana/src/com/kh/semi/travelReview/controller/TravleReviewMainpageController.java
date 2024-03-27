@@ -17,13 +17,13 @@ import com.kh.semi.travelReview.model.vo.TravelReview;
  * Servlet implementation class TravleRiewMainpageController
  */
 @WebServlet("/travelReviewMain")
-public class TravleRiewMainpageController extends HttpServlet {
+public class TravleReviewMainpageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TravleRiewMainpageController() {
+    public TravleReviewMainpageController() {
         super();
         // TODO Auto-generated constructor stub
     }

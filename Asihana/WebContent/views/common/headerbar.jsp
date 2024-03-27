@@ -15,6 +15,21 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Plan CSS -->
+    <link rel="stylesheet" href="resources/css/plan/planMain.css">
+    <!--데이트 타임 피커 https://www.delftstack.com/ko/howto/jquery/jquery-datetimepicker/-->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="resources/css/plan/planInsertPlan.css">
+    <link rel="stylesheet" href="resources/css/plan/planDetailPlan.css">
+    <!--예약 및 일정 css-->
+    <link rel="stylesheet" href="resources/css/plan/planInsertSched.css">
+    <link rel="stylesheet" href="resources/css/plan/planDetailSched.css">
+    <!--목적지 추가/여행 종료 토스트 css-->
+    <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
+    <!--목적지 추가 모달 css -->
+    <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
+    
 <style>
         #login_join{
             height: 50px;

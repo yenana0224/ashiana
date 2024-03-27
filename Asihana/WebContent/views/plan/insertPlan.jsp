@@ -6,27 +6,13 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>    
-    <!--데이트 타임 피커 https://www.delftstack.com/ko/howto/jquery/jquery-datetimepicker/-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-    
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlan.css">
-
-    <!--예약 및 일정 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertSched.css">
-    
-    <!--목적지 추가 모달 css -->
-    <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
-    
-    <!--목적지 추가/여행 종료 토스트 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
-    
+<head>      
     <title>여행 플랜 작성</title>
     <style>
-        #outer{
-            width: 1200px;
-            box-sizing: border-box;
-        }
+    div{
+       width: 1200px;
+       box-sizing: border-box;
+    }
     </style>
 </head>
 <body>

@@ -14,7 +14,6 @@
 	</entry>
 	
 	<entry key="cityList">
-	
 	SELECT
      	  CITY_NO,
      	  CITY_NAME,
@@ -39,6 +38,7 @@
 			   	 COUNT DESC)
 	  WHERE 
 	  		ROWNUM BETWEEN 1 AND 8
+	  		
 	</entry>
 	
 	

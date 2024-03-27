@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.service.CityService;
-import com.kh.semi.info.model.service.InfoService;
 import com.kh.semi.info.model.service.NationService;
 import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
@@ -32,10 +32,12 @@ public class InfoController {
 		// 나라만 선택하는 경우
 		if(cityName.equals("도시선택")) {
 			Nation nation = new NationService().searchNation(nationNo);
+			AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 			List<City> cityList = new CityService().nationCity(nationNo);
 
 			request.setAttribute("nation", nation);
 			request.setAttribute("cityList", cityList);
+			request.setAttribute("title", title);
 			view = "views/info/nationInfo.jsp";
 			
 		// 도시까지 선택하는 경우

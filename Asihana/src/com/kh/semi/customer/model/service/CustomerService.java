@@ -234,7 +234,19 @@ public class CustomerService {
 		return qnaResult;
 	}
 	
-	
+	public int replyInsert(Answer answer) {
+		
+		Connection conn = getConnection();
+		
+		int result = new CustomerDao().replyInsert(conn, answer);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 }

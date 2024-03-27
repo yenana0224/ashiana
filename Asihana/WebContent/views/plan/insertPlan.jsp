@@ -1,33 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
+<%
+	List<City> cityList = (List<City>)request.getAttribute("cityList");
+%>
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!--데이트 타임 피커 https://www.delftstack.com/ko/howto/jquery/jquery-datetimepicker/-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-    
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlan.css">
-
-    <!--예약 및 일정 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertSched.css">
-    
-    <!--목적지 추가 모달 css -->
-    <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
-    
-    <!--목적지 추가/여행 종료 토스트 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
-    
+<head>      
     <title>여행 플랜 작성</title>
     <style>
-        #outer{
-            width: 1200px;
-            box-sizing: border-box;
-        }
+    div{
+       width: 1200px;
+       box-sizing: border-box;
+    }
     </style>
 </head>
 <body>
@@ -42,9 +27,9 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	             
-	                            출국일시 : <input type="date" name="start-date" id="start-date">
-	            <input type="time" name="start-time" id="start-time"  class="timepicker">
+	            <input type="hidden" name="planNo" id="planNo">
+	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
+	            <input type="time" name="start-time" id="start-time" class="timepicker">
 	
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
@@ -55,6 +40,7 @@
 	
 	            </div> 
 	            <div id="root-area">
+	            	<!--  
 	                <div class="root-icon">
 	                    <img src="resources/icons/arrow-down-square-fill.svg">
 	                </div>
@@ -71,17 +57,17 @@
 	                </div>
 	                
 	                <div class="root-line"></div>
+	               --> 
 	                <div class="root-icon">
 	                    <img class="des-add-btn" src="resources/icons/plus-square-fill.svg">
 	                    <div class="toast" data-autohide="false" style="width: 240px;">
 	                        <div class="toast-body">
 	                            <button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
 	                            <button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>
-	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast">Ｘ</button>
+	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast" style="border:none; padding:0;">Ｘ</button>
 	                        </div>
 	                    </div>
 	                </div>
-	                
 	            </div>
 	            
 	            
@@ -168,38 +154,30 @@
 	        </div>
 	    </form>
 	</div> <!-- outer -->
+	
 	<%@ include file="../common/footer.jsp" %>
+	
 	<!-- AJAX -->
 	<script>
-		function(){
-			$.ajax({
+		$(function(){
+			$.ajax({ // 작성중인 플랜의 planNo
 				url : 'selectInsertPlan.ajaxplan',
 				type : 'post',
-				data : {
-					userNo : <%= loginUser.getUserNo() %>
-				},
 				success : function(plan){
-					
+					$('#planNo').val(plan);
 				}
 			})
-		}
-	
-	
+			
+	        // 출국 날짜 요구 메세지 슬라이드 업
+	        $('#start-date').change(function(){
+	            $('#required-msg').slideUp(500);
+	        })
+	        // 목적지 추가 토스트
+	        $('#root-area').on('click', '.des-add-btn', function(){
+	            $('.toast').toast('show');
+	        })
+		})
 	</script>
-
-
-    <script> 
-        // 출국 날짜 요구 메세지 슬라이드 업
-        $('#start-date').change(function(){
-            $('#required-msg').slideUp(500);
-        })
-        // 목적지 추가 토스트
-        $(document).ready(function(){
-            $('.des-add-btn').click(function(){
-                $('.toast').toast('show');
-            })
-        });
-    </script>
         
 
     <!-- 타임 피커 -->
@@ -228,11 +206,18 @@
                     </div>
                     <div id="modal-form-area">
                         <select name="country" id="country">
-                            <option value="태국">태국</option>
+                            <% for(int i = 0; i < cityList.size(); i++) { %>
+                            	<% if(i > 0 && cityList.get(i - 1).getNationName().equals(cityList.get(i).getNationName())) { %>
+                            		<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
+                            	<% } else { %>
+                            		<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
+                            	<% } %>
+                            <% } %>
                         </select>
                         <select name="city" id="city">
-                            <option value="방콕">방콕</option>
-                            <option value="크라비">크라비</option>
+                            <% for(City city : cityList) { %>
+                            <option value="<%= city.getCityName() %>"><%= city.getCityName() %></option>
+                            <% } %>
                         </select>
      
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">

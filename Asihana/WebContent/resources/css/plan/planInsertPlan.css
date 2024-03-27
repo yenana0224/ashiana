@@ -1,4 +1,7 @@
-
+#outer{
+    width: 1200px;
+    box-sizing: border-box;
+}
 #required-msg{ /* 알림 메시지 */
     background-color: darkgrey;
     margin-top: 20px;
@@ -144,7 +147,6 @@
     }
 
 }
-
 
 #submit-area{
     border-top: 2px solid darkgray;

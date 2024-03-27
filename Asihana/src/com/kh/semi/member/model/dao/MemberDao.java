@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.common.JDBCTemplate;
@@ -258,5 +259,35 @@ public class MemberDao {
 		return result;
 
 		
+	}
+	
+	public ArrayList<Member> selectFriendList(Connection conn) {
+
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFriendList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Member m = new Member();
+				m.setUserNo(rset.getInt("MEM_NO"));
+				m.setNickName(rset.getString("NICKNAME"));
+				list.add(m);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
 	}
 }

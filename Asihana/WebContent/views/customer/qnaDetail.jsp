@@ -3,7 +3,7 @@
 <%@ page import="com.kh.semi.customer.model.vo.* , java.util.ArrayList, java.util.List" %>
 <%
 	NoticeFile qnaFile = (NoticeFile)request.getAttribute("qnaFile");
-	List<Answer> answerList = (ArrayList<Answer>)request.getAttribute("answer");
+	List<Answer> answer = (ArrayList<Answer>)request.getAttribute("answer");
 	QNA qna = (QNA)request.getAttribute("qna");
 	String currentPage = (String)request.getAttribute("currentPage");
 	int qnaUserNo = Integer.parseInt(qna.getQnaWriter());
@@ -19,6 +19,7 @@
 
         #qnaMark{
             margin: auto;
+            padding-top:20px;
             height: 150px;
             width: 1000px;
             text-align: center;
@@ -248,13 +249,20 @@
 
 
 		<div id="replyBox">
-                    
+                    <% if(loginUser != null){ %>
                     <div id="replyText">
-                        <textarea name="reply" id="reply" cols="90" rows="8" name="replyContent"></textarea>
-                        <button>작 성</button>
+                        <textarea name="reply" id="reply" cols="90" rows="8"></textarea>
+                        <button id="replyInsert">작 성</button>
+                        <button id="replyUpdate" style="display:none;">수정</button>
                         <div id="counter">(0 / 300)</div>
                     </div>
-
+					<% } else {%>
+					<div id="replyText">
+                        <textarea name="reply" cols="90" rows="8"  style="font-size:20px; color:lightgray; text-align:center; line-height: 100px" readonly>로그인 후 이용해주세요</textarea>
+                        <button id="replyInsert">작 성</button>
+                        <div id="counter">(0 / 300)</div>
+                    </div>
+					<% } %>
                     <div id="replyLine"></div>
 
                     <div id="replySelect">
@@ -290,7 +298,14 @@
 			$('.modal').css('display', 'none');
 		})
 		
-
+		
+	
+		
+		
+		
+		
+		
+		
 	</script>
 
 		<%@ include file="../common/footer.jsp" %>

@@ -87,6 +87,7 @@
         }
         
         .btn>button{
+        	display : block;
         	border : non;
         	background-color: #ff595e;
         	color : white;

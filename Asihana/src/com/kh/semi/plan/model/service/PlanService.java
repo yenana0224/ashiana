@@ -75,9 +75,22 @@ public class PlanService {
 		
 		int result = new PlanDao().insertPlan(conn, userNo);
 		
+		if(result > 0) commit(conn);
+		
 		close(conn);
 		
 		return result;
+	}
+
+	public int selectInsertPlan(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int planNo = new PlanDao().selectInsertPlan(conn, userNo);
+		
+		close(conn);
+		
+		return planNo;
 	}
 
 }

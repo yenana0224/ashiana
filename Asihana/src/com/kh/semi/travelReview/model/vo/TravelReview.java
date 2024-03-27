@@ -15,7 +15,16 @@ public class TravelReview {
 	private int cityNo;
 	private String planCheck;
 	private String status;
+	private int likes;
 	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
 	public TravelReview() {
 	}
 

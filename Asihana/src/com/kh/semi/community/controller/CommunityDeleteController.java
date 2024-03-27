@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CommunityInsertController
+ * Servlet implementation class CommunityDeleteController
  */
-@WebServlet("/insert.commu")
-public class CommunityInsertController extends HttpServlet {
+@WebServlet("/delete.commu")
+public class CommunityDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityInsertController() {
+    public CommunityDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +26,11 @@ public class CommunityInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		
-		// POST
-		request.setCharacterEncoding("UTF_8");
+		// 
+	
+	
+	
 	
 	
 	

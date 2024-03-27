@@ -53,11 +53,14 @@ public class TravleRiewMainpageController extends HttpServlet {
 
 		
 		// 2)추천수가 담긴 여행기 리스트를 가져와야 함
+		List<TravelReview> likeList = new TravelReviewService().selectLikeList();
 				
 		// 3)해시태그가 담긴 여행기 리스트를 가져와야 함
 				
 		
 		request.setAttribute("reviewList", reviewList);
+		request.setAttribute("likeList", likeList);
+		System.out.println(reviewList);
 				
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	

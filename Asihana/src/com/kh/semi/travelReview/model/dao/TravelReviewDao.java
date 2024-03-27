@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.kh.semi.common.JDBCTemplate;
+import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewDao {
@@ -40,19 +40,50 @@ public class TravelReviewDao {
 			
 			while(rset.next()) {
 				
-				TravelReview travelReview = new TravelReview();
+				TravelReview review = new TravelReview();
 				
-				travelReview.setReviewNo(rset.getInt("REVIEW_NO"));
-				travelReview.setReviewTitle(rset.getString("REVIEW_TITLE"));
-				travelReview.setReviewWriter(rset.getString("NICKNAME"));
-				travelReview.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
-				list.add(travelReview);
+				review.setReviewNo(rset.getInt("REVIEW_NO"));
+				review.setReviewTitle(rset.getString("REVIEW_TITLE"));
+				review.setReviewWriter(rset.getString("NICKNAME"));
+				review.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				list.add(review);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	public List<TravelReview> selectLikeList(Connection conn){
+		
+		List<TravelReview> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				TravelReview t = new TravelReview();
+				
+				t.setReviewNo(rset.getInt("REVIEW_NO"));
+				t.setReviewContent(rset.getString("REIVEW_CONTENT"));
+				t.setReviewWriter(rset.getString("NICKNAME"));
+				t.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				t.setLikes(rset.getInt("LIKES"));
+				list.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return list;
 	}

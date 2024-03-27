@@ -173,7 +173,7 @@
 	                <a href="<%=contextPath%>/planMain.plan">여행플랜</a>
 	            </li>
 	            <li>
-	                <a href="<%=contextPath%>/read.commu">커뮤니티</a> 
+	                <a href="<%=contextPath%>/commu.List">커뮤니티</a> 
 	            </li>
 	            <li>
 	                <a href="<%=contextPath%>/customer.customer">고객센터</a>

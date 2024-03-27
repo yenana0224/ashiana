@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview" %>
+<%  List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
+	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
+   
 
-<% List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList"); %>    
+%>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -200,24 +203,7 @@
                     <form action="#" method="get" name="search-form">
                         
                         <!-- 여기부터는 수업에서 배우는 내용 참고하여  수정 필요한 부분-->
-                        <div id="nation-list-wrap">
-                            <input id="search-botton" type="search" style="display : inline-block; width: 80%; height: 55px; " placeholder="국가, 도시, 키워드로 검색" name="search">
-                            <input type="submit" style="display : inline-block; width: 50px; height: 55px;" value="검색">
-                               
-                            <ol align="left" id="nation-list">
-                                     
-                                     <!--1)DB에서 조회된 국가/도시 정보를 바탕으로 반복문을 통해서 li요소 추가, 
-                                         2)해당 li요소를 클랙했을 때 해당 국가 여행기 게시판으로 이동-->
-                                     <li class="mar">말레이시아</li>
-                                     <li>도쿄(일본)</li>
-                            </ol>
-                        </div>
-                        
-                        
-
                         <script>
-
-                         
                             $('#search-botton').keydown(function(){
                                 $('ol').css('display', 'block');
                             })
@@ -238,8 +224,6 @@
                             
                             */
                            
-
-
                             $('#nation-list-wrap').on('click', 'ol', function(){
                              
                                 $('ol').append('<li>DB정보</li>'); 
@@ -248,11 +232,7 @@
                             // input의 value 요소 값을 변경 시켜야함
                                     $('#search-botton').val($(this).text());
                             });
-
-                            
                         </script>
-
-
 
                     </form>
                 </div>
@@ -260,8 +240,6 @@
             <div id="content-1-3" class="content-1wrap" >
                 <p></p>
             </div>
-
-
         </div>
 
         <!--여기부터 content의 3분할 중 2영역-->
@@ -279,27 +257,33 @@
                 <!--추후 list에 띄워질 게시문은 반복문을 통해 출력-->
                 <div id="content-2-boardlist" align="center"> 
                     
-                    <!-- 화면 세팅 구도 보기 위한 것, 추후 없애질 영역-->
+                    <%for(int i = 0; i < reviewList.size(); i++) {%>
                     <div>
-                        <input type="hidden" value="보드리스트"> <!-- 보여질 게시물리스트를 조회하기 위한 조건인 게시판번호가 필요함-->
+                        <input type="hidden" value="보드리스트">  
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
-                            <lable>닉네임 : </lable><span>닉네임</span> <br>
+                            <lable>작성자 : </lable><span><%= reviewList.get(i).getReviewWriter() %></span> <br>
+                            <span>해시태그</span> <span>해시태그2</span>
+                        </p>  
+                    </div>    
+                    <%} %>
+                  
+                
+
+
+
+
+                   
+                <!--  화면 세팅 구도 보기 위한 더미데이터의 영역, 추후 없애질 영역
+                    <div>
+                        <input type="hidden" value="보드리스트">  
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <p align="center">
+                            <lable>닉네임 : </lable><span>닉네임2</span> <br>
                             <span>해시태그</span> <span>해시태그2</span>
                         </p>  
                     </div>
                     
-                    
-                    
-                 <!--  
-                    <div>
-                        <input type="hidden" value="보드리스트"> <!-- 보여질 게시물리스트를 조회하기 위한 조건인 게시판번호가 필요함-->
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
-                        <p align="center">
-                            <lable>닉네임 : </lable><span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
-                        </p>  
-                    </div>
                     <div>
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
@@ -307,6 +291,7 @@
                             <span>해시태그</span> <span>해시태그2</span>
                         </p>  
                     </div>
+
                     <div>
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
@@ -314,16 +299,20 @@
                             <span>해시태그</span> <span>해시태그2</span>
                         </p>  
                     </div>
+
                     <div>
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
                             <lable>닉네임 : </lable><span>닉네임</span> <br>
                             <span>해시태그</span> <span>해시태그2</span>
                         </p>  
-                    </div>
-                    -->
-                    <!-- 여기까지 없어질 영역-->
+                    </div>  -->
+                
+             			
+                 
                 </div>
+                     
+                <!-- 여기까지 없어질 영역-->
             </div>
 
             <div id="content-2-3">
@@ -346,6 +335,20 @@
                     <p style="padding-top: 20px;">여행기 추천수 Best4</p>
                 </div>
                 <div id="content-3-boardlist" align="center">
+                    
+                    <%for(TravelReview t : likeList) %>
+                    <div>
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <p align="center">
+                            <lable>닉네임 : </lable><span><%=t.getReviewWriter() %></span> <br>
+                            <span>해시태그</span> <span>해시태그<%= t %></span>
+                        </p>  
+                    </div>
+                    <%} %>
+                    
+                    
+                    
+                    <!--  더미 데이터의 영역, 완성 시 없앨 부분
                     <div>
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
@@ -374,6 +377,8 @@
                             <span>해시태그</span> <span>해시태그2</span>
                         </p>  
                     </div>
+                    -->
+                    
                 </div>
             </div>
             <div id="content-3-3">

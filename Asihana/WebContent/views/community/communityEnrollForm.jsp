@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티 조회하기</title>
+<title>커뮤니티 글 작성하기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
@@ -67,6 +67,7 @@
 </head>
 <body>
 
+<%@ include file="../common/headerbar.jsp" %>
 
 
 
@@ -77,7 +78,11 @@
   
         <h2>여행자 실시간 커뮤니티 <div class="spinner-border text-dark"></div> </h2>     
                     
+                    
+               
        
+       <form action="<%=contextPath%> /insert.commu" method="post" id="insert-form">
+       <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
        
      
       
@@ -122,7 +127,7 @@
             <span class="limit">0/100</span>
         </div>
 
-    
+    </form>
     
     
     </div>

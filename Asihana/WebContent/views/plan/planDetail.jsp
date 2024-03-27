@@ -314,7 +314,7 @@
 				    	               +             '</tr>'
 				    	               +         '</thead>'
 				    	               +         '<tbody class="sched-des-detail-body">'
-	    	                		   +     		 '<input type="hidden" value="' + result[i].destNo + '">'
+	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
@@ -342,14 +342,19 @@
     					schedTable += '<tr class="sched-tr-empty">'
                         			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
                         			+ '</tr>';
-                        
     				}
     				else{
-    					
+    					for(let i in result){
+    						schedTable += '<tr class="sched-tr">'
+    									+	 '<input type="hidden" name="schedNo" value="' + result[i].schedNo + '">'
+			                            +    '<td>' + result[i].category + '</td>'
+			                            +    '<td>' + result[i].schedName + '</td>'
+			                            +    '<td>' + result[i].schedContent + '</td>'
+			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
+			                            + '</tr>';
+    					}
     				}
-    				
-    				
-    				
+                    $(schedTable).insertAfter('input[value=' + destNo + ']');
     			}
     			
     		})

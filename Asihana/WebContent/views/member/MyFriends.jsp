@@ -88,7 +88,7 @@
 	<div id="noticetext">
 		<p>팔로우</p>
 	<div id = "searchtext">
-	<input class="form-control" id="myInput" type="text" placeholder="Search..">
+	<input class="form-control" id="myInput" type="text" placeholder="닉네임 검색">
 	</div>
 	</div>
 	

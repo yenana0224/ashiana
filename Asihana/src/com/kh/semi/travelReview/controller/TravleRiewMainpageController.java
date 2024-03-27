@@ -27,6 +27,31 @@ public class TravleRiewMainpageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		//GET 방식 인코딩 필요 없음
+		
+		// 2) request 값뽑기
+		// -- 페이징 처리 --
+		// 필요한 변수들
+		int listCount; // 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용해서 조회
+		int currentPage; // 현재 페이지(사용자가 요청한 페이지) => request.getParameter("currentPage")
+		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 최대 10개로 고정
+		int boardLimit; // 한 페이지에 보여질 게시글 최대 개수 => 10개로 고정
+						
+		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
+		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
+		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수 
+				
+		// 3) 서비스 호출
+				
+		// 1)여행기가 게시물 리스트를 가져와야 함
+		List<TravelReview> reviewList =  new TravelReviewService().selectReviewList();
+
+		// 2)추천수가 담긴 여행기 리스트를 가져와야 함
+				
+		// 3)해시태그가 담긴 여행기 리스트를 가져와야 함
+				
+				
+				
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	
 	}

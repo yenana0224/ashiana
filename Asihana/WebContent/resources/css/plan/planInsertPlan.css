@@ -1,6 +1,5 @@
 #outer-plan{
-    width: 1200px;
-    box-sizing: border-box;
+	margin : auto;
 }
 #required-msg{ /* 알림 메시지 */
     background-color: darkgrey;

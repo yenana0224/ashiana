@@ -212,4 +212,27 @@ public class PlanDao {
 		return result;
 	}
 
+	public int selectInsertPlan(Connection conn, int userNo) {
+		
+		int planNo = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("selectInsertPlan");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				planNo = rset.getInt("PLAN_NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return planNo;
+	}
+
 }

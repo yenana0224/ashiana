@@ -20,6 +20,7 @@ import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class CityService {
 
+	// 도시 페이징
 	public List<City> allCityList(PageInfo pi){
 		Connection conn = getConnection();
 		List<City> list = new ArrayList<City>();
@@ -28,6 +29,7 @@ public class CityService {
 		return list;
 	}
 	
+	// 하나의 도시 정보조회 : 도시번호, 도시이름, 도시내용, 국가번호, 국가이름, 비행시간
 	public City selectCity(int cityNo) {
 		Connection conn = getConnection();
 		City city = new CityDao().selectCity(conn, cityNo);		
@@ -35,6 +37,7 @@ public class CityService {
 		return city;
 	}
 	
+	// 메인화면노출 : 조회수기준 1-8번째 도시 조회(도시번호, 도시이름, 국가번호, 국가이름, 조회수)
 	public ArrayList<City> cityList(){
 		Connection conn = getConnection();
 		ArrayList<City> list = new ArrayList<City>();
@@ -43,6 +46,7 @@ public class CityService {
 		return list;
 	}
 	
+	// 국가번호에 해당하는 도시 전체 조회 : 도시번호, 도시이름, 도시내용
 	public ArrayList<City> nationCity(int nationNo){
 		Connection conn = getConnection();
 		ArrayList<City> list = new CityDao().nationCity(conn, nationNo);
@@ -50,6 +54,7 @@ public class CityService {
 		return list;
 	}
 	
+	// 도시 조회수 1 증가
 	public int increaseCity(City c) {
 		Connection conn = getConnection();
 		int result = new CityDao().increaseCity(conn, c);
@@ -58,6 +63,7 @@ public class CityService {
 		return result;
 	}
 	
+	// 하나의 도시 조회 : 도시번호, 도시이름, 도시소개, 국가이름, 비행시간, 비자
 	public City searchCity(City c) {
 		Connection conn = getConnection();
 		int nationNo = c.getNationNo();
@@ -80,6 +86,7 @@ public class CityService {
 		return city;
 	}
 	
+	// 테이블에 등록된 전체 도시 숫자 
 	public int countCity() {
 		Connection conn = getConnection();
 		int count = new CityDao().countCity(conn);
@@ -88,6 +95,7 @@ public class CityService {
 		return count;
 	}
 	
+	// 도시 사진 조회
 	public AttachmentFile selectPhoto(int cityNo) {
 		Connection conn = getConnection();
 		AttachmentFile file = new CityDao().selectPhoto(conn, cityNo);
@@ -95,6 +103,7 @@ public class CityService {
 		return file;
 	}
 	
+	// 도시 정보 수정
 	public int updateCity(City city, AttachmentFile file) {
 		Connection conn = getConnection();
 		int result = 0;

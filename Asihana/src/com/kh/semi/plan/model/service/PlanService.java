@@ -58,11 +58,11 @@ public class PlanService {
 		return list;
 	}
 
-	public List<Schedule> selectSchedule(int planNo) {
+	public List<Schedule> selectSchedule(int destNo) {
 		
 		Connection conn = getConnection();
 		
-		List<Schedule> list = new PlanDao().selectSchedule(conn, planNo);
+		List<Schedule> list = new PlanDao().selectSchedule(conn, destNo);
 		
 		close(conn);
 		

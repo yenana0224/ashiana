@@ -1,6 +1,7 @@
 package com.kh.semi.friendShip.model.dao;
 
 import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +25,32 @@ public class FriendShipDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
+	
+	public ArrayList<FriendShip> selectList(Connection conn, int userNo) {
+	
+		ArrayList <FriendShip> list = new ArrayList();
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new FriendShip(rset.getInt("MEM_NO1"),
+										rset.getInt("MEM_NO2"),
+										rset.getString("NICKNAME")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 	
 }

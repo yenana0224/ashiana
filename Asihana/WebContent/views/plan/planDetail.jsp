@@ -260,7 +260,7 @@
 			                		  + '</div>';
 			                		  
 			                // 귀국 항공편이 있을 시
-			                if(result[i].transPrice > 0){
+			                if(result[i].transPrice != 0){
 			                	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
 			                }
     					}
@@ -295,7 +295,6 @@
 	    	                
 	    	                // 예약 및 일정 구역
 	    	                schedArea += '<div class="sched-des">' // 아코디언 div
-	    	                		   +     '<input type="hidden" value="' + result[i].destNo + '">'
 				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
 				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
 				    	               +     '<div class="sched-btn-area">'
@@ -315,11 +314,13 @@
 				    	               +             '</tr>'
 				    	               +         '</thead>'
 				    	               +         '<tbody class="sched-des-detail-body">'
+	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
 				    	               
-				    		selectSchedule(destNo);
+				    		selectSchedule(result[i].destNo);
+				    		
     					}
     				} // for문
     					$('#root-area').html(rootArea);
@@ -328,15 +329,32 @@
     		})
     	};
     	
-    	function selectSchedule(tata){
+    	function selectSchedule(destNo){
     		$.ajax({
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : tata
+    				destNo : destNo
     			},
     			success : function(result){
-    				console.log(result);
+    				let schedTable = '';
+    				if(result.length == 0){
+    					schedTable += '<tr class="sched-tr-empty">'
+                        			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
+                        			+ '</tr>';
+    				}
+    				else{
+    					for(let i in result){
+    						schedTable += '<tr class="sched-tr">'
+    									+	 '<input type="hidden" name="schedNo" value="' + result[i].schedNo + '">'
+			                            +    '<td>' + result[i].category + '</td>'
+			                            +    '<td>' + result[i].schedName + '</td>'
+			                            +    '<td>' + result[i].schedContent + '</td>'
+			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
+			                            + '</tr>';
+    					}
+    				}
+                    $(schedTable).insertAfter('input[value=' + destNo + ']');
     			}
     			
     		})

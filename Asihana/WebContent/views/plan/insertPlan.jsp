@@ -19,7 +19,7 @@
 	
 	<%@ include file="../common/headerbar.jsp" %>
 	
-	<div id="outer">
+	<div id="outer-plan">
 	    <div id="required-msg">
 	        <div>
 	            <label>출국 날짜를 설정해주세요.(시간 선택)</label>
@@ -206,18 +206,19 @@
                     </div>
                     <div id="modal-form-area">
                         <select name="country" id="country">
+                        	<option value="국가 선택" disabled selected>국가 선택</option>
                             <% for(int i = 0; i < cityList.size(); i++) { %>
-                            	<% if(i > 0 && cityList.get(i - 1).getNationName().equals(cityList.get(i).getNationName())) { %>
-                            		<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
-                            	<% } else { %>
-                            		<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
+                            	<% if(i == 0 && !cityList.get(i).getNationName().equals("대한민국")) { %>
+	                            	<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
                             	<% } %>
+	                            <% if(i > 0 && !cityList.get(i - 1).getNationName().equals(cityList.get(i).getNationName()) && !cityList.get(i).getNationName().equals("대한민국")) { %>
+	                            	<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
+	                            <% } %>
                             <% } %>
                         </select>
                         <select name="city" id="city">
-                            <% for(City city : cityList) { %>
-                            <option value="<%= city.getCityName() %>"><%= city.getCityName() %></option>
-                            <% } %>
+                        	<option value="도시 선택" disabled selected>도시 선택</option>
+                        	
                         </select>
      
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
@@ -269,6 +270,13 @@
 
     <!-- 모달 스크립트 -->
     <script>
+    	$(function(){ // 모달 도시 셀렉트박스 
+    		$('#country').change(function(){
+    			<% for(City city : cityList) { %>
+    				if($('#country').val() === <%=city.getationName()%>)
+    			<% } %>
+    		})
+    	});
         // 날짜 포멧 바꾸는 함수
         function formatDate(date) {
             var d = new Date(date),
@@ -282,7 +290,7 @@
             
             return [year, month, day].join('-');
         }
-        $(function(){
+        $(function(){ // 모달 일정 요약 부분
             $('#city').change(function(){ // 도시 선택시 인풋 벨류 변경
                 $('#country-city').val($('#country').val() + '-' + $('#city').val());
             });
@@ -346,7 +354,11 @@
                 }
             }
         });
+        
     </script>
+    
+    
+    
     <!--디테일 테이블 스크립트-->
     <script>
         $('.sched-des-detail-body').on('mouseover', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
@@ -377,8 +389,8 @@
             const $detail = $(this).parents('.sched-des').next().find('.sched-des-detail-body');
             
             if($detail.find('.sched-tr-add').length == 0){ // 예약/일정 추가 행이 존재하는지 여부
-                $detail.find('.sched-tr-empty').remove(); // 등록 유도 행 제거
-                $(trAdd).appendTo($detail); // 예약/일정 추가 행 추가
+               $detail.find('.sched-tr-empty').remove(); // 등록 유도 행 제거
+               $(trAdd).appendTo($detail); // 예약/일정 추가 행 추가
             }
             else {
                 alert('추가 중인 예약 및 일정이 존재합니다.'); // 예약/일정 추가 행이 이미 있을 경우

@@ -342,7 +342,7 @@
     					schedTable += '<tr class="sched-tr-empty">'
                         			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
                         			+ '</tr>';
-                        $(schedTable).
+                        
     				}
     				else{
     					

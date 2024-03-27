@@ -6,10 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonElement;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.plan.model.service.PlanService;
 import com.kh.semi.plan.model.vo.*;
+import com.kh.semi.travelReview.model.service.TravelReviewService;
 
 public class PlanController {
 	
@@ -64,6 +64,7 @@ public class PlanController {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) {
+			request.setAttribute("cityList", new TravelReviewService().selectCityList());
 			view = "views/plan/insertPlan.jsp";
 		} else {
 			request.setAttribute("errorMsg", "로그인 확인 후 다시 시도해주세요.");

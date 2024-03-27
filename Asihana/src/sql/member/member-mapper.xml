@@ -44,4 +44,11 @@
 		WHERE MEM_ID = ?
 
 	</entry>
+	
+		<entry key="selectFriendList">
+		SELECT MEM_NO,NICKNAME
+		FROM MEMBER
+		WHERE STATUS = 'U'
+
+	</entry>
 </properties>

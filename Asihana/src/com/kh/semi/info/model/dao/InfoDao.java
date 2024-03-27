@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
@@ -180,6 +181,7 @@ public class InfoDao {
 				nation.setNationNo(rset.getInt("NATION_NO"));
 				nation.setNationName(rset.getString("NATION_NAME"));
 				nation.setNationContent(rset.getString("NATION_CONTENT"));
+				nation.setVisaName(rset.getString("VISA_NAME"));
 			}
 			
 		} catch (SQLException e) {
@@ -424,5 +426,163 @@ public class InfoDao {
 		}
 		return story;
 	}
+	
+	public int updateNation(Connection conn, Nation nation) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nation.getNationName());
+			pstmt.setString(2, nation.getNationContent());
+			pstmt.setInt(3, nation.getNationNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public AttachmentFile selectTitlePhoto(Connection conn, int nationNo) {
+		AttachmentFile file = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTitlePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				file = new AttachmentFile();
+				file.setBoardType(rset.getInt("BOARD_TYPE"));
+				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setOriginName(rset.getString("ORIGIN_NAME"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return file;
+	}
+	
+	public AttachmentFile selectPhoto(Connection conn, int nationNo) {
+		AttachmentFile file = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				file = new AttachmentFile();
+				file.setBoardType(rset.getInt("BOARD_TYPE"));
+				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setOriginName(rset.getString("ORIGIN_NAME"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return file;
+	}
+	
+	public int insertTitlePhoto(Connection conn, int nationNo, AttachmentFile title) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTitlePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			pstmt.setString(2, title.getFilePath());
+			pstmt.setString(3, title.getOriginName());
+			pstmt.setString(4, title.getChangeName());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertPhoto(Connection conn, int nationNo, AttachmentFile file) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			pstmt.setString(2, file.getFilePath());
+			pstmt.setString(3, file.getOriginName());
+			pstmt.setString(4, file.getChangeName());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateTitlePhoto(Connection conn, int nationNo, AttachmentFile title) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateTitlePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title.getFilePath());
+			pstmt.setString(2, title.getOriginName());
+			pstmt.setString(3, title.getChangeName());
+			pstmt.setInt(4, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updatePhoto(Connection conn, int nationNo, AttachmentFile file) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, file.getFilePath());
+			pstmt.setString(2, file.getOriginName());
+			pstmt.setString(3, file.getChangeName());
+			pstmt.setInt(4, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 
 }

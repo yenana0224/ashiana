@@ -71,6 +71,10 @@
 	margin-top: 50px;
 	margin-right: 10px;
 }
+.table-container {
+    max-height: 300px; /* 최대 높이 지정 */
+    overflow-y: auto; /* 세로 스크롤 생성 */
+}
 </style>
 
 </head>
@@ -84,13 +88,13 @@
 	<div id="noticetext">
 		<p>팔로우</p>
 	<div id = "searchtext">
-	<input class="form-control" id="myInput" type="text" placeholder="Search..">
+	<input class="form-control" id="myInput" type="text" placeholder="닉네임 검색">
 	</div>
 	</div>
 	
 	<br>
-	<div>
 	
+	<div class="table-container">
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
@@ -101,58 +105,31 @@
 					<th>팔로우 취소</th>
 				</tr>
 			</thead>
-			<!--  
 			<tbody id="myTable">
+				<%if(list.isEmpty()) {%>
 				<tr>
-					<td>John</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
-				</tr>
+					<td colspan="5"> 친구가 없습니다.</td>
 				<tr>
-					<td>Mary</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
-				</tr>
+				<%}else{ %>
+				<%for(FriendShip friendShip :list){ %>
 				<tr>
-					<td>July</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
+					<td><%=friendShip.getNickNameF()%></td>
+					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
+					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
+					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
 				</tr>
-				<tr>
-					<td>Kelly</td>
-					<td><i class="fas fa-cloud"></i></td>
-					<td><i class="fas fa-coffee"></i></td>
-					<td><i class="fas fa-file"></i></td>
-					<td><i class="fas fa-bars"></i></td>
-				</tr>
-			</tbody>-->
-			<tbody id="myTable">
-			<%if(list.isEmpty()) {%>
-			<tr>
-				<td colspan="5"> 친구가 없습니다.</td>
-			<tr>
-			<%}else{ %>
-			<%for(FriendShip friendShip :list){ %>
-			<tr>
-				<td><%=friendShip.getNickNameF()%></td>
-				<td><a href="#"><i class="fas fa-cloud"></i></a></td>
-				<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-				<td><a href="#"><i class="fas fa-file"></i></a></td>
-				<td><a href="#"><i class="fas fa-bars"></i></a></td>
-			</tr>
-			<%} %>
-			<%} %>
+				<%} %>
+				<%} %>
 			</tbody>
 		</table>
-		 
+		
+		<div align="center">
+	         <button type="button" onclick="location.href='<%=contextPath%>/selectUser'">유저 찾기</button>
+		</div>
+	</div>	 
 		<br><br><br><br><br>
-	</div>
+	
 	<script>
 		$(document).ready(function(){
 		  $("#myInput").on("keyup", function() {
@@ -162,6 +139,55 @@
 		    });
 		  });
 		});
+		
+		
+	function insertFriend(userId){
+		   if (userId !== null) {
+		        $.ajax({
+		            url: 'insert.friend',
+		            type: 'post',
+		            data: {
+		                userId2: userId
+		            },
+		            success: function(result) {
+		                if (result == 'success') {
+		                    alert("친구가 추가되었습니다.");
+		                };
+		            },
+		            error: function(xhr, status, error) {
+		                console.error(error);
+		            }
+		        });
+		    } else {
+		        // userId가 null일 때 예외 처리
+		        console.error("userId가 null입니다.");
+		    }
+			
+		}
+	function deleteFriend(userId){
+		   if (userId !== null) {
+			$.ajax({
+				url:'delete.friend',
+				type : 'post',
+				data : {
+					userId2: userId
+				},
+				 success: function(result) {
+					 if(result == 'success'){
+			            alert("친구가 삭제되었습니다.");
+					 };
+			    },
+			    error: function(xhr, status, error) {
+		            // 요청이 실패했을 때 수행할 작업을 여기에 작성합니다.
+		            console.error(error);
+		        }
+			});
+		   } else {
+			// userId가 null일 때 예외 처리
+		        console.error("userId가 null입니다.");
+		    }
+		}
+		
 	</script>
 
 	<%@ include file="../common/footer.jsp"%>

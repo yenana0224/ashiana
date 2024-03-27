@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.dao.InfoDao;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
@@ -54,9 +55,7 @@ public class InfoService {
 	public Nation searchNation(int nationNo) {
 		Connection conn = getConnection();
 		Nation nation = new InfoDao().searchNation(conn, nationNo);
-		
 		close(conn);
-		
 		return nation;
 	}
 	
@@ -87,6 +86,7 @@ public class InfoService {
 			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
 			nation.setCurrency(curList.toString());
 		}
+		close(conn);
 		
 		return nation;
 	}
@@ -124,9 +124,7 @@ public class InfoService {
 	public List<Story> storyList(PageInfo pi){
 		Connection conn = getConnection();
 		List<Story> list = new InfoDao().storyList(conn, pi);
-		
 		close(conn);
-		
 		return list;
 	}
 	
@@ -144,6 +142,49 @@ public class InfoService {
 		return count;
 	}
 	
+	public int updateNation(Nation nation, AttachmentFile title, AttachmentFile file) {
+		Connection conn = getConnection();
+		
+		int nationNo = nation.getNationNo();
+		
+		int nationResult = new InfoDao().updateNation(conn, nation);
+		
+		int titleResult = 1;
+		int photoResult = 1;
+		
+		if(title != null) {
+			if(new InfoDao().selectTitlePhoto(conn, nationNo) != null ) {
+				titleResult = new InfoDao().updateTitlePhoto(conn, nationNo, title);
+			} else {
+				titleResult = new InfoDao().insertTitlePhoto(conn, nationNo, title);
+			}
+		}
+		
+		if(file != null) {
+			if(new InfoDao().selectPhoto(conn, nationNo) != null ) {
+				photoResult = new InfoDao().updatePhoto(conn, nationNo, file);
+			} else {
+				photoResult = new InfoDao().insertPhoto(conn, nationNo, file);
+			}
+		}
+		
+		close(conn);
+		return nationResult * titleResult * photoResult;
+	}
+	
+	public AttachmentFile selectTitlePhoto(int nationNo) {
+		Connection conn = getConnection();
+		AttachmentFile title = new InfoDao().selectTitlePhoto(conn, nationNo);
+		close(conn);
+		return title;
+	}
+	
+	public AttachmentFile selectPhoto(int nationNo) {
+		Connection conn = getConnection();
+		AttachmentFile file = new InfoDao().selectPhoto(conn, nationNo);
+		close(conn);
+		return file;
+	}
 	
 
 }

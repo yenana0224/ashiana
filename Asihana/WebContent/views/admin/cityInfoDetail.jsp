@@ -57,6 +57,13 @@
             background-color: rgba(0, 0, 0, 0);
         }
         
+        input:focus, textarea:focus{
+            border : none;
+            outline: none;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        
        .btn{
             width: 80%;
             margin: auto;

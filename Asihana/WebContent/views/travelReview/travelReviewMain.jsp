@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview" %>
-<% List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList"); %>
+<%  List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
+	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
+   
+
+%>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -269,8 +273,8 @@
 
 
 
-                    <!-- 화면 세팅 구도 보기 위한 더미데이터의 영역, 추후 없애질 영역-->
-                <!--
+                   
+                <!--  화면 세팅 구도 보기 위한 더미데이터의 영역, 추후 없애질 영역
                     <div>
                         <input type="hidden" value="보드리스트">  
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
@@ -331,6 +335,20 @@
                     <p style="padding-top: 20px;">여행기 추천수 Best4</p>
                 </div>
                 <div id="content-3-boardlist" align="center">
+                    
+                    <%for(TravelReview t : likeList) %>
+                    <div>
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <p align="center">
+                            <lable>닉네임 : </lable><span><%=t.getReviewWriter() %></span> <br>
+                            <span>해시태그</span> <span>해시태그<%= t %></span>
+                        </p>  
+                    </div>
+                    <%} %>
+                    
+                    
+                    
+                    <!--  더미 데이터의 영역, 완성 시 없앨 부분
                     <div>
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
@@ -359,6 +377,8 @@
                             <span>해시태그</span> <span>해시태그2</span>
                         </p>  
                     </div>
+                    -->
+                    
                 </div>
             </div>
             <div id="content-3-3">

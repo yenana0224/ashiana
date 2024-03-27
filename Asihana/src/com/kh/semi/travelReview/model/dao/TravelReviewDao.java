@@ -67,20 +67,18 @@ public class TravelReviewDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				TravelReview t = new TravelReview();
 				
-				
 				t.setReviewNo(rset.getInt("REVIEW_NO"));
 				t.setReviewContent(rset.getString("REIVEW_CONTENT"));
 				t.setReviewWriter(rset.getString("NICKNAME"));
 				t.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
-				
+				t.setLikes(rset.getInt("LIKES"));
+				list.add(t);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

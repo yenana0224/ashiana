@@ -28,7 +28,8 @@ public class CommunityInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		
-		// 
+		// POST
+		request.setCharacterEncoding("UTF_8");
 	
 	
 	

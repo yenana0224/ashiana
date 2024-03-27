@@ -231,7 +231,8 @@ public class adminController {
 		
 	}
 	
-	public String selectNation(HttpServletRequest request, HttpServletResponse response) {
+	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		
 		return "views/admin/nationInfoDetail.jsp";
 	}

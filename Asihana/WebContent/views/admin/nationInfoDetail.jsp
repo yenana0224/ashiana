@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <style> 
    
         .title{
@@ -70,6 +71,11 @@
         button:hover{
             cursor : pointer;
         }
+        
+        #backBtn{
+        	margin-bottom : 50px;
+        }
+        
 
     </style>
 </head>
@@ -89,7 +95,8 @@
             <img src="https://pbs.twimg.com/profile_images/1615738154333667331/NTng-9ke_400x400.jpg" alt="">
         </div>
     
-        <form action="#" method="post">
+        <form action="nationUpdate.admin" method="post">
+        	<input type="hidden" name="nationNo" value="">
             <div class="info-area"><input type="text" name="nationName" readonly></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly></textarea></div>
             <div class="info-area"><input type="text" name="voltage" readonly></div>
@@ -98,11 +105,19 @@
             <div class="info-area"><input type="text" name="currency" readonly></div>
 
             <div class="btn">
-            <button type="submit" id="updateBtn"> 수정하기 </button>
+            	<button type="submit" id="updateBtn"> 수정하기 </button>
             </div>
         </form>
-
-        <button type="submit" id="backBtn"> 수정하기 </button>
+        
+		<div class="btn">
+        	<button id="backBtn"> 목록으로 </button>
+        </div>
+        
+        <script>
+        $('#backBtn').click(function(){
+        	location.href="<%=contextPath %>/info.admin?currentPage=1";
+        })
+        </script>
 
     </div>
 

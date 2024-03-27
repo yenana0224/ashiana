@@ -149,7 +149,22 @@
 	</entry>
 	
 	<entry key="selectSchedule">
-	
+		SELECT SCHED_NO,
+		       DEST_NO,
+		       CATEGORY,
+		       SCHED_NAME,
+		       SCHED_CONTENT,
+		       TO_CHAR(SCHED_COST, 'FM999,999,999,999') AS SCHED_COST
+		  FROM TB_SCHEDULE
+		  JOIN
+		       (SELECT DEST_NO,
+		               CITY_NAME
+		          FROM TB_DESTINATION
+		          JOIN TB_CITY USING(CITY_NO)) USING(DEST_NO)
+		 WHERE DEST_NO = ?
+		   AND STATUS = 'Y'
+		 ORDER
+		    BY DEST_NO
 	</entry>
 
 </properties>

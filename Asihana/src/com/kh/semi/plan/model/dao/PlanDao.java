@@ -163,7 +163,7 @@ public class PlanDao {
 	}
 
 
-	public List<Schedule> selectSchedule(Connection conn, int planNo) {
+	public List<Schedule> selectSchedule(Connection conn, int destNo) {
 		
 		List<Schedule> list = new ArrayList();
 		ResultSet rset = null;
@@ -173,11 +173,16 @@ public class PlanDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, planNo);
+			pstmt.setInt(1, destNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Schedule());
+				list.add(new Schedule(rset.getInt("SCHED_NO"),
+									  rset.getInt("DEST_NO"),
+									  rset.getString("CATEGORY"),
+									  rset.getString("SCHED_NAME"),
+									  rset.getString("SCHED_CONTENT"),
+									  rset.getString("SCHED_COST")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

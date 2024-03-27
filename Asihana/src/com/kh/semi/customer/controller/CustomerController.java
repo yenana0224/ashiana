@@ -264,7 +264,7 @@ public class CustomerController {
 		
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 		int boardType = 8;
-		
+		String currentPage = request.getParameter("currentPage");
 		
 		NoticeFile qnaFile = new CustomerService().selectFile(qnaNo, boardType);
 		
@@ -275,6 +275,7 @@ public class CustomerController {
 		request.setAttribute("qnaFile", qnaFile);
 		request.setAttribute("answer", answer);
 		request.setAttribute("qna", qna);
+		request.setAttribute("currentPage", currentPage);
 		
 		String view = "views/customer/qnaDetail.jsp";
 		
@@ -283,7 +284,23 @@ public class CustomerController {
 	}
 	
 	
-	
+	public String qnaDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+		
+		int result = new CustomerService().qnaDelete(qnaNo);
+		
+		String view = "";
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "삭제 성공");
+			view = "qa.customer?currentPage=1";
+		} else {
+			request.setAttribute("errorMsg", "삭제 실패");
+			view = "views/common/errorPage.jsp";
+		}
+		return view;
+	}
 	
 	
 	

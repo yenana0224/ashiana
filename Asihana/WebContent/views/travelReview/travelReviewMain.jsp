@@ -208,51 +208,43 @@
                                      <!--1)DB에서 조회된 국가/도시 정보를 바탕으로 반복문을 통해서 li요소 추가, 
                                          2)해당 li요소를 클랙했을 때 해당 국가 여행기 게시판으로 이동-->
                             	<%for(City city : cityList){%>
+                            	
                             		<li><%=city.getCityName() %>(<%=city.getNationName() %>)</li>
-                            		
                             	<%} %>
                                     
                             </ol>
                         </div>
                         
                         <script>
-                            $('#search-botton').keydown(function(){
-                                $('ol').css('display', 'block');
-                            })
+                           $('#search-botton').keydown(function(){
+                        	
+                            
+                           	// 국가 ,도시 리스트 중에서 input 요소에 적히는 글씨와 일치하는 리스트만 보고싶다.
+                           	$('ol').css('display', 'block');
+                           		
+                           });		
                             
                             $('*').not('#content-1-2 *').not('html, body, #content-wrap, #content-1wrap, #content-1-2, #content-1-3').click(function(e){
                                 console.log(e);
                                 $('ol').css('display', 'none');
-                                //$('ol').css('display', 'block');
-                            })
-                            
-                            /*
-                            
-                            $('body').not('ol').click(function(){
-                                $('ol').css('display', 'none');
-                                //$('ol').css('display', 'block');
-                            })
-
-                            
-                            */
-                           	
-                            /*
-                            $('#nation-list-wrap').on('click', 'ol', function(){
-                             
-                                $('ol').append('<li>DB정보</li>'); 
-                            })
-                            */
+                            });
+                           
                             $('ol').on('click', 'li', function(){
                             // input의 value 요소 값을 변경 시켜야함
                                     $('#search-botton').val($(this).text());
-                            });
+                            })
+                    
+                         // .filter('선택자') : 기준 중에서 해당 조건에 만족하는 요소만 선택 *
+                            
                         </script>
 
                     </form>
                 </div>
             </div>
             <div id="content-1-3" class="content-1wrap" >
-                <p></p>
+                <%if(loginUser != null){ %>
+                <p><a href="">여행기 쓰기</a></p>
+                <%} %>
             </div>
         </div>
 

@@ -60,6 +60,7 @@ public class TravleRiewMainpageController extends HttpServlet {
 				
 		// 3_3)해시태그가 담긴 여행기 리스트를 가져와야 함
 		
+		
 		request.setAttribute("cityList", cityList);
 		System.out.println(cityList);
 		

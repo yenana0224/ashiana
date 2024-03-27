@@ -61,6 +61,7 @@
 	width: 1000px;
 	margin: auto;
 	text-align: center;
+	margin: 0 auto;
 }
 #searchtext {
 	margin: auto;
@@ -72,8 +73,10 @@
 	margin-right: 10px;
 }
 .table-container {
+	width: 1000px;
     max-height: 300px; /* 최대 높이 지정 */
     overflow-y: auto; /* 세로 스크롤 생성 */
+    margin: 0 auto;
 }
 </style>
 
@@ -81,7 +84,7 @@
 <body>
 
 	<%@ include file="../common/headerbar.jsp"%>
-
+	<div>
 	<div id="noticetext">
 		<p>유저찾기</p>
 	<div id = "searchtext">
@@ -91,7 +94,7 @@
 	
 	<br>
 	
-	<div class="table-container">
+	<div class="table-container" style="text-align: center;">
 		<table class="table">
 			<thead class="thead-light">
 				<tr>

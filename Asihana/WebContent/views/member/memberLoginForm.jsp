@@ -64,9 +64,9 @@
 					<td class="space" colspan="2"><td>
 				<tr>
 				<tr>
-					<th colspan="2">
-						<button type="submit" class="btn btn-sm btn-primary" >로그인</button>
-						<button type="button" class="btn btn-sm btn-secondary" onclick="location.href='<%=contextPath%>/views/member/memberEnrollForm.jsp'">회원가입</button>
+					<th colspan="2" style="margin: 0 auto;" style="text-align: center;">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit"  class="btn btn-sm btn-primary">로그인</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-secondary" onclick="location.href='<%=contextPath%>/views/member/memberEnrollForm.jsp'">회원가입</button>
 					</th>
 				</tr>
 			</table>

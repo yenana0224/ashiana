@@ -1,13 +1,11 @@
 package com.kh.semi.travelReview.model.vo;
 
-import java.sql.Date;
-
 public class TravelReview {
 
 	private int reviewNo;
 	private String reviewTitle;
 	private String reviewContent;
-	private int reviewWriter;
+	private String reviewWriter;
 	private String departureDate; 
 	private String arrivalDate; 
 	private String partner;
@@ -21,9 +19,10 @@ public class TravelReview {
 	public TravelReview() {
 	}
 
-	public TravelReview(int reviewNo, String reviewTitle, String reviewContent, int reviewWriter, String departureDate,
-			String arrivalDate, String partner, int reviewPoint, int count, String createDate, int cityNo,
-			String planCheck, String status) {
+	public TravelReview(int reviewNo, String reviewTitle, String reviewContent, String reviewWriter,
+			String departureDate, String arrivalDate, String partner, int reviewPoint, int count, String createDate,
+			int cityNo, String planCheck, String status) {
+		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
 		this.reviewContent = reviewContent;
@@ -63,11 +62,11 @@ public class TravelReview {
 		this.reviewContent = reviewContent;
 	}
 
-	public int getReviewWriter() {
+	public String getReviewWriter() {
 		return reviewWriter;
 	}
 
-	public void setReviewWriter(int reviewWriter) {
+	public void setReviewWriter(String reviewWriter) {
 		this.reviewWriter = reviewWriter;
 	}
 
@@ -167,7 +166,7 @@ public class TravelReview {
 		result = prime * result + reviewNo;
 		result = prime * result + reviewPoint;
 		result = prime * result + ((reviewTitle == null) ? 0 : reviewTitle.hashCode());
-		result = prime * result + reviewWriter;
+		result = prime * result + ((reviewWriter == null) ? 0 : reviewWriter.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -224,7 +223,10 @@ public class TravelReview {
 				return false;
 		} else if (!reviewTitle.equals(other.reviewTitle))
 			return false;
-		if (reviewWriter != other.reviewWriter)
+		if (reviewWriter == null) {
+			if (other.reviewWriter != null)
+				return false;
+		} else if (!reviewWriter.equals(other.reviewWriter))
 			return false;
 		if (status == null) {
 			if (other.status != null)
@@ -233,17 +235,4 @@ public class TravelReview {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
 }

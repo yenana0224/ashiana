@@ -49,6 +49,9 @@ public class adminServlet extends HttpServlet {
 		case "info" : view = ac.nationList(request, response); break;
 		case "nationCityList" : view = ac.allCityList(request, response); break;
 		case "nationInfo" : view = ac.nationInfo(request, response); break;
+		case "nationUpdateForm" : view = ac.nationUpdateForm(request, response); break;
+		case "nationUpdate" : view = ac.nationUpdate(request, response); flag = false; break;
+		case "cityinfo" : view = ac.cityinfo(request, response); break;
 		}
 		
 		if(flag) {

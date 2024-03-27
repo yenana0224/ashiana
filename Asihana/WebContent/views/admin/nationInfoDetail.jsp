@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
+<%
+	Nation nation = (Nation)request.getAttribute("nation");
+	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
+	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +24,19 @@
         	margin-top : 10px;
         }
 
+        .titlePhoto{
+        	width : 1000px;
+        	height : 500px;
+        	border : 1px solid darkgray;
+        	margin: auto;
+            margin-bottom: 20px;
+        }
+        
+        .titlePhoto>img{
+            width: 100%;
+            height: 100%;
+        }
+
         .photo{
             width: 400px;
             height: 400px;
@@ -28,7 +46,7 @@
             margin-bottom: 30px;
         }
 
-        .photo>img{
+        .photo>#nationPhoto{
             width: 100%;
             height: 100%;
             border-radius: 10px;
@@ -49,6 +67,14 @@
 
         input, textarea{
             border : none;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            focus : 
+        }
+        
+       input:focus, textarea:focus{
+            border : none;
+            outline: none;
             width: 100%;
             background-color: rgba(0, 0, 0, 0);
         }
@@ -91,18 +117,27 @@
             <h3>국가정보 </h3>
         </div>
        
+        <div class="titlePhoto">
+        	<% if(title != null) { %>
+            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>/<%=title.getChangeName() %>">
+            <% } %>
+        </div>
+
         <div class="photo">
-            <img src="https://pbs.twimg.com/profile_images/1615738154333667331/NTng-9ke_400x400.jpg" alt="">
+        	<% if(file != null) { %>
+            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
+            <% } %>
+
         </div>
     
-        <form action="nationUpdate.admin" method="post">
-        	<input type="hidden" name="nationNo" value="">
-            <div class="info-area"><input type="text" name="nationName" readonly></div>
-            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" readonly></div>
-            <div class="info-area"><input type="text" name="visa" readonly></div>
-            <div class="info-area"><input type="text" name="language" readonly></div>
-            <div class="info-area"><input type="text" name="currency" readonly></div>
+        <form action="nationUpdateForm.admin" method="post">
+        	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
+            <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>" readonly></div>
+            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly><%=nation.getNationContent() %></textarea></div>
+            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
+            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
+            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
+            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
 
             <div class="btn">
             	<button type="submit" id="updateBtn"> 수정하기 </button>

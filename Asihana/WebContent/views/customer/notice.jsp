@@ -198,6 +198,7 @@
         </tbody>
     </table>
 	
+	<% if(!noticeList.isEmpty()) { %>
 	<% if(searchContent != null) { %>
 		<div id="buttonBox">
 		<% if(pi.getCurrentPage() > 1){ %>
@@ -232,7 +233,10 @@
 	        <% } %>
 	    </div>
 	<% } %>
-	
+	<% } else {%>
+		<div id="buttonBox">
+		</div>
+	<% } %>
 	
 	<script>
 		function mouseIn(e){

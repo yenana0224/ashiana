@@ -39,7 +39,6 @@ public class FriendListController extends HttpServlet {
 		
 		ArrayList<FriendShip> friendlist = new FriendShipService().selectList(userNo);
 		
-		System.out.println(friendlist);
 		request.setAttribute("friendlist", friendlist);
 		
 		request.getRequestDispatcher("/views/member/MyFriends.jsp").forward(request,response);

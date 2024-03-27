@@ -1,14 +1,27 @@
 package com.kh.semi.travelReview.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.List;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.dao.TravelReviewDao;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewService {
 
+	public List<City> selectCityList(){
+		
+		Connection conn = getConnection();
+		
+		List<City> cityList = new TravelReviewDao().selectCityList(conn); 
+		
+		
+		return cityList;
+	}
+	
 	
 	public List<TravelReview> selectReviewList(){
 		

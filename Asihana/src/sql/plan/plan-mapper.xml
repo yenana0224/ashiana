@@ -171,7 +171,22 @@
 		 WHERE DEST_NO = ?
 		   AND STATUS = 'Y'
 		 ORDER
-		    BY SCHED_NO DESC
+		    BY SCHED_NO
+	</entry>
+	
+	<entry key="insertPlan">
+		INSERT INTO TB_PLAN VALUES (SEQ_PLAN.NEXTVAL, ?, 'N', SYSDATE)
+	</entry>
+	
+	<entry key="selectInsertPlan">
+		SELECT
+		      PLAN_NO
+		  FROM
+		      TB_PLAN
+		 WHERE
+		      MEM_NO = ?
+		   AND
+		      STATUS = 'N'
 	</entry>
 
 </properties>

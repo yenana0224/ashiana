@@ -23,45 +23,42 @@
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
             
-            <% if(loginUser == null || list.isEmpty()) { %> <!-- 로그인 상태가 아니거나 여행플랜이 없을 경우 -->
+            <% if(loginUser != null && !list.isEmpty()) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
+            	<% for(PlanMain p: list) { %>
+		            <div class="my-plan-card my-plan-card-hover">
+		                <div>
+		                    <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
+		                    <h5><%= p.getPlanCitys() %></h5>
+		                    <div class="card-content">
+		                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
+		                        <div class="card-content-1">
+		                            <label><%= p.getStartDate() %></label> <br>
+		                            <label><%= p.getdDay() %></label>
+		                        </div>
+		                        <div class="card-content-2">
+		                            <label><%= p.getTravelDate() %></label> <br>
+		                            <label><%= p.getTotalPrice() %></label>
+		                        </div>
+		                        <div class="card-content-3">
+		                            <label><%= p.getUploadDate() %></label>
+		                        </div>
+		                    </div>
+		                </div>
+		                <button id="card-delete" class="btn button btn-danger btn-card" style="right: 5px;">삭제</button>
+		                <button id="card-edit" class="btn button btn-success btn-card" style="right: 37px;">수정</button>
+		            </div>
+            	<% } %>            	
+            <% } %>
             <div class="my-plan-card">
                 <div class="planning-card">   
-                    <h5>계획된 여행이 없습니다.</h5>
+                    <h5>나의 여행 플랜</h5>
                     <p>
                                                        목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
                     </p>
-                    <button class="btn btn-sm btn-success">여행 플랜 추가</button>
+                    <button class="btn btn-sm btn-success btn-insert">여행 플랜 추가</button>
                 </div>
             </div>
-            
-            <% } else { %>
-            	<% for(PlanMain p: list) { %>
-            <div class="my-plan-card my-plan-card-hover">
-                <div>
-                    <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
-                    <h5><%= p.getPlanCitys() %></h5>
-                    <div class="card-content">
-                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
-                        <div class="card-content-1">
-                            <label><%= p.getStartDate() %></label> <br>
-                            <label><%= p.getdDay() %></label>
-                        </div>
-                        <div class="card-content-2">
-                            <label><%= p.getTravelDate() %></label> <br>
-                            <label><%= p.getTotalPrice() %></label>
-                        </div>
-                        <div class="card-content-3">
-                            <label><%= p.getUploadDate() %></label>
-                        </div>
-                    </div>
-                </div>
-                <button id="card-delete" class="btn button btn-danger btn-card" style="right: 5px;">삭제</button>
-                <button id="card-edit" class="btn button btn-success btn-card" style="right: 37px;">수정</button>
-            </div>
-            	<% } %>
-            <% } %>
-            
-        </div>
+        </div> <!-- #my-plans-area -->
 
         <div id="start-plan-area">
             <div id="start-plan-pic">
@@ -73,7 +70,7 @@
 			                        상상 속의 여행을 현실로!<br>
 			                        아시하나의 여행 플래너를 이용해보세요!
                     </p>
-                    <button class="btn btn-outline-danger">나의 여행 플랜하기</button>
+                    <button class="btn btn-outline-danger btn-insert">나의 여행 플랜하기</button>
                 </div>
                 <div class="plan-msg">
                     <p>
@@ -102,23 +99,28 @@
                             <h5>로마</h5>
                             <label>이탈리아</label>
                         </div>
-                        
-    
                     </div>
-    
-                </div>
-            </div>
+                </div> <!-- #city-area -->
+            </div> <!-- #start-plan-msg -->
 
         </div>
-    </div>
+    </div> <!-- outer -->
 
     <%@ include file="../common/footer.jsp" %>
     
     <script>
     	$(function(){
-	    	$('#my-plans-area').on('click', '.my-plan-card-hover', function(){
+	    	$('#my-plans-area').on('click', '.my-plan-card-hover', function(){ // 카드 클릭 시 상세 조회 =>
 	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
+	    	$('#outer').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
+	    		<% if( loginUser != null) { %>
+		    		location.href = '<%= contextPath %>/insert.plan?userNo=' + <%= loginUser.getUserNo() %>;
+	    		<% } else { %>
+	    			alert("로그인 후 이용해주세요..");
+	    			location.href = '<%= contextPath %>/views/member/memberLoginForm.jsp';
+	    		<% } %>
+	    	})
     	})	
     </script>
     

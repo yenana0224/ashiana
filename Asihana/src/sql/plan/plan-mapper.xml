@@ -171,7 +171,7 @@
 		 WHERE DEST_NO = ?
 		   AND STATUS = 'Y'
 		 ORDER
-		    BY SCHED_NO DESC
+		    BY SCHED_NO
 	</entry>
 
 </properties>

@@ -69,4 +69,15 @@ public class PlanService {
 		return list;
 	}
 
+	public int insertPlan(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().insertPlan(conn, userNo);
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

@@ -307,13 +307,14 @@ public class CustomerController {
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 		String replyContent = request.getParameter("content");
 		String userNo = request.getParameter("userNo");
+		String qnaStatus = request.getParameter("qnaStatus");
 		
 		Answer answer = new Answer();
 		answer.setQnaNo(qnaNo);
 		answer.setReplyComment(replyContent);
 		answer.setReplyWriter(userNo);
 		
-		int result = new CustomerService().replyInsert(answer);
+		int result = new CustomerService().replyInsert(answer, qnaStatus);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result > 0 ? "success" : "fail");

@@ -679,7 +679,7 @@ public class CustomerDao {
 				list.add(new Answer(rset.getInt("REPLY_NO"),
 						 			rset.getInt("QNA_NO"),
 						 			rset.getString("REPLY_COMMENT"),
-						 			rset.getString("REPLY_WRITER"),
+						 			rset.getString("NICKNAME"),
 						 			rset.getDate("COMMENT_DATE"),
 						 			rset.getString("STATUS")));
 				
@@ -796,5 +796,24 @@ public class CustomerDao {
 		return result;
 	}
 	
-	
+	public int completed(Connection conn, Answer answer) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("completed");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, answer.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

@@ -54,6 +54,7 @@ public class CustomerServlet extends HttpServlet {
 			}
 			break;
 		case "qnaDetail" : view = customer.qnaDetail(request, response); break;
+		case "qnaDelete" : view = customer.qnaDelete(request, response); break;
 		}
 		
 		if(flag == true) {

@@ -4,10 +4,12 @@
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
 %>
+<%@ include file="../common/headerbar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>      
     <title>여행 플랜 작성</title>
+    
     <style>
     div{
        width: 1200px;
@@ -17,7 +19,7 @@
 </head>
 <body>
 	
-	<%@ include file="../common/headerbar.jsp" %>
+	<%@ include file="../common/planCss.jsp" %>
 	
 	<div id="outer-plan">
 	    <div id="required-msg">

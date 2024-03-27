@@ -1,24 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
+<%@ include file="../common/headerbar.jsp" %>
 <%
 	List<PlanMain> list = (List<PlanMain>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    
-
     <title>여행 플랜 메인</title>
-
 </head>
 <body>
-	<%@ include file="../common/headerbar.jsp" %>
+	<%@ include file="../common/planCss.jsp" %>
     <div id="outer-plan">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>

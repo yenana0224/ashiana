@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
@@ -47,6 +48,8 @@ public class TravleRiewMainpageController extends HttpServlet {
 		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수 
 				
 		// 3) 서비스 호출
+		// 3_2)검색창에 띄울 국가, 도시 정보를 가져와야 함
+		List<City> cityList = new TravelReviewService().selectCityList();
 				
 		// 3_1)여행기가 게시물 리스트를 가져와야 함
 		List<TravelReview> reviewList =  new TravelReviewService().selectReviewList();
@@ -57,12 +60,14 @@ public class TravleRiewMainpageController extends HttpServlet {
 				
 		// 3_3)해시태그가 담긴 여행기 리스트를 가져와야 함
 		
+		request.setAttribute("cityList", cityList);
+		System.out.println(cityList);
 		
 		request.setAttribute("reviewList", reviewList);
-		System.out.println(reviewList);
+		//System.out.println(reviewList);
 		
 		request.setAttribute("likeList", likeList);
-		System.out.println(likeList + "1");
+		//System.out.println(likeList + "1");
 				
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	

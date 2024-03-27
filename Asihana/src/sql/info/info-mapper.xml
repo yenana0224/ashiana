@@ -6,7 +6,7 @@
 		info Mapper
 	</comment>
 	
-		<entry key="searchLang">
+	<entry key="searchLang">
 	SELECT
      	   LANGUAGE_NAME
  	  FROM

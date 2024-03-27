@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
 	Nation nation = (Nation)request.getAttribute("nation");
+	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
+	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>
 <!DOCTYPE html>
 <html>
@@ -120,11 +122,15 @@
         </div>
        
         <div class="titlePhoto">
-            <img id="titlePhoto" src="" alt="">
+        	<% if(title != null) { %>
+            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>/<%=title.getChangeName() %>">
+            <% } %>
         </div>
 
-        <div class="photo">    
-            <img id="nationPhoto" src="https://pbs.twimg.com/profile_images/1615738154333667331/NTng-9ke_400x400.jpg" alt="">
+        <div class="photo">
+        	<% if(file != null) { %>
+            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
+            <% } %>
         </div>
     
         <form action="nationUpdate.admin" method="post" enctype="multipart/form-data">

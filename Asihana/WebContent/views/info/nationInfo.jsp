@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, java.util.ArrayList, com.kh.semi.common.*"%>
     
 <%
 	Nation nation = (Nation)request.getAttribute("nation");
 	ArrayList<City> list = (ArrayList<City>)request.getAttribute("cityList");
+	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
+	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>
 <!DOCTYPE html>
 <html>
@@ -256,7 +258,9 @@
 
         <div class="nationIntro">
             <div id="nationPhoto">
-                <img src="http://d3b39vpyptsv01.cloudfront.net/photo/1/2/9331fa26a6d4d1ba7e62333d8bd95a86.jpg" alt="">
+            	<% if(title != null) { %>
+                <img src="<%=contextPath%>/<%=title.getFilePath() %>/<%=title.getChangeName() %>" alt="">
+            	<% } %>
             </div>
             <div id="nationContent">
             	<pre>
@@ -272,7 +276,9 @@
 		            <% for(City c : list) { %>
 		                <div class="city">
 		                    <div class="cityPhoto">
+		                    	
 		                        <img src="https://tourimage.interpark.com//Spot/187/15599/202112/6377508663314465670.jpg" alt="">
+		                    	
 		                    </div>
 		                    <div class="cityName">
 		                        <h5><%=c.getCityName() %></h5>

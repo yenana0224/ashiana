@@ -220,7 +220,7 @@ public class CustomerService {
 		
 		int qnaResult = new CustomerDao().qnaDelete(conn, qnaNo);
 		if(qnaResult > 0) {
-			int fileResult = new CustomerDao().fileDelete(conn, qnaNo);
+			new CustomerDao().fileDelete(conn, qnaNo);
 		}
 		
 		if(qnaResult > 0) {
@@ -234,11 +234,19 @@ public class CustomerService {
 		return qnaResult;
 	}
 	
-	public int replyInsert(Answer answer) {
+	public int replyInsert(Answer answer, String qnaStatus) {
 		
 		Connection conn = getConnection();
-		
-		int result = new CustomerDao().replyInsert(conn, answer);
+		int userNo = Integer.parseInt(answer.getReplyWriter());
+		int result = 0;
+		if(qnaStatus.equals("Y") && userNo == 1) {
+			result = new CustomerDao().replyInsert(conn, answer);
+			if(result > 0) {
+				new CustomerDao().completed(conn, answer);
+			}
+		} else {
+			result = new CustomerDao().replyInsert(conn, answer);
+		}
 		
 		if(result > 0) {
 			commit(conn);

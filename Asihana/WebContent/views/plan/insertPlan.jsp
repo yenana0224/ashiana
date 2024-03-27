@@ -21,183 +21,178 @@
     
     <!--목적지 추가/여행 종료 토스트 css-->
     <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
-
-    
-
-
-    <!-- 아이콘 -->
-    <!-- https://icons.getbootstrap.com/ -->
-
-    <!-- 달력 -->
     
     <title>여행 플랜 작성</title>
     <style>
-        div{
+        #outer{
             width: 1200px;
             box-sizing: border-box;
-
         }
-        
     </style>
 </head>
 <body>
+	
+	<%@ include file="../common/headerbar.jsp" %>
+	
+	<div id="outer">
+	    <div id="required-msg">
+	        <div>
+	            <label>출국 날짜를 설정해주세요.(시간 선택)</label>
+	        </div>
+	    </div>
+	    <form method="post">
+	        <div id="planning-interface">
+	             
+	                            출국일시 : <input type="date" name="start-date" id="start-date">
+	            <input type="time" name="start-time" id="start-time"  class="timepicker">
+	
+	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
+	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
+	            <button class="btn btn-sm btn-success btn-int" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
+	        </div>
+	        <div id="planning-area">
+	            <div id="date-area">
+	
+	            </div> 
+	            <div id="root-area">
+	                <div class="root-icon">
+	                    <img src="resources/icons/arrow-down-square-fill.svg">
+	                </div>
+	                <div class="root-info"><label>항공(1시간)</label></div>
+	                <div class="root-line"></div>
+	                <div class="root-card">
+	                    <div class="des-img">
+	                        <img src="resources/대련.jpg">
+	                    </div>
+	                    <div class="des-info">
+	                        <span>대련-중국</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>
+	                        <label>2월 27일</label> ~ <label>3월 1일</label>
+	                    </div>
+	                </div>
+	                
+	                <div class="root-line"></div>
+	                <div class="root-icon">
+	                    <img class="des-add-btn" src="resources/icons/plus-square-fill.svg">
+	                    <div class="toast" data-autohide="false" style="width: 240px;">
+	                        <div class="toast-body">
+	                            <button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
+	                            <button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>
+	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast">Ｘ</button>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	            </div>
+	            
+	            
+	        </div>
+	        <div id="sched-area">
+	            <div id="sched-box">
+	                <h2>예약 및 일정</h2> <label id="sched-date-sum">6박 7일</label>
+	                <!--  
+	                <div class="sched-des">
+	                    <span class="sched-des-city">대련-중국</span>
+	                    <span class="sched-des-date">3박 4일</span>
+	                    <div class="sched-btn-area">
+	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
+	                    </div>
+	                    <span class="sched-des-price">예약 및 일정 예산 <label>200,000원</label></span>
+	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
+	                </div>
+	                <div class="sched-des sched-des-detail">
+	                	
+	                    <table class="table table-hover table-bordered">
+	                        <thead>
+	                            <tr>
+	                                <th class="th1">카테고리</th>
+	                                <th class="th2">예약/일정 명</th>
+	                                <th class="th3">상세 내용</th>
+	                                <th class="th4">예상 금액</th>
+	                                <th class="th5"></th>
+	                            </tr>
+	                        </thead>
+	                        <tbody class="sched-des-detail-body">
+	                            <tr class="sched-tr">
+	                                <td>숙소</td>
+	                                <td>파고다낭 호텔</td>
+	                                <td>오후 1시 체크인</td>
+	                                <td class="td-price">240,000원</td>
+	                                <td class="sched-detail-btn-area"><img class="sched-detail-btn" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn" src="resources/icons/x-circle-fill.svg"></td>
+	                            </tr>
 
-    <div id="required-msg">
-        <div>
-            <label>출국 날짜를 설정해주세요.(시간 선택)</label>
-        </div>
-    </div>
-    <form method="post">
-        <div id="planning-interface">
-             
-            출국일시 : <input type="date" name="start-date" id="start-date" required>
-            <input type="time" name="start-time" id="start-time"  class="timepicker">
+	                        </tbody>
+	                    </table>
+	                      
+	                </div>
+	    			-->
+	    			<!--
+	                <div class="sched-des">
+	                    <span class="sched-des-city">대련-중국</span>
+	                    <span class="sched-des-date">3박 4일</span>
+	                    <div class="sched-btn-area">
+	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
+	                    </div>
+	                    <span class="sched-des-price">예약 및 일정 예산 <label>200,000원</label></span>
+	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
+	                </div>
+	                <div class="sched-des sched-des-detail">
+	                    <table class="table table-hover table-bordered">
+	                        <thead>
+	                            <tr>
+	                                <th class="th1">카테고리</th>
+	                                <th class="th2">예약/일정 명</th>
+	                                <th class="th3">상세 내용</th>
+	                                <th class="th4">예상 금액</th>
+	                                <th class="th5"></th>
+	                            </tr>
+	                        </thead>
+	                        <tbody class="sched-des-detail-body">
+	                            <tr class="sched-tr-empty">
+	                                <td colspan="5">등록된 예약 및 일정이 없습니다.</td>
+	                            </tr>
+	                        </tbody>
+	                      </table>
+	                </div>
+	                -->
+	            </div> <!-- #sched-box -->
+	        </div> <!-- #sched-area -->
+	        <div id="submit-area">
+	            <div id="plan-sum">
+	                <span>이동 수단 가격 </span><label class="plan-sum-price">450,000원</label> +
+	                <span>예약 및 일정 예산 </span><label class="plan-sum-price"> 720,000원</label> +
+	                <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> =
+	                <label class="plan-sum-total">총 예산 1,320,000원</label>
+	            </div>
+	            <button class="btn btn-danger">여행 플랜 완료</button>
+	            <button class="btn btn-dark">취소</button>
+	        </div>
+	    </form>
+	</div> <!-- outer -->
+	<%@ include file="../common/footer.jsp" %>
+	<!-- AJAX -->
+	<script>
+		function(){
+			$.ajax({
+				url : 'selectInsertPlan.ajaxplan',
+				type : 'post',
+				data : {
+					userNo : <%= loginUser.getUserNo() %>
+				},
+				success : function(plan){
+					
+				}
+			})
+		}
+	
+	
+	</script>
 
-            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
-            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
-            <button class="btn btn-sm btn-success btn-int" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
-        </div>
-        <div id="planning-area">
-            <div id="date-area">
-
-            </div> 
-            <div id="root-area">
-                <div class="root-icon">
-                    <img src="resources/icons/arrow-down-square-fill.svg">
-                </div>
-                <div class="root-info"><label>항공(1시간)</label></div>
-                <div class="root-line"></div>
-                <div class="root-card">
-                    <div class="des-img">
-                        <img src="resources/대련.jpg">
-                    </div>
-                    <div class="des-info">
-                        <span>대련-중국</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>
-                        <label>2월 27일</label> ~ <label>3월 1일</label>
-                    </div>
-                </div>
-                
-                <div class="root-line"></div>
-                <div class="root-icon">
-                    <img class="des-add-btn" src="resources/icons/plus-square-fill.svg">
-                    <div class="toast" data-autohide="false" style="width: 240px;">
-                        <div class="toast-body">
-                            <button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
-                            <button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>
-                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast">Ｘ</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-            
-        </div>
-        <div id="sched-area">
-            <div id="sched-box">
-                <h2>예약 및 일정</h2> <label id="sched-date-sum">6박 7일</label>
-                <div class="sched-des">
-                    <span class="sched-des-city">대련-중국</span>
-                    <span class="sched-des-date">3박 4일</span>
-                    <div class="sched-btn-area">
-                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
-                    </div>
-                    <span class="sched-des-price">예약 및 일정 예산 <label>200,000원</label></span>
-                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
-                </div>
-                <div class="sched-des sched-des-detail">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="th1">카테고리</th>
-                                <th class="th2">예약/일정 명</th>
-                                <th class="th3">상세 내용</th>
-                                <th class="th4">예상 금액</th>
-                                <th class="th5"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="sched-des-detail-body">
-                            <tr class="sched-tr">
-                                <td>숙소</td>
-                                <td>파고다낭 호텔</td>
-                                <td>오후 1시 체크인</td>
-                                <td class="td-price">240,000원</td>
-                                <td class="sched-detail-btn-area"><img class="sched-detail-btn" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn" src="resources/icons/x-circle-fill.svg"></td>
-                            </tr>
-                            <!--
-                            <tr class="sched-tr-add">
-                                <td>
-                                    <select name="sched-category" class="sched-category">
-                                        <option value="선택">선택 안함</option>
-                                        <option value="숙소">숙소</option>
-                                        <option value="여행상품">여행상품</option>
-                                        <option value="음식점">음식점</option>
-                                        <option value="기타">기타</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" name="sched-name" class="sched-name" placeholder="예약 및 일정 명">
-                                </td>
-                                <td>
-                                    <input type="text" name="sched-content" class="sched-content" placeholder="예약 및 일정 내용">
-                                </td>
-                                <td>
-                                    <input type="text" name="sched-price" class="sched-price" placeholder="0">원
-                                </td>
-                                <td class="sched-detail-btn-area"><img class="sched-detail-btn detail-btn-add" src="resources/icons/check-circle-fill-green.svg"><img class="sched-detail-btn detail-btn-cancel" src="resources/icons/x-circle-fill-red.svg"></td>
-                            </tr>
-                            -->
-                        </tbody>
-                      </table>
-                </div>
-    
-                <div class="sched-des">
-                    <span class="sched-des-city">대련-중국</span>
-                    <span class="sched-des-date">3박 4일</span>
-                    <div class="sched-btn-area">
-                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
-                    </div>
-                    <span class="sched-des-price">예약 및 일정 예산 <label>200,000원</label></span>
-                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
-                </div>
-                <div class="sched-des sched-des-detail">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="th1">카테고리</th>
-                                <th class="th2">예약/일정 명</th>
-                                <th class="th3">상세 내용</th>
-                                <th class="th4">예상 금액</th>
-                                <th class="th5"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="sched-des-detail-body">
-                            <tr class="sched-tr-empty">
-                                <td colspan="5">등록된 예약 및 일정이 없습니다.</td>
-                            </tr>
-                        </tbody>
-                      </table>
-                </div>
-            </div>
-        </div>
-        <div id="submit-area">
-            <div id="plan-sum">
-                <span>이동 수단 가격 </span><label class="plan-sum-price">450,000원</label> +
-                <span>예약 및 일정 예산 </span><label class="plan-sum-price"> 720,000원</label> +
-                <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> =
-                <label class="plan-sum-total">총 예산 1,320,000원</label>
-            </div>
-            <button class="btn btn-danger">여행 플랜 완료</button>
-            <button class="btn btn-dark">취소</button>
-        </div>
-    </form>
 
     <script> 
         // 출국 날짜 요구 메세지 슬라이드 업
         $('#start-date').change(function(){
             $('#required-msg').slideUp(500);
         })
-        
         // 목적지 추가 토스트
         $(document).ready(function(){
             $('.des-add-btn').click(function(){
@@ -257,21 +252,21 @@
                         </select>
                         <input type="text" name="transport-price" id="transport-price" value="0">원 <br>
 
-                        출발일시 : <input type="date" name="dep-date" id="dep-date" value="2024-03-14" disabled> 
+                       	 출발일시 : <input type="date" name="dep-date" id="dep-date" value="2024-03-14" disabled> 
                         <input type="time" name="dep-time" id="dep-time" class="timepicker" value="14:00" disabled><br>
                         
                         <input type="date" name="arr-date" id="arr-date" value="" style="display:none;">
-                        도착시간 : <input type="time" name="arr-time" id="arr-time" class="timepicker">
+                                                      도착시간 : <input type="time" name="arr-time" id="arr-time" class="timepicker">
                         <input type="checkbox" name="add-day" id="add-day"><label for="add-day">+1 일</label> <br>
                         
-                        출국일 : <input type="date" name="end-date" id="end-date"> <br>
-                        출국시간 : <input type="time" name="end-time" id="end-time">
+                                                       출국일 : <input type="date" name="end-date" id="end-date"> <br>
+                       	 출국시간 : <input type="time" name="end-time" id="end-time">
                         
                         <div id="des-sum">
                             <label>***</label>님의 일정 요약 <br>
                             <p>
                                 <label id="dep-date-display">2024-03-14</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>
-                                해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.
+                                                                        해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.
                             </p>
                         </div>
                     </div>
@@ -342,7 +337,6 @@
             })
         })
     </script>
-
 
     <!-- 예약 및 일정 시작 -->
     <!--예약 및 일정 아코디언-->

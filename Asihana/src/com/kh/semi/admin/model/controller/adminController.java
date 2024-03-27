@@ -16,7 +16,10 @@ import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
+import com.kh.semi.info.model.service.CityService;
 import com.kh.semi.info.model.service.InfoService;
+import com.kh.semi.info.model.service.NationService;
+import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
@@ -64,7 +67,7 @@ public class adminController {
 	
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		int listCount = new InfoService().countStory();
+		int listCount = new StoryService().countStory();
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -74,7 +77,7 @@ public class adminController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Story> storyList = new InfoService().storyList(pi);
+		List<Story> storyList = new StoryService().storyList(pi);
 		
 		String view = "";
 		
@@ -192,7 +195,7 @@ public class adminController {
 	
 	public String nationList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		int listCount = new InfoService().countNation();
+		int listCount = new NationService().countNation();
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -202,7 +205,7 @@ public class adminController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Nation> nationList = new InfoService().nationList(pi);
+		List<Nation> nationList = new NationService().nationList(pi);
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", nationList);
@@ -213,7 +216,7 @@ public class adminController {
 	public String allCityList(HttpServletRequest request, HttpServletResponse response) {
 		
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		int listCount = new InfoService().countCity();
+		int listCount = new CityService().countCity();
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -223,7 +226,7 @@ public class adminController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<City> cityList = new InfoService().allCityList(pi);
+		List<City> cityList = new CityService().allCityList(pi);
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", cityList);
@@ -234,9 +237,9 @@ public class adminController {
 	
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		Nation nation = new InfoService().nationInfo(nationNo);
-		AttachmentFile title = new InfoService().selectTitlePhoto(nationNo);
-		AttachmentFile file = new InfoService().selectPhoto(nationNo);
+		Nation nation = new NationService().nationInfo(nationNo);
+		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
+		AttachmentFile file = new NationService().selectPhoto(nationNo);
 				
 		request.setAttribute("nation", nation);
 		if(title != null) request.setAttribute("title", title);
@@ -312,12 +315,21 @@ public class adminController {
 				file.setFilePath("/resources/info/nation");
 			}
 			
-			int result = new InfoService().updateNation(nation, title, file);
+			int result = new NationService().updateNation(nation, title, file);
 			
 			
 			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
 		}
 		return view;
+	}
+	
+	public String cityinfo(HttpServletRequest request, HttpServletResponse response) {
+		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
+		
+		City city = new CityService().selectCity(cityNo);
+		AttachmentFile file = new CityService().selectPhoto(cityNo);
+		
+		return "";
 	}
 	
 }

@@ -3,45 +3,9 @@
 <properties>
 
 	<comment>
-		info Mapper
+		city Mapper
 	</comment>
-	
-	<entry key="nationList">
-	  SELECT
-		      NATION_NO,
-		      NATION_NAME,
-		      NATION_CONTENT
-	    FROM
-	        (SELECT
-	             ROWNUM,
-	             NATION_NO,
-	             NATION_NAME,
-	             NATION_CONTENT
-	        FROM
-	            (SELECT
-	                  NATION_NO,
-	                  NATION_NAME,
-	                  NATION_CONTENT
-	             FROM
-	                 TB_NATION
-	            WHERE
-	                 NOT TB_NATION.NATION_NO = 82
-	            ORDER
-	               BY
-	                 NATION_NO) A )
-	    WHERE
-	         ROWNUM BETWEEN ? AND ?
-	</entry>
-	
-	<entry key="countNation">
-	SELECT
-		 COUNT(*) COUNT
-	  FROM
-	  	 TB_NATION
-  	 WHERE
-  	 	 NOT TB_NATION.NATION_NO = 82
-	</entry>
-	
+
 	<entry key="countCity">
 	SELECT
 		  COUNT(*) COUNT
@@ -77,22 +41,6 @@
 	  		ROWNUM BETWEEN 1 AND 8
 	</entry>
 	
-	<entry key="searchNation">
-	SELECT
-		   TB_NATION.NATION_NO NATION_NO,
-    	   NATION_NAME,
-    	   NATION_CONTENT,
-           VISA_NAME
-	  FROM
-  	 	   TB_NATION
-      JOIN
-           BRTB_VISA ON (TB_NATION.NATION_NO = BRTB_VISA.NATION_NO)
-      JOIN
-           TB_VISA ON (BRTB_VISA.VISA_NO = TB_VISA.VISA_NO)
-	 WHERE
-    	   TB_NATION.NATION_NO = ?
-    	   
-	</entry>
 	
 	<entry key="increaseCity">
 	UPDATE
@@ -117,6 +65,7 @@
 	      NATION_NO = ?
 	</entry>
 	
+	
 	<entry key="selectCity">
 	SELECT
 	     CITY_NO,
@@ -132,6 +81,7 @@
 	WHERE
 	     CITY_NO = ?
 	</entry>
+	
 	
 	<entry key="searchCity">
 	  SELECT
@@ -152,100 +102,8 @@
 		WHERE
 		    CITY_NAME = ?
 	</entry>
-	
-	<entry key="searchLang">
-	SELECT
-     	   LANGUAGE_NAME
- 	  FROM
-    	   TB_LANGUAGE
-  	  JOIN
-      	   BRTB_LANG ON (TB_LANGUAGE.LANGUAGE_NO = BRTB_LANG.LANGUAGE_NO)
-  	  JOIN
-      	   TB_NATION ON (BRTB_LANG.NATION_NO = TB_NATION.NATION_NO)
- 	  WHERE
-      	   TB_NATION.NATION_NO = ?
-	</entry>
-	
-	<entry key="searchVol">
-	
-		SELECT
-	   		  VOL_NAME
-	  	  FROM
-	     	  TB_VOLTAGE
-	  	  JOIN
-	      	  BRTB_VOL ON (TB_VOLTAGE.VOL_NO = BRTB_VOL.VOL_NO)
-	  	  JOIN
-	      	  TB_NATION ON (BRTB_VOL.NATION_NO = TB_NATION.NATION_NO)
-	 	 WHERE
-	      	  TB_NATION.NATION_NO = ?
-	</entry>
-	
-	<entry key="searchCur">
-	SELECT
-	      CURRENCY_NAME
-	  FROM
-	      TB_CURRENCY
-	  JOIN
-	      BRTB_CURRENCY ON (BRTB_CURRENCY.CURRENCY_NO = TB_CURRENCY.CURRENCY_NO)
-	  JOIN
-	      TB_NATION ON (BRTB_CURRENCY.NATION_NO = TB_NATION.NATION_NO)
-	 WHERE
-	      TB_NATION.NATION_NO = ?
-	</entry>
-	
-	<entry key="countStory">
-	SELECT
-	      COUNT(*) COUNT
-	 FROM
-	      TB_STORY
-	WHERE
-	      STATUS = 'Y'
-	</entry>
-	
-	<entry key="storyList">
-	SELECT
-		STORY_NO,
-		STORY_TITLE,
-		CREATE_DATE
-	FROM
-		(SELECT 
-			S.STORY_NO STORY_NO,
-			S.STORY_TITLE STORY_TITLE,
-			S.CREATE_DATE CREATE_DATE,
-			ROWNUM RNUM
-		FROM
-			(SELECT
-				 STORY_NO,
-			     STORY_TITLE,
-			     TO_CHAR(STORY_DATE, 'YYYY/MM/DD') CREATE_DATE
-			  FROM
-			    TB_STORY
-			 WHERE
-			    STATUS = 'Y'
-		     ORDER
-		        BY
-		          STORY_NO DESC) S)
-     WHERE
-     	 RNUM BETWEEN ? AND ?
-	</entry>
 
-	<entry key="detailStory">
-	
-	SELECT
-		 STORY_NO,
-		 STORY_TITLE,
-		 STORY_CN,
-		 TO_CHAR(STORY_DATE, 'YYYY/MM/DD') STORY_DATE,
-		 STORY_FROM
-	 FROM
-	 	 TB_STORY
- 	WHERE
- 		 STORY_NO = ?
-	  AND
-	  	 STATUS = 'Y'
-	
-	</entry>
-	
+
 	<entry key="allCityList">
 	SELECT
 		  NATION_NO,
@@ -279,17 +137,7 @@
 	     ROWNUM BETWEEN ? AND ?
 	
 	</entry>
-	
-	<entry key="updateNation">
-	
-	UPDATE
-	     TB_NATION
-	  SET
-	     NATION_NAME = ?,
-	     NATION_CONTENT = ?
-	WHERE
-	     NATION_NO = ?
-	</entry>
+
 	
 	<entry key="selectTitlePhoto">
 	SELECT

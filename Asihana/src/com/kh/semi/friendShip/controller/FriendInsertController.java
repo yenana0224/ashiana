@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.friendShip.model.vo.FriendShip;
 import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class FriendInsertController
  */
-@WebServlet("/friendInsert.do")
+@WebServlet("/insert.friend")
 public class FriendInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,6 +33,8 @@ public class FriendInsertController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
+		FriendShip friendShip = new FriendShip();
+		friendShip.setUserId1(userNo);
 		
 	}
 

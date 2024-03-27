@@ -79,6 +79,8 @@
         <h2>여행자 실시간 커뮤니티 <div class="spinner-border text-dark"></div> </h2>     
                     
        
+       <form action="<%=contextPath%> /insert.commu" method="post" id="insert-form">
+       <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
        
      
       
@@ -123,7 +125,7 @@
             <span class="limit">0/100</span>
         </div>
 
-    
+    </form>
     
     
     </div>

@@ -56,7 +56,7 @@ public class CommunityListController extends HttpServlet {
 		//request.setAttribute("community",list); // 커뮤니티에서만 본다  => request, 커뮤니티에서만 보는게 아니다~ => session
 	
 		// 화면지정
-		request.getRequestDispatcher("views/communiry/communityList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/community/communityList.jsp").forward(request, response);
 	}
 
 	/**

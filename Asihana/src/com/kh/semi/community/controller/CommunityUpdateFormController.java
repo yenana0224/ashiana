@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CommunityUpdateFormController
  */
-@WebServlet("/CommunityUpdateFormController")
+@WebServlet("/updateForm.commu")
 public class CommunityUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

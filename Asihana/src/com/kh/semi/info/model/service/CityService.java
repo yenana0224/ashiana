@@ -60,19 +60,19 @@ public class CityService {
 	
 	public City searchCity(City c) {
 		Connection conn = getConnection();
-		
+		int nationNo = c.getNationNo();
 		// 국가기본정보
 		City city = new CityDao().searchCity(conn, c);
 		
 		if(city != null) {
 			// 사용 언어 조회 
-			List<Language> langList = new InfoDao().searchLang(conn, c.getNationNo());
+			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
 			city.setLanguage(langList.toString());
 			// 사용 전압 조회
-			List<Voltage> volList = new InfoDao().searchVol(conn, c.getNationNo());
+			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
 			city.setVoltage(volList.toString());
 			// 사용 화폐 조회
-			List<Currency> curList = new InfoDao().searchCur(conn, c.getNationNo());
+			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
 			city.setCurrency(curList.toString());
 		}
 		
@@ -83,6 +83,7 @@ public class CityService {
 	public int countCity() {
 		Connection conn = getConnection();
 		int count = new CityDao().countCity(conn);
+		if(count > 0) commit(conn);
 		close(conn);
 		return count;
 	}

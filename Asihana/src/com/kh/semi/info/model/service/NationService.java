@@ -2,6 +2,7 @@ package com.kh.semi.info.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -82,6 +83,9 @@ public class NationService {
 				photoResult = new NationDao().insertPhoto(conn, nationNo, file);
 			}
 		}
+		int result = nationResult * titleResult * photoResult;
+		
+		if(result > 0) commit(conn);
 		
 		close(conn);
 		return nationResult * titleResult * photoResult;

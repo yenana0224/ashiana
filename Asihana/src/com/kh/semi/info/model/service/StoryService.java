@@ -12,7 +12,7 @@ import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class StoryService {
-	
+
 	public int countStory() {
 		Connection conn = getConnection();
 		int count = new StoryDao().countStory(conn);

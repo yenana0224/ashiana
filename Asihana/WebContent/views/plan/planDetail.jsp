@@ -295,7 +295,6 @@
 	    	                
 	    	                // 예약 및 일정 구역
 	    	                schedArea += '<div class="sched-des">' // 아코디언 div
-	    	                		   +     '<input type="hidden" value="' + result[i].destNo + '">'
 				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
 				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
 				    	               +     '<div class="sched-btn-area">'
@@ -315,11 +314,13 @@
 				    	               +             '</tr>'
 				    	               +         '</thead>'
 				    	               +         '<tbody class="sched-des-detail-body">'
+	    	                		   +     		 '<input type="hidden" value="' + result[i].destNo + '">'
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
 				    	               
 				    		selectSchedule(result[i].destNo);
+				    		
     					}
     				} // for문
     					$('#root-area').html(rootArea);
@@ -336,7 +337,19 @@
     				destNo : destNo
     			},
     			success : function(result){
-    				console.log(result);
+    				let schedTable = '';
+    				if(result.length == 0){
+    					schedTable += '<tr class="sched-tr-empty">'
+                        			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
+                        			+ '</tr>';
+                        $(schedTable).
+    				}
+    				else{
+    					
+    				}
+    				
+    				
+    				
     			}
     			
     		})

@@ -58,108 +58,16 @@
 	
 	            </div> 
 	            <div id="root-area">
-	                <!--  
-	                <div class="root-icon">
-	                    <img src="resources/icons/arrow-down-square-fill.svg">
-	                </div>
-	                <div class="root-info"><label>항공(1시간)</label></div>
-	                <div class="root-line"></div>
-	                <div class="root-card">
-	                    <div class="des-img">
-	                        <img src="resources/대련.jpg">
-	                    </div>
-	                    <div class="des-info">
-	                        <span>대련-중국</span> <br>
-	                        <label>2월 27일</label> ~ <label>3월 1일</label>
-	                    </div>
-	                </div>
 	                
-	                <div class="root-line"></div>
-	                <div class="root-icon">
-	                    <img src="resources/icons/arrow-down-square-fill.svg">
-	                </div>
-	                <div class="root-info"><label>항공(1시간)</label></div>
-	                <div class="root-line"></div>
-	                <div class="root-icon-home">
-	                    <img  src="resources/icons/house-door-fill.svg">
-	                </div>
-	                -->
 	            </div>
-	            
 	        </div>
 	        <div id="sched-area">
 	            <div id="sched-box">
 	                <h2>예약 및 일정</h2> <label id="sched-date-sum"></label>
-	                <!--
-	                <div class="sched-des">
-	                    <span class="sched-des-city">대련-중국</span>
-	                    <span class="sched-des-date">3박 4일</span>
-	                    <div class="sched-btn-area">
-	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
-	                    </div>
-	                    <span class="sched-des-price">예약 및 일정 예산 <label>260,000원</label></span>
-	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> + </span>
-	                </div>
-	                <div class="sched-des sched-des-detail">
-	                    <table class="table table-hover table-bordered">
-	                        <thead>
-	                            <tr>
-	                                <th class="th1">카테고리</th>
-	                                <th class="th2">예약/일정 명</th>
-	                                <th class="th3">상세 내용</th>
-	                                <th class="th4">예상 금액</th>
-	                            </tr>
-	                        </thead>
-	                        <tbody class="sched-des-detail-body">
-	                            <tr class="sched-tr">
-	                                <td>숙소</td>
-	                                <td>파고다낭 호텔</td>
-	                                <td>오후 1시 체크인</td>
-	                                <td class="td-price">240,000원</td>
-	                            </tr>
-	                            <tr class="sched-tr">
-	                                <td>음식점</td>
-	                                <td>파고다 비빔밥</td>
-	                                <td>첫날 저녁밥</td>
-	                                <td class="td-price">20,000원</td>
-	                            </tr>
-	                            
-	                        </tbody>
-	                      </table>
-	                      
-	                </div>
-	    			
-	                <div class="sched-des">
-	                    <span class="sched-des-city">대련-중국</span>
-	                    <span class="sched-des-date">3박 4일</span>
-	                    <div class="sched-btn-area">
-	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
-	                    </div>
-	                    <span class="sched-des-price"> 예약 및 일정 예산 <label>0</label>원</span>
-	                    <span class="sched-des-price">항공 가격 <label>250,000</label>원 + </span>
-	                </div>
-	                <div class="sched-des sched-des-detail">
-	                    <table class="table table-hover table-bordered">
-	                        <thead>
-	                            <tr>
-	                                <th class="th1">카테고리</th>
-	                                <th class="th2">예약/일정 명</th>
-	                                <th class="th3">상세 내용</th>
-	                                <th class="th4">예상 금액</th>
-	                            </tr>
-	                        </thead>
-	                        <tbody class="sched-des-detail-body">
-	                            <tr class="sched-tr-empty">
-	                                <td colspan="4">등록된 예약 및 일정이 없습니다.</td>
-	                            </tr>
-	                        </tbody>
-	                      </table>
-	                </div>
-	                -->
+	                
 	            </div>
 	        </div>
 	        <div id="plan-sum">
-	            <!-- <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> + -->
 	            <span>이동 수단 가격 <label class="plan-sum-price" id="trans-sum"></label> + </span>
 	            <span>예약 및 일정 예산 <label class="plan-sum-price" id="sched-sum"></label> = </span>
 	            <label class="plan-sum-total">총 예산 <label></label>원</label>
@@ -177,7 +85,7 @@
     <!-- 예약 및 일정 시작 -->
     <!--예약 및 일정 아코디언-->
     <script>
-        // 등록 유도 행
+        // 예약 및 일정이 없을 때
         var trEmpty = '<tr class="sched-tr-empty"><td colspan="5">등록된 예약 및 일정이 없습니다.</td></tr>';
         
         $('#sched-box').on('click', '.sched-btn-area>img', function(){
@@ -356,21 +264,12 @@
     				}
                     $(schedTable).insertAfter('input[value=' + destNo + ']');
     			}
-    			
     		})
-    	}
-    	
-    	
-    	
+    	};
     	$(function(){
     		selectPlan();
     		selectDestination();
     	})
-    	
-    	
-    
-    
-    
     </script>
     
     

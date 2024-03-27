@@ -12,6 +12,8 @@
 <body>
 	<%@ include file="headerbar.jsp" %>
 	<h1><%= errorMsg %></h1>
-
+	
+	
+	
 </body>
 </html>

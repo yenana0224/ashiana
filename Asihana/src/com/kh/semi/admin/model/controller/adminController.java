@@ -92,9 +92,10 @@ public class adminController {
 	
 	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-
+		int boardType = 4;
 		Notice notice = new CustomerService().noticeDetail(noticeNo);
-		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
 		request.setAttribute("notice", notice);
 		request.setAttribute("noticeFile", noticeFile);
@@ -111,9 +112,9 @@ public class adminController {
 	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		
+		int boardType = 4;
 		Notice notice = new CustomerService().noticeDetail(noticeNo);
-		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
 		request.setAttribute("notice", notice);
 		request.setAttribute("noticeFile", noticeFile);
@@ -228,6 +229,12 @@ public class adminController {
 		
 		return "views/admin/adminCityList.jsp";
 		
+	}
+	
+	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		
+		return "views/admin/nationInfoDetail.jsp";
 	}
 	
 }

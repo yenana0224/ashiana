@@ -6,6 +6,10 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
 	List<Notice> list = (List<Notice>)request.getAttribute("noticeList");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 
 <!DOCTYPE html>
@@ -103,6 +107,20 @@
             margin-right: 20px;
             float : right;
         }
+        
+       .paging-area{
+      		margin-top : 20px;
+       }
+        
+       .paging-area>button{
+            text-align: center;
+            padding : 5px 10px 5px 10px;
+            border-radius: 10px;
+            background-color: #ff595e;
+            color : white;
+            border : none;
+            font-size : 15px;
+        }
 
 
     </style>
@@ -184,6 +202,27 @@
                 <button type="submit">고정</button>
             </div>
         </form>
+        
+        <div class="paging-area" align="center">
+        
+        	<% if(currentPage > 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/notice.admin?currentPage=<%=currentPage -1 %>'">이전</button>
+          	<% } %>   
+        	
+			<% for(int i = startPage; i <= endPage; i++){ %>
+			
+				<% if(currentPage != i){ %>
+				<button class="pagebtn" onclick="location.href='<%=contextPath%>/notice.admin?currentPage=<%=i%>'"><%= i %></button>
+				<%} else {%>
+					<button disabled><%=i %></button>
+				<%} %>
+			<%} %>
+			
+			<% if(currentPage != maxPage) { %>
+			  <button onclick="; location.href='<%=contextPath%>/notice.admin?currentPage=<%=currentPage + 1%>'">다음</button>
+			<% } %>
+        </div>
+        
 
 		<div class="btn">
         	<a href="<%=contextPath %>/noticeInsertForm.admin">글작성하기</a>
@@ -196,8 +235,8 @@
             	$('.noticeTitle').click(function(){
             		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
             	});
-            })
-            
+            });
+
             </script>
 
     </div>

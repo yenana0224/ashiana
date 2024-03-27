@@ -14,6 +14,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.customer.model.service.CustomerService;
+import com.kh.semi.customer.model.vo.Answer;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.customer.model.vo.QNA;
@@ -94,8 +95,10 @@ public class CustomerController {
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		String currentPage = request.getParameter("currentPage");
 		
+		int boardType = 4; 
+		
 		Notice noticeDetail = new CustomerService().noticeDetail(noticeNo);
-		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo);
+		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
 		
 		request.setAttribute("noticeDetail", noticeDetail);
@@ -259,10 +262,20 @@ public class CustomerController {
 	
 	public String qnaDetail(HttpServletRequest request, HttpServletResponse response) {
 		
+		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+		int boardType = 8;
+		String currentPage = request.getParameter("currentPage");
 		
+		NoticeFile qnaFile = new CustomerService().selectFile(qnaNo, boardType);
 		
+		List<Answer> answer = new CustomerService().selectAnswer(qnaNo);
 		
+		QNA qna = new CustomerService().selectQna(qnaNo); 
 		
+		request.setAttribute("qnaFile", qnaFile);
+		request.setAttribute("answer", answer);
+		request.setAttribute("qna", qna);
+		request.setAttribute("currentPage", currentPage);
 		
 		String view = "views/customer/qnaDetail.jsp";
 		
@@ -271,7 +284,23 @@ public class CustomerController {
 	}
 	
 	
-	
+	public String qnaDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+		
+		int result = new CustomerService().qnaDelete(qnaNo);
+		
+		String view = "";
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "삭제 성공");
+			view = "qa.customer?currentPage=1";
+		} else {
+			request.setAttribute("errorMsg", "삭제 실패");
+			view = "views/common/errorPage.jsp";
+		}
+		return view;
+	}
 	
 	
 	

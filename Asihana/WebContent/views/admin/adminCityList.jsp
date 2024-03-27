@@ -63,8 +63,6 @@
             
         }
 
-
-
         .cityList th{
             background-color: lightgray;
             border-bottom: 1px solid lightgray;
@@ -106,6 +104,20 @@
             margin: 0px 5px 10px 0px;
             float : left;
         }
+        
+       .paging-area{
+      		margin-top : 20px;
+       }
+        
+       .paging-area>button{
+            text-align: center;
+            padding : 5px 10px 5px 10px;
+            border-radius: 10px;
+            background-color: #ff595e;
+            color : white;
+            border : none;
+            font-size : 15px;
+        }
 
 
     </style>
@@ -141,6 +153,7 @@
                     <tr>
                         <th>국가이름</th>
                         <th>도시이름</th>
+                        <th>조회수</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,6 +166,7 @@
                             <tr>
                                 <td><%=c.getNationName() %></td>
                                 <td class="cityName" id="<%=c.getCityNo() %>"><%=c.getCityName() %></td>
+                                <td><%=c.getCount() %></td>
                             </tr>
                         <% } %>
                     <% } %>

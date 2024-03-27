@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>
+		travelReview Mapper
+	</comment>
+	
+	<entry key="selectReviewList">
+		<!-- 여행기 메인화면, 여행기 게시물 작성일이 최신순으로 조회 -->
+		SELECT
+		      REVIEW_NO,
+		      REVIEW_TITLE,
+		      NICKNAME,
+		      CREATE_DATE
+   		  FROM
+       		  TB_REVIEW
+   	      JOIN
+      		   MEMBER ON(REVIEW_WRITER = MEM_NO)
+		 ORDER
+		    BY
+       		   CREATE_DATE DESC
+	</entry>
+	
+	<entry key="selectLikeList">
+		SELECT
+		      REVIEW_NO,
+		      REVIEW_TITLE,
+		      REVIEW_CONTENT,
+		      NICKNAME,
+		      CREATE_DATE,
+		      LIKES
+		 FROM
+		     TB_REVIEW
+		 JOIN
+		     MEMBER ON(REVIEW_WRITER = MEM_NO)
+		 JOIN
+		     (SELECT
+		            COUNT(*) LIKES,
+		            BOARD_TYPE,
+		            BOARD_NO
+		        FROM
+		            TB_LIKE
+		       GROUP
+		          BY
+		            BOARD_TYPE, BOARD_NO) ON(REVIEW_NO = BOARD_NO)
+		   WHERE
+		        BOARD_TYPE = 6   
+		  ORDER
+		     BY
+		       LIKES DESC
+	</entry>
+
+
+</properties>

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.customer.model.dao.CustomerDao;
+import com.kh.semi.customer.model.vo.Answer;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.customer.model.vo.QNA;
@@ -182,11 +183,58 @@ public class CustomerService {
 		return list;
 	}
 	
-	public NoticeFile selectFile(int noticeNo) {
+	public NoticeFile selectFile(int noticeNo, int boardType) {
 		Connection conn = getConnection();
-		NoticeFile file = new CustomerDao().selectFile(conn, noticeNo);
+		
+		NoticeFile file = new CustomerDao().selectFile(conn, noticeNo, boardType);
 		close(conn);
 		return file;
 	}
+	
+	public List<Answer> selectAnswer(int qnaNo){
+		
+		Connection conn = getConnection();
+		
+		List<Answer> list = new CustomerDao().selectAnswer(conn, qnaNo);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public QNA selectQna(int qnaNo) {
+		
+		Connection conn = getConnection();
+		
+		QNA qna = new CustomerDao().selectQna(conn, qnaNo);
+		
+		close(conn);
+		
+		return qna;
+	}
+	
+	public int qnaDelete(int qnaNo) {
+		
+		Connection conn = getConnection();
+		
+		
+		int qnaResult = new CustomerDao().qnaDelete(conn, qnaNo);
+		if(qnaResult > 0) {
+			int fileResult = new CustomerDao().fileDelete(conn, qnaNo);
+		}
+		
+		if(qnaResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return qnaResult;
+	}
+	
+	
+	
 	
 }

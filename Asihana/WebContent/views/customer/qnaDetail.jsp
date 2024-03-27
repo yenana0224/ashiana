@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.customer.model.vo.* , java.util.ArrayList, java.util.List" %>
+<%
+	NoticeFile qnaFile = (NoticeFile)request.getAttribute("qnaFile");
+	List<Answer> answerList = (ArrayList<Answer>)request.getAttribute("answer");
+	QNA qna = (QNA)request.getAttribute("qna");
+	String currentPage = (String)request.getAttribute("currentPage");
+	int qnaUserNo = Integer.parseInt(qna.getQnaWriter());
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <style>
 
         #qnaMark{
@@ -145,6 +155,46 @@
             color:red;
        }
 
+		.modal {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+		
+		.modal_overlay {
+			background-color: rgba(0, 0, 0, 0.090);
+			width: 100%;
+			height: 100%;
+		}
+		
+		.modal_content {
+			background-color: white;
+			padding: 50px 100px;
+			text-align: center;
+			box-shadow: 0 10px 20px rgba(201, 169, 169, 0.998), 0 6px 6px
+				rgba(201, 169, 169, 0.998);
+			border-radius: 10px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		
+		h4 {
+			margin: 50;
+			margin-bottom: 50px;
+		}
+		
+		.modal_content>button{
+			background-color: red;
+			color: white;
+			border: none;
+			margin-left: 10px;
+			width: 60px;
+			height: 30px;
+		}
 
 
 
@@ -160,25 +210,44 @@
             <div id="qnaBox">
 
                 <div id="titleBox">
-                    <p>12월여행</p>
+                    <p><%=qna.getQnaTitle() %></p>
                 </div>
                 <div id="dateBox">
                     <label style="font-size: 12px;">작성일</label>
-                    <p>22.04.06</p>
+                    <p><%= qna.getCreateDate() %></p>
                 </div>
                 <div id="qnaText">
-                    <p>12월 이벤트 일정입니다</p>
+                    <p><%= qna.getQnaContent() %></p>
                 </div>
                 <div id="downloadBox">
-                    <label>첨부파일 / </label><a download="/01_HTML_workspace/resources/image/1.jpg" href="">다운로드파일</a>
+                <% if(qnaFile != null){ %>
+                    <label>첨부파일 / </label><a download="<%=qnaFile.getChangeName() %>" href="<%=contextPath + "/" +qnaFile.getFilePath() + "/" + qnaFile.getChangeName()%>"><%= qnaFile.getOriginName() %></a>
+                <% } else { %>
+                    <label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
+                
+                <% } %>    
                 </div>
                 <div id="buttonBox">
-                    <button>목록</button>
-                    <button>삭제</button>
+                    <button class="btn btn-sm btn-secondary" id="backbutton">목록</button>
+                    <% if(loginUser != null && loginUser.getUserNo() == qnaUserNo) { %>
+                    <button class="btn btn-sm btn-danger" id="deleteButton">삭제</button>
+                    <% } %>
                 </div>
-                
-                
-                <div id="replyBox">
+
+				<div class="modal">
+					<div class="modal_overlay">
+						<div class="modal_content">
+							<h4>삭제 하시겠습니까?</h4>
+							<button id="cancel">취소</button>
+							<button
+								onclick="location.href='<%=contextPath%>/qnaDelete.customer?qnaNo=<%=qna.getQnaNo()%>'">확인</button>
+						</div>
+					</div>
+				</div>
+
+
+
+		<div id="replyBox">
                     
                     <div id="replyText">
                         <textarea name="reply" id="reply" cols="90" rows="8" name="replyContent"></textarea>
@@ -211,6 +280,16 @@
 	        $(this).val(content.substring(0, 300));
 	    }
 		});
+		$('#backbutton').click(function(){
+			location.href="<%=contextPath%>/qa.customer?currentPage=<%=currentPage%>"
+		});
+		$('#deleteButton').click(function(){
+			$('.modal').css('display', 'block');
+		});
+		$('#cancel').click(function(){
+			$('.modal').css('display', 'none');
+		})
+		
 
 	</script>
 

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
 	City city = (City)request.getAttribute("city");
+	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,29 +65,26 @@
             background-color: rgba(0, 0, 0, 0);
         }
         
-       .btn{
-            width: 80%;
-            margin: auto;
-            margin-top: 10px;
-        }
-        
-       .btn>button{
-        	border : none;
-        	background-color: #ff595e;
-        	color : white;
-        	padding : 5px 10px 5px 10px;
-        	border-radius: 10px;
+        .btn{
+            margin-top: 20px;
+            text-align: center;
         }
 
-        .btn>a{
-        	display : block;
+        button {
             text-decoration: none;
             color : white;
             background-color: #ff595e;
+            border : none;
             border-radius: 10px;
             padding : 5px 10px 5px 10px;
-            margin: 0px 5px 10px 0px;
-            float : left;
+        }
+
+        button:hover{
+            cursor : pointer;
+        }
+        
+        #backBtn{
+        	margin-bottom : 50px;
         }
         
         #attractionList{
@@ -109,7 +107,9 @@
         </div>
        
         <div class="photo">
-            <img src="https://pbs.twimg.com/profile_images/1615738154333667331/NTng-9ke_400x400.jpg" alt="">
+        	<% if(file != null) { %>
+            <img src="<%=contextPath%>/<%=file.getFilePath()%>/<%=file.getChangeName()%>">
+            <% } %>
         </div>
         
         <div class="btn" id="attractionList">

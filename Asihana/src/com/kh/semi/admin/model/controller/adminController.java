@@ -329,7 +329,10 @@ public class adminController {
 		City city = new CityService().selectCity(cityNo);
 		AttachmentFile file = new CityService().selectPhoto(cityNo);
 		
-		return "";
+		request.setAttribute("city", city);
+		request.setAttribute("file", file);
+		
+		return "views/admin/cityInfoDetail.jsp";
 	}
 	
 }

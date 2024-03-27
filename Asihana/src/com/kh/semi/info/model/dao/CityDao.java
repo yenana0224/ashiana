@@ -21,7 +21,7 @@ public class CityDao {
 	private Properties prop = new Properties();
 	
 	public CityDao() {
-		String filePath = CityDao.class.getResource("/sql/info/info-mapper.xml").getPath();
+		String filePath = CityDao.class.getResource("/sql/info/city-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));

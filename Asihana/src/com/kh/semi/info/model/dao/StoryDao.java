@@ -20,7 +20,7 @@ public class StoryDao {
 	private Properties prop = new Properties();
 	
 	public StoryDao() {
-		String filePath = InfoDao.class.getResource("/sql/info/info-mapper.xml").getPath();
+		String filePath = StoryDao.class.getResource("/sql/info/story-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));

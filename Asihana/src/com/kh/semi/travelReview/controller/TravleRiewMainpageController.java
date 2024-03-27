@@ -58,6 +58,8 @@ public class TravleRiewMainpageController extends HttpServlet {
 				
 		
 		request.setAttribute("reviewList", reviewList);
+		
+		System.out.println(reviewList);
 				
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	

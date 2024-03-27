@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import = "java.util.ArrayList, com.kh.semi.friendShip.model.vo.FriendShip"
+	%>
 	
+	<%
+	ArrayList<FriendShip> list = (ArrayList<FriendShip>)request.getAttribute("friendlist");
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,9 +99,9 @@
 					<th>여행플랜 바로가기</th>
 					<th>팔로우 하기</th>
 					<th>팔로우 취소</th>
-
 				</tr>
 			</thead>
+			<!--  
 			<tbody id="myTable">
 				<tr>
 					<td>John</td>
@@ -126,6 +131,23 @@
 					<td><i class="fas fa-file"></i></td>
 					<td><i class="fas fa-bars"></i></td>
 				</tr>
+			</tbody>-->
+			<tbody id="myTable">
+			<%if(list.isEmpty()) {%>
+			<tr>
+				<td colspan="5"> 친구가 없습니다.</td>
+			<tr>
+			<%}else{ %>
+			<%for(FriendShip friendShip :list){ %>
+			<tr>
+				<td><%=friendShip.getNickNameF()%></td>
+				<td><a href="#"><i class="fas fa-cloud"></i></a></td>
+				<td><a href="#"><i class="fas fa-coffee"></i></a></td>
+				<td><a href="#"><i class="fas fa-file"></i></a></td>
+				<td><a href="#"><i class="fas fa-bars"></i></a></td>
+			</tr>
+			<%} %>
+			<%} %>
 			</tbody>
 		</table>
 		 

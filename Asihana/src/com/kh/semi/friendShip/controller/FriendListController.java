@@ -37,9 +37,12 @@ public class FriendListController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
+		ArrayList<FriendShip> friendlist = new FriendShipService().selectList(userNo);
 		
+		System.out.println(friendlist);
+		request.setAttribute("friendlist", friendlist);
 		
-		request.getRequestDispatcher("/views/board/MyFriends.jsp").forward(request,response);
+		request.getRequestDispatcher("/views/member/MyFriends.jsp").forward(request,response);
 		
 	}
 

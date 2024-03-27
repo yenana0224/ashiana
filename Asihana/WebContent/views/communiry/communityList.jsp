@@ -59,7 +59,11 @@
 
     #content{
         background-color: beige;
-        margin: auto;
+      
+        padding: 0px  30px  0px 0px;
+        width:1200px;
+        flaot: right;
+        
 
     }
     
@@ -131,8 +135,8 @@
         height: 30px;
         width: 80px;
         margin-top:20px;
-        margin-left: 20px;
-        margin-right: 10px;
+        margin-left: 1px;
+        margin-right: 1px;
     }
 
     
@@ -185,8 +189,12 @@
     <style>
     /* 이미지 영역 사이즈 조절 */
     .swiper {
-        width: 1200px;
-        height: 500px;
+        width: 300px;
+        height: 300px;
+        float:left;
+        margin-top: 30px;
+        margin-left: 10px;
+        
     }
 
     /* 이미지 사이즈 조절 */

@@ -75,6 +75,22 @@ public class InfoService {
 		return result;
 	}
 	
+	public Nation nationInfo(int nationNo) {
+		Connection conn = getConnection();
+		Nation nation = new InfoDao().searchNation(conn, nationNo);
+		
+		if(nation != null) {
+			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
+			nation.setLanguage(langList.toString());
+			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
+			nation.setVoltage(volList.toString());
+			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
+			nation.setCurrency(curList.toString());
+		}
+		
+		return nation;
+	}
+	
 	public City searchCity(City c) {
 		Connection conn = getConnection();
 		
@@ -91,9 +107,6 @@ public class InfoService {
 			// 사용 화폐 조회
 			List<Currency> curList = new InfoDao().searchCur(conn, c.getNationNo());
 			city.setCurrency(curList.toString());
-			
-			// 국가 번호 가져가기
-			city.setNationNo(c.getNationNo());
 		}
 		
 		close(conn);

@@ -23,7 +23,7 @@
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
             
-            <% if(loginUser != null && !list.isEmpty()) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
+            <% if(loginUser != null) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
             	<% for(PlanMain p: list) { %>
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div>

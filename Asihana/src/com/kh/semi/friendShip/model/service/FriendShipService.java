@@ -23,4 +23,16 @@ public class FriendShipService {
 
 	}
 	
+	
+	public int insertFriendShip(FriendShip friendShip) {
+		Connection conn = getConnection();
+		
+		int result = new FriendShipDao().insertFriendShip(conn, friendShip);
+		
+		if(result>0) commit(conn);
+		
+		close(conn);
+		
+		return result;
+	}
 }

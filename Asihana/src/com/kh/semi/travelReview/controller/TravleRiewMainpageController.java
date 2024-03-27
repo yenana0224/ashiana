@@ -1,11 +1,16 @@
 package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.travelReview.model.service.TravelReviewService;
+import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
  * Servlet implementation class TravleRiewMainpageController
@@ -43,14 +48,20 @@ public class TravleRiewMainpageController extends HttpServlet {
 				
 		// 3) 서비스 호출
 				
-		// 1)여행기가 게시물 리스트를 가져와야 함
+		// 3_1)여행기가 게시물 리스트를 가져와야 함
 		List<TravelReview> reviewList =  new TravelReviewService().selectReviewList();
 
-		// 2)추천수가 담긴 여행기 리스트를 가져와야 함
+		
+		// 3_2)추천수가 담긴 여행기 리스트를 가져와야 함
+		List<TravelReview> likeList = new TravelReviewService().selectLikeList();
 				
-		// 3)해시태그가 담긴 여행기 리스트를 가져와야 함
-				
-				
+		// 3_3)해시태그가 담긴 여행기 리스트를 가져와야 함
+		
+		
+		request.setAttribute("reviewList", reviewList);
+		//System.out.println(reviewList);
+		request.setAttribute("likeList", likeList);
+		//System.out.println(likeList + "1");
 				
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	

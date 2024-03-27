@@ -213,5 +213,28 @@ public class CustomerService {
 		return qna;
 	}
 	
+	public int qnaDelete(int qnaNo) {
+		
+		Connection conn = getConnection();
+		
+		
+		int qnaResult = new CustomerDao().qnaDelete(conn, qnaNo);
+		if(qnaResult > 0) {
+			int fileResult = new CustomerDao().fileDelete(conn, qnaNo);
+		}
+		
+		if(qnaResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return qnaResult;
+	}
+	
+	
+	
 	
 }

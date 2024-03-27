@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String errorMsg = (String)request.getAttribute("errorMsg");
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>에러요</title>
+<title>커뮤니티 글 수정하기</title>
 </head>
 <body>
-	<%@ include file="headerbar.jsp" %>
-	<h1><%= errorMsg %></h1>
-	
-	
-	
+
 </body>
 </html>

@@ -21,6 +21,35 @@
 		    BY
        		   CREATE_DATE DESC
 	</entry>
+	
+	<entry key="selectLikeList">
+		SELECT
+		      REVIEW_NO,
+		      REVIEW_TITLE,
+		      REVIEW_CONTENT,
+		      NICKNAME,
+		      CREATE_DATE,
+		      LIKES
+		 FROM
+		     TB_REVIEW
+		 JOIN
+		     MEMBER ON(REVIEW_WRITER = MEM_NO)
+		 JOIN
+		     (SELECT
+		            COUNT(*) LIKES,
+		            BOARD_TYPE,
+		            BOARD_NO
+		        FROM
+		            TB_LIKE
+		       GROUP
+		          BY
+		            BOARD_TYPE, BOARD_NO) ON(REVIEW_NO = BOARD_NO)
+		   WHERE
+		        BOARD_TYPE = 6   
+		  ORDER
+		     BY
+		       LIKES DESC
+	</entry>
 
 
 </properties>

@@ -41,7 +41,7 @@ public class PlanController {
 			request.setAttribute("planNo", planNo);
 			view = "views/plan/planDetail.jsp";
 		} else {
-			request.setAttribute("errorMsg", "니가 짠 플랜이 아니잖어~ 로그인은 했니~?");
+			request.setAttribute("errorMsg", "작성하신 플랜이 아닙니다.");
 			view = "views/common/errorPage.jsp";
 		}
 		
@@ -65,6 +65,21 @@ public class PlanController {
 	public List<Schedule> selectSchedule(HttpServletRequest request, HttpServletResponse response) {
 		
 		return new PlanService().selectSchedule(Integer.parseInt(request.getParameter("destNo")));
+	}
+
+	public String insertPlan(HttpServletRequest request, HttpServletResponse response) {
+		
+		String view = "";
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		if(((Member)request.getSession().getAttribute("loginUser")).getUserNo() == userNo) {
+			if(new PlanService().insertPlan(userNo) > 0) {
+				view = "views/plan/insertPlan.jsp";
+			}
+		} else {
+			request.setAttribute("errorMsg", "작성하신 플랜이 아닙니다.");
+			view = "views/common/errorPage.jsp";
+		}
+		return view;
 	}
 
 	

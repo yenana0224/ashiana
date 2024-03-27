@@ -506,4 +506,21 @@
 		      Q_NO = ?
 	</entry>
 	
+	<entry key="qnaDelete">
+		DELETE
+		  FROM
+		      TB_QNA
+		 WHERE
+		      Q_NO = ?    
+	</entry>
+	
+	<entry key="fileDelete">
+		DELETE
+		  FROM
+	          TB_FILE
+	     WHERE
+	          BOARD_TYPE = 8
+	       AND
+	          BOARD_NO = ?     
+	</entry>
 </properties>

@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewDao {
-
-	
 	
 	private Properties prop = new Properties();
 	
@@ -31,42 +30,62 @@ public class TravelReviewDao {
 	public List<TravelReview> selectReviewList(Connection conn){
 		
 		List<TravelReview> list = new ArrayList();
-		
 		PreparedStatement pstmt = null;
-		
 		ResultSet rset = null;
-		
 		String sql = prop.getProperty("selectReviewList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				
-				TravelReview travelReview = new TravelReview();
+				TravelReview review = new TravelReview();
 				
-				travelReview.setReviewNo(rset.getInt("REVIEW_NO"));
-				travelReview.setReviewTitle(rset.getString("REVIEW_TITLE"));
-				travelReview.setReviewWriter(rset.getString("NICKNAME"));
-				travelReview.setCreateDate(rset.getDate("CREATE_DATE"));
-				
-				
-				
+				review.setReviewNo(rset.getInt("REVIEW_NO"));
+				review.setReviewTitle(rset.getString("REVIEW_TITLE"));
+				review.setReviewWriter(rset.getString("NICKNAME"));
+				review.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				list.add(review);
 			}
-			
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
-		
 		return list;
 	}
 	
 	
-	
+	public List<TravelReview> selectLikeList(Connection conn){
+		
+		List<TravelReview> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				TravelReview t = new TravelReview();
+					
+				t.setReviewNo(rset.getInt("REVIEW_NO"));
+				t.setReviewTitle(rset.getString("REVIEW_TITLE"));
+				t.setReviewContent(rset.getString("REVIEW_CONTENT"));
+				t.setReviewWriter(rset.getString("NICKNAME"));
+				t.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				t.setLikes(rset.getInt("LIKES"));
+				list.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

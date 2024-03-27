@@ -1,6 +1,7 @@
 package com.kh.semi.community.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +27,13 @@ public class CommunityDetatilController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+			
+		
+		
+	
+		// 화면 지정
+		request.getRequestDispatcher("views/common/communityDetail.jsp").forward(request,response);
+		
 	}
 
 	/**

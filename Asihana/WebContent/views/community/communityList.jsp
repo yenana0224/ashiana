@@ -29,11 +29,12 @@
 
         width: 1000px;
         height: 1200px;
-        margin: auto;
+        margin-top:10px;
+        margin-left:400px;
     }
 
     #header{width: 100%; height: 25%;}
-    #content{width: 80%; height: 50%;}
+    #content{width:100%; height: 50%;}
 
     #header{
         background-color: rgba(224, 224, 205, 0.63);
@@ -149,14 +150,12 @@
     }
 
 
-	#t1{
+	.#t1{
 	
-	text-align:center;
-	background: ligthcoral;
-	margin-right: 30px;
+	
+	margin-left: 50px;
 	width:500px;
-	height: 200px;
-	
+	height: 50px;
 	
 	
 	}
@@ -165,6 +164,7 @@
 	#t2{
 	
 	border-radius: 1px solid black;
+	margin-left: 60px;
 	width:1000px;
 	height: 200px;
 	
@@ -404,7 +404,7 @@
           <button id="g4"> 검색</button>
           
           
-          <div>  
+          <span>  
           
 	          
 	         <table id="t2">
@@ -453,7 +453,7 @@
 	          	  
 	      	  </table>
 	          
-          </div>
+          </span>
           
         
      

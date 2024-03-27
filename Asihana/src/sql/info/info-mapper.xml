@@ -79,12 +79,13 @@
 	
 	<entry key="searchNation">
 	SELECT
+		   NATION_NO,
     	   NATION_NAME,
     	   NATION_CONTENT
 	  FROM
   	 	   TB_NATION
 	 WHERE
-    	   TB_NATION.NATION_NO = ?
+    	   NATION_NO = ?
     	   
 	</entry>
 	

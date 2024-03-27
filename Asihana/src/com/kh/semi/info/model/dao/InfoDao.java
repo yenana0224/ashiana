@@ -177,6 +177,7 @@ public class InfoDao {
 			
 			if(rset.next()) {
 				nation = new Nation();
+				nation.setNationNo(rset.getInt("NATION_NO"));
 				nation.setNationName(rset.getString("NATION_NAME"));
 				nation.setNationContent(rset.getString("NATION_CONTENT"));
 			}

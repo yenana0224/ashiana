@@ -57,7 +57,6 @@ public class TravelReviewDao {
 		return list;
 	}
 	
-	
 	public List<TravelReview> selectLikeList(Connection conn){
 		
 		List<TravelReview> list = new ArrayList();

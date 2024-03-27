@@ -117,7 +117,7 @@
 					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
 					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i></a></td>
-					<td><a href="#"><i class="fas fa-bars"></i></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i></a></td>
 				</tr>
 				<%} %>
 				<%} %>
@@ -145,9 +145,30 @@
 				data : {
 					userId2: userId
 				},
-				 success: function(response) {
-			            // 요청이 성공했을 때 수행할 작업을 여기에 작성합니다.
+				 success: function(result) {
+					 if(result == 'success'){
 			            alert("친구가 추가되었습니다.");
+					 };
+			    },
+			    error: function(xhr, status, error) {
+		            // 요청이 실패했을 때 수행할 작업을 여기에 작성합니다.
+		            console.error(error);
+		        }
+			});
+			
+		}
+	function deleteFriend(userId){
+			
+			$.ajax({
+				url:'delete.friend',
+				type : 'post',
+				data : {
+					userId2: userId
+				},
+				 success: function(result) {
+					 if(result == 'success'){
+			            alert("친구가 추가되었습니다.");
+					 };
 			    },
 			    error: function(xhr, status, error) {
 		            // 요청이 실패했을 때 수행할 작업을 여기에 작성합니다.

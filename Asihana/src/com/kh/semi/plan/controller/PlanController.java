@@ -16,7 +16,6 @@ public class PlanController {
 
 	public String selectPlanList(HttpServletRequest request, HttpServletResponse response) {
 		
-		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		List<PlanMain> list = new ArrayList();
 		if(loginUser != null) {

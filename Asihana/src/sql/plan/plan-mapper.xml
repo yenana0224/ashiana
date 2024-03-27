@@ -173,5 +173,9 @@
 		 ORDER
 		    BY SCHED_NO
 	</entry>
+	
+	<entry key="insertPlan">
+		INSERT INTO TB_PLAN VALUES (SEQ_PLAN.NEXTVAL, ?, 'N', SYSDATE)
+	</entry>
 
 </properties>

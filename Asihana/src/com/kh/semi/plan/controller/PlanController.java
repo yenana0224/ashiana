@@ -1,5 +1,6 @@
 package com.kh.semi.plan.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,11 @@ public class PlanController {
 		
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
+		List<PlanMain> list = new ArrayList();
 		if(loginUser != null) {
-			List<PlanMain> list = new PlanService().selectPlanList(loginUser.getUserNo());
-			request.setAttribute("list", list);
+			list = new PlanService().selectPlanList(loginUser.getUserNo());
 		}
+		request.setAttribute("list", list);
 		
 		return "views/plan/planMain.jsp";
 	}
@@ -32,34 +33,24 @@ public class PlanController {
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
 		String view = "";
-		int result = 0;
-		if(loginUser != null) {
-			result = new PlanService().userPlanCheck(loginUser.getUserNo(), planNo);
-		} 
-		
-		if(result > 0) {
+		if(loginUser != null && new PlanService().userPlanCheck(loginUser.getUserNo(), planNo) > 0) {
 			request.setAttribute("planNo", planNo);
 			view = "views/plan/planDetail.jsp";
 		} else {
 			request.setAttribute("errorMsg", "작성하신 플랜이 아닙니다.");
 			view = "views/common/errorPage.jsp";
 		}
-		
 		return view;
 	}
 
 	public PlanDetail selectPlanDetail(HttpServletRequest request, HttpServletResponse response) {
 		
-		int planNo = Integer.parseInt(request.getParameter("planNo"));
-		
-		return new PlanService().selectPlanDetail(planNo);
+		return new PlanService().selectPlanDetail(Integer.parseInt(request.getParameter("planNo")));
 	}
 
 	public List<DestinationDetail> selectDesDetail(HttpServletRequest request, HttpServletResponse response) {
 		
-		int planNo = Integer.parseInt(request.getParameter("planNo"));
-		
-		return new PlanService().selectDesDetail(planNo);
+		return new PlanService().selectDesDetail(Integer.parseInt(request.getParameter("planNo")));
 	}
 
 	public List<Schedule> selectSchedule(HttpServletRequest request, HttpServletResponse response) {
@@ -71,10 +62,10 @@ public class PlanController {
 		
 		String view = "";
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		if(((Member)request.getSession().getAttribute("loginUser")).getUserNo() == userNo) {
-			if(new PlanService().insertPlan(userNo) > 0) {
-				view = "views/plan/insertPlan.jsp";
-			}
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
+		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) {
+			view = "views/plan/insertPlan.jsp";
 		} else {
 			request.setAttribute("errorMsg", "작성하신 플랜이 아닙니다.");
 			view = "views/common/errorPage.jsp";

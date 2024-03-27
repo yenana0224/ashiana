@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.admin.model.service.AdminService;
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Notice;
@@ -233,8 +234,89 @@ public class adminController {
 	
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		Nation nation = new InfoService().nationInfo(nationNo);
+		AttachmentFile title = new InfoService().selectTitlePhoto(nationNo);
+		AttachmentFile file = new InfoService().selectPhoto(nationNo);
+				
+		request.setAttribute("nation", nation);
+		request.setAttribute("title", title);
+		request.setAttribute("file", file);
 		
 		return "views/admin/nationInfoDetail.jsp";
+	}
+	
+	public String nationUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		String nationName = request.getParameter("nationName");
+		String nationContent = request.getParameter("nationContent");
+		String voltage = request.getParameter("voltage");
+		String visaName = request.getParameter("visa");
+		String language = request.getParameter("language");
+		String currency = request.getParameter("currency");
+		
+		Nation nation = new Nation();
+		nation.setNationNo(nationNo);
+		nation.setNationName(nationName);
+		nation.setNationContent(nationContent);
+		nation.setVoltage(voltage);
+		nation.setVisaName(visaName);
+		nation.setLanguage(language);
+		nation.setCurrency(currency);
+		
+		request.setAttribute("nation", nation);
+		return "views/admin/nationUpdateForm.jsp";		
+	}
+	
+	public String nationUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		String view = "";
+	
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String savePath = request.getServletContext().getRealPath("/resources/info/nation");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
+			String nationName = multiRequest.getParameter("nationName");
+			String nationContent = multiRequest.getParameter("nationContent");
+			String voltage = multiRequest.getParameter("voltage");
+			String visaName = multiRequest.getParameter("visa");
+			String language = multiRequest.getParameter("language");
+			String currency = multiRequest.getParameter("currency");
+			
+			Nation nation = new Nation();
+			nation.setNationNo(nationNo);
+			nation.setNationName(nationName);
+			nation.setNationContent(nationContent);
+			nation.setVoltage(voltage);
+			nation.setVisaName(visaName);
+			nation.setLanguage(language);
+			nation.setCurrency(currency);
+			
+			AttachmentFile title = null;
+			AttachmentFile file = null;
+			
+			if(multiRequest.getOriginalFileName("newTitleFile") != null) {
+				title = new AttachmentFile();
+				title.setOriginName(multiRequest.getOriginalFileName("newTitleFile"));
+				title.setOriginName(multiRequest.getFilesystemName("newTitleFile"));
+				title.setFilePath("/resources/info/nation");
+			}
+			
+			if(multiRequest.getOriginalFileName("newFile") != null) {
+				file = new AttachmentFile();
+				file.setOriginName(multiRequest.getOriginalFileName("newFile"));
+				file.setOriginName(multiRequest.getFilesystemName("newFile"));
+				file.setFilePath("/resources/info/nation");
+			}
+			
+			int result = new InfoService().updateNation(nation, title, file);
+			
+			if(result > 0) view = "nationInfo.admin?nationNo=" + nationNo;
+		}
+		return view;
 	}
 	
 }

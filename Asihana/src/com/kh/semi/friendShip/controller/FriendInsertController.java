@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.friendShip.model.service.FriendShipService;
 import com.kh.semi.friendShip.model.vo.FriendShip;
 import com.kh.semi.member.model.vo.Member;
 
@@ -32,10 +33,16 @@ public class FriendInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int userId2 = Integer.parseInt(request.getParameter("userId2"));
 		
 		FriendShip friendShip = new FriendShip();
 		friendShip.setUserId1(userNo);
+		friendShip.setUserId2(userId2);
 		
+		int result = new FriendShipService().insertFriendShip(friendShip);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result > 0 ? "success" : "fail");
 	}
 
 	/**

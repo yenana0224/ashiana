@@ -116,13 +116,17 @@
 					<td><%=friendShip.getNickNameF()%></td>
 					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i></a></td>
-					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i></a></td>
+					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
 				</tr>
 				<%} %>
 				<%} %>
 			</tbody>
 		</table>
+		
+		<div align="center">
+	         <button type="button" onclick="location.href='<%=contextPath%>/selectUser'">유저 찾기</button>
+		</div>
 	</div>	 
 		<br><br><br><br><br>
 	
@@ -138,27 +142,30 @@
 		
 		
 	function insertFriend(userId){
-			
-			$.ajax({
-				url:'insert.friend',
-				type : 'post',
-				data : {
-					userId2: userId
-				},
-				 success: function(result) {
-					 if(result == 'success'){
-			            alert("친구가 추가되었습니다.");
-					 };
-			    },
-			    error: function(xhr, status, error) {
-		            // 요청이 실패했을 때 수행할 작업을 여기에 작성합니다.
-		            console.error(error);
-		        }
-			});
+		   if (userId !== null) {
+		        $.ajax({
+		            url: 'insert.friend',
+		            type: 'post',
+		            data: {
+		                userId2: userId
+		            },
+		            success: function(result) {
+		                if (result == 'success') {
+		                    alert("친구가 추가되었습니다.");
+		                };
+		            },
+		            error: function(xhr, status, error) {
+		                console.error(error);
+		            }
+		        });
+		    } else {
+		        // userId가 null일 때 예외 처리
+		        console.error("userId가 null입니다.");
+		    }
 			
 		}
 	function deleteFriend(userId){
-			
+		   if (userId !== null) {
 			$.ajax({
 				url:'delete.friend',
 				type : 'post',
@@ -167,7 +174,7 @@
 				},
 				 success: function(result) {
 					 if(result == 'success'){
-			            alert("친구가 추가되었습니다.");
+			            alert("친구가 삭제되었습니다.");
 					 };
 			    },
 			    error: function(xhr, status, error) {
@@ -175,7 +182,10 @@
 		            console.error(error);
 		        }
 			});
-			
+		   } else {
+			// userId가 null일 때 예외 처리
+		        console.error("userId가 null입니다.");
+		    }
 		}
 		
 	</script>

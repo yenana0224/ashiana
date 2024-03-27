@@ -35,4 +35,18 @@ public class FriendShipService {
 		
 		return result;
 	}
+	
+	
+	
+	public int deleteFriendShip(FriendShip friendShip) {
+		Connection conn = getConnection();
+		
+		int result = new FriendShipDao().deleteFriendShip(conn, friendShip);
+		
+		if(result>0) commit(conn);
+		
+		close(conn);
+		
+		return result;
+	}
 }

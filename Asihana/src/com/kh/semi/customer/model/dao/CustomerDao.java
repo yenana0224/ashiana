@@ -771,4 +771,30 @@ public class CustomerDao {
 		
 	}
 	
+	public int replyInsert(Connection conn, Answer answer) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("replyInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, answer.getQnaNo());
+			pstmt.setString(2, answer.getReplyComment());
+			pstmt.setInt(3, Integer.parseInt(answer.getReplyWriter()));
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 }

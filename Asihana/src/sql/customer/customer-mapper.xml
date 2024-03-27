@@ -479,12 +479,15 @@
 		      REPLY_NO,
 		      QNA_NO,
 		      REPLY_COMMENT,
-		      REPLY_WRITER,
+		      NICKNAME,
 		      COMMENT_DATE,
-		      STATUS
+		      T.STATUS
 		  FROM
-		      TB_ANSWER
+		      TB_ANSWER T,
+		      MEMBER
 		 WHERE
+		      MEM_NO = REPLY_WRITER
+           AND
 		      QNA_NO = ?
 		 ORDER
 		    BY
@@ -522,5 +525,26 @@
 	          BOARD_TYPE = 8
 	       AND
 	          BOARD_NO = ?     
+	</entry>
+	
+	<entry key="replyInsert">
+		INSERT
+		  INTO
+		      TB_ANSWER
+		      (
+		      REPLY_NO,
+		      QNA_NO,
+		      REPLY_COMMENT,
+		      REPLY_WRITER,
+		      STATUS
+		      )
+		 VALUES
+		      (
+		      SEQ_ANSWER.NEXTVAL,
+		      ?,
+		      ?,
+		      ?,
+		      'Y'
+		      )     
 	</entry>
 </properties>

@@ -85,6 +85,11 @@ public class Member {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", nickName=" + nickName
 				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
+	public Member(int userNo, String nickName) {
+		super();
+		this.userNo = userNo;
+		this.nickName = nickName;
+	}
 	
 	
 	

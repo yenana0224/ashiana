@@ -75,6 +75,28 @@ public class FriendShipDao {
 		return result;
 	}
 	
-	
+	public int deleteFriendShip(Connection conn, FriendShip friendShip) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteFriendShip");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,friendShip.getUserId1());
+			pstmt.setInt(2,friendShip.getUserId2());
+					
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }

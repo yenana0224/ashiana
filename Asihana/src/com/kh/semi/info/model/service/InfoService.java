@@ -55,9 +55,7 @@ public class InfoService {
 	public Nation searchNation(int nationNo) {
 		Connection conn = getConnection();
 		Nation nation = new InfoDao().searchNation(conn, nationNo);
-		
 		close(conn);
-		
 		return nation;
 	}
 	
@@ -126,9 +124,7 @@ public class InfoService {
 	public List<Story> storyList(PageInfo pi){
 		Connection conn = getConnection();
 		List<Story> list = new InfoDao().storyList(conn, pi);
-		
 		close(conn);
-		
 		return list;
 	}
 	
@@ -171,6 +167,8 @@ public class InfoService {
 				photoResult = new InfoDao().insertPhoto(conn, nationNo, file);
 			}
 		}
+		
+		close(conn);
 		return nationResult * titleResult * photoResult;
 	}
 	

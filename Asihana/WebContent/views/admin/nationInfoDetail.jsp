@@ -118,11 +118,16 @@
         </div>
        
         <div class="titlePhoto">
-            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>">
+        	<% if(title != null) { %>
+            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>/<%=title.getChangeName() %>">
+            <% } %>
         </div>
 
-        <div class="photo">    
-            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>">
+        <div class="photo">
+        	<% if(file != null) { %>
+            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
+            <% } %>
+
         </div>
     
         <form action="nationUpdateForm.admin" method="post">

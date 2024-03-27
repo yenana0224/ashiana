@@ -456,8 +456,9 @@ public class InfoDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, nationNo);
+			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
+			if(rset.next()) {
 				file = new AttachmentFile();
 				file.setBoardType(rset.getInt("BOARD_TYPE"));
 				file.setFileNo(rset.getInt("FILE_NO"));
@@ -483,8 +484,9 @@ public class InfoDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, nationNo);
-			
-			while(rset.next()) {
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
 				file = new AttachmentFile();
 				file.setBoardType(rset.getInt("BOARD_TYPE"));
 				file.setFileNo(rset.getInt("FILE_NO"));

@@ -66,7 +66,7 @@ public class PlanController {
 		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) {
 			view = "views/plan/insertPlan.jsp";
 		} else {
-			request.setAttribute("errorMsg", "작성하신 플랜이 아닙니다.");
+			request.setAttribute("errorMsg", "로그인 확인 후 다시 시도해주세요.");
 			view = "views/common/errorPage.jsp";
 		}
 		return view;

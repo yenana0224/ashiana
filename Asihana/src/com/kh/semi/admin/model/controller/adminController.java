@@ -239,8 +239,8 @@ public class adminController {
 		AttachmentFile file = new InfoService().selectPhoto(nationNo);
 				
 		request.setAttribute("nation", nation);
-		request.setAttribute("title", title);
-		request.setAttribute("file", file);
+		if(title != null) request.setAttribute("title", title);
+		if(file != null) request.setAttribute("file", file);
 		
 		return "views/admin/nationInfoDetail.jsp";
 	}
@@ -301,20 +301,21 @@ public class adminController {
 			if(multiRequest.getOriginalFileName("newTitleFile") != null) {
 				title = new AttachmentFile();
 				title.setOriginName(multiRequest.getOriginalFileName("newTitleFile"));
-				title.setOriginName(multiRequest.getFilesystemName("newTitleFile"));
+				title.setChangeName(multiRequest.getFilesystemName("newTitleFile"));
 				title.setFilePath("/resources/info/nation");
 			}
 			
 			if(multiRequest.getOriginalFileName("newFile") != null) {
 				file = new AttachmentFile();
 				file.setOriginName(multiRequest.getOriginalFileName("newFile"));
-				file.setOriginName(multiRequest.getFilesystemName("newFile"));
+				file.setChangeName(multiRequest.getFilesystemName("newFile"));
 				file.setFilePath("/resources/info/nation");
 			}
 			
 			int result = new InfoService().updateNation(nation, title, file);
 			
-			if(result > 0) view = "nationInfo.admin?nationNo=" + nationNo;
+			
+			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
 		}
 		return view;
 	}

@@ -325,7 +325,7 @@
 		     ?,
 		     ?,
 		     9     
-		     );
+		     )
 	</entry>
 	
 	<entry key="insertPhoto">
@@ -348,7 +348,7 @@
 		     ?,
 		     ?,
 		     1     
-		     );
+		     )
 	</entry>
 	
 	<entry key="updateTitlePhoto">

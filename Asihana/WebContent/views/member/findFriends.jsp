@@ -82,11 +82,8 @@
 
 	<%@ include file="../common/headerbar.jsp"%>
 
-	<%
-		String userId = loginUser.getUserId();
-	%>
 	<div id="noticetext">
-		<p>팔로우</p>
+		<p>유저찾기</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="닉네임 검색">
 	</div>
@@ -116,8 +113,8 @@
 					<td><%=member.getNickName()%></td>
 					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-					<td><a href="<%=contextPath%>/insert.friend" ><i class="fas fa-file"></i></a></td>
-					<td><a href="<%=contextPath%>/delete.friend" ><i class="fas fa-bars"></i></a></td>
+					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= member.getUserNo() %>')"><i class="fas fa-file"></i></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= member.getUserNo() %>')"><i class="fas fa-bars"></i></a></td>
 				</tr>
 				<%} %>
 				<%} %>
@@ -141,13 +138,13 @@
 		});
 		
 		
-	function insertFriend(userId){
-		   if (userId !== null) {
+	function insertFriend(userNo){
+		   if (userNo !== null) {
 		        $.ajax({
 		            url: 'insert.friend',
 		            type: 'post',
 		            data: {
-		                userId2: userId
+		                userId2: userNo
 		            },
 		            success: function(result) {
 		                if (result == 'success') {

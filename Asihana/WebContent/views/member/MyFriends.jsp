@@ -74,6 +74,8 @@
 .table-container {
     max-height: 300px; /* 최대 높이 지정 */
     overflow-y: auto; /* 세로 스크롤 생성 */
+     margin: 0 auto;
+     width: 1000px;
 }
 </style>
 

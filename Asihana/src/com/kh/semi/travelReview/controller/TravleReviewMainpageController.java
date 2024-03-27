@@ -17,13 +17,13 @@ import com.kh.semi.travelReview.model.vo.TravelReview;
  * Servlet implementation class TravleRiewMainpageController
  */
 @WebServlet("/travelReviewMain")
-public class TravleRiewMainpageController extends HttpServlet {
+public class TravleReviewMainpageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TravleRiewMainpageController() {
+    public TravleReviewMainpageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,6 +59,7 @@ public class TravleRiewMainpageController extends HttpServlet {
 		List<TravelReview> likeList = new TravelReviewService().selectLikeList();
 				
 		// 3_3)해시태그가 담긴 여행기 리스트를 가져와야 함
+		
 		
 		request.setAttribute("cityList", cityList);
 		System.out.println(cityList);

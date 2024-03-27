@@ -5,7 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.info.model.service.CityService;
 import com.kh.semi.info.model.service.InfoService;
+import com.kh.semi.info.model.service.NationService;
+import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
@@ -15,7 +18,7 @@ public class InfoController {
 
 	
 	public String main(HttpServletRequest request, HttpServletResponse response) {
-		List<City> list = new InfoService().cityList();
+		List<City> list = new CityService().cityList();
 		request.setAttribute("list", list);
 		return "views/info/selectCity.jsp";
 	};
@@ -28,8 +31,9 @@ public class InfoController {
 		
 		// 나라만 선택하는 경우
 		if(cityName.equals("도시선택")) {
-			Nation nation = new InfoService().searchNation(nationNo);
-			List<City> cityList = new InfoService().nationCity(nationNo);				
+			Nation nation = new NationService().searchNation(nationNo);
+			List<City> cityList = new CityService().nationCity(nationNo);
+
 			request.setAttribute("nation", nation);
 			request.setAttribute("cityList", cityList);
 			view = "views/info/nationInfo.jsp";
@@ -41,10 +45,10 @@ public class InfoController {
 			c.setCityName(cityName);
 			
 			// City 조회수 1증가
-			int result = new InfoService().increaseCity(c);
+			int result = new CityService().increaseCity(c);
 			if(result > 0) {
 				// 도시정보 조회
-				City city = new InfoService().searchCity(c);
+				City city = new CityService().searchCity(c);
 				// 도시 내 즐길거리 조회
 				//List<Attraction> attraction = new InfoService().searchAttraction(c);
 				request.setAttribute("City", city);
@@ -58,7 +62,7 @@ public class InfoController {
 	
 	public String story(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		int listCount = new InfoService().countStory();
+		int listCount = new StoryService().countStory();
 		int pageLimit = 10;
 		int boardLimit = 5;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -68,7 +72,7 @@ public class InfoController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Story> storyList = new InfoService().storyList(pi);
+		List<Story> storyList = new StoryService().storyList(pi);
 		
 		String view = "";
 		
@@ -81,7 +85,7 @@ public class InfoController {
 	
 	public String detailStory(HttpServletRequest request, HttpServletResponse response) {
 		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
-		Story story = new InfoService().detailStory(storyNo);
+		Story story = new StoryService().detailStory(storyNo);
 		
 		request.setAttribute("pageNo", Integer.parseInt(request.getParameter("pageNo")));
 		request.setAttribute("story", story);

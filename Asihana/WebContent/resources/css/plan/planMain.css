@@ -1,7 +1,6 @@
-div{
-    box-sizing: border-box;
-}
+
 #outer{
+    box-sizing: border-box;
     width: 1200px;
     margin : auto;
     margin-top: 50px;

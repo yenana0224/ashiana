@@ -1,35 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
+<%
+	List<City> cityList = (List<City>)request.getAttribute("cityList");
+%>
 <!DOCTYPE html>
 <html>
-<head>    
-    <!--데이트 타임 피커 https://www.delftstack.com/ko/howto/jquery/jquery-datetimepicker/-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-    
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlan.css">
-
-    <!--예약 및 일정 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertSched.css">
-    
-    <!--목적지 추가 모달 css -->
-    <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
-    
-    <!--목적지 추가/여행 종료 토스트 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
-    
+<head>      
     <title>여행 플랜 작성</title>
     <style>
-        #outer{
-            width: 1200px;
-            box-sizing: border-box;
-        }
+    div{
+       width: 1200px;
+       box-sizing: border-box;
+    }
     </style>
 </head>
 <body>
 	
 	<%@ include file="../common/headerbar.jsp" %>
 	
-	<div id="outer">
+	<div id="outer-plan">
 	    <div id="required-msg">
 	        <div>
 	            <label>출국 날짜를 설정해주세요.(시간 선택)</label>
@@ -38,8 +28,8 @@
 	    <form method="post">
 	        <div id="planning-interface">
 	            <input type="hidden" name="planNo" id="planNo">
-	                            출국일시 : <input type="date" name="start-date" id="start-date">
-	            <input type="time" name="start-time" id="start-time"  class="timepicker">
+	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
+	            <input type="time" name="start-time" id="start-time" class="timepicker">
 	
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
@@ -50,6 +40,7 @@
 	
 	            </div> 
 	            <div id="root-area">
+	            	<!--  
 	                <div class="root-icon">
 	                    <img src="resources/icons/arrow-down-square-fill.svg">
 	                </div>
@@ -66,17 +57,17 @@
 	                </div>
 	                
 	                <div class="root-line"></div>
+	               --> 
 	                <div class="root-icon">
 	                    <img class="des-add-btn" src="resources/icons/plus-square-fill.svg">
 	                    <div class="toast" data-autohide="false" style="width: 240px;">
 	                        <div class="toast-body">
 	                            <button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
 	                            <button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>
-	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast">Ｘ</button>
+	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast" style="border:none; padding:0;">Ｘ</button>
 	                        </div>
 	                    </div>
 	                </div>
-	                
 	            </div>
 	            
 	            
@@ -163,35 +154,30 @@
 	        </div>
 	    </form>
 	</div> <!-- outer -->
+	
 	<%@ include file="../common/footer.jsp" %>
+	
 	<!-- AJAX -->
 	<script>
 		$(function(){
-			$.ajax({
+			$.ajax({ // 작성중인 플랜의 planNo
 				url : 'selectInsertPlan.ajaxplan',
 				type : 'post',
 				success : function(plan){
 					$('#planNo').val(plan);
 				}
 			})
+			
+	        // 출국 날짜 요구 메세지 슬라이드 업
+	        $('#start-date').change(function(){
+	            $('#required-msg').slideUp(500);
+	        })
+	        // 목적지 추가 토스트
+	        $('#root-area').on('click', '.des-add-btn', function(){
+	            $('.toast').toast('show');
+	        })
 		})
 	</script>
-
-	<script> 
-    $(function(){
-        // 출국 날짜 요구 메세지 슬라이드 업
-        $('#start-date').change(function(){
-            $('#required-msg').slideUp(500);
-        })
-        // 목적지 추가 토스트
-       
-        $('#root-area').on('click', '.des-add-btn', function(){
-            $('.toast').toast('show');
-        })
-    })
-        
-    </script>
-
         
 
     <!-- 타임 피커 -->
@@ -220,11 +206,19 @@
                     </div>
                     <div id="modal-form-area">
                         <select name="country" id="country">
-                            <option value="태국">태국</option>
+                        	<option value="국가 선택" disabled selected>국가 선택</option>
+                            <% for(int i = 0; i < cityList.size(); i++) { %>
+                            	<% if(i == 0 && !cityList.get(i).getNationName().equals("대한민국")) { %>
+	                            	<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
+                            	<% } %>
+	                            <% if(i > 0 && !cityList.get(i - 1).getNationName().equals(cityList.get(i).getNationName()) && !cityList.get(i).getNationName().equals("대한민국")) { %>
+	                            	<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
+	                            <% } %>
+                            <% } %>
                         </select>
                         <select name="city" id="city">
-                            <option value="방콕">방콕</option>
-                            <option value="크라비">크라비</option>
+                        	<option value="도시 선택" disabled selected>도시 선택</option>
+                        	
                         </select>
      
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
@@ -276,6 +270,13 @@
 
     <!-- 모달 스크립트 -->
     <script>
+    	$(function(){ // 모달 도시 셀렉트박스 
+    		$('#country').change(function(){
+    			<% for(City city : cityList) { %>
+    				if($('#country').val() === <%=city.getationName()%>)
+    			<% } %>
+    		})
+    	});
         // 날짜 포멧 바꾸는 함수
         function formatDate(date) {
             var d = new Date(date),
@@ -289,7 +290,7 @@
             
             return [year, month, day].join('-');
         }
-        $(function(){
+        $(function(){ // 모달 일정 요약 부분
             $('#city').change(function(){ // 도시 선택시 인풋 벨류 변경
                 $('#country-city').val($('#country').val() + '-' + $('#city').val());
             });
@@ -353,7 +354,11 @@
                 }
             }
         });
+        
     </script>
+    
+    
+    
     <!--디테일 테이블 스크립트-->
     <script>
         $('.sched-des-detail-body').on('mouseover', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
@@ -384,8 +389,8 @@
             const $detail = $(this).parents('.sched-des').next().find('.sched-des-detail-body');
             
             if($detail.find('.sched-tr-add').length == 0){ // 예약/일정 추가 행이 존재하는지 여부
-                $detail.find('.sched-tr-empty').remove(); // 등록 유도 행 제거
-                $(trAdd).appendTo($detail); // 예약/일정 추가 행 추가
+               $detail.find('.sched-tr-empty').remove(); // 등록 유도 행 제거
+               $(trAdd).appendTo($detail); // 예약/일정 추가 행 추가
             }
             else {
                 alert('추가 중인 예약 및 일정이 존재합니다.'); // 예약/일정 추가 행이 이미 있을 경우

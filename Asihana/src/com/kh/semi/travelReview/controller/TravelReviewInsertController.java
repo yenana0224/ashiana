@@ -1,27 +1,23 @@
-package com.kh.semi.customer.controller;
+package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.customer.model.service.CustomerService;
-import com.kh.semi.customer.model.vo.Answer;
-
 /**
- * Servlet implementation class ReplyAjaxInsert
+ * Servlet implementation class TravelReviewInsertController
  */
-@WebServlet("/replyInsert.yo")
-public class ReplyAjaxInsert extends HttpServlet {
+@WebServlet("/insertReview")
+public class TravelReviewInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyAjaxInsert() {
+    public TravelReviewInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +27,9 @@ public class ReplyAjaxInsert extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
 		
-		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-		String userNo = request.getParameter("userNo");
-		String coment = request.getParameter("content");
-		String qnaStatus = request.getParameter("qnaStatus");
+		request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		
-		Answer answer = new Answer();
-		answer.setQnaNo(qnaNo);
-		answer.setReplyComment(coment);
-		answer.setReplyWriter(userNo);
-		
-		int result = new CustomerService().replyInsert(answer, qnaStatus);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().print(result > 0 ? "success" : "fail");
-		
-	
-	
-	
 	}
 
 	/**

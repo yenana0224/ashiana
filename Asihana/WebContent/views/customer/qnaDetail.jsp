@@ -83,7 +83,10 @@
        }
 
        #replyBox{
-            height: auto;
+		    height: auto;
+		    max-height: 500px;
+		    overflow-y: auto;
+		    padding-bottom: 20px; 
        }
        #replyText{
             width: 700px;
@@ -121,6 +124,7 @@
             height: 30px;
             width: 700px;
             margin: auto;
+            margin-bottom: 5px;
             border-bottom: 0.5px solid rgba(0, 0, 0, 0.267);
        }
        #replySelect{
@@ -130,8 +134,8 @@
        }
        .answer{
             width: 700px;
-            height: 50px;
             margin: auto;
+            height: 135px;
        }
        .answer a{
             position: relative;
@@ -145,8 +149,12 @@
             height: 100px;
             line-height: 70px;
             font-size: 15px;
-            border-bottom: 0.5px solid rgba(0, 0, 0, 0.267);            
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.267);
+            margin-bottom: 30px;             
        }
+       .answer:last-child {
+            margin-bottom: 0; /* 마지막 답변 요소의 아래쪽 간격 제거 */
+        }  
        .answerDate{
             position: relative;
             bottom: 5%;
@@ -267,11 +275,7 @@
 
                     <div id="replySelect">
                         <div class="answer">
-                            <span class="answerDate"><label>작성자 </label>닉네임</span>
-                            <div class="answerTextBox"><span class="answerText">안녕</span></div>
-                            <a class="replyUpdate">수정</a>  <a class="replyDelete">삭제</a>
                         </div>
-                        <div style="height: 75px;"></div>
                         
                     </div>
                 </div>
@@ -298,12 +302,49 @@
 			$('.modal').css('display', 'none');
 		})
 		
+		function selectReplyList(){
+			$.ajax({
+				url: 'replyList.yo',
+				data: {qnaNo : <%=qna.getQnaNo()%>},
+				success: function(result){
+					let resultStr = '';
+					for(let i in result){
+						
+						resultStr += '<div class="answer">'
+								  +'<span class="answerDate"><label>작성자 </label>' + " " + result[i].replyWriter  + '</span>'
+                        		  +	'<div class="answerTextBox"><span class="answerText">' + result[i].replyComment + '</span></div>'
+                                  + '<a class="replyUpdate">수정</a>  <a class="replyDelete">삭제</a>'
+								  + '</div>'
+					};
+					$('.answer').html(resultStr);
+				}
+			})
+		}
 		
-	
+		$(function(){
+			selectReplyList();
+		});
 		
-		
-		
-		
+		$('#replyInsert').click(function(){
+			$.ajax({
+				url: 'replyInsert.yo',
+				type : 'post',
+				data: {
+						qnaNo : <%= qna.getQnaNo()%>,
+						content : $('#reply').val(),
+						<% if(loginUser != null){%>
+						userNo : <%=loginUser.getUserNo()%>,
+						<%}%>
+						qnaStatus : '<%=qna.getQnaStatus()%>'
+					  },
+				success : function(result){
+					if(result == 'success'){
+						$('#reply').val('');
+						selectReplyList();
+					};
+				}  
+			})
+		})
 		
 		
 	</script>

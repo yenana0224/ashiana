@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewDao {
-
-	
 	
 	private Properties prop = new Properties();
 	
@@ -31,17 +30,12 @@ public class TravelReviewDao {
 	public List<TravelReview> selectReviewList(Connection conn){
 		
 		List<TravelReview> list = new ArrayList();
-		
 		PreparedStatement pstmt = null;
-		
 		ResultSet rset = null;
-		
 		String sql = prop.getProperty("selectReviewList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -51,22 +45,15 @@ public class TravelReviewDao {
 				travelReview.setReviewNo(rset.getInt("REVIEW_NO"));
 				travelReview.setReviewTitle(rset.getString("REVIEW_TITLE"));
 				travelReview.setReviewWriter(rset.getString("NICKNAME"));
-				travelReview.setCreateDate(rset.getDate("CREATE_DATE"));
-				
-				
-				
+				travelReview.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				list.add(travelReview);
 			}
-			
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
 		}
-		
-		
 		return list;
 	}
-	
-	
-	
 }

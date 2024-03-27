@@ -21,7 +21,7 @@
 <body>
 
 	<%@ include file="../common/headerbar.jsp" %>
-    <div id="outer">
+    <div id="outer-plan">
 	    <form method="post">
 	        <div id="planning-interface">
 	            <input type="hidden" name="planNo" id="planNo" value="<%= planNo %>">

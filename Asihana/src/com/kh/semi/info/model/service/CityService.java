@@ -94,4 +94,11 @@ public class CityService {
 		close(conn);
 		return file;
 	}
+	
+	public int updateCity(City city, AttachmentFile file) {
+		Connection conn = getConnection();
+		int result = 0;
+		close(conn);
+		return result;
+	}
 }

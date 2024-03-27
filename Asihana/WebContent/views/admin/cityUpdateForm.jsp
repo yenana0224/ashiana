@@ -47,7 +47,6 @@
             margin-top : 10px;
             border : 1px solid darkgray;
             border-radius: 10px;
-            background-color: lightgray;
             margin: auto;
             margin-bottom: 8px;
         }
@@ -103,27 +102,28 @@
     <div class="outer">
         <div class="title">
             <h2>국가/도시정보</h2>
-            <h3>도시정보 </h3>
+            <h3>도시정보변경 </h3>
         </div>
        
         <div class="photo">
         	<% if(file != null) { %>
-            <img src="<%=contextPath%>/<%=file.getFilePath()%>/<%=file.getChangeName()%>">
+            <img id="cityPhoto" src="<%=contextPath%>/<%=file.getFilePath()%>/<%=file.getChangeName()%>">
             <% } %>
         </div>
         
-        <div class="btn" id="attractionList">
-            <button> 즐길거리 목록 </button>
-        </div>
-        
-        <form action="<%=contextPath %>/cityUpdateForm.admin" method="post">
-            <input type="hidden" name="cityNo" value="<%=city.getCityNo()%>">
-            <div class="info-area"><input type="text" name="nationName" value = "<%=city.getNationName() %>" readonly></div>
-            <div class="info-area"><input type="text" name="cityName" value = "<%=city.getCityName() %>" readonly></div>
-            <div class="info-area"><textarea name="cityContent" cols="30" rows="10" style="resize: none;" readonly><%=city.getCityContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="flyingTime" value = "<%= city.getFlyingTime() %>" readonly></div>
+        <form action="cityUpdate.admin" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="CityNo" value="<%= city.getCityNo() %> ">
+            <div class="info-area"><input type="text" name="nationName" value = "<%=city.getNationName() %>"></div>
+            <div class="info-area"><input type="text" name="CityName" value = "<%=city.getCityName() %>"></div>
+            <div class="info-area"><textarea name="CityContent" cols="30" rows="10" style="resize: none;"><%=city.getCityContent() %></textarea></div>
+            <div class="info-area"><input type="text" name="flyingTime" value = "<%= city.getFlyingTime() %>"></div>
+            <div class="info-area">
+                <label>도시사진변경</label>
+			    <div class="btn"><input type="file" name="newFile" onchange="loadImg(this);"> </div>
+            </div>
+            
             <div class="btn">
-                <button type="submit" id="updateBtn"> 수정하기 </button>
+                <button type="submit" id="updateBtn"> 확인 </button>
             </div>
         </form>
 
@@ -134,6 +134,19 @@
             $('#backBtn').click(function(){
                 location.href="<%=contextPath %>/nationCityList.admin?currentPage=1";
             });
+            
+            function loadImg(inputFile){
+        	
+	        	if(inputFile.files.length){
+	        		const reader = new FileReader();
+	        		reader.readAsDataURL(inputFile.files[0]);
+	        		reader.onload = function(e){
+	        		
+	        		$('#cityPhoto').attr('src', e.target.result); break;
+	        		}
+        		};
+        	};
+        }
             
         </script>
     </div>

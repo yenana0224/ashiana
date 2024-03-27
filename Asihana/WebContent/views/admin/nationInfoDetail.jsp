@@ -127,7 +127,6 @@
         	<% if(file != null) { %>
             <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
             <% } %>
-
         </div>
     
         <form action="nationUpdateForm.admin" method="post">

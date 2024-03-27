@@ -268,7 +268,13 @@ public class adminController {
 		nation.setLanguage(language);
 		nation.setCurrency(currency);
 		
+		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
+		AttachmentFile file = new NationService().selectPhoto(nationNo);
+		
 		request.setAttribute("nation", nation);
+		request.setAttribute("title", title);
+		request.setAttribute("file", file);
+		
 		return "views/admin/nationUpdateForm.jsp";		
 	}
 	
@@ -333,6 +339,69 @@ public class adminController {
 		request.setAttribute("file", file);
 		
 		return "views/admin/cityInfoDetail.jsp";
+	}
+	
+	public String cityUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		
+		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
+		String cityName = request.getParameter("cityName");
+		String nationName = request.getParameter("nationName");
+		String cityContent = request.getParameter("cityContent");
+		String flyingTime = request.getParameter("flyingTime");
+		
+		City city = new City();
+		city.setCityNo(cityNo);
+		city.setCityName(cityName);
+		city.setNationName(nationName);
+		city.setCityContent(cityContent);
+		city.setFlyingTime(flyingTime);
+		
+		AttachmentFile file = new CityService().selectPhoto(cityNo);
+		
+		request.setAttribute("city", city);
+		request.setAttribute("file", file);
+		
+		return "views/admin/cityUpdateForm.jsp";
+	}
+	
+	public String cityUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		String view = "";
+	
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String savePath = request.getServletContext().getRealPath("/resources/info/city");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			int cityNo = Integer.parseInt(multiRequest.getParameter("cityNo"));
+			String nationName = multiRequest.getParameter("nationName");
+			String cityName = multiRequest.getParameter("cityName");
+			String cityContent = multiRequest.getParameter("cityContent");
+			String flyingTime = multiRequest.getParameter("flyingTime");
+
+			City city = new City();
+			city.setCityNo(cityNo);
+			city.setNationName(nationName);
+			city.setCityName(cityName);
+			city.setCityContent(cityContent);
+			city.setFlyingTime(flyingTime);
+						
+			AttachmentFile file = null;
+
+			if(multiRequest.getOriginalFileName("newFile") != null) {
+				file = new AttachmentFile();
+				file.setOriginName(multiRequest.getOriginalFileName("newFile"));
+				file.setChangeName(multiRequest.getFilesystemName("newFile"));
+				file.setFilePath("/resources/info/nation");
+			}
+			
+			int result = new CityService().updateCity(city, file);
+			
+			
+			if(result > 0) view = "/cityInfo.admin?cityNo=" + cityNo;
+		}
+		return view;
 	}
 	
 }

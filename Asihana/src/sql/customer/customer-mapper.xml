@@ -544,7 +544,17 @@
 		      ?,
 		      ?,
 		      ?,
-		      'Y'
+		      'N'
 		      )     
+	</entry>
+	
+	<entry key="completed">
+		UPDATE
+		      TB_QNA
+		   SET
+		      QA_STATUS = 'Y'
+		 WHERE
+		      Q_NO = ?        
+	
 	</entry>
 </properties>

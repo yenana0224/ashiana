@@ -1,7 +1,6 @@
-div{
+
+#outer-plan{
     box-sizing: border-box;
-}
-#outer{
     width: 1200px;
     margin : auto;
     margin-top: 50px;

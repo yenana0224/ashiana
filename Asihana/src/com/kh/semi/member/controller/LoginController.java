@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
 			
 			session.setAttribute("loginUser", loginUser);
 			
-			session.setAttribute("alertMsg","로그인 성공 축하한다");
+			session.setAttribute("alertMsg","로그인 성공..!");
 			response.sendRedirect(request.getContextPath());
 			
 			

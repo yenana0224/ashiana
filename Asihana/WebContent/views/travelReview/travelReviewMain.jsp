@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview" %>
-<%  List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview, com.kh.semi.info.model.vo.City" %>
+<%  
+	List<City> cityList = (List<City>) request.getAttribute("cityList");
+	List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
 	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
+	
 %>
     
 <!DOCTYPE html>
@@ -15,7 +18,6 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
-    
     
         #content-wrap{
         width: 1200px;
@@ -39,14 +41,11 @@
 
     #content-1-2{
         width: 594px;
-        background-color : red;
     }
 
     #content-1-title{
         margin-top : 50px;
     }
-
-
 
     #content-2wrap{
         width: 100%;
@@ -97,8 +96,6 @@
         opacity : 0.9;
     }
         
-
-
     #content-2-3{
         width: 100px;
     }
@@ -150,8 +147,6 @@
         
     }
 
-
-
     #content-3-3{
         width: 100px;
     }
@@ -172,6 +167,10 @@
         float : center;
         display : none;
         
+    }
+    
+    p{
+    	z-index : 40;
     }
 
     #content-3-boardlist > :hover{
@@ -200,7 +199,22 @@
                 <div id="content-1-2form">
                     <form action="#" method="get" name="search-form">
                         
-                        <!-- 여기부터는 수업에서 배우는 내용 참고하여  수정 필요한 부분-->
+                        <div id="nation-list-wrap">
+                            <input id="search-botton" type="search" style="display : inline-block; width: 80%; height: 55px; " placeholder="국가, 도시, 키워드로 검색" name="search">
+                            <input type="submit" style="display : inline-block; width: 50px; height: 55px;" value="검색">
+                               
+                            <ol align="left" id="nation-list">
+                                     
+                                     <!--1)DB에서 조회된 국가/도시 정보를 바탕으로 반복문을 통해서 li요소 추가, 
+                                         2)해당 li요소를 클랙했을 때 해당 국가 여행기 게시판으로 이동-->
+                            	<%for(City city : cityList){%>
+                            		<li><%=city.getCityName() %>(<%=city.getNationName() %>)</li>
+                            		
+                            	<%} %>
+                                    
+                            </ol>
+                        </div>
+                        
                         <script>
                             $('#search-botton').keydown(function(){
                                 $('ol').css('display', 'block');
@@ -221,11 +235,13 @@
 
                             
                             */
-                           
+                           	
+                            /*
                             $('#nation-list-wrap').on('click', 'ol', function(){
                              
                                 $('ol').append('<li>DB정보</li>'); 
                             })
+                            */
                             $('ol').on('click', 'li', function(){
                             // input의 value 요소 값을 변경 시켜야함
                                     $('#search-botton').val($(this).text());

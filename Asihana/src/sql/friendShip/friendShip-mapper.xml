@@ -11,6 +11,12 @@
 		FROM BOARD
 		WHERE STATUS='Y' AND BOARD_TYPE=1
 	</entry>
+	<entry key="deleteFriendShip">
+		DELETE FROM FOLLOW
+		WHERE (MEM_NO1 = ? AND MEM_NO2 = ?)
+
+	</entry>
+
 
 	<entry key="selectList">
 		SELECT MEM_NO1, MEM_NO2, M2.NICKNAME NICKNAME

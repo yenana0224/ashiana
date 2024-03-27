@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import = "java.util.ArrayList, com.kh.semi.friendShip.model.vo.FriendShip"
+	import = "java.util.ArrayList, com.kh.semi.friendShip.model.vo.FriendShip,com.kh.semi.member.model.vo.Member"
 	%>
 	
 	<%
-	ArrayList<FriendShip> list = (ArrayList<FriendShip>)request.getAttribute("friendlist");
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberlist");
 	%>
 <!DOCTYPE html>
 <html>
@@ -82,11 +82,8 @@
 
 	<%@ include file="../common/headerbar.jsp"%>
 
-	<%
-		String userId = loginUser.getUserId();
-	%>
 	<div id="noticetext">
-		<p>팔로우</p>
+		<p>유저찾기</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="닉네임 검색">
 	</div>
@@ -111,13 +108,13 @@
 					<td colspan="5"> 친구가 없습니다.</td>
 				<tr>
 				<%}else{ %>
-				<%for(FriendShip friendShip :list){ %>
+				<%for(Member member :list){ %>
 				<tr>
-					<td><%=friendShip.getNickNameF()%></td>
+					<td><%=member.getNickName()%></td>
 					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
-					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= member.getUserNo() %>')"><i class="fas fa-file"></i></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= member.getUserNo() %>')"><i class="fas fa-bars"></i></a></td>
 				</tr>
 				<%} %>
 				<%} %>
@@ -125,7 +122,7 @@
 		</table>
 		
 		<div align="center">
-	         <button type="button" onclick="location.href='<%=contextPath%>/selectUser'">유저 찾기</button>
+	         <button type="button" onclick="location.href='<%=contextPath%>/friendList'">내 친구목록</button>
 		</div>
 	</div>	 
 		<br><br><br><br><br>
@@ -141,13 +138,13 @@
 		});
 		
 		
-	function insertFriend(userId){
-		   if (userId !== null) {
+	function insertFriend(userNo){
+		   if (userNo !== null) {
 		        $.ajax({
 		            url: 'insert.friend',
 		            type: 'post',
 		            data: {
-		                userId2: userId
+		                userId2: userNo
 		            },
 		            success: function(result) {
 		                if (result == 'success') {

@@ -1,5 +1,7 @@
 package com.kh.semi.travelReview.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewDao {
@@ -25,6 +27,32 @@ public class TravelReviewDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<City> selectCityList(Connection conn){
+		
+		List<City> cityList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCityList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				City city = new City();
+				
+				city.setCityName(rset.getString("CITY_NAME"));
+				city.setNationName(rset.getString("NATION_NAME"));
+				cityList.add(city);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cityList;
 	}
 	
 	public List<TravelReview> selectReviewList(Connection conn){

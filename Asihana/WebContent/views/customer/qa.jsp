@@ -218,7 +218,7 @@
     </div>
 	<% } %>
 	
-	
+	<% if(!qnaList.isEmpty()) {%>
 	<% if(searchContent != null) { %>
 		<div id="buttonBox">
 		<% if(pi.getCurrentPage() > 1){ %>
@@ -253,7 +253,10 @@
 	        <% } %>
 	    </div>
 	<% } %>
-	
+	<% } else { %>
+		<div id="buttonBox">
+		</div>
+	<% } %>
 	
 	<script>
 		$('#insertQa>button').click(function(){

@@ -72,6 +72,11 @@ public class PlanController {
 		return view;
 	}
 
+	public int selectInsertPlan(HttpServletRequest request, HttpServletResponse response) {
+		
+		return new PlanService().selectInsertPlan(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+	}
+
 	
 
 }

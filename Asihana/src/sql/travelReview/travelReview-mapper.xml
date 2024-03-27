@@ -6,6 +6,19 @@
 		travelReview Mapper
 	</comment>
 	
+	<entry key="selectCityList">
+		SELECT
+		      CITY_NAME,
+		      NATION_NAME
+		  FROM
+		      TB_NATION
+		  JOIN
+		      TB_CITY USING(NATION_NO)
+		 ORDER
+		    BY
+		      NATION_NAME
+	</entry>
+	
 	<entry key="selectReviewList">
 		<!-- 여행기 메인화면, 여행기 게시물 작성일이 최신순으로 조회 -->
 		SELECT
@@ -50,6 +63,7 @@
 		     BY
 		       LIKES DESC
 	</entry>
+	
 
 
 </properties>

@@ -1,30 +1,23 @@
-package com.kh.semi.friendShip.controller;
+package com.kh.semi.customer.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.friendShip.model.service.FriendShipService;
-import com.kh.semi.friendShip.model.vo.FriendShip;
-import com.kh.semi.member.model.vo.Member;
-import com.kh.semi.pageInfo.model.vo.PageInfo;
-
 /**
- * Servlet implementation class FriendListController
+ * Servlet implementation class ReplyAjaxInsert
  */
-@WebServlet("/friendList")
-public class FriendListController extends HttpServlet {
+@WebServlet("/replyInsert.yo")
+public class ReplyAjaxInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendListController() {
+    public ReplyAjaxInsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +26,8 @@ public class FriendListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		
-		ArrayList<FriendShip> friendlist = new FriendShipService().selectList(userNo);
-		
-		request.setAttribute("friendlist", friendlist);
-		
-		request.getRequestDispatcher("/views/member/MyFriends.jsp").forward(request,response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

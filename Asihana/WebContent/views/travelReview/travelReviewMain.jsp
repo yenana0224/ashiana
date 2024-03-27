@@ -342,7 +342,7 @@
                         <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
                         <p align="center">
                             <lable>닉네임 : </lable><span><%=t.getReviewWriter() %></span> <br>
-                            <span>해시태그</span> <span>해시태그3</span>
+                            <span>추천수 :</span> <span><%= t.getLikes() %></span>
                         </p>  
                     </div>
                     <%} %>

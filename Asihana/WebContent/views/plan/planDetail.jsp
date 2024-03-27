@@ -3,6 +3,7 @@
 <% 
 	int planNo = (int)request.getAttribute("planNo");
 %>
+<%@ include file="../common/headerbar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp" %>
+	<%@ include file="../common/planCss.jsp" %>
     <div id="outer-plan">
 	    <form method="post">
 	        <div id="planning-interface">

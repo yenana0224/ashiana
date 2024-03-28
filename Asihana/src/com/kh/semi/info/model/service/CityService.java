@@ -29,7 +29,7 @@ public class CityService {
 		return list;
 	}
 	
-	// 하나의 도시 정보조회 : 도시번호, 도시이름, 도시내용, 국가번호, 국가이름, 비행시간
+	// 하나의 도시 정보조회 : 도시번호, 도시이름, 도시소개, 국가번호, 국가이름, 비행시간
 	public City selectCity(int cityNo) {
 		Connection conn = getConnection();
 		City city = new CityDao().selectCity(conn, cityNo);		
@@ -55,41 +55,14 @@ public class CityService {
 	}
 	
 	// 도시 조회수 1 증가
-	public int increaseCity(City c) {
+	public int increaseCity(int cityNo) {
 		Connection conn = getConnection();
-		int result = new CityDao().increaseCity(conn, c);
+		int result = new CityDao().increaseCity(conn, cityNo);
 		if(result > 0) commit(conn);
 		close(conn);
 		return result;
 	}
-	
-	// 하나의 도시 조회 : 도시번호, 도시이름, 도시소개, 국가이름, 비행시간, 비자
-	public City searchCity(City c) {
-		Connection conn = getConnection();
-		int nationNo = c.getNationNo();
-		// 국가기본정보
-		City city = new CityDao().searchCity(conn, c);
-		
-		if(city != null) {
-			// 사용 언어 조회 
-			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-			String arr1 = langList.toString();
-			String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
-			city.setLanguage(lang);
-			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-			String arr2 = volList.toString();
-			String vol = arr2.substring(arr2.lastIndexOf("[")+1, arr2.lastIndexOf("]"));
-			city.setVoltage(vol);
-			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-			String arr3 = curList.toString();
-			String cur = arr3.substring(arr3.lastIndexOf("[")+1, arr3.lastIndexOf("]"));
-			city.setCurrency(cur);
-		}
-		
-		close(conn);
-		return city;
-	}
-	
+
 	// 테이블에 등록된 전체 도시 숫자 
 	public int countCity() {
 		Connection conn = getConnection();

@@ -4,6 +4,7 @@
 <%
 	TravelReview review = (TravelReview)request.getAttribute("review");
 	List<HashTag> hashTagList = (List<HashTag>)request.getAttribute("hashTagList");
+	List<HashTag> checkedHashTagList = (List<HashTag>)request.getAttribute("checkedHashTagList");
 %>
     
 <!DOCTYPE html>
@@ -407,8 +408,8 @@
                         <div id="hash-tag">
                             <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                 2) 보여지는checkbox의 checked 속성을 조작해야함-->
-                             <%for(int i = 0; i < hashTagList.size(); i++){ %>
-                             <input type="checkbox" name="hash-tag" value="tag<%=i%>" disabled><label for="tag<%=i%>">a</label>
+                             <%for(int i = 0; i < checkedHashTagList.size(); i++){ %>
+                             <input type="checkbox" name="hash-tag" value="tag<%=i%>" disabled><label for="tag<%=i%>"><%= hashTagList.get(i) %></label>
                              <%} %>   
                                 
                             <!--      

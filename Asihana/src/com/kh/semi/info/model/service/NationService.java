@@ -27,6 +27,7 @@ public class NationService {
 		return list;
 	}
 	
+	// 전체국가리스트
 	public List<Nation> allNationList(){
 		Connection conn = getConnection();
 		List<Nation> list = new NationDao().allNationList(conn);
@@ -50,29 +51,6 @@ public class NationService {
 		return nation;
 	}
 	
-	// 하나의 국가정보 : 국가번호, 국가이름, 국가소개, 비자  + 언어, 전압, 화폐
-	public Nation nationInfo(int nationNo) {
-		Connection conn = getConnection();
-		Nation nation = new NationDao().searchNation(conn, nationNo);
-		
-		if(nation != null) {
-			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-			String arr1 = langList.toString();
-			String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
-			nation.setLanguage(lang);
-			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-			String arr2 = volList.toString();
-			String vol = arr2.substring(arr2.lastIndexOf("[")+1, arr2.lastIndexOf("]"));
-			nation.setVoltage(vol);
-			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-			String arr3 = curList.toString();
-			String cur = arr3.substring(arr3.lastIndexOf("[")+1, arr3.lastIndexOf("]"));
-			nation.setCurrency(cur);
-		}
-		close(conn);
-		
-		return nation;
-	}
 	
 	// 국가 정보 수정 (정보, 타이틀사진, 정사각형사진)
 	public int updateNation(Nation nation, AttachmentFile title, AttachmentFile file) {

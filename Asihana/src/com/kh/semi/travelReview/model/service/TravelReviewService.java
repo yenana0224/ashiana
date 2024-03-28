@@ -123,5 +123,16 @@ public class TravelReviewService {
 		
 		return hashTagList;
 	}
+	
+	public List<HashTag> selectHashTagList(){
+		
+		Connection conn = getConnection();
+		
+		List<HashTag> hashTagList = new TravelReviewDao().selectHashTagList(conn);
+		
+		close(conn);
+		
+		return hashTagList;
+	}
 
 }

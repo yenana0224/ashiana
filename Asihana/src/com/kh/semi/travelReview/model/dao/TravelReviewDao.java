@@ -224,17 +224,19 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new TravelReview(rset.getInt("REVIEW_NO"),
-										rset.getString("REVIEW_TITLE"),
-										rset.getString("CITY_NAME"),
-										rset.getInt("COUNT"),
 										rset.getString("DEPARTURE_DATE"),
+										rset.getString("REVIEW_TITLE"),
+										rset.getInt("COUNT"),
+										rset.getString("CITY_NAME"),
 										rset.getString("NICKNAME")
 									));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(list);
 		return list;
+		
 	}
 	
 	public List<HashTag> selectReviewHashTagList(Connection conn, int reviewNo){
@@ -271,5 +273,39 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		return list;
 	}
 	
+	public List<HashTag> selectHashTagList(Connection conn){
+		
+		List<HashTag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHashTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				HashTag tList = new HashTag();
+				
+				tList.setTagNo(rset.getInt("TAG_NUM"));
+				tList.setTagName(rset.getString("TAG_NAME"));
+				
+				list.add(tList);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		//System.out.println(list);
+		return list;
+	}
 	
 }

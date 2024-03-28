@@ -161,6 +161,7 @@ public class TravelReviewDao {
 			review.setReviewTitle(rset.getString("REVIEW_TITLE"));
 			review.setReviewContent(rset.getString("REVIEW_CONTENT"));
 			review.setReviewWriter(rset.getString("NICKNAME"));
+			review.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
 			review.setDepartureDate(String.valueOf(rset.getDate("DEPARTURE_DATE")));
 			review.setArrivalDate(String.valueOf(rset.getDate("ARRIVAL_DATE")));
 			review.setPartner(rset.getString("PARTNER"));
@@ -305,6 +306,38 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		}
 		
 		//System.out.println(list);
+		return list;
+	}
+	
+	public List<HashTag> selectCheckedTagList(Connection conn){
+		
+		List<HashTag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCheckedTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				HashTag t = new HashTag();
+				
+				t.setReviewNo(rset.getInt("REVIEW_NO"));
+				t.setTagNo(rset.getInt("TAG_NUM"));
+				t.setTagName(rset.getString("TAG_NAME"));
+				
+				list.add(t);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
 	

@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	
-import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%>
-	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("myTravelList"); %>
+	import = "java.util.List, com.kh.semi.plan.model.vo.PlanMain"	%>
+	<%List<PlanMain> list = (List<PlanMain>)request.getAttribute("othersPlanList"); 
+	Member m = (Member)request.getAttribute("member");%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 여행기</title>
+<title>남의플랜</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
@@ -48,6 +49,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 #login-form {
 	background-color: rgb(247, 240, 233);
 }
+
 .table {
 	width: 1000px;
 	margin: auto;
@@ -66,47 +68,45 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 	<%@ include file="../common/headerbar.jsp"%>
 
-
 	<div id="noticetext">
-		<p>My여행기</p>
+		<p><font color="blue"><%=m.getNickName() %></font>님의 여행플랜</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>
 	</div>
-
+	
+	
 	<br>
 	<div class="table-container">
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
 					<th>No</th>
-					<th>제목</th>
-					<th>상태</th>
-					<th>도시</th>
-					<th>작성일</th>
+					<th>도시들</th>
+					<th>가격</th>
+					<th>마지막수정일</th>
+					
 				</tr>
 			</thead>
 			<tbody id="myTable">
-			    <% if (list.isEmpty()) { %>
+				 <% if (list.isEmpty()) { %>
 			        <tr>
-			            <td colspan="5">내 여행기가 없습니다.</td>
+			            <td colspan="4">내 여행기가 없습니다.</td>
 			        </tr>
 			    <% } else { %>
 			        <% int rowNumber = 1; %>
-			        <% for (TravelReview travelReview : list) { %>
+			        <% for (PlanMain planMain : list) { %>
 			            <%
-			            int reviewNo = travelReview.getReviewNo(); 
-			            String reviewTitle = travelReview.getReviewTitle(); 
-			            String cityName = travelReview.getCityName(); 
-			            String createDate = travelReview.getCreateDate(); 
-			            String status = travelReview.getStatus(); 
+			            int planNo = planMain.getPlanNo(); 
+			            String planCitys = planMain.getPlanCitys(); 
+			            String totalPrice = planMain.getTotalPrice(); 
+			            String uploadDate = planMain.getUploadDate(); 
 			            %>
 			            <tr>
 			                <td><%= rowNumber %></td>
-			                <td><a href="#"><%= reviewTitle %></a></td>
-			                <td><a href="#"><%= cityName %></a></td>
-			                <td><a href="#"><%= createDate %></a></td>
-			                <td><a href="#"><%= status %></a></td>
+			                <td><a href="#"><%= planCitys %></a></td>
+			                <td><a href="#"><%= totalPrice %></a></td>
+			                <td><a href="#"><%= uploadDate %></a></td>
 			            </tr>
 			            <% rowNumber++; %>
 			        <% } %>
@@ -114,42 +114,9 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 			</tbody>
 
 		</table>
-			
-			<!--
-			<tbody id="myTable">
-				<tr>
-					<td>1</td>
-					<td>핀란드여행기</td>
-					<td>2023.11.15</td>
-					<td>30</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>중국여행기</td>
-					<td>2024.1.15</td>
-					<td>32</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>태국여행기</td>
-					<td>2023.11.05</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>미국여행기</td>
-					<td>2023.11.25</td>
-					<td>10</td>
-				</tr>
-			</tbody>
-		</table>
-		-->
-	<div align="center">
-         <button type="button" onclick="location.href='<%=contextPath%>/myPlan'">플랜으로 가기</button>
 	</div>
-	</div>
-
-	<br><br><br>
+	
+	<br><br><br><br><br><br>
 	<script>
 		$(document).ready(function(){
 		  $("#myInput").on("keyup", function() {
@@ -162,8 +129,6 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 	</script>
 
 	<%@ include file="../common/footer.jsp"%>
-
-
 
 </body>
 </html>

@@ -138,6 +138,56 @@
 	     RNUM BETWEEN ? AND ?
 	
 	</entry>
+	
+	<entry key="selectPhotoList">
+	SELECT
+	         NATION_NO,
+	         NATION_NAME,
+	         CITY_NO,
+	         CITY_NAME,
+	         FILE_NO,
+	         BOARD_NO,
+	         FILE_PATH,
+	         ORIGIN_NAME,
+	         CHANGE_NAME
+	  FROM
+	        (SELECT
+	                 ROWNUM RNUM,
+	                 COUNT,
+	                 NATION_NO,
+	                 NATION_NAME,
+	                 CITY_NO,
+	                 CITY_NAME,
+	                 FILE_NO,
+	                 BOARD_NO,
+	                 FILE_PATH,
+	                 ORIGIN_NAME,
+	                 CHANGE_NAME
+	          FROM
+	                (SELECT
+	                     COUNT,
+	                     N.NATION_NO,
+	                     NATION_NAME,
+	                     CITY_NO,
+	                     CITY_NAME,
+	                     FILE_NO,
+	                     BOARD_NO,
+	                     FILE_PATH,
+	                     ORIGIN_NAME,
+	                     CHANGE_NAME
+	                 FROM
+	                     VW_CITY_COUNT V
+	                 JOIN 
+	                     TB_CITY C ON (C.CITY_NO = V.BOARD_NO)
+	                 JOIN
+	                     TB_NATION N ON (C.NATION_NO = N.NATION_NO)
+	                ORDER
+	                   BY
+	                     COUNT DESC))
+	 WHERE
+	      RNUM BETWEEN 1 AND 8
+
+	</entry>
 
 	
 	<entry key="selectTitlePhoto">

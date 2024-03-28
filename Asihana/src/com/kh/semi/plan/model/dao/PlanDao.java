@@ -3,9 +3,12 @@ package com.kh.semi.plan.model.dao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -236,6 +239,45 @@ public class PlanDao {
 		return planNo;
 	}
 
+	public int insertStartDestination(Connection conn, int planNo, String returnDate) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("insertStartDestination");
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			pstmt.setString(2, returnDate);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateStartDestination(Connection conn, int destNo, String returnDate) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("updateStartDestination");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, destNo);
+			pstmt.setString(2, returnDate);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int insertDestination(Connection conn, Destination des) {
 		
 		int result = 0;
@@ -259,5 +301,6 @@ public class PlanDao {
 		}
 		return result;
 	}
+
 
 }

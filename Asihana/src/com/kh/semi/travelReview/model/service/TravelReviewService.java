@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.dao.TravelReviewDao;
+import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewService {
@@ -91,6 +92,17 @@ public class TravelReviewService {
 		
 		return list;
 
+	}
+	
+	public List<HashTag> selectReviewHashTagList(int reviewNo){
+		
+		Connection conn = getConnection();
+		
+		List<HashTag> hashTagList = new TravelReviewDao().selectReviewHashTagList();
+		
+		close(conn);
+		
+		return hashTagList;
 	}
 
 }

@@ -116,6 +116,21 @@
 	        BY
 	          LIKES DESC
 	</entry>
+	
+	<entry key="selectReviewHashTagList">
+		SELECT
+		      REVIEW_NO,
+		      TAG_NUM,
+		      TAG_NAME
+		  FROM
+		      BRTB_TAG
+		  JOIN 
+		      TB_REVIEW USING(REVIEW_NO)
+		  JOIN
+		      TB_HASHTAG USING(TAG_NUM)
+		 WHERE
+		      REVIEW_NO = ?
+	</entry>
 
 
 </properties>

@@ -4,20 +4,22 @@
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
 %>
+<%@ include file="../common/headerbar.jsp" %>
+<%@ include file="planCss.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>      
     <title>여행 플랜 작성</title>
+    
     <style>
-    div{
-       width: 1200px;
-       box-sizing: border-box;
-    }
+	    div{
+	       width: 1200px;
+	       box-sizing: border-box;
+	       margin : auto;
+	    }
     </style>
 </head>
 <body>
-	
-	<%@ include file="../common/headerbar.jsp" %>
 	
 	<div id="outer-plan">
 	    <div id="required-msg">
@@ -273,7 +275,9 @@
     	$(function(){ // 모달 도시 셀렉트박스 
     		$('#country').change(function(){
     			<% for(City city : cityList) { %>
-    				if($('#country').val() === <%=city.getationName()%>)
+    				if($('#country').val() == '<%=city.getNationName()%>'){
+    					$('<option value="<%= city.getCityName() %>"><%= city.getCityName() %></option>').
+    				}
     			<% } %>
     		})
     	});

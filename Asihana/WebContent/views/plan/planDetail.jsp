@@ -3,6 +3,8 @@
 <% 
 	int planNo = (int)request.getAttribute("planNo");
 %>
+<%@ include file="../common/headerbar.jsp" %>
+<%@ include file="planCss.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,7 @@
     <!-- https://icons.getbootstrap.com/ -->
     <title>여행 플랜 상세 조회</title>
     <style>
-        #outer{
+        div{
             width: 1200px;
             box-sizing: border-box;
             margin: auto;
@@ -19,8 +21,6 @@
     </style>
 </head>
 <body>
-
-	<%@ include file="../common/headerbar.jsp" %>
     <div id="outer-plan">
 	    <form method="post">
 	        <div id="planning-interface">

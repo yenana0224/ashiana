@@ -23,9 +23,5 @@
     <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
     <!--목적지 추가 모달 css -->
     <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
-
 </head>
-<body>
-
-</body>
 </html>

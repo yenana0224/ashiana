@@ -1,7 +1,6 @@
 package com.kh.semi.travelReview.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -46,6 +45,24 @@ public class TravelReviewService {
 		close(conn);
 		
 		return likeList;
+	}
+	
+	
+	public int updateReviewCount(int reviewNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new TravelReviewDao().updateReviewCount(conn, reviewNo);
+		
+		// 트랜잭션 처리
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		
+		return result;
 	}
 	
 }

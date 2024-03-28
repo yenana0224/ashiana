@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
+<%@ include file="../common/headerbar.jsp" %>
+<%@ include file="planCss.jsp" %>
 <%
 	List<PlanMain> list = (List<PlanMain>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    
-
     <title>여행 플랜 메인</title>
-
+    <style>
+	    div{
+	       	width: 1200px;
+	       	box-sizing: border-box;
+	       	margin : auto;
+	    }
+    </style>
 </head>
 <body>
-	<%@ include file="../common/headerbar.jsp" %>
-    <div id="outer-plan">
+    <div id="outer-main">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
             
@@ -113,7 +113,7 @@
 	    	$('#my-plans-area').on('click', '.my-plan-card-hover', function(){ // 카드 클릭 시 상세 조회 =>
 	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
-	    	$('#outer').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
+	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
 	    		<% if( loginUser != null) { %>
 		    		location.href = '<%= contextPath %>/insert.plan?userNo=' + <%= loginUser.getUserNo() %>;
 	    		<% } else { %>

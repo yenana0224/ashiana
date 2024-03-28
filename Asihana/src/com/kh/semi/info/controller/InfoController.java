@@ -11,6 +11,7 @@ import com.kh.semi.info.model.service.InfoService;
 import com.kh.semi.info.model.service.NationService;
 import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.CityFile;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
@@ -20,10 +21,7 @@ public class InfoController {
 	
 	public String main(HttpServletRequest request, HttpServletResponse response) {
 		List<Nation> nationList = new NationService().allNationList();
-		List<City> list = new CityService().cityList();
-		List<AttachmentFile> files = new CityService().fileList();
-
-		request.setAttribute("list", list);
+		List<CityFile> files = new CityService().fileList();
 		request.setAttribute("nationList", nationList);
 		request.setAttribute("files", files);
 		
@@ -43,8 +41,8 @@ public class InfoController {
 		// 나라만 선택하는 경우
 		if(cityName.equals("도시선택")) {
 			AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
-			List<City> cityList = new CityService().nationCity(nationNo);
-
+			List<CityFile> cityList = new CityService().nationCity(nationNo);
+			
 			request.setAttribute("cityList", cityList);
 			request.setAttribute("title", title);
 			view = "views/info/nationInfo.jsp";
@@ -73,6 +71,9 @@ public class InfoController {
 			}
 		}
 		
+		// select시 필요한 국가목록
+		List<Nation> nationList = new NationService().allNationList();
+		request.setAttribute("nationList", nationList);
 		// 국가정보 조회 : 국가번호, 국가이름, 국가소개, 비자
 		Nation nation = new NationService().searchNation(nationNo);
 		request.setAttribute("nation", nation);

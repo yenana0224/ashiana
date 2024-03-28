@@ -10,12 +10,8 @@ import java.util.List;
 
 import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.dao.CityDao;
-import com.kh.semi.info.model.dao.InfoDao;
-import com.kh.semi.info.model.dao.NationDao;
 import com.kh.semi.info.model.vo.City;
-import com.kh.semi.info.model.vo.Currency;
-import com.kh.semi.info.model.vo.Language;
-import com.kh.semi.info.model.vo.Voltage;
+import com.kh.semi.info.model.vo.CityFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class CityService {
@@ -45,10 +41,10 @@ public class CityService {
 		return list;
 	}
 	
-	// 국가번호에 해당하는 도시 전체 조회 : 도시번호, 도시이름, 도시내용
-	public ArrayList<City> nationCity(int nationNo){
+	// 국가번호에 해당하는 도시 전체 조회 : 도시사진, 도시번호, 도시이름 
+	public List<CityFile> nationCity(int nationNo){
 		Connection conn = getConnection();
-		ArrayList<City> list = new CityDao().nationCity(conn, nationNo);
+		List<CityFile> list = new CityDao().nationCity(conn, nationNo);
 		close(conn);
 		return list;
 	}
@@ -80,9 +76,9 @@ public class CityService {
 	}
 	
 	// 메인화면 : 도시 사진들 8개 조회
-	public List<AttachmentFile> fileList(){
+	public List<CityFile> fileList(){
 		Connection conn = getConnection();
-		List<AttachmentFile> files = new CityDao().selectPhotoList(conn);
+		List<CityFile> files = new CityDao().selectPhotoList(conn);
 		close(conn);
 		return files;
 	}

@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.CityFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class CityDao {
@@ -150,8 +151,8 @@ public class CityDao {
 		return list;
 	}
 	
-	public ArrayList<City> nationCity(Connection conn, int nationNo){
-		ArrayList<City> cityList = new ArrayList();
+	public List<CityFile> nationCity(Connection conn, int nationNo){
+		List<CityFile> cityList = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("nationCity");
@@ -162,12 +163,17 @@ public class CityDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				City city = new City();
-				city.setCityNo(rset.getInt("CITY_NO"));
-				city.setCityName(rset.getString("CITY_NAME"));
-				city.setCityContent(rset.getString("CITY_CONTENT"));
+				CityFile file = new CityFile();
+				file.setNationNo(rset.getInt("NATION_NO"));
+				file.setNationName(rset.getString("NATION_NAME"));
+				file.setCityNo(rset.getInt("CITY_NO"));
+				file.setCityName(rset.getString("CITY_NAME"));
+				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+				file.setOriginName(rset.getString("ORIGIN_NAME"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
 				
-				cityList.add(city);
+				cityList.add(file);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -242,9 +248,9 @@ public class CityDao {
 		return file;
 	}
 	
-	public List<AttachmentFile> selectPhotoList(Connection conn){
-		List<AttachmentFile> files = new ArrayList<AttachmentFile>();
-		AttachmentFile file = null;
+	public List<CityFile> selectPhotoList(Connection conn){
+		List<CityFile> files = new ArrayList<CityFile>();
+		CityFile file = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectPhotoList");
@@ -254,13 +260,18 @@ public class CityDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				file = new AttachmentFile();
+				file = new CityFile();
+				file.setNationNo(rset.getInt("NATION_NO"));
+				file.setNationName(rset.getString("NATION_NAME"));
+				file.setCityNo(rset.getInt("CITY_NO"));
+				file.setCityName(rset.getString("CITY_NAME"));
 				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setFilePath(rset.getString("FILE_PATH"));
 				file.setOriginName(rset.getString("ORIGIN_NAME"));
 				file.setChangeName(rset.getString("CHANGE_NAME"));
-				file.setFilePath(rset.getString("FILE_PATH"));
 				files.add(file);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

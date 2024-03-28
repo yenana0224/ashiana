@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.List, com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
-	List<City> list = (List<City>)request.getAttribute("list");
 	List<Nation> nationList = (List<Nation>)request.getAttribute("nationList");
-	List<AttachmentFile> files = (List<AttachmentFile>)request.getAttribute("files");
+	List<CityFile> files = (List<CityFile>)request.getAttribute("files");
 %>
 <!DOCTYPE html>
 <html>
@@ -52,13 +51,22 @@
             height: 30px;
             display: inline-flex;
         }
+        
+        #popular{
+        	font-weight : bold;
+        	font-size : 25px;
+        	text-align : center;
+        }
 
 
         .cityView{
             width: 100%;
-            background-color: #faf3dd;
+            margin-top : 40px;
             padding-left : 30px;
+            background-color: #faf3dd;
+
         }
+        
         .city{
             background-color: white;
             margin : 20px 0px 20px 0px;
@@ -70,21 +78,21 @@
         }
 
         .cityPhoto{
-            margin-top: 5px;
-            margin-left: 5px;
             width: 100%;
             height: 70%;
+            float : left;
         }
 
         .cityPhoto>img{
-            width: 95%;
-            height: 95%;
+            width: 100%;
+            height: 100%;
+            padding : 5px;
         }
 
         .cityName{
-        	display : inline-block;
-            width: 20%;
-            height: 20%;
+        	float : left;
+            width: 225px;
+            height: 85px;
             background-color: white;
         }
 
@@ -92,7 +100,7 @@
             line-height: 30px;
             text-align: center;
             font-weight: 800;
-            margin : 0px;
+            margin-top : 5px;
         }
         .cityName>h6{
             line-height: 40px;
@@ -152,21 +160,19 @@
 
             <br><br><br>
             <div>
-                <h4>인기있는 여행지</h4>
+                <h4 id="popular">인기있는 여행지</h4>
             </div>
             <div class="cityView">
                 <!-- 조회 많은 순서대로 도시 8개 노출 -->
-			<% for(int i = 0; i < 8; i++) { %>
+			<% for(CityFile c : files) { %>
                 <div class="city">
-                    <div class="cityPhoto">
-                        <img src="<%=contextPath%><%=files.get(i).getFilePath() %>/<%=files.get(i).getChangeName()%>">
-                    </div>
+                    <div class="cityPhoto"><img src="<%=contextPath%><%=c.getFilePath() %>/<%=c.getChangeName()%>"></div>
+                    <div class="cityName">
+	                    <h5><%=c.getCityName() %></h5>
+	                    <h6><%=c.getNationName() %></h6>
+                	</div>
                	</div>
-                <div class="cityName">
-                    <h5><%=list.get(i).getCityName() %></h5>
-                    <h6><%=list.get(i).getNationName() %></h6>
-                </div>
-                
+
             <% } %>
             </div>   
             

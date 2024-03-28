@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.info.model.service.CityService;
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.CityFile;
 
 /**
  * Servlet implementation class AjaxCityListController
@@ -34,7 +35,7 @@ public class AjaxCityListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		
-		List<City> list = new CityService().nationCity(nationNo);
+		List<CityFile> list = new CityService().nationCity(nationNo);
 
 		response.setContentType("applicaiton/json; charset=UTF-8");
 		Gson gson = new Gson();

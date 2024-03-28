@@ -30,10 +30,11 @@ public class MemberService {
 	public Member selectOtMember(int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		Member updateMem = new MemberDao().selectOtMember(conn, userNo);
+		Member member = new MemberDao().selectOtMember(conn, userNo);
 		JDBCTemplate.close(conn);
 
-		return updateMem;
+		System.out.println(member);
+		return member;
 	}
 	
 	/**

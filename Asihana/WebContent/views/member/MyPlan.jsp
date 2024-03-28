@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import = "java.util.List, com.kh.semi.plan.model.vo.PlanMain"	%>
+	<%List<PlanMain> list = (List<PlanMain>)request.getAttribute("myPlanList"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내플랜</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,37 +81,37 @@
 			<thead class="thead-light">
 				<tr>
 					<th>No</th>
-					<th>제목</th>
-					<th>도시</th>
-					<th>게시상태</th>
+					<th>도시들</th>
+					<th>가격</th>
+					<th>마지막수정일</th>
+					
 				</tr>
 			</thead>
 			<tbody id="myTable">
-				<tr>
-					<td>1</td>
-					<td>멕시코 플랜</td>
-					<td>멕시코 시티</td>
-					<td>Y</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>단풍국 플랜</td>
-					<td>오타와</td>
-					<td>Y</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>베이징 플랜</td>
-					<td>베이징</td>
-					<td>Y</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>태국 플랜</td>
-					<td>치앙마이</td>
-					<td>N</td>
-				</tr>
+				 <% if (list.isEmpty()) { %>
+			        <tr>
+			            <td colspan="4">내 여행기가 없습니다.</td>
+			        </tr>
+			    <% } else { %>
+			        <% int rowNumber = 1; %>
+			        <% for (PlanMain planMain : list) { %>
+			            <%
+			            int planNo = planMain.getPlanNo(); 
+			            String planCitys = planMain.getPlanCitys(); 
+			            String totalPrice = planMain.getTotalPrice(); 
+			            String uploadDate = planMain.getUploadDate(); 
+			            %>
+			            <tr>
+			                <td><%= rowNumber %></td>
+			                <td><a href="#"><%= planCitys %></a></td>
+			                <td><a href="#"><%= totalPrice %></a></td>
+			                <td><a href="#"><%= uploadDate %></a></td>
+			            </tr>
+			            <% rowNumber++; %>
+			        <% } %>
+			    <% } %>
 			</tbody>
+
 		</table>
 	</div>
 	

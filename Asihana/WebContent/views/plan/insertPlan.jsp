@@ -47,10 +47,12 @@
 	            <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
 	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
 	            <input type="time" name="start-time" id="start-time" class="timepicker">
-	
+				<button class="btn btn-sm btn-success" type="button">설정</button>
+				
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
 	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
+	        	<img src="resources/icons">
 	        </div>
 	        <div id="planning-area">
 	            <div id="date-area">
@@ -358,7 +360,12 @@
     					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
     				},
     				success : function(result){
-    					console.log(result);
+    					
+    					
+    					
+    					
+    					
+    					
     				}
     			});
     		})

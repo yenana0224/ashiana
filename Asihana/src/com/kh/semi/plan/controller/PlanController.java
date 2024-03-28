@@ -74,9 +74,10 @@ public class PlanController {
 		return view;
 	}
 
-	public void insertDestination(HttpServletRequest request, HttpServletResponse response) {
+	public List<DestinationDetail> insertDestination(HttpServletRequest request, HttpServletResponse response) {
 		
-		Destination des = new Destination(Integer.parseInt(request.getParameter("planNo")),
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
+		Destination des = new Destination(planNo,
 										  Integer.parseInt(request.getParameter("cityNo")),
 										  request.getParameter("trans"),
 										  request.getParameter("transPrice"),
@@ -85,6 +86,12 @@ public class PlanController {
 										  request.getParameter("returnDate"));
 		
 		int result = new PlanService().insertDestination(des);
+		
+		List<DestinationDetail> list = new ArrayList();
+		
+		if(result > 0) list = new PlanService().selectDesDetail(planNo);
+		
+		return list;
 	}
 
 	

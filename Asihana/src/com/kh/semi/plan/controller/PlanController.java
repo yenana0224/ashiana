@@ -85,8 +85,6 @@ public class PlanController {
 										  request.getParameter("returnDate"));
 		
 		int result = new PlanService().insertDestination(des);
-		
-		
 	}
 
 	

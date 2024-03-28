@@ -242,7 +242,6 @@ public class PlanDao {
 		PreparedStatement pstmt = null;	
 		
 		String sql = prop.getProperty("insertDestination");
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, des.getPlanNo());

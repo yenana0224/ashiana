@@ -82,10 +82,30 @@ public class TravelReviewService {
 		return review;
 	}
 	
+	/***
+	 * 내 여행기
+	 * @param userNo
+	 * @return
+	 */
 	public ArrayList<TravelReview> selectMyList(int userNo) {
 		Connection conn = getConnection();
 
 		ArrayList<TravelReview> list = new TravelReviewDao().selectMyList(conn, userNo);
+
+		close(conn);
+		
+		return list;
+
+	}
+	/**
+	 * 그들의 여행기
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<TravelReview> selectOthersList(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<TravelReview> list = new TravelReviewDao().selectOthersList(conn, userNo);
 
 		close(conn);
 		

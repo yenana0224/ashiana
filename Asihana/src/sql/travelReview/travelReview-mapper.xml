@@ -141,5 +141,17 @@
 	
 	</entry>
 	
+	
+	<entry key = "selectOthersList">
+	SELECT R.REVIEW_NO, R.REVIEW_TITLE, C.CITY_NAME, R.DEPARTURE_DATE, R.COUNT
+	FROM ASIHANA.TB_REVIEW R
+	JOIN ASIHANA.TB_CITY C ON R.CITY_NO = C.CITY_NO
+	WHERE R.REVIEW_WRITER = ?
+	ORDER BY  R.DEPARTURE_DATE
+	
+	</entry>
+	
+	
+	
 
 </properties>

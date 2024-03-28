@@ -187,6 +187,16 @@ public class TravelReview {
 		this.status = status;
 		this.cityName = cityName;
 	}
+	
+
+	public TravelReview(int reviewNo, String reviewTitle, String departureDate, int count, String cityName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewTitle = reviewTitle;
+		this.departureDate = departureDate;
+		this.count = count;
+		this.cityName = cityName;
+	}
 
 	@Override
 	public int hashCode() {

@@ -46,6 +46,7 @@ public class TravelReviewDao {
 				City city = new City();
 				
 				city.setCityName(rset.getString("CITY_NAME"));
+				city.setCityNo(rset.getInt("CITY_NO"));
 				city.setNationName(rset.getString("NATION_NAME"));
 				cityList.add(city);
 			}

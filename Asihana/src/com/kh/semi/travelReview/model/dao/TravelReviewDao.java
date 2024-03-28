@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class TravelReviewDao {
@@ -201,4 +202,42 @@ public class TravelReviewDao {
 		}
 		return list;
 	}
+	
+	public List<HashTag> selectReviewHashTagList(Connection conn, int reviewNo){
+		
+		List<HashTag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewHashTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, reviewNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				HashTag t = new HashTag();
+				
+				t.setReviewNo(rset.getInt("REVIEW_NO"));
+				t.setTagNo(rset.getInt("TAG_NO"));
+				t.setTagName(rset.getString("TAG_NAME"));
+				
+				list.add(t);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+	
+	
 }

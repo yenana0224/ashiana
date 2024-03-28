@@ -10,17 +10,9 @@
 <html>
 <head>      
     <title>여행 플랜 작성</title>
-    
-    <style>
-	    div{
-	       width: 1200px;
-	       box-sizing: border-box;
-	       margin : auto;
-	    }
-    </style>
+	<link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
 </head>
 <body>
-	
 	<div id="outer-plan">
 	    <div id="required-msg">
 	        <div>
@@ -60,16 +52,15 @@
 	                
 	                <div class="root-line"></div>
 	               --> 
-	                <div class="root-icon">
-	                    <img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
-	                    <div class="toast" data-autohide="false" style="width: 240px;">
-	                        <div class="toast-body">
-	                            <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
-	                            <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
-	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" style="border:none; padding:0;">Ｘ</button>
-	                        </div>
-	                    </div>
-	                </div>
+		           <div class="root-icon">
+		               	<img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
+		               	<div class="planToast">
+		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
+		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
+		                    <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" style="border:none; padding:0;">Ｘ</button>
+		            	</div>
+		           	</div>
+
 	        
 	            </div>
 	            
@@ -176,11 +167,13 @@
 	            $('#required-msg').slideUp(500);
 	        })
 	        // 목적지 추가 토스트
-	        $('#root-area').on('click', '.des-add-btn', function(){
-	            $('.toast').toast('show');
-	            $('.btn-dismiss-toast').click(function(){
-	            	$('.toast').toast('hide');
-	            });
+	        $('.des-add-btn').click(function(){
+	            if($('.planToast').css('display') == 'none') {
+	                $('.planToast').show(100);
+	            }
+	            else{
+	                $('.planToast').hide(100);
+	            }
 	        })
 		})
 	</script>

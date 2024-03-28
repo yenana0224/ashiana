@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
@@ -34,9 +36,13 @@ public class OthersTravelController extends HttpServlet {
 		
 		//그사람 userNo
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		
+		String userNoForSelect=request.getParameter("userNo");
 		ArrayList<TravelReview> othersTravelList = new TravelReviewService().selectOthersList(userNo);
+		Member member =new MemberService().selectMember(userNoForSelect);
+		
+		
 		request.setAttribute("othersTravelList", othersTravelList);
+		request.setAttribute("member", member);
 		
 		
 		String dispatcherPath = "";

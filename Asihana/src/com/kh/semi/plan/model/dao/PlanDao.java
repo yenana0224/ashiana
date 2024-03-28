@@ -12,6 +12,7 @@ import java.util.Properties;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.plan.model.vo.Destination;
 import com.kh.semi.plan.model.vo.DestinationDetail;
 import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
@@ -233,6 +234,30 @@ public class PlanDao {
 			close(pstmt);
 		}
 		return planNo;
+	}
+
+	public int insertDestination(Connection conn, Destination des) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("insertDestination");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, des.getPlanNo());
+			pstmt.setInt(2, des.getCityNo());
+			pstmt.setString(3, des.getTrans());
+			pstmt.setInt(4, Integer.parseInt(des.getTransPrice().trim()));
+			pstmt.setString(5, des.getTrip());
+			pstmt.setString(6, des.getArrival());
+			pstmt.setString(7, des.getReturnDate());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

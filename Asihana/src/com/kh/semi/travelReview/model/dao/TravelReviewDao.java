@@ -46,6 +46,7 @@ public class TravelReviewDao {
 				City city = new City();
 				
 				city.setCityName(rset.getString("CITY_NAME"));
+				city.setCityNo(rset.getInt("CITY_NO"));
 				city.setNationName(rset.getString("NATION_NAME"));
 				cityList.add(city);
 			}
@@ -178,6 +179,12 @@ public class TravelReviewDao {
 		return review;
 	
 	}
+	/***
+	 * 내 여행기
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
 	public ArrayList<TravelReview> selectMyList(Connection conn, int userNo) {
 		
 		ArrayList <TravelReview> list = new ArrayList();
@@ -201,6 +208,35 @@ public class TravelReviewDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
+		
+		ArrayList <TravelReview> list = new ArrayList();
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOthersList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new TravelReview(rset.getInt("REVIEW_NO"),
+										rset.getString("DEPARTURE_DATE"),
+										rset.getString("REVIEW_TITLE"),
+										rset.getInt("COUNT"),
+										rset.getString("CITY_NAME"),
+										rset.getString("NICKNAME")
+									));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(list);
+		return list;
+		
 	}
 	
 	public List<HashTag> selectReviewHashTagList(Connection conn, int reviewNo){
@@ -237,5 +273,39 @@ public class TravelReviewDao {
 		return list;
 	}
 	
+	public List<HashTag> selectHashTagList(Connection conn){
+		
+		List<HashTag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHashTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				HashTag tList = new HashTag();
+				
+				tList.setTagNo(rset.getInt("TAG_NUM"));
+				tList.setTagName(rset.getString("TAG_NAME"));
+				
+				list.add(tList);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		//System.out.println(list);
+		return list;
+	}
 	
 }

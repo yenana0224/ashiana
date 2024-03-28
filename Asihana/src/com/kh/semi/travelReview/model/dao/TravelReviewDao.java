@@ -222,7 +222,7 @@ public class TravelReviewDao {
 				HashTag t = new HashTag();
 				
 				t.setReviewNo(rset.getInt("REVIEW_NO"));
-				t.setTagNo(rset.getInt("TAG_NO"));
+				t.setTagNo(rset.getInt("TAG_NUM"));
 				t.setTagName(rset.getString("TAG_NAME"));
 				
 				list.add(t);
@@ -234,8 +234,6 @@ public class TravelReviewDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
 		return list;
 	}
 	

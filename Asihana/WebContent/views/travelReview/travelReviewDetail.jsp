@@ -3,8 +3,9 @@
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.travelReview.model.vo.TravelReview" %>
 <%
 	TravelReview review = (TravelReview)request.getAttribute("review");
-	List<HashTag> hashTagList = (List<HashTag>)request.getAttribute("hashTagList");
-	List<HashTag> checkedHashTagList = (List<HashTag>)request.getAttribute("checkedHashTagList");
+	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
+	
+	List<HashTag> checkedHashTagList = (List<HashTag>)session.getAttribute("checkedHashTagList");
 %>
     
 <!DOCTYPE html>

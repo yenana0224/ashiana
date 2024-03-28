@@ -184,7 +184,7 @@ public class MemberDao {
 									rset.getString("MEM_ID"),
 									rset.getString("MEM_PWD"),
 									rset.getString("NICKNAME"),
-									rset.getDate("ENORLL_DATE"),
+									rset.getDate("ENROLL_DATE"),
 									rset.getDate("MODIFY_DATE"),
 									rset.getString("STATUS"));
 			}
@@ -195,6 +195,39 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return updateMem;
+	}
+	
+
+	public Member selectOtMember(Connection conn, int userNo) {
+		Member member=null;
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOtMember");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,userNo);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				member=new Member(rset.getInt("MEM_NO"),
+									rset.getString("MEM_ID"),
+									rset.getString("MEM_PWD"),
+									rset.getString("NICKNAME"),
+									rset.getDate("ENROLL_DATE"),
+									rset.getDate("MODIFY_DATE"),
+									rset.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("member dao"+member);
+		
+		return member;
 	}
 	
 	/***

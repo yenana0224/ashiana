@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.HashTag;
@@ -39,7 +40,7 @@ public class TravelReviewDetailController extends HttpServlet {
 		
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		
-		System.out.println(reviewNo);
+		//System.out.println(reviewNo);
 		
 		
 		// 조회수 update할 게시물
@@ -58,9 +59,12 @@ public class TravelReviewDetailController extends HttpServlet {
 		List<HashTag> checkedHashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
 		//System.out.println(hashtagList);
 		
+		HttpSession session = request.getSession();
+		
 		request.setAttribute("review", review);
-		request.setAttribute("hashTagList", hashTagList);
-		request.setAttribute("hashTagList", checkedHashTagList);
+		
+		session.setAttribute("hashTagList", hashTagList);
+		session.setAttribute("checkedHashTagList", checkedHashTagList);
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}

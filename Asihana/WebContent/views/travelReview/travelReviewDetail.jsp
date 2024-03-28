@@ -407,11 +407,17 @@
                         <div id="hash-tag">
                             <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                 2) 보여지는checkbox의 checked 속성을 조작해야함-->
-                            <input type="checkbox" name="hashtag" value="tag1" checked disabled><label for="tag1" style="background-color: white;">#해시태그1</label>
-                            <input type="checkbox" name="hashtag" value="tag2" checked disabled><label for="tag2" style="background-color: white;">#해시태그2</label>
-                            <input type="checkbox" name="hashtag" value="tag3" checked disabled><label for="tag3" style="background-color: white;">#해시태그3</label>
-                            <input type="checkbox" name="hashtag" value="tag4" checked disabled><label for="tag4" style="background-color: white;">#해시태그4</label>
-                            <input type="checkbox" name="hashtag" value="tag5" checked disabled><label for="tag5" style="background-color: white;">#해시태그5</label>
+                             <%for(int i = 0; i < hashTagList.size(); i++){ %>
+                             <input type="checkbox" name="hash-tag" value="tag<%=i%>" disabled><label for="tag<%=i%>">a</label>
+                             <%} %>   
+                                
+                            <!--      
+                            <input type="checkbox" name="hashtag" value="tag1" checked disabled><label for="tag1" style="background-color: white;">#맛집탐방</label>
+                            <input type="checkbox" name="hashtag" value="tag2" checked disabled><label for="tag2" style="background-color: white;">#힐링여행</label>
+                            <input type="checkbox" name="hashtag" value="tag3" checked disabled><label for="tag3" style="background-color: white;">#자연경관</label>
+                            <input type="checkbox" name="hashtag" value="tag4" checked disabled><label for="tag4" style="background-color: white;">#랜드마크</label>
+                            <input type="checkbox" name="hashtag" value="tag5" checked disabled><label for="tag5" style="background-color: white;">#쇼핑</label>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -423,13 +429,19 @@
             <div id="content-4wrap">
                 <div id="content-wrap-4-1">
                     <div id="plan">
-                        <h3>여행 플랜 여부</h3>
+                        <h3>여행 플랜 </h3>
                     </div>
 
                     <div id="plan-check">
+                    	<%if(review.getPlanCheck().equals("Y")){%>
                         <div>
                             <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
-                            <a href="#" style="text-decoration: none; color : black;">등록된 여행기가 있습니다 / 없습니다</a>
+                            <a href="#" style="text-decoration: none; color : black;">
+                            	등록된 플랜이 있습니다.
+                            </a>
+                         <%} else {%>
+                         	등록된 여행플랜이 없습니다.
+                         <%} %>   
                         </div>
                     </div>
                 </div>

@@ -49,9 +49,10 @@ public class TravelReviewDetailController extends HttpServlet {
 		
 		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
+		//System.out.println(review);
 		
-		System.out.println(review);
 		List<HashTag> hashtagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
+		//System.out.println(hashtagList);
 		
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);

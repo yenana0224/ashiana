@@ -10,7 +10,37 @@
 <html>
 <head>      
     <title>여행 플랜 작성</title>
-	<link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
+	<style>
+	    div{
+		    width: 1200px;
+		    box-sizing: border-box;
+		    margin: auto;
+		}
+		.planToast{ 
+		    display: none;
+		    display: inline-block;
+		    background-color: white;
+		    box-shadow: 0 0 1px 1px lightgray;
+		    width: 230px;
+		    border-radius: 10px;
+		    height: 43px;
+		    padding: 6px 3px 3px 5px;
+		    z-index: 10;
+		    
+		}    
+		.btn-dismiss-toast{
+		    width: 20px;
+		    height: 20px;
+		    margin-left: 5px;
+		    border: none;
+		    padding: 0;
+		    line-height: 0.6;
+		}
+		.btn-add-des{
+		    margin-left: 4px;
+		    margin-right: 6px;
+		}
+    </style>
 </head>
 <body>
 	<div id="outer-plan">

@@ -242,6 +242,34 @@ public class CityDao {
 		return file;
 	}
 	
+	public List<AttachmentFile> selectPhotoList(Connection conn){
+		List<AttachmentFile> files = new ArrayList<AttachmentFile>();
+		AttachmentFile file = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPhotoList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				file = new AttachmentFile();
+				file.setFileNo(rset.getInt("FILE_NO"));
+				file.setOriginName(rset.getString("ORIGIN_NAME"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+				files.add(file);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return files;
+	}
+	
 	public int updateCity(Connection conn, City city) {
 		int result = 0;
 		PreparedStatement pstmt = null;

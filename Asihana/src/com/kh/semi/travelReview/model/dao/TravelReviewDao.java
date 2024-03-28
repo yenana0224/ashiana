@@ -224,17 +224,19 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new TravelReview(rset.getInt("REVIEW_NO"),
-										rset.getString("REVIEW_TITLE"),
-										rset.getString("CITY_NAME"),
-										rset.getInt("COUNT"),
 										rset.getString("DEPARTURE_DATE"),
+										rset.getString("REVIEW_TITLE"),
+										rset.getInt("COUNT"),
+										rset.getString("CITY_NAME"),
 										rset.getString("NICKNAME")
 									));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(list);
 		return list;
+		
 	}
 	
 	public List<HashTag> selectReviewHashTagList(Connection conn, int reviewNo){

@@ -189,6 +189,30 @@
 		      STATUS = 'N'
 	</entry>
 
+	<entry key="insertStartDestination">
+		INSERT
+		  INTO TB_DESTINATION
+		VALUES (SEQ_DEST.NEXTVAL,
+		        ?,
+		        0,
+		        null,
+		        null,
+		        '출발',
+		        null,
+		        ?,
+		        'N'
+		        );
+	</entry>
+	
+	<entry key="updateStartDestination">
+		UPDATE
+		      TB_DESTINATION
+		   SET
+		      RETURN_DATE = ?
+		 WHERE
+		      DEST_NO = ?
+	</entry>
+
 	<entry key="insertDestination">
 		INSERT
 		  INTO TB_DESTINATION
@@ -203,5 +227,6 @@
 		        'N'
 		        );
 	</entry>
-
+	
+	
 </properties>

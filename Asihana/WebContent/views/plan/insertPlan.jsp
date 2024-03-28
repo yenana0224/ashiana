@@ -33,6 +33,10 @@
 		    margin-left: 5px;
 		    margin-right: 6px;
 		}
+		
+		#updateStartDate, #cancelUpdate, #doUpdate{
+			display : none;
+		}
     </style>
 </head>
 <body>
@@ -44,39 +48,25 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	            <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
-	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
-	            <input type="time" name="start-time" id="start-time" class="timepicker">
-				<button class="btn btn-sm btn-success" type="button">설정</button>
-				
+		        <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
+		        <input type="hidden" name="StartDestNo" id="StartDestNo">
+		                  출국일시 : <input type="date" name="start-date" id="start-date">
+		        <input type="time" name="start-time" id="start-time" class="timepicker">
+				<button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
+				<button class="btn btn-sm btn-danger btn-date-int" id="updateStartDate" type="button">날짜 수정</button>
+				<button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
+				<button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
+
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
 	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
-	        	<img src="resources/icons">
 	        </div>
 	        <div id="planning-area">
 	            <div id="date-area">
 	
 	            </div> 
 	            <div id="root-area">
-	            	<!--  
-	                <div class="root-icon">
-	                    <img src="resources/icons/arrow-down-square-fill.svg">
-	                </div>
-	                <div class="root-info"><label>항공(1시간)</label></div>
-	                <div class="root-line"></div>
-	                <div class="root-card">
-	                    <div class="des-img">
-	                        <img src="resources/대련.jpg">
-	                    </div>
-	                    <div class="des-info">
-	                        <span>대련-중국</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>
-	                        <label>2월 27일</label> ~ <label>3월 1일</label>
-	                    </div>
-	                </div>
-	                
-	                <div class="root-line"></div>
-	               --> 
+	            	
 		           <div class="root-icon">
 		               	<img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
 		               	<div class="planToast">
@@ -84,80 +74,14 @@
 		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
 		            	</div>
 		           	</div>
-
-	        
+		           	
 	            </div>
-	            
 	            
 	        </div>
 	        <div id="sched-area">
 	            <div id="sched-box">
 	                <h2>예약 및 일정</h2> <label id="sched-date-sum">6박 7일</label>
-	                <!--  
-	                <div class="sched-des">
-	                    <span class="sched-des-city">대련-중국</span>
-	                    <span class="sched-des-date">3박 4일</span>
-	                    <div class="sched-btn-area">
-	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
-	                    </div>
-	                    <span class="sched-des-price">예약 및 일정 예산 <label>200,000원</label></span>
-	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
-	                </div>
-	                <div class="sched-des sched-des-detail">
-	                	
-	                    <table class="table table-hover table-bordered">
-	                        <thead>
-	                            <tr>
-	                                <th class="th1">카테고리</th>
-	                                <th class="th2">예약/일정 명</th>
-	                                <th class="th3">상세 내용</th>
-	                                <th class="th4">예상 금액</th>
-	                                <th class="th5"></th>
-	                            </tr>
-	                        </thead>
-	                        <tbody class="sched-des-detail-body">
-	                            <tr class="sched-tr">
-	                                <td>숙소</td>
-	                                <td>파고다낭 호텔</td>
-	                                <td>오후 1시 체크인</td>
-	                                <td class="td-price">240,000원</td>
-	                                <td class="sched-detail-btn-area"><img class="sched-detail-btn" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn" src="resources/icons/x-circle-fill.svg"></td>
-	                            </tr>
-
-	                        </tbody>
-	                    </table>
-	                      
-	                </div>
-	    			-->
-	    			<!--
-	                <div class="sched-des">
-	                    <span class="sched-des-city">대련-중국</span>
-	                    <span class="sched-des-date">3박 4일</span>
-	                    <div class="sched-btn-area">
-	                        <button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">
-	                    </div>
-	                    <span class="sched-des-price">예약 및 일정 예산 <label>200,000원</label></span>
-	                    <span class="sched-des-price">항공 가격 <label>350,000원</label> +</span>
-	                </div>
-	                <div class="sched-des sched-des-detail">
-	                    <table class="table table-hover table-bordered">
-	                        <thead>
-	                            <tr>
-	                                <th class="th1">카테고리</th>
-	                                <th class="th2">예약/일정 명</th>
-	                                <th class="th3">상세 내용</th>
-	                                <th class="th4">예상 금액</th>
-	                                <th class="th5"></th>
-	                            </tr>
-	                        </thead>
-	                        <tbody class="sched-des-detail-body">
-	                            <tr class="sched-tr-empty">
-	                                <td colspan="5">등록된 예약 및 일정이 없습니다.</td>
-	                            </tr>
-	                        </tbody>
-	                      </table>
-	                </div>
-	                -->
+	               
 	            </div> <!-- #sched-box -->
 	        </div> <!-- #sched-area -->
 	        <div id="submit-area">
@@ -177,10 +101,6 @@
 	
 	<script>
 		$(function(){
-	        // 출국 날짜 요구 메세지 슬라이드 업
-	        $('#start-date').change(function(){
-	            $('#required-msg').slideUp(500);
-	        })
 	        // 목적지 추가 토스트
 	        $('.des-add-btn').click(function(){
 	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
@@ -320,19 +240,97 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
-			$('#planning-interface').find('input').change(function(){ // 출발일시
-				$('.btn-des-disabled').attr('disabled', false); // 출발일 선택시 목적지 추가 가능해짐 
-                $('#dep-date').val($('#start-date').val());
-                $('#dep-time').val($('#start-time').val());
-            	
-                // 출발일 => 도착일 
-                $('#arr-date').val($('#dep-date').val());
-                // 출발일시 디스플레이
-                $('#dep-date-display').text($('#dep-date').val());
-                $('#dep-time-display').text($('#dep-time').val());
-                // 도착일 디스플레이
-                $('#arr-date-display').text($('#arr-date').val());
-			})
+            // 출발일시 추가
+            let sDate = '';
+            let sTime = '';
+            $('#planning-interface').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
+            	if($('#start-date').val() == ''){ // 날짜 설정 안함
+            		$('#start-date').focus(); return;
+            	}
+            	else{
+					$.ajax({ // 날짜 설정시 출발지 DB로 INSERT
+						url : 'insertStartDestination.ajaxplan',
+						type : 'post',
+						data : {
+							planNo : <%=planNo%>,
+							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
+						},
+						success : function(result){
+							if(result > 0){
+								sDate = $('#start-date').val();
+								sTime = $('#start-time').val();
+								selectDestination();
+							}
+							else{
+								$('#start-date').val('');
+								$('#start-time').val('');
+							}
+						}
+					}) // ajax 출발 목적지 행 추가 
+					
+            		$('#required-msg').slideUp(500); // 알림 메세지 슬라이드 업
+	            	$('#start-date, #start-time').attr('disabled', true);
+	            	$('#setStartDate').css('display', 'none');
+	            	$('#doUpdate').css('display', 'inline-block'); // 수정 버튼
+					$('.btn-des-disabled').attr('disabled', false); // 출발일 설정시 목적지 추가 가능해짐 
+            	}
+            })
+            $('#planning-interface').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
+            	$('#start-date, #start-time').attr('disabled', false);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'inline-block'); // 날짜 수정 / 취소 버튼
+            	$('#doUpdate').css('display', 'none'); // 수정 버튼
+            })
+            $('#planning-interface').on('click', '#updateStartDate', function(){
+            	if($('#start-date').val() != sDate || $('#start-time').val() != sTime){
+            		$.ajax({ // 출발일시 업데이트
+            			url : 'updateStartDestination.ajaxplan',
+						type : 'post',
+						data : {
+							destNo : $('#startDestNo').val(),
+							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
+						},
+						success : function(result){
+							if(result > 0){
+								sDate = $('#start-date').val();
+								sTime = $('#start-time').val();
+								selectDestination();
+							}
+							else{
+								$('#start-date').val(sDate);
+								$('#start-time').val(sTime);
+							}
+						}
+            		})
+            	}
+            	$('#start-date, #start-time').attr('disabled', true);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
+            	$('#doUpdate').css('display', 'inline-block');
+            })
+            $('#planning-interface').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
+            	$('#start-date').val(sDate);
+            	$('#start-time').val(sTime);
+            	$('#start-date, #start-time').attr('disabled', true);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
+            	$('#doUpdate').css('display', 'inline-block');
+            })
+	
+            if($('#addDesModal').css('display') == 'block'){
+            	console.log('hihi');
+            	if($('.root-card').length){
+            	}
+            	else{
+		            $('#dep-date').val($('#start-date').val());
+		            $('#dep-time').val($('#start-time').val());
+		            // 출발일 => 도착일 
+		            $('#arr-date').val($('#dep-date').val());
+		            // 출발일시 디스플레이
+		            $('#dep-date-display').text($('#dep-date').val());
+		            $('#dep-time-display').text($('#dep-time').val());
+		            // 도착일 디스플레이
+		            $('#arr-date-display').text($('#arr-date').val());
+            	}
+            }
+            
             $('#modal-form-area').find('input, select').change(function(){
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
@@ -345,13 +343,15 @@
     </script>
     
     <script> <!-- AJAX -->
+    	function selectDe
+    
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
     			$.ajax({
     				url : 'insertDestination.ajaxplan',
     				type : 'post',
     				data : {
-    					planNo : $('#planNo').val(),
+    					planNo : <%=planNo%>,
     					cityNo : $('#city').val(),
     					trans : $('#transport').val(),
     					transPrice : $('#trans-price').val(),
@@ -447,7 +447,210 @@
             trAdd.remove();
         });
     </script>
-
+	
+	<script> // AJAX 
+    	function selectPlan(){
+    		$.ajax({
+    			url : 'selectPlanDetail.ajaxplan',
+    			type : 'post',
+    			data : {
+    				planNo : <%= planNo %>
+    			},
+    			success : function(result){
+    				// 상단 출국일시 귀국일시
+    				$('#start-date').val(result.startDate);
+    				$('#start-time').val(result.startTime);
+    				$('#end-date').val(result.endDate);
+    				$('#end-time').val(result.endTime);
+    				// 몇박몇일
+    				$('#sched-date-sum').text(result.travelDate);
+    				// 하단 총 예산
+    				$('#trans-sum').text(result.transSum + '원');
+    				$('#sched-sum').text(result.schedSum + '원');
+    				$('.plan-sum-total').find('label').text(result.totalSum);
+    			}
+    		})
+    	};
+    	function selectDestination(){
+    		$.ajax({
+    			url : 'selectDesDetail.ajaxplan',
+    			type : 'post',
+    			data : {
+    				planNo : <%= planNo %>
+    			},
+    			success : function(result){    				
+    				let departure = '';
+    				let arrival = '';
+    				let rootInfo = '';
+    				
+    				let rootArea = '';
+    				let schedArea = '';
+    				
+    				for(let i = 0; i < result.length; i++){
+    					if(i == 0){ // 출발
+    						departure = result[i].returnDate;
+    						$('#startDestNo').val(result[i].destNo);
+    					}
+    					else if(i == result.length - 1 && result.length - 1 > 0) { // 마지막 목적지
+    						rootArea += '<div class="root-icon">' // 루트 아이콘
+			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+			                		  + '</div>';
+							arrival = result[i].arrival;
+							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
+							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
+							rootInfo = result[i].trans + '(' + rootHour + '시간';
+							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
+							rootInfo += ')';
+							rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
+							departure = result[i].returnDate;
+							rootArea += '<div class="root-line"></div>'; // 루트 라인 
+							
+							let startDate = new Date(arrival).getMonth() + 1 + '월' + new Date(arrival).getDate() + '일'; 
+							let endDate = new Date(departure).getMonth() + 1 + '월' + new Date(departure).getDate() + '일';
+							
+							rootArea += '<div class="root-card">' // 루트 카드
+		  	                    	  +	'<div class="des-img">'
+		  	                          +		'<img src="resources/대련.jpg">'
+		  	                    	  + 	'</div>'
+		  	                          + 	'<div class="des-info">'
+		  	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
+		  	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
+		  	                    	  + 	'</div>'
+		  	                          + '</div>';
+	  	                	rootArea += '<div class="root-line"></div>'; // 루트 라인 
+	  	                	rootArea += '<div class="root-icon">' // 루트 추가 아이콘
+						              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
+						              + 	'<div class="planToast">'
+						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
+						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
+						              +		'</div>'
+						           	  + '</div>';
+    					}
+    					else{ // 도시			
+    						// 목적지 구역
+    						rootArea += '<div class="root-icon">' // 루트 아이콘
+			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+			                		  + '</div>';
+    						arrival = result[i].arrival;
+    						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
+    						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
+    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+    						if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
+    						rootInfo += ')';
+    						rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
+    						departure = result[i].returnDate;
+    						rootArea += '<div class="root-line"></div>'; // 루트 라인 
+    						
+    						let startDate = new Date(arrival).getMonth() + 1 + '월' + new Date(arrival).getDate() + '일'; 
+    						let endDate = new Date(departure).getMonth() + 1 + '월' + new Date(departure).getDate() + '일';
+    						
+    						rootArea += '<div class="root-card">' // 루트 카드
+	    	                    	  +	'<div class="des-img">'
+	    	                          +		'<img src="resources/대련.jpg">'
+	    	                    	  + 	'</div>'
+	    	                          + 	'<div class="des-info">'
+	    	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
+	    	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
+	    	                    	  + 	'</div>'
+	    	                          + '</div>';
+	    	                rootArea += '<div class="root-line"></div>'; // 루트 라인 
+	    	                
+	    	                // 예약 및 일정 구역
+	    	                schedArea += '<div class="sched-des">' // 아코디언 div
+				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
+				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
+				    	               +     '<div class="sched-btn-area">'
+				    	               +         '<button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
+				    	               +     '</div>'
+				    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+				    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
+				    	               + '</div>'
+				    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
+				    	               +     '<table class="table table-hover table-bordered">'
+				    	               +         '<thead>'
+				    	               +             '<tr>'
+				    	               +                 '<th class="th1">카테고리</th>'
+				    	               +                 '<th class="th2">예약/일정 명</th>'
+				    	               +                 '<th class="th3">상세 내용</th>'
+				    	               +                 '<th class="th4">예상 금액</th>'
+				    	               + 				 '<th class="th5"></th>'
+				    	               +             '</tr>'
+				    	               +         '</thead>'
+				    	               +         '<tbody class="sched-des-detail-body">'
+	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
+				    	               +         '</tbody>'
+				    	               +       '</table>'
+				    	               + '</div>';
+				    	               
+				    		selectSchedule(result[i].destNo);
+				    		
+    					}
+    				} // for문
+    					$('#root-area').html(rootArea);
+    					$('#sched-box').append(schedArea);
+    			}
+    		})
+    	};
+    	
+    	function selectSchedule(destNo){
+    		$.ajax({
+    			url : 'selectSchedule.ajaxplan',
+    			type : 'post',
+    			data : {
+    				destNo : destNo
+    			},
+    			success : function(result){
+    				let schedTable = '';
+    				if(result.length == 0){
+    					schedTable += '<tr class="sched-tr-empty">'
+                        			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
+                        			+ '</tr>';
+    				}
+    				else{
+    					for(let i in result){
+    						schedTable += '<tr class="sched-tr">'
+    									+	 '<input type="hidden" name="schedNo" value="' + result[i].schedNo + '">'
+			                            +    '<td>' + result[i].category + '</td>'
+			                            +    '<td>' + result[i].schedName + '</td>'
+			                            +    '<td>' + result[i].schedContent + '</td>'
+			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
+			                            +	 '<td class="sched-detail-btn-area"><img class="sched-detail-btn" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn" src="resources/icons/x-circle-fill.svg"></td>'
+			                            + '</tr>';
+    					}
+    				}
+                    $(schedTable).insertAfter('input[value=' + destNo + ']');
+    			}
+    		})
+    	};
+    	
+    	
+    	/*
+		else if(i == result.length - 1) { // 귀국
+			rootArea += '<div class="root-icon">' // 루트 아이콘
+                	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+            		  + '</div>';
+			arrival = result[i].arrival;
+			rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
+			rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
+			rootInfo = result[i].trans + '(' + rootHour + '시간';
+			if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
+			rootInfo += ')';
+			rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
+			departure = result[i].returnDate;
+			rootArea += '<div class="root-line"></div>'; // 루트 라인 
+			rootArea += '<div class="root-icon">' // 루트 아이콘
+                	  +		'<img src="resources/icons/house-door-fill.svg">'
+            		  + '</div>';
+            		  
+            // 귀국 항공편이 있을 시
+            if(result[i].transPrice != 0){
+            	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
+            }
+		}
+		*/
+    	
+    	
+    </script>
     
 </body>
 </html>

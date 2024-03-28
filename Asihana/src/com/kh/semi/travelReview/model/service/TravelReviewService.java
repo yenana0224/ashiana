@@ -134,5 +134,17 @@ public class TravelReviewService {
 		
 		return hashTagList;
 	}
+	
+	public List<HashTag> selectCheckedTagList(){
+		
+		Connection conn = getConnection();
+		
+		
+		List<HashTag> list = new TravelReviewDao().selectCheckedTagList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
 
 }

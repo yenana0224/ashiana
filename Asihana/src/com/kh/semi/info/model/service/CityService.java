@@ -79,6 +79,14 @@ public class CityService {
 		return file;
 	}
 	
+	// 메인화면 : 도시 사진들 8개 조회
+	public List<AttachmentFile> fileList(){
+		Connection conn = getConnection();
+		List<AttachmentFile> files = new CityDao().selectPhotoList(conn);
+		close(conn);
+		return files;
+	}
+	
 	// 도시 정보 수정
 	public int updateCity(City city, AttachmentFile file) {
 		Connection conn = getConnection();

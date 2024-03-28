@@ -346,7 +346,6 @@
     <script> <!-- AJAX -->
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
-    			console.log($('#city').val())
     			$.ajax({
     				url : 'insertDestination.ajaxplan',
     				type : 'post',
@@ -359,9 +358,9 @@
     					arrival : $('#arr-date').val() + ' ' + $('#arr-time').val(),
     					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
     				},
-    				success(function(result){
+    				success : function(result){
     					console.log(result);
-    				})
+    				}
     			});
     		})
     		

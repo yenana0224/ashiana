@@ -74,11 +74,6 @@ public class PlanController {
 		return view;
 	}
 
-	public int selectInsertPlan(HttpServletRequest request, HttpServletResponse response) {
-		
-		return new PlanService().selectInsertPlan(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-	}
-
 	public void insertDestination(HttpServletRequest request, HttpServletResponse response) {
 		
 		Destination des = new Destination(Integer.parseInt(request.getParameter("planNo")),

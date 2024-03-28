@@ -45,6 +45,7 @@ public class AjaxPlanServlet extends HttpServlet {
 		case "selectSchedule" : new Gson().toJson(pc.selectSchedule(request, response), response.getWriter()); break;
 		case "insertStartDestination" : new Gson().toJson(pc.insertStartDestination(request, response), response.getWriter()); break;
 		case "insertDestination" : new Gson().toJson(pc.insertDestination(request, response), response.getWriter()); break;
+		case "updateStartDestination" : new Gson().toJson(pc.updateStartDestination(request, response), response.getWriter()); break;
 		}
 		
 		

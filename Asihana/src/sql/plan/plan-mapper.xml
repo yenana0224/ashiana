@@ -203,6 +203,15 @@
 		        'N'
 		        );
 	</entry>
+	
+	<entry key="updateStartDestination">
+		UPDATE
+		      TB_DESTINATION
+		   SET
+		      RETURN_DATE = ?
+		 WHERE
+		      DEST_NO = ?
+	</entry>
 
 	<entry key="insertDestination">
 		INSERT
@@ -218,5 +227,6 @@
 		        'N'
 		        );
 	</entry>
-
+	
+	
 </properties>

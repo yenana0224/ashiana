@@ -64,6 +64,28 @@ public class NationDao {
 		return list;
 	}
 	
+	public List<Nation> allNationList(Connection conn){
+		List<Nation> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("allNationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Nation nation = new Nation();
+				nation.setNationNo(rset.getInt("NATION_NO"));
+				nation.setNationName(rset.getString("NATION_NAME"));
+				list.add(nation);
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public int countNation(Connection conn) {
 		int count = 0;
 		PreparedStatement pstmt = null;

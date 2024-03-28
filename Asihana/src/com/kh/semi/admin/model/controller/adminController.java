@@ -47,8 +47,7 @@ public class adminController {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		
+
 		List<Notice> noticeList = new ArrayList();
 		
 		if(select != null) {
@@ -71,7 +70,7 @@ public class adminController {
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(maxPage < endPage) endPage = maxPage;
 		
@@ -199,9 +198,11 @@ public class adminController {
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
-		if(maxPage < endPage) endPage = maxPage;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
@@ -216,16 +217,17 @@ public class adminController {
 	public String allCityList(HttpServletRequest request, HttpServletResponse response) {
 		
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
 		int listCount = new CityService().countCity();
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(maxPage < endPage) endPage = maxPage;
-		
+
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
+
 		List<City> cityList = new CityService().allCityList(pi);
 		
 		request.setAttribute("pageInfo", pi);
@@ -237,7 +239,11 @@ public class adminController {
 	
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		Nation nation = new NationService().nationInfo(nationNo);
+		Nation nation = new NationService().searchNation(nationNo);
+		nation.setLanguage(new InfoService().nationLang(nationNo));
+		nation.setCurrency(new InfoService().nationCur(nationNo));
+		nation.setVoltage(new InfoService().nationVol(nationNo));
+
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
 				
@@ -322,21 +328,22 @@ public class adminController {
 			}
 			
 			int result = new NationService().updateNation(nation, title, file);
-			
-			
+
 			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
 		}
 		return view;
 	}
 	
 	public String cityinfo(HttpServletRequest request, HttpServletResponse response) {
-		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
 		
+		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		City city = new CityService().selectCity(cityNo);
 		AttachmentFile file = new CityService().selectPhoto(cityNo);
 		
 		request.setAttribute("city", city);
 		request.setAttribute("file", file);
+		request.setAttribute("nationNo", nationNo);
 		
 		return "views/admin/cityInfoDetail.jsp";
 	}
@@ -345,22 +352,16 @@ public class adminController {
 		request.setCharacterEncoding("UTF-8");
 		
 		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
-		String cityName = request.getParameter("cityName");
-		String nationName = request.getParameter("nationName");
-		String cityContent = request.getParameter("cityContent");
-		String flyingTime = request.getParameter("flyingTime");
-		
-		City city = new City();
-		city.setCityNo(cityNo);
-		city.setCityName(cityName);
-		city.setNationName(nationName);
-		city.setCityContent(cityContent);
-		city.setFlyingTime(flyingTime);
-		
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		City city = new CityService().selectCity(cityNo);
 		AttachmentFile file = new CityService().selectPhoto(cityNo);
+		List<Nation> list = new NationService().allNationList();
 		
 		request.setAttribute("city", city);
 		request.setAttribute("file", file);
+		request.setAttribute("list", list);
+		request.setAttribute("cityNo", cityNo);
+		request.setAttribute("nationNo", nationNo);
 		
 		return "views/admin/cityUpdateForm.jsp";
 	}
@@ -374,6 +375,7 @@ public class adminController {
 			String savePath = request.getServletContext().getRealPath("/resources/info/city");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
 			int cityNo = Integer.parseInt(multiRequest.getParameter("cityNo"));
 			String nationName = multiRequest.getParameter("nationName");
 			String cityName = multiRequest.getParameter("cityName");
@@ -381,6 +383,7 @@ public class adminController {
 			String flyingTime = multiRequest.getParameter("flyingTime");
 
 			City city = new City();
+			city.setNationNo(nationNo);
 			city.setCityNo(cityNo);
 			city.setNationName(nationName);
 			city.setCityName(cityName);
@@ -393,13 +396,12 @@ public class adminController {
 				file = new AttachmentFile();
 				file.setOriginName(multiRequest.getOriginalFileName("newFile"));
 				file.setChangeName(multiRequest.getFilesystemName("newFile"));
-				file.setFilePath("/resources/info/nation");
+				file.setFilePath("/resources/info/city");
 			}
 			
 			int result = new CityService().updateCity(city, file);
-			
-			
-			if(result > 0) view = "/cityInfo.admin?cityNo=" + cityNo;
+			if(result > 0) view = "/cityinfo.admin?nationNo="+ nationNo + "&cityNo=" + cityNo;
+
 		}
 		return view;
 	}

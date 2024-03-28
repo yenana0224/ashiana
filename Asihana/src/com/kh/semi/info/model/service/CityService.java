@@ -23,13 +23,12 @@ public class CityService {
 	// 도시 페이징
 	public List<City> allCityList(PageInfo pi){
 		Connection conn = getConnection();
-		List<City> list = new ArrayList<City>();
-		list = new CityDao().allCityList(conn, pi);
+		List<City> list = new CityDao().allCityList(conn, pi);
 		close(conn);
 		return list;
 	}
 	
-	// 하나의 도시 정보조회 : 도시번호, 도시이름, 도시내용, 국가번호, 국가이름, 비행시간
+	// 하나의 도시 정보조회 : 도시번호, 도시이름, 도시소개, 국가번호, 국가이름, 비행시간
 	public City selectCity(int cityNo) {
 		Connection conn = getConnection();
 		City city = new CityDao().selectCity(conn, cityNo);		
@@ -55,37 +54,14 @@ public class CityService {
 	}
 	
 	// 도시 조회수 1 증가
-	public int increaseCity(City c) {
+	public int increaseCity(int cityNo) {
 		Connection conn = getConnection();
-		int result = new CityDao().increaseCity(conn, c);
+		int result = new CityDao().increaseCity(conn, cityNo);
 		if(result > 0) commit(conn);
 		close(conn);
 		return result;
 	}
-	
-	// 하나의 도시 조회 : 도시번호, 도시이름, 도시소개, 국가이름, 비행시간, 비자
-	public City searchCity(City c) {
-		Connection conn = getConnection();
-		int nationNo = c.getNationNo();
-		// 국가기본정보
-		City city = new CityDao().searchCity(conn, c);
-		
-		if(city != null) {
-			// 사용 언어 조회 
-			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-			city.setLanguage(langList.toString());
-			// 사용 전압 조회
-			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-			city.setVoltage(volList.toString());
-			// 사용 화폐 조회
-			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-			city.setCurrency(curList.toString());
-		}
-		
-		close(conn);
-		return city;
-	}
-	
+
 	// 테이블에 등록된 전체 도시 숫자 
 	public int countCity() {
 		Connection conn = getConnection();
@@ -106,8 +82,22 @@ public class CityService {
 	// 도시 정보 수정
 	public int updateCity(City city, AttachmentFile file) {
 		Connection conn = getConnection();
-		int result = 0;
+		int cityNo = city.getCityNo();
+		int cityResult = new CityDao().updateCity(conn, city);
+		int fileResult = 1;
+		
+		if(file != null) {
+			if(new CityDao().selectPhoto(conn, cityNo) != null) {
+				fileResult = new CityDao().updatePhoto(conn, cityNo, file);
+			} else {
+				fileResult = new CityDao().insertPhoto(conn, cityNo, file);
+			}
+		}
+
+		int result = cityResult * fileResult;
+		if(result > 0) commit(conn);
 		close(conn);
+		
 		return result;
 	}
 }

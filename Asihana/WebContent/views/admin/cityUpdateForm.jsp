@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*, java.util.List"%>
 <%
 	City city = (City)request.getAttribute("city");
 	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
+	List<Nation> list = (List<Nation>)request.getAttribute("list");
+	int cityNo = (int)request.getAttribute("cityNo");
+	int nationNo = (int)request.getAttribute("nationNo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,10 +115,20 @@
         </div>
         
         <form action="cityUpdate.admin" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="CityNo" value="<%= city.getCityNo() %> ">
-            <div class="info-area"><input type="text" name="nationName" value = "<%=city.getNationName() %>"></div>
-            <div class="info-area"><input type="text" name="CityName" value = "<%=city.getCityName() %>"></div>
-            <div class="info-area"><textarea name="CityContent" cols="30" rows="10" style="resize: none;"><%=city.getCityContent() %></textarea></div>
+            <input type="hidden" name="cityNo" value="<%= city.getCityNo() %>">
+            <div class="info-area">
+            	<select name="nationNo">
+                    <% for(Nation n : list) { %>
+                    	<% if(n.getNationNo() != nationNo) { %>
+                    		<option value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
+                    	<% } else { %>
+                       		<option value="<%=n.getNationNo() %>" selected><%=n.getNationName() %></option>
+                     	<% } %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="info-area"><input type="text" name="cityName" value = "<%=city.getCityName() %>"></div>
+            <div class="info-area"><textarea name="cityContent" cols="30" rows="10" style="resize: none;"><%=city.getCityContent() %></textarea></div>
             <div class="info-area"><input type="text" name="flyingTime" value = "<%= city.getFlyingTime() %>"></div>
             <div class="info-area">
                 <label>도시사진변경</label>
@@ -142,11 +155,11 @@
 	        		reader.readAsDataURL(inputFile.files[0]);
 	        		reader.onload = function(e){
 	        		
-	        		$('#cityPhoto').attr('src', e.target.result); break;
+	        		$('#cityPhoto').attr('src', e.target.result);
 	        		}
         		};
         	};
-        }
+        
             
         </script>
     </div>

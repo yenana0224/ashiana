@@ -22,8 +22,15 @@ public class NationService {
 	// 국가리스트 페이징
 	public List<Nation> nationList(PageInfo pi){
 		Connection conn = getConnection();
-		List<Nation> list = new ArrayList<Nation>();
-		list = new NationDao().nationList(conn, pi);
+		List<Nation> list = new NationDao().nationList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	// 전체국가리스트
+	public List<Nation> allNationList(){
+		Connection conn = getConnection();
+		List<Nation> list = new NationDao().allNationList(conn);
 		close(conn);
 		return list;
 	}
@@ -44,23 +51,6 @@ public class NationService {
 		return nation;
 	}
 	
-	// 하나의 국가정보 : 국가번호, 국가이름, 국가소개, 비자  + 언어, 전압, 화폐
-	public Nation nationInfo(int nationNo) {
-		Connection conn = getConnection();
-		Nation nation = new NationDao().searchNation(conn, nationNo);
-		
-		if(nation != null) {
-			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-			nation.setLanguage(langList.toString());
-			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-			nation.setVoltage(volList.toString());
-			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-			nation.setCurrency(curList.toString());
-		}
-		close(conn);
-		
-		return nation;
-	}
 	
 	// 국가 정보 수정 (정보, 타이틀사진, 정사각형사진)
 	public int updateNation(Nation nation, AttachmentFile title, AttachmentFile file) {

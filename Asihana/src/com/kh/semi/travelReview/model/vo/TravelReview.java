@@ -16,7 +16,34 @@ public class TravelReview {
 	private String planCheck;
 	private String status;
 	private int likes;
+	private String cityName;
+	private String nationName;
+	private String nickName;
 	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getNationName() {
+		return nationName;
+	}
+
+	public void setNationName(String nationName) {
+		this.nationName = nationName;
+	}
+
 	public int getLikes() {
 		return likes;
 	}
@@ -160,6 +187,28 @@ public class TravelReview {
 				+ status + "]";
 	}
 
+	public TravelReview(int reviewNo, String reviewTitle, String createDate, String status, String cityName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewTitle = reviewTitle;
+		this.createDate = createDate;
+		this.status = status;
+		this.cityName = cityName;
+	}
+	
+
+	public TravelReview(int reviewNo, String reviewTitle, String departureDate, int count, String cityName,String nickName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewTitle = reviewTitle;
+		this.departureDate = departureDate;
+		this.count = count;
+		this.cityName = cityName;
+		this.nickName = nickName;
+	}
+
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

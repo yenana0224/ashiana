@@ -38,7 +38,7 @@ public class CityDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			int start = (pi.getCurrentPage()- 1) * pi.getBoardLimit() + 1;
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int end = start + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -178,15 +178,14 @@ public class CityDao {
 		return cityList;
 	}
 	
-	public int increaseCity(Connection conn, City c) {
+	public int increaseCity(Connection conn, int cityNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("increaseCity");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, c.getNationNo());
-			pstmt.setString(2, c.getCityName());
+			pstmt.setInt(1, cityNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -242,6 +241,69 @@ public class CityDao {
 		}
 		return file;
 	}
+	
+	public int updateCity(Connection conn, City city) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, city.getCityName());
+			pstmt.setString(2, city.getCityContent());
+			pstmt.setInt(3, city.getNationNo());
+			pstmt.setString(4, city.getFlyingTime());
+			pstmt.setInt(5, city.getCityNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updatePhoto(Connection conn, int cityNo, AttachmentFile file) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, file.getFilePath());
+			pstmt.setString(2, file.getOriginName());
+			pstmt.setString(3, file.getChangeName());
+			pstmt.setInt(4, cityNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertPhoto(Connection conn, int cityNo, AttachmentFile file) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cityNo);
+			pstmt.setString(2, file.getFilePath());
+			pstmt.setString(3, file.getOriginName());
+			pstmt.setString(4, file.getChangeName());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	
 	
 }

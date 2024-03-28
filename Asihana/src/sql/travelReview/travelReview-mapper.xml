@@ -9,6 +9,7 @@
 	<entry key="selectCityList">
 		SELECT
 		      CITY_NAME,
+		      CITY_NO,
 		      NATION_NAME
 		  FROM
 		      TB_NATION
@@ -73,6 +74,93 @@
 		     REVIEW_NO = ?
 	</entry>
 	
+	<entry key="selectDetailReview">
+		SELECT
+		      REVIEW_NO,
+		      REVIEW_TITLE,
+		      REVIEW_CONTENT,
+		      NICKNAME,
+		      DEPARTURE_DATE,
+		      ARRIVAL_DATE,
+		      PARTNER,
+		      STAR_POINT,
+		      CREATE_DATE,
+		      CITY_NAME,
+		      NATION_NAME,
+		      PLAN_CHECK,
+		      LIKES
+		  FROM
+		      TB_REVIEW
+		   JOIN
+		       MEMBER ON(REVIEW_WRITER = MEM_NO)
+		   JOIN
+		       TB_CITY USING(CITY_NO)
+		   JOIN
+		       TB_NATION USING(NATION_NO)
+		   JOIN
+			    (SELECT
+			           COUNT(*) AS LIKES,
+			            BOARD_NO,
+			            BOARD_TYPE
+			        FROM
+			             TB_LIKE
+			         GROUP
+			            BY
+			              BOARD_NO, BOARD_TYPE) ON(REVIEW_NO = BOARD_NO)
+	      WHERE
+	           BOARD_TYPE = 6
+	       AND
+	           TB_REVIEW.STATUS = 'Y'
+	       AND
+	           REVIEW_NO = ?
+	     ORDER
+	        BY
+	          LIKES DESC
+	</entry>
+	
+	<entry key="selectReviewHashTagList">
+		SELECT
+		      REVIEW_NO,
+		      TAG_NUM,
+		      TAG_NAME
+		  FROM
+		      BRTB_TAG
+		  JOIN 
+		      TB_REVIEW USING(REVIEW_NO)
+		  JOIN
+		      TB_HASHTAG USING(TAG_NUM)
+		 WHERE
+		      REVIEW_NO = ?
+	</entry>
 
+	<entry key = "selectMyList">
+	SELECT R.REVIEW_NO, R.REVIEW_TITLE, C.CITY_NAME, R.CREATE_DATE, R.STATUS
+	FROM ASIHANA.TB_REVIEW R
+	JOIN ASIHANA.TB_CITY C ON R.CITY_NO = C.CITY_NO
+	WHERE R.REVIEW_WRITER = ?
+	ORDER BY  R.CREATE_DATE
+	
+	</entry>
+	
+	
+	<entry key = "selectOthersList">
+	        SELECT R.REVIEW_NO, R.REVIEW_TITLE, C.CITY_NAME, R.DEPARTURE_DATE, R.COUNT, M.NICKNAME
+		    FROM ASIHANA.TB_REVIEW R
+		    JOIN ASIHANA.TB_CITY C ON R.CITY_NO = C.CITY_NO
+		    JOIN ASIHANA.MEMBER M ON R.REVIEW_WRITER = M.MEM_NO
+		    WHERE R.REVIEW_WRITER = ? AND R.STATUS = 'Y'
+		    ORDER BY R.DEPARTURE_DATE
+	</entry>
+	
+	<entry key="selectHashTagList">
+		SELECT
+		      TAG_NUM,
+		      TAG_NAME
+		  FROM
+		      TB_HASHTAG
+	</entry>
+	
+	
+	
 
 </properties>

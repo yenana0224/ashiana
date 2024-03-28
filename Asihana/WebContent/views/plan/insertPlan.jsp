@@ -3,6 +3,7 @@
 <%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
+	int planNo = (int)request.getAttribute("planNo");
 %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
@@ -10,17 +11,31 @@
 <html>
 <head>      
     <title>여행 플랜 작성</title>
-    
-    <style>
+	<style>
 	    div{
-	       width: 1200px;
-	       box-sizing: border-box;
-	       margin : auto;
-	    }
+		    width: 1200px;
+		    box-sizing: border-box;
+		    margin: auto;
+		}
+		.planToast{ 
+		    display: inline-block;
+		    background-color: white;
+		    box-shadow: 0 0 1px 1px lightgray;
+		    width: 200px;
+		    border-radius: 10px;
+		    height: 43px;
+		    padding: 6px 3px 3px 5px;
+		    z-index: 10;
+		    display: none;
+		    
+		}    
+		.btn-add-des{
+		    margin-left: 5px;
+		    margin-right: 6px;
+		}
     </style>
 </head>
 <body>
-	
 	<div id="outer-plan">
 	    <div id="required-msg">
 	        <div>
@@ -29,13 +44,15 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	            <input type="hidden" name="planNo" id="planNo">
+	            <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
 	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
 	            <input type="time" name="start-time" id="start-time" class="timepicker">
-	
+				<button class="btn btn-sm btn-success" type="button">설정</button>
+				
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
-	            <button class="btn btn-sm btn-success btn-int" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
+	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
+	        	<img src="resources/icons">
 	        </div>
 	        <div id="planning-area">
 	            <div id="date-area">
@@ -60,16 +77,15 @@
 	                
 	                <div class="root-line"></div>
 	               --> 
-	                <div class="root-icon">
-	                    <img class="des-add-btn" src="resources/icons/plus-square-fill.svg">
-	                    <div class="toast" data-autohide="false" style="width: 240px;">
-	                        <div class="toast-body">
-	                            <button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>
-	                            <button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>
-	                            <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" data-dismiss="toast" style="border:none; padding:0;">Ｘ</button>
-	                        </div>
-	                    </div>
-	                </div>
+		           <div class="root-icon">
+		               	<img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
+		               	<div class="planToast">
+		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
+		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
+		            	</div>
+		           	</div>
+
+	        
 	            </div>
 	            
 	            
@@ -151,7 +167,7 @@
 	                <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> =
 	                <label class="plan-sum-total">총 예산 1,320,000원</label>
 	            </div>
-	            <button class="btn btn-danger">여행 플랜 완료</button>
+	            <button type="submit" class="btn btn-danger">여행 플랜 완료</button>
 	            <button class="btn btn-dark">취소</button>
 	        </div>
 	    </form>
@@ -159,24 +175,16 @@
 	
 	<%@ include file="../common/footer.jsp" %>
 	
-	<!-- AJAX -->
 	<script>
 		$(function(){
-			$.ajax({ // 작성중인 플랜의 planNo
-				url : 'selectInsertPlan.ajaxplan',
-				type : 'post',
-				success : function(plan){
-					$('#planNo').val(plan);
-				}
-			})
-			
 	        // 출국 날짜 요구 메세지 슬라이드 업
 	        $('#start-date').change(function(){
 	            $('#required-msg').slideUp(500);
 	        })
 	        // 목적지 추가 토스트
-	        $('#root-area').on('click', '.des-add-btn', function(){
-	            $('.toast').toast('show');
+	        $('.des-add-btn').click(function(){
+	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
+	            else $('.planToast').hide(100);
 	        })
 		})
 	</script>
@@ -201,7 +209,7 @@
                 </div>
                 
                 <!-- Modal body -->
-                <form method="post" action="">
+                <form method="post">
                 <div id="modal-body">
                     <div id="modal-date-area">
 
@@ -219,14 +227,14 @@
                             <% } %>
                         </select>
                         <select name="city" id="city">
-                        	<option value="도시 선택" disabled selected>도시 선택</option>
+                        	<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>
                         	
                         </select>
      
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
                         
                         <select name="transport" id="transport">
-                            <option value="선택 안함">이동수단</option>
+                            <option value="" disabled>이동수단</option>
                             <option value="항공">항공</option>
                             <option value="기차">기차</option>
                             <option value="버스">버스</option>
@@ -238,12 +246,12 @@
                             <option value="편도">편도</option>
                             <option value="왕복">왕복</option>
                         </select>
-                        <input type="text" name="transport-price" id="transport-price" value="0">원 <br>
+                        <input type="text" name="trans-price" id="trans-price" value="0">원 <br>
 
-                       	 출발일시 : <input type="date" name="dep-date" id="dep-date" value="2024-03-14" disabled> 
-                        <input type="time" name="dep-time" id="dep-time" class="timepicker" value="14:00" disabled><br>
+                       	 출발일시 : <input type="date" name="dep-date" id="dep-date" disabled> 
+                        <input type="time" name="dep-time" id="dep-time" class="timepicker" disabled><br>
                         
-                        <input type="date" name="arr-date" id="arr-date" value="" style="display:none;">
+                        <input type="date" name="arr-date" id="arr-date" style="display:none;">
                                                       도착시간 : <input type="time" name="arr-time" id="arr-time" class="timepicker">
                         <input type="checkbox" name="add-day" id="add-day"><label for="add-day">+1 일</label> <br>
                         
@@ -253,7 +261,7 @@
                         <div id="des-sum">
                             <label>***</label>님의 일정 요약 <br>
                             <p>
-                                <label id="dep-date-display">2024-03-14</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>
+                                <label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>
                                                                         해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.
                             </p>
                         </div>
@@ -262,8 +270,8 @@
                 
                 <!-- Modal footer -->
                 <div id="modal-footer">
-                    <button type="submit" class="btn btn-danger">추가</button>
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">취소</button>
+                    <button type="reset" id="insertDes" class="btn btn-danger" data-dismiss="modal">추가</button>
+                    <button type="reset" class="btn btn-dark" data-dismiss="modal">취소</button>
                 </div>
                 </form>
             </div>
@@ -274,9 +282,11 @@
     <script>
     	$(function(){ // 모달 도시 셀렉트박스 
     		$('#country').change(function(){
+    			$('#city').empty();
+    			$('<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>').prependTo('#city');
     			<% for(City city : cityList) { %>
     				if($('#country').val() == '<%=city.getNationName()%>'){
-    					$('<option value="<%= city.getCityName() %>"><%= city.getCityName() %></option>').
+    					$('<option value="<%= city.getCityNo() %>"><%= city.getCityName() %></option>').insertAfter('#selectCity');
     				}
     			<% } %>
     		})
@@ -296,10 +306,9 @@
         }
         $(function(){ // 모달 일정 요약 부분
             $('#city').change(function(){ // 도시 선택시 인풋 벨류 변경
-                $('#country-city').val($('#country').val() + '-' + $('#city').val());
+                $('#country-city').val($('#country').val() + '-' + $('#city option:checked').text());
             });
             $('#add-day').change(function(){ // +1일 체크박스
-                console.log($('#arr-time').val())
                 if($('#add-day').is(':checked')) {
                     let $arr = new Date($('#arr-date').val());
                     $arr.setDate($arr.getDate() + 1);
@@ -310,29 +319,60 @@
                     $arr.setDate($arr.getDate() - 1);
                     $('#arr-date').val(formatDate($arr));
                 }
-            });
-
-            $('#modal-form-area').ready(function(){ // 출발일시
+            })
+			$('#planning-interface').find('input').change(function(){ // 출발일시
+				$('.btn-des-disabled').attr('disabled', false); // 출발일 선택시 목적지 추가 가능해짐 
+                $('#dep-date').val($('#start-date').val());
+                $('#dep-time').val($('#start-time').val());
+            	
                 // 출발일 => 도착일 
                 $('#arr-date').val($('#dep-date').val());
-
                 // 출발일시 디스플레이
                 $('#dep-date-display').text($('#dep-date').val());
                 $('#dep-time-display').text($('#dep-time').val());
                 // 도착일 디스플레이
                 $('#arr-date-display').text($('#arr-date').val());
-            });
-
+			})
             $('#modal-form-area').find('input, select').change(function(){
-                
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
                 $('#arr-time-display').text($('#arr-time').val());
                 $('#country-city-display').text($('#country-city').val());
                 $('#end-date-display').text($('#end-date').val());
                 $('#end-time-display').text($('#end-time').val());
-            })
+            });
         })
+    </script>
+    
+    <script> <!-- AJAX -->
+    	$(function(){ // 목적지 추가
+    		$('#insertDes').click(function(){
+    			$.ajax({
+    				url : 'insertDestination.ajaxplan',
+    				type : 'post',
+    				data : {
+    					planNo : $('#planNo').val(),
+    					cityNo : $('#city').val(),
+    					trans : $('#transport').val(),
+    					transPrice : $('#trans-price').val(),
+    					trip : $('#transport-op').val(),
+    					arrival : $('#arr-date').val() + ' ' + $('#arr-time').val(),
+    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
+    				},
+    				success : function(result){
+    					
+    					
+    					
+    					
+    					
+    					
+    				}
+    			});
+    		})
+    		
+    		
+    		
+    	})
     </script>
 
     <!-- 예약 및 일정 시작 -->
@@ -360,8 +400,6 @@
         });
         
     </script>
-    
-    
     
     <!--디테일 테이블 스크립트-->
     <script>

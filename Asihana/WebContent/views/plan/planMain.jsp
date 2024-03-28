@@ -12,10 +12,10 @@
     <title>여행 플랜 메인</title>
     <style>
 	    div{
-	       	width: 1200px;
-	       	box-sizing: border-box;
-	       	margin : auto;
-	    }
+		    width: 1200px;
+		    box-sizing: border-box;
+		    margin: auto;
+		}
     </style>
 </head>
 <body>

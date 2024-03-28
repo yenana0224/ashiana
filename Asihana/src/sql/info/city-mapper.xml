@@ -48,9 +48,7 @@
    	   SET
       	  COUNT = COUNT + 1
 	 WHERE
-     	  NATION_NO = ?
-  	   AND
-     	  CITY_NAME = ?
+     	  CITY_NO = ?
 	</entry>
 	
 	
@@ -63,6 +61,9 @@
 	      TB_CITY
 	 WHERE
 	      NATION_NO = ?
+     ORDER
+     	BY
+     	  CITY_NAME ASC
 	</entry>
 	
 	
@@ -113,7 +114,7 @@
 	      COUNT
 	FROM
 		    (SELECT
-		         ROWNUM,
+		         ROWNUM RNUM,
 		         NATION_NO,
 		         NATION_NAME,
 		         CITY_NO,
@@ -134,7 +135,7 @@
 			           BY
 			             TB_NATION.NATION_NO ASC))
 	 WHERE
-	     ROWNUM BETWEEN ? AND ?
+	     RNUM BETWEEN ? AND ?
 	
 	</entry>
 
@@ -240,6 +241,56 @@
 	  AND
 	     BOARD_NO = ?
 	</entry>
+	
+	<entry key="updateCity">
+	UPDATE
+	     TB_CITY
+	  SET
+	     CITY_NAME = ?,
+	     CITY_CONTENT = ?,
+	     NATION_NO = ?,
+	     FLYING_TIME = ?
+	WHERE
+	     CITY_NO = ?
+	</entry>
+	
+	<entry key="updatePhoto">
+	UPDATE
+	     TB_FILE
+	  SET
+	     FILE_PATH = ?,
+	     ORIGIN_NAME = ?,
+	     CHANGE_NAME = ?
+	WHERE
+	     BOARD_TYPE = 2
+	  AND
+	     BOARD_NO = ?
+	</entry>
+	
+
+	<entry key="insertPhoto">
+		INSERT 
+		  INTO
+		      TB_FILE
+		      (
+		      FILE_NO,
+		      BOARD_NO,
+		      FILE_PATH,
+		      ORIGIN_NAME,
+		      CHANGE_NAME,
+		      BOARD_TYPE
+		      )
+		VALUES
+		     (
+		     SEQ_FILE.NEXTVAL,
+		     ?,
+		     ?,
+		     ?,
+		     ?,
+		     2    
+		     )
+	</entry>
+
 
 	
 </properties>

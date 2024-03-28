@@ -1,6 +1,7 @@
 package com.kh.semi.plan.model.service;
 
 import com.kh.semi.plan.model.dao.PlanDao;
+import com.kh.semi.plan.model.vo.Destination;
 import com.kh.semi.plan.model.vo.DestinationDetail;
 import com.kh.semi.plan.model.vo.PlanDetail;
 import com.kh.semi.plan.model.vo.PlanMain;
@@ -92,5 +93,20 @@ public class PlanService {
 		
 		return planNo;
 	}
+
+	public int insertDestination(Destination des) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().insertDestination(conn, des);
+		
+		if(result > 0) commit(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 
 }

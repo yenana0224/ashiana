@@ -114,12 +114,15 @@
 				<tr>
 				<%}else{ %>
 				<%for(FriendShip friendShip :list){ %>
+				<%String nickName =friendShip.getNickNameF();
+				int userNo = friendShip.getUserId2();%>
+				
 				<tr>
-					<td><%=friendShip.getNickNameF()%></td>
+					<td><%=nickName%></td>
+					<td class ="userNo" id = "<%=userNo%>"><a href="#"><i class="fas fa-coffee"></i></a></td>
 					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
-					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
-					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= userNo %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= userNo %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
 				</tr>
 				<%} %>
 				<%} %>
@@ -133,6 +136,14 @@
 		<br><br><br><br><br>
 	
 	<script>
+	
+		$(function(){
+			$('.userNo').click(function(){
+				location.href='<%=contextPath%>/othersTravel?userNo='+$(this).attr('id');
+			});
+		});
+		
+		
 		$(document).ready(function(){
 		  $("#myInput").on("keyup", function() {
 		    var value = $(this).val().toLowerCase();
@@ -165,7 +176,7 @@
 		        console.error("userId가 null입니다.");
 		    }
 			
-		}
+		};
 	function deleteFriend(userId){
 		   if (userId !== null) {
 			$.ajax({
@@ -188,7 +199,7 @@
 			// userId가 null일 때 예외 처리
 		        console.error("userId가 null입니다.");
 		    }
-		}
+		};
 		
 	</script>
 

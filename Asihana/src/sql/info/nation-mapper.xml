@@ -33,6 +33,16 @@
 	         ROWNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="allNationList">
+	SELECT
+	     NATION_NO,
+	     NATION_NAME
+	 FROM
+	     TB_NATION
+    WHERE
+    	 NOT TB_NATION.NATION_NO = 82
+	</entry>
+	
 	<entry key="countNation">
 	SELECT
 		 COUNT(*) COUNT

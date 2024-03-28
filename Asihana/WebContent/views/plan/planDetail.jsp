@@ -13,11 +13,11 @@
     <!-- https://icons.getbootstrap.com/ -->
     <title>여행 플랜 상세 조회</title>
     <style>
-        div{
-            width: 1200px;
-            box-sizing: border-box;
-            margin: auto;
-        }
+	    div{
+		    width: 1200px;
+		    box-sizing: border-box;
+		    margin: auto;
+		}
     </style>
 </head>
 <body>
@@ -30,6 +30,7 @@
 	           	 &nbsp;
 	           	 귀국일시 : <input type="date" name="end-date" id="end-date" required disabled>
 	            <input type="time" name="end-time" id="end-time"  class="timepicker" disabled>
+	            
 	 
 	            <button class="btn btn-sm btn-success btn-int" type="submit">여행 플랜 수정</button>
 	        </div>

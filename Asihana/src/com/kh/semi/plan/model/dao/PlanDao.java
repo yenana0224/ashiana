@@ -236,6 +236,44 @@ public class PlanDao {
 		return planNo;
 	}
 
+	public int insertStartDestination(Connection conn, int planNo, String returnDate) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("insertStartDestination");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			pstmt.setString(2, returnDate);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateStartDestination(Connection conn, int destNo, String returnDate) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("updateStartDestination");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, destNo);
+			pstmt.setString(2, returnDate);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int insertDestination(Connection conn, Destination des) {
 		
 		int result = 0;
@@ -259,5 +297,6 @@ public class PlanDao {
 		}
 		return result;
 	}
+
 
 }

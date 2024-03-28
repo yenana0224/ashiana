@@ -50,18 +50,18 @@ public class CommunityDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			rset = pstmt.executeQuery(); // SELECT문, 완성된 sql문이다!!!
+			rset = pstmt.executeQuery(); // SELECT문, 완성된 sql문이다!!!  => 위치홀더를 채울 필요가 없다
 			
-			while(rset.next()) {
+			while(rset.next()) {  // community는 지역변수다!!!
 				Community community = new Community();
 				community.setComuNo(rset.getInt("COMU_NO"));
 				community.setCityNo(rset.getInt("CITY_NO"));		
-				community.setMemNo(rset.getInt("MEM_NO"));
+				community.setMemNo(rset.getInt("MEMBER_NO"));
 				community.setComuContent(rset.getString("COMU_CONTENT"));
 				community.setComuDate(rset.getDate("COMU_DATE"));
 				community.setStatus(rset.getString("STATUS").charAt(0));
 			
-				list.add(community);
+				list.add(community);  // 위에 있는 지역변수  community를 살려둘수 있게 list가 가리키고 있다!!!
 			}
 			
 			

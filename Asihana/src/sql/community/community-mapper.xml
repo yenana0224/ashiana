@@ -10,20 +10,20 @@
 		SELECT
 				COMU_NO,
 				CITY_NO,
-				MEM_NO,
+				NICK_NAME,
 				COMU_CONTENT,
 				COMU_DATE
 		    FROM
 			 	COMMUNITY
 			JOIN
 		
-				MENBER ON(MEM_NO =MEM_NO)	
+				MENBER ON(MEM_NO = NICK_NAME)	
 		
 	    	WHERE 
 				COMMUNITY.STATUS = 'Y'
 		   ORDER
 		 	BY
-				COMU_DATE DESC
+				COMU_DATE DESC;
 	</entry>
 	
 	<entry key="increaseCount">

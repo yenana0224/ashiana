@@ -29,7 +29,7 @@
 
         h2{
         	margin-top: 50px;
-        	margin-left: px;
+        	margin-left: 110px;
             font-size: 50px;
 
 
@@ -37,24 +37,37 @@
 
         .form-group{
 
-           
-            margin-left: 100px;
+          	 margin-top:40px;
+            margin-left: 135px;
             width: 500px;
         }
         
         .form-control{
-         	margin-left: 200px;
+         	
+         	
+        
+        }
+        
+        #s1{
+        	
+        	
+        
+        }
+        #comment{
+        
+        margin-top: 130px;
         
         }
 
         .input-group-text{
             width: 60px;
             height: 40px;
-            float:right;
+            float: right;
             position:relative;
             background-color: white;
-            top:-50px;
+            top: -50px;
             right:10px;
+          
         }
 
         .limit{
@@ -65,6 +78,7 @@
         }
 
 
+		
 
        
 
@@ -95,20 +109,23 @@
       
 
        
-        <div class="form-group">
+        <div class="form-group" id="s1">
             <label for="comment">
             <span> 
-            	<select>
+            	<select id="s2" >
             		<option>도시이름</option>
-            		
+            		<option>싱가포르</option>
+            		<option>치앙마이(태국)</option>
+            		<option>방콬(태국)</option>
+            		<option>후아힌(태국)</option>
             	
             	
             	</select>
             
             
-            <select>
+            <select  >
             		
-            		<option>작성일</option>
+            		<option></option>
             		
             	
             	

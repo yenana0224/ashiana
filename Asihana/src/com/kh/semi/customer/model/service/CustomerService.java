@@ -270,5 +270,21 @@ public class CustomerService {
 		
 		return result;
 	}
+
+	public int replyDelete(int replyNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new CustomerDao().replyDelete(conn, replyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+	
 	
 }

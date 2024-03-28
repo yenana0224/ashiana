@@ -839,4 +839,30 @@ public class CustomerDao {
 		return result;
 	}
 	
+	public int replyDelete(Connection conn, int replyNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("replyDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, replyNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
 }

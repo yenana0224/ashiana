@@ -17,7 +17,11 @@ public class TravelReview {
 	private String status;
 	private int likes;
 	private String cityName;
+<<<<<<< HEAD
 	private String nationName;
+=======
+	
+>>>>>>> 7250b0074484ef8f3e3fe1e3a3588e374e6449c4
 	
 	
 	
@@ -43,6 +47,14 @@ public class TravelReview {
 
 	public void setLikes(int likes) {
 		this.likes = likes;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 
 	public TravelReview() {
@@ -264,4 +276,16 @@ public class TravelReview {
 			return false;
 		return true;
 	}
+
+	public TravelReview(int reviewNo, String reviewTitle, String createDate, String status, String cityName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewTitle = reviewTitle;
+		this.createDate = createDate;
+		this.status = status;
+		this.cityName = cityName;
+	}
+	
+	
+	
 }

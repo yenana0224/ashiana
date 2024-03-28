@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.List, com.kh.semi.info.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.List, com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
 	List<City> list = (List<City>)request.getAttribute("list");
 	List<Nation> nationList = (List<Nation>)request.getAttribute("nationList");
+	List<AttachmentFile> files = (List<AttachmentFile>)request.getAttribute("files");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,7 +82,8 @@
         }
 
         .cityName{
-            width: 100%;
+        	display : inline-block;
+            width: 20%;
             height: 20%;
             background-color: white;
         }
@@ -154,18 +156,21 @@
             </div>
             <div class="cityView">
                 <!-- 조회 많은 순서대로 도시 8개 노출 -->
-            <% for(City c : list) { %>
+			<% for(int i = 0; i < 8; i++) { %>
                 <div class="city">
                     <div class="cityPhoto">
-                        <img src="https://tourimage.interpark.com//Spot/187/15599/202112/6377508663314465670.jpg" alt="">
+                        <img src="<%=contextPath%><%=files.get(i).getFilePath() %>/<%=files.get(i).getChangeName()%>">
                     </div>
-                    <div class="cityName">
-                        <h5><%=c.getCityName() %></h5>
-                        <h6><%=c.getNationName() %></h6>
-                    </div>
+               	</div>
+                <div class="cityName">
+                    <h5><%=list.get(i).getCityName() %></h5>
+                    <h6><%=list.get(i).getNationName() %></h6>
                 </div>
- 			<% } %>
-            </div>
+                
+            <% } %>
+            </div>   
+            
+            
 
             <script>
                 $(document).on('click', '.city', function(event){

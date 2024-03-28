@@ -525,7 +525,7 @@
 			<% } else { %>
 					
 					<% for(Community c : list) { %>
-					<tr>
+					<tr class="list">
 						<td><%= c.getComuNo() %></td>
 						<td><%= c.getCityNo() %></td>
 						<td><%=c.getMemNo() %></td>
@@ -539,15 +539,41 @@
 			<% } %>	
 			
 		<% } %>
-	          	  
-	          	  
-	          	  
-	          	  
 	          	  </tbody>
-	          	  
-	      	  </table>
-	          
-          </span>
+	          </table>
+	       </span>
+	       
+	       <script>
+                // 1절 선택한 뒤 이벤트 부여
+                $('tbody>tr.list').click(function(){
+                    
+                    // 2절 상세페이지 요청!!!
+
+                    // location.href='<%=contextPath%>/detail.commu';
+                    // 클릭했을 때 클릭한 공지사항의 번호를 넘겨줘야함!!!   
+                    // console.log(this);
+                    // 이벤트가 발생한 tr요소의 자식 중에서도 첫 번째 td요소의  Content영역의 값이 필요함!!
+                    // console.log(this.children()) => 찍어봤더니 말도안되는 소리 하지마라고 함!!!
+                    // console.log($(this).children().eq(0).text());
+
+                    const communityNo = $(this).children().eq(0).text();
+
+                    // 공지사항 번호를 이용한 요청
+                    // url을 보냈다 => GET방식 : 요청할 url?키=밸류&키=밸류&키=밸류
+                    // queryString		
+					// url을 직접 만들어 보낼 것!!!
+					// jsp/detail.commu?communityNo=글번호
+					location.href = '<%=contextPath%>/detail.commu?communityNo='+communityNo;
+
+                });
+	       
+	       
+	       
+	       
+	       
+	       
+	       
+	       </script>
           
         
      

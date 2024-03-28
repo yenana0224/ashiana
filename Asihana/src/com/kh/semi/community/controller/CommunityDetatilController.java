@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.community.model.service.CommunityServiceImpl;
+
 /**
  * Servlet implementation class CommunityDetatilController
  */
@@ -28,11 +30,34 @@ public class CommunityDetatilController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
+		// 1)  GET방식 => 인코딩 X
 		
+		// 2) request로부터 값 뽑기
+		//localhost:7776/Asihana/detail.commu?communityNo=2 => 이렇게 요청이 와서 일을 하는중!!!
+		//localhost:7776/Asihana/detail.commu?communityNo=글번호
+		int communityNo = Integer.parseInt(request.getParameter("communityNo"));
 		
+		// 3) VO가공
+		// 넘긴 값이 하나밖에 없다 => 가공이 불필요하다!!!
 	
-		// 화면 지정
-		request.getRequestDispatcher("views/common/communityDetail.jsp").forward(request,response);
+		// 4) Service 호출
+		int result = new CommunityServiceImpl().increaseCount(communityNo);
+		
+		if(result > 0) {
+			
+			
+			// 5) 화면 지정
+			new CommunityServiceImpl().selectCommunity(communityNo);
+			request.getRequestDispatcher("views/common/communityDetail.jsp").forward(request,response);
+		
+			
+		} else {// 실패 => 에러페이지 보내기
+			// 5) 화면 지정
+			request.setAttribute("errorMsg", "공지사항 상세 조회실패!!!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
+			
+		}
+		
 		
 	}
 

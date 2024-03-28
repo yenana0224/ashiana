@@ -1,6 +1,6 @@
 package com.kh.semi.community.model.dao;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -79,6 +79,53 @@ public class CommunityDao {
 		}
 		
 		return list;
+	}
+
+	public int increaseCount(Connection conn, int communityNo) {
+		
+
+		int result=0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, communityNo);
+			
+			result =pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			
+			
+		}
+		
+		return result;
+		
+	}
+	
+	
+	public Community selectCommunity(Connection conn, int communityNo) {
+		
+		Community community =null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCommunity");
+		
+		
+		
+		
+		
+		return community;
+				
+				
+		
+		
 	}
 
 	

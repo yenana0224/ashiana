@@ -97,7 +97,7 @@ public class TravelReviewService {
 		
 		Connection conn = getConnection();
 		
-		List<HashTag> hashTagList = new TravelReviewDao().selectReviewHashTagList();
+		List<HashTag> hashTagList = new TravelReviewDao().selectReviewHashTagList(conn, reviewNo);
 		
 		close(conn);
 		

@@ -81,10 +81,41 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 				<tr>
 					<th>No</th>
 					<th>제목</th>
+					<th>상태</th>
+					<th>도시</th>
 					<th>작성일</th>
-					<th>조회수</th>
 				</tr>
 			</thead>
+			<tbody id="myTable">
+			    <% if (list.isEmpty()) { %>
+			        <tr>
+			            <td colspan="5">내 여행기가 없습니다.</td>
+			        </tr>
+			    <% } else { %>
+			        <% int rowNumber = 1; %>
+			        <% for (TravelReview travelReview : list) { %>
+			            <%
+			            int reviewNo = travelReview.getReviewNo(); 
+			            String reviewTitle = travelReview.getReviewTitle(); 
+			            String cityName = travelReview.getCityName(); 
+			            String createDate = travelReview.getCreateDate(); 
+			            String status = travelReview.getStatus(); 
+			            %>
+			            <tr>
+			                <td><%= rowNumber %></td>
+			                <td><a href="#"><%= reviewTitle %></a></td>
+			                <td><a href="#"><%= cityName %></a></td>
+			                <td><a href="#"><%= createDate %></a></td>
+			                <td><a href="#"><%= status %></a></td>
+			            </tr>
+			            <% rowNumber++; %>
+			        <% } %>
+			    <% } %>
+			</tbody>
+
+		</table>
+			
+			<!--
 			<tbody id="myTable">
 				<tr>
 					<td>1</td>
@@ -112,9 +143,9 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 				</tr>
 			</tbody>
 		</table>
-		
+		-->
 	<div align="center">
-         <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">글작성하러가기</button>
+         <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">플랜으로 가기</button>
 	</div>
 	</div>
 

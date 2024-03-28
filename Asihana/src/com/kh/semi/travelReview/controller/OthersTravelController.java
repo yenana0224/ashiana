@@ -36,10 +36,9 @@ public class OthersTravelController extends HttpServlet {
 		
 		//그사람 userNo
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String userNoForSelect=request.getParameter("userNo");
 		ArrayList<TravelReview> othersTravelList = new TravelReviewService().selectOthersList(userNo);
 		
-		Member member =new MemberService().selectMember(userNoForSelect);
+		Member member =new MemberService().selectOtMember(userNo);
 		
 		
 		request.setAttribute("othersTravelList", othersTravelList);

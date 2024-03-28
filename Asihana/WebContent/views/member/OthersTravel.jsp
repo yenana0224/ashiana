@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"
 	
 import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%>
-	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("myTravelList"); %>
+	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("othersTravelList"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +68,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 
 	<div id="noticetext">
-		<p>My여행기</p>
+		<p>여행기</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>

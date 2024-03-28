@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview, com.kh.semi.info.model.vo.City" %>
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview, com.kh.semi.info.model.vo.City, com.kh.semi.travelReview.model.vo.HashTag" %>
 <%  
 	List<City> cityList = (List<City>) request.getAttribute("cityList");
 	List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
 	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
+	//List<HashTag> hashTagList = (List<TravelReview>)request.getAttribute("hashTagList");
 	
 %>
     
@@ -270,7 +271,7 @@
                         <p align="center">
                         	<!--  <span>제목 : </span> <span><%=reviewList.get(i).getReviewTitle() %></span> -->
                             <lable>작성자 : </lable><span><%= reviewList.get(i).getReviewWriter() %></span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
+                            <span></span> <span>해시태그2</span>
                         </p>  
                     </div>    
                     <%} %>

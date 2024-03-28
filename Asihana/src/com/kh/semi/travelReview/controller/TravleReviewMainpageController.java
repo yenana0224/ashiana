@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
+import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
@@ -62,14 +63,19 @@ public class TravleReviewMainpageController extends HttpServlet {
 		
 		
 		request.setAttribute("cityList", cityList);
-		System.out.println(cityList);
+		//System.out.println(cityList);
 		
 		request.setAttribute("reviewList", reviewList);
 		//System.out.println(reviewList);
 		
 		request.setAttribute("likeList", likeList);
 		//System.out.println(likeList + "1");
-				
+			
+		request.getSession().getAttribute("hashTagList");
+		System.out.println(request.getSession().getAttribute("hashTagList"));
+		
+		
+		//request.setAttribute("hashTagList", hashTagList);
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	
 	}

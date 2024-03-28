@@ -65,6 +65,7 @@ public class PlanController {
 		
 		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) {
 			request.setAttribute("cityList", new TravelReviewService().selectCityList());
+			request.setAttribute("planNo", new PlanService().selectInsertPlan(loginUserNo));
 			view = "views/plan/insertPlan.jsp";
 		} else {
 			request.setAttribute("errorMsg", "로그인 확인 후 다시 시도해주세요.");
@@ -73,9 +74,18 @@ public class PlanController {
 		return view;
 	}
 
-	public int selectInsertPlan(HttpServletRequest request, HttpServletResponse response) {
+	public void insertDestination(HttpServletRequest request, HttpServletResponse response) {
 		
-		return new PlanService().selectInsertPlan(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		Destination des = new Destination(Integer.parseInt(request.getParameter("planNo")),
+										  Integer.parseInt(request.getParameter("cityNo")),
+										  request.getParameter("trans"),
+										  request.getParameter("transPrice"),
+										  request.getParameter("trip"),
+										  request.getParameter("arrival"),
+										  request.getParameter("returnDate"));
+		System.out.println(des);
+		
+		
 	}
 
 	

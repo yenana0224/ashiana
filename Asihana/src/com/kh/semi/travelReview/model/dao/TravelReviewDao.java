@@ -46,6 +46,7 @@ public class TravelReviewDao {
 				City city = new City();
 				
 				city.setCityName(rset.getString("CITY_NAME"));
+				city.setCityNo(rset.getInt("CITY_NO"));
 				city.setNationName(rset.getString("NATION_NAME"));
 				cityList.add(city);
 			}
@@ -178,6 +179,12 @@ public class TravelReviewDao {
 		return review;
 	
 	}
+	/***
+	 * 내 여행기
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
 	public ArrayList<TravelReview> selectMyList(Connection conn, int userNo) {
 		
 		ArrayList <TravelReview> list = new ArrayList();
@@ -196,6 +203,32 @@ public class TravelReviewDao {
 										rset.getString("CITY_NAME"),
 										rset.getString("CREATE_DATE"),
 										rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
+		
+		ArrayList <TravelReview> list = new ArrayList();
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOthersList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new TravelReview(rset.getInt("REVIEW_NO"),
+										rset.getString("REVIEW_TITLE"),
+										rset.getString("CITY_NAME"),
+										rset.getInt("COUNT"),
+										rset.getString("DEPARTURE_DATE")
+									));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

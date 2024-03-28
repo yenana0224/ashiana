@@ -3,6 +3,7 @@
 <%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
+	int planNo = (int)request.getAttribute("planNo");
 %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
@@ -17,27 +18,19 @@
 		    margin: auto;
 		}
 		.planToast{ 
-		    display: none;
 		    display: inline-block;
 		    background-color: white;
 		    box-shadow: 0 0 1px 1px lightgray;
-		    width: 230px;
+		    width: 200px;
 		    border-radius: 10px;
 		    height: 43px;
 		    padding: 6px 3px 3px 5px;
 		    z-index: 10;
+		    display: none;
 		    
 		}    
-		.btn-dismiss-toast{
-		    width: 20px;
-		    height: 20px;
-		    margin-left: 5px;
-		    border: none;
-		    padding: 0;
-		    line-height: 0.6;
-		}
 		.btn-add-des{
-		    margin-left: 4px;
+		    margin-left: 5px;
 		    margin-right: 6px;
 		}
     </style>
@@ -51,7 +44,7 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	            <input type="hidden" name="planNo" id="planNo">
+	            <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
 	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
 	            <input type="time" name="start-time" id="start-time" class="timepicker">
 	
@@ -87,7 +80,6 @@
 		               	<div class="planToast">
 		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
 		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
-		                    <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" style="border:none; padding:0;">Ｘ</button>
 		            	</div>
 		           	</div>
 
@@ -181,29 +173,16 @@
 	
 	<%@ include file="../common/footer.jsp" %>
 	
-	<!-- AJAX -->
 	<script>
 		$(function(){
-			$.ajax({ // 작성중인 플랜의 planNo
-				url : 'selectInsertPlan.ajaxplan',
-				type : 'post',
-				success : function(plan){
-					$('#planNo').val(plan);
-				}
-			})
-			
 	        // 출국 날짜 요구 메세지 슬라이드 업
 	        $('#start-date').change(function(){
 	            $('#required-msg').slideUp(500);
 	        })
 	        // 목적지 추가 토스트
 	        $('.des-add-btn').click(function(){
-	            if($('.planToast').css('display') == 'none') {
-	                $('.planToast').show(100);
-	            }
-	            else{
-	                $('.planToast').hide(100);
-	            }
+	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
+	            else $('.planToast').hide(100);
 	        })
 		})
 	</script>
@@ -253,7 +232,7 @@
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
                         
                         <select name="transport" id="transport">
-                            <option value="">이동수단</option>
+                            <option value="" disabled>이동수단</option>
                             <option value="항공">항공</option>
                             <option value="기차">기차</option>
                             <option value="버스">버스</option>
@@ -299,8 +278,6 @@
 
     <!-- 모달 스크립트 -->
     <script>
-	    
-    	
     	$(function(){ // 모달 도시 셀렉트박스 
     		$('#country').change(function(){
     			$('#city').empty();
@@ -366,10 +343,25 @@
         })
     </script>
     
-    <script>
+    <script> <!-- AJAX -->
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
-    			console.log($('#start-date').val());
+    			$.ajax({
+    				url : 'insertDestination.ajaxplan',
+    				type : 'post',
+    				data : {
+    					planNo : $('#planNo').val(),
+    					cityNo : $('#city').val(),
+    					trans : $('#transport').val(),
+    					transPrice : $('#trans-price').val(),
+    					trip : $('#transport-op').val(),
+    					arrival : $('#arr-date').val() + ' ' + $('#arr-time').val(),
+    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
+    				},
+    				success : function(result){
+    					console.log(result);
+    				}
+    			});
     		})
     		
     		
@@ -402,8 +394,6 @@
         });
         
     </script>
-    
-    
     
     <!--디테일 테이블 스크립트-->
     <script>

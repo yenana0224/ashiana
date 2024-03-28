@@ -1,6 +1,7 @@
 package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.friendShip.model.service.FriendShipService;
+import com.kh.semi.friendShip.model.vo.FriendShip;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
- * Servlet implementation class TravelReviewDetailController
+ * Servlet implementation class MyTravelController
  */
-@WebServlet("/detail.review")
-public class TravelReviewDetailController extends HttpServlet {
+@WebServlet("/myTravel")
+public class MyTravelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TravelReviewDetailController() {
+    public MyTravelController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +35,15 @@ public class TravelReviewDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// get방식 인코딩 X
+		request.setCharacterEncoding("UTF-8");
+		//세션에서 유저넘버 받아오기
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		// 조회페이지이기 때문에 조회수부터 올리기
+		ArrayList<TravelReview> myTravelList = new TravelReviewService().selectMyList(userNo);
 		
-		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		request.setAttribute("myTravelList", myTravelList);
 		
-		System.out.println(reviewNo);
-		
-		
-		// 조회수 update할 게시물
-		int result = new TravelReviewService().updateReviewCount(reviewNo);
-		
-		// 상세 조회 시 필요한 것들 1)해당 게시물 2)해당 게시물의 좋아요 수치 3)해당 게시물의 해시태그 4)해당 게시물의 첨부파일  
-		
-		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
-		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
-		
-		// 3) 해당 게시물의 해시태그 
-		 new TravelReviewService().selectReviewHashTag();
-		
-		
-		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/MyTravel.jsp").forward(request,response);
 	}
 
 	/**

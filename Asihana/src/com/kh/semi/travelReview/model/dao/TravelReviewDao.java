@@ -135,4 +135,70 @@ public class TravelReviewDao {
 		}
 		return result;
 	}
+	
+	public TravelReview selectDetailReview(Connection conn, int reviewNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDetailReview");
+		TravelReview review = null;
+
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, reviewNo);
+			
+			rset = pstmt.executeQuery();
+			rset.next();
+			
+			review = new TravelReview();
+			
+			review.setReviewNo(rset.getInt("REVIEW_NO"));
+			review.setReviewTitle(rset.getString("REVIEW_TITLE"));
+			review.setReviewContent(rset.getString("REVIEW_CONTENT"));
+			review.setReviewWriter(rset.getString("NICKNAME"));
+			review.setDepartureDate(String.valueOf(rset.getDate("DEPARTURE_DATE")));
+			review.setArrivalDate(String.valueOf(rset.getDate("ARRIVAL_DATE")));
+			review.setPartner(rset.getString("PARTNER"));
+			review.setReviewPoint(rset.getInt("STAR_POINT"));
+			review.setCityName(rset.getString("CITY_NAME"));
+			review.setNationName(rset.getString("NATION_NAME"));
+			review.setPlanCheck(rset.getString("PLAN_CHECK"));
+			review.setLikes(rset.getInt("LIKES"));
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return review;
+	
+	}
+	public ArrayList<TravelReview> selectMyList(Connection conn, int userNo) {
+		
+		ArrayList <TravelReview> list = new ArrayList();
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMyList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new TravelReview(rset.getInt("REVIEW_NO"),
+										rset.getString("REVIEW_TITLE"),
+										rset.getString("CITY_NAME"),
+										rset.getString("CREATE_DATE"),
+										rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

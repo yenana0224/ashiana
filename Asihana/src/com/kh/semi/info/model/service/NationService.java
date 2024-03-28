@@ -22,8 +22,14 @@ public class NationService {
 	// 국가리스트 페이징
 	public List<Nation> nationList(PageInfo pi){
 		Connection conn = getConnection();
-		List<Nation> list = new ArrayList<Nation>();
-		list = new NationDao().nationList(conn, pi);
+		List<Nation> list = new NationDao().nationList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	public List<Nation> allNationList(){
+		Connection conn = getConnection();
+		List<Nation> list = new NationDao().allNationList(conn);
 		close(conn);
 		return list;
 	}
@@ -51,11 +57,17 @@ public class NationService {
 		
 		if(nation != null) {
 			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-			nation.setLanguage(langList.toString());
+			String arr1 = langList.toString();
+			String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
+			nation.setLanguage(lang);
 			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-			nation.setVoltage(volList.toString());
+			String arr2 = volList.toString();
+			String vol = arr2.substring(arr2.lastIndexOf("[")+1, arr2.lastIndexOf("]"));
+			nation.setVoltage(vol);
 			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-			nation.setCurrency(curList.toString());
+			String arr3 = curList.toString();
+			String cur = arr3.substring(arr3.lastIndexOf("[")+1, arr3.lastIndexOf("]"));
+			nation.setCurrency(cur);
 		}
 		close(conn);
 		

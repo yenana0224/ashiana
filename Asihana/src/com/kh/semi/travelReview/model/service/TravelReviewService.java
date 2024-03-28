@@ -1,8 +1,12 @@
 package com.kh.semi.travelReview.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.info.model.vo.City;
@@ -65,4 +69,27 @@ public class TravelReviewService {
 		return result;
 	}
 	
+
+	public TravelReview selectDetailReview(int reviewNo) {
+		
+		Connection conn = getConnection();
+		
+		TravelReview review = new TravelReviewDao().selectDetailReview(conn, reviewNo);
+		
+		close(conn);
+		
+		return review;
+	}
+	
+	public ArrayList<TravelReview> selectMyList(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<TravelReview> list = new TravelReviewDao().selectMyList(conn, userNo);
+
+		close(conn);
+		
+		return list;
+
+	}
+
 }

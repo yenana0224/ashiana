@@ -284,7 +284,7 @@
     			$('<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>').prependTo('#city');
     			<% for(City city : cityList) { %>
     				if($('#country').val() == '<%=city.getNationName()%>'){
-    					$('<option value="<%= city.getCityName() %>"><%= city.getCityName() %></option>').insertAfter('#selectCity');
+    					$('<option value="<%= city.getCityNo() %>"><%= city.getCityName() %></option>').insertAfter('#selectCity');
     				}
     			<% } %>
     		})
@@ -304,10 +304,9 @@
         }
         $(function(){ // 모달 일정 요약 부분
             $('#city').change(function(){ // 도시 선택시 인풋 벨류 변경
-                $('#country-city').val($('#country').val() + '-' + $('#city').val());
+                $('#country-city').val($('#country').val() + '-' + $('#city option:checked').text());
             });
             $('#add-day').change(function(){ // +1일 체크박스
-                console.log($('#arr-time').val())
                 if($('#add-day').is(':checked')) {
                     let $arr = new Date($('#arr-date').val());
                     $arr.setDate($arr.getDate() + 1);

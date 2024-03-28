@@ -83,7 +83,8 @@ public class PlanController {
 										  request.getParameter("trip"),
 										  request.getParameter("arrival"),
 										  request.getParameter("returnDate"));
-		System.out.println(des);
+		
+		int result = new PlanService().insertDestination(des);
 		
 		
 	}

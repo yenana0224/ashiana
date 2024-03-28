@@ -189,4 +189,19 @@
 		      STATUS = 'N'
 	</entry>
 
+	<entry key="insertDestination">
+		INSERT
+		  INTO TB_DESTINATION
+		VALUES (SEQ_DEST.NEXTVAL,
+		        ?,
+		        ?,
+		        ?,
+		        ?,
+		        ?,
+		        ?,
+		        ?,      
+		        'N'
+		        );
+	</entry>
+
 </properties>

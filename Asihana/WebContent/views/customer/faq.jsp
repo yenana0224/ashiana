@@ -42,14 +42,14 @@
             padding : 12px;
             width : 600px;
             margin: auto;
-            height: 15px;
+            height: 30px;
+            line-height:20px;
             border : 1px solid lightpink;
             background-color : rgba(250, 55, 55, 0.089);
             color : black;
             font-weight: bold;
             font-size: 15px;
             text-align: left;
-            line-height : 10px;
             border-radius : 15px;
             margin-bottom: 10px;
             display: none;
@@ -73,8 +73,8 @@
         <div class="q">Q. [여행플랜] 비공개 설정 가능한가요??</div>
         <p class="a">A. 네 가능합니다.</p>
         <div class="line"></div>
-        <div class="q"></div>
-        <p class="a"></p>
+        <div class="q">Q. [여행기] 여행기를 작성하려면 어떻게 해야 하나요?</div>
+        <p class="a">A: 로그인을 하면 여행기 페이지 우측 상단 부근에 작성하기 버튼이 활성화 됩니다.<br>  버튼을 누른 후 여행기 작성 페이지에서 본인의 여행기를 적어주세요.</p>
         <div class="line"></div>
         <div class="q"></div>
         <p class="a"></p>

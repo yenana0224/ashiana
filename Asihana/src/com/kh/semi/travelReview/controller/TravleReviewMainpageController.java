@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
+import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
@@ -62,14 +64,31 @@ public class TravleReviewMainpageController extends HttpServlet {
 		
 		
 		request.setAttribute("cityList", cityList);
-		System.out.println(cityList);
+		//System.out.println(cityList);
 		
 		request.setAttribute("reviewList", reviewList);
 		//System.out.println(reviewList);
 		
 		request.setAttribute("likeList", likeList);
 		//System.out.println(likeList + "1");
+		
+		
+		int reviewNo = reviewList.get(0).getReviewNo();
+		
+		// 해시태그 목록 리스트
+		List<HashTag> hashTagList = new TravelReviewService().selectHashTagList();
+		System.out.println(hashTagList);
+		
+		// 유저들이 체크한 체크리스트 리스트 일괄
+		List<HashTag>
+		
+		// 게시물 작성 유저가 체크한 해시태그 리스트
+		//System.out.println(hashtagList);
+		
 				
+		HttpSession session = request.getSession();
+		session.setAttribute("hashTagList", hashTagList);
+		
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
 	
 	}

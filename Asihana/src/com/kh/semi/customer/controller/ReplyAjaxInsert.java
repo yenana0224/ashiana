@@ -34,7 +34,7 @@ public class ReplyAjaxInsert extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-		String userNo = request.getParameter("userNo");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String coment = request.getParameter("content");
 		String qnaStatus = request.getParameter("qnaStatus");
 		

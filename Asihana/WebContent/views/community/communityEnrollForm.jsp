@@ -28,6 +28,8 @@
         }
 
         h2{
+        	margin-top: 50px;
+        	margin-left: 110px;
             font-size: 50px;
 
 
@@ -35,19 +37,37 @@
 
         .form-group{
 
-           
-            margin-left: 10px;
+          	 margin-top:40px;
+            margin-left: 135px;
             width: 500px;
+        }
+        
+        .form-control{
+         	
+         	
+        
+        }
+        
+        #s1{
+        	
+        	
+        
+        }
+        #comment{
+        
+        margin-top: 130px;
+        
         }
 
         .input-group-text{
             width: 60px;
             height: 40px;
-            float:right;
+            float: right;
             position:relative;
             background-color: white;
-            top:-50px;
+            top: -50px;
             right:10px;
+          
         }
 
         .limit{
@@ -58,6 +78,7 @@
         }
 
 
+		
 
        
 
@@ -76,56 +97,55 @@
     <div>
 
   
-        <h2>여행자 실시간 커뮤니티 <div class="spinner-border text-dark"></div> </h2>     
+        <h2>여행자 실시간 커뮤니티  </h2>     
                     
                     
                
        
        <form action="<%=contextPath%> /insert.commu" method="post" id="insert-form">
        <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
-       
+       <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
       
 
-        <div class="form-group">
-            <class for="comment"></class>
-            <textarea class="form-control" style="resize:none;" rows="5" id="comment" placeholder="게시글 작성은 로그인 후 이용 가능합니다."></textarea>
-            <button class="input-group-text" id="b1">등록</button>
-            <div id="limit">0/100</div>
+       
+        <div class="form-group" id="s1">
+            <label for="comment">
+            <span> 
+            	<select id="s2" >
+            		<option>도시이름</option>
+            		<option>싱가포르</option>
+            		<option>치앙마이(태국)</option>
+            		<option>방콬(태국)</option>
+            		<option>후아힌(태국)</option>
+            	
+            	
+            	</select>
+            
+            
+            <select  >
+            		
+            		<option></option>
+            		
+            	
+            	
+            	</select>
+            
+			             
+             
+             </span>
            
-        </div>
-
-
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control" style="resize:none;" rows="5" id="comment"placeholder="댓글작성은 로그인 후 이용가능합니다. " maxlength="30"></textarea>
-            <button class="input-group-text" id="b2"  >등록</button>
-            <span class="limit">0/100</span>
-        </div>                         
-
-
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control"  style="resize:none;" rows="5" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
+            
+            
+            
+            </label>
+            <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
             <button class="input-group-text"  id="b3" >등록</button>
             <span class="limit">0/100</span>
         </div>
 
 
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control"  style="resize:none;" rows="5" id="comment" placeholder="내용을 입력해주세요"  maxlength="30"></textarea>
-            <button class="input-group-text" id="b4" >등록</button>
-            <span class="limit">0/100</span>
-        </div>
-
-
-        <div class="form-group">
-            <label for="comment"></label>
-            <textarea class="form-control"  style="resize:none;" rows="5" id="comment" placeholder="내용을 입력해주세요"  maxlength=""></textarea>
-            <button class="input-group-text" id="b5" >등록</button>
-            <span class="limit">0/100</span>
-        </div>
+       
 
     </form>
     

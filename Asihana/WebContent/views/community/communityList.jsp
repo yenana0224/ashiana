@@ -29,11 +29,12 @@
 
         width: 1000px;
         height: 1200px;
-        margin: auto;
+       margin:auto;
     }
 
-    #header{width: 100%; height: 25%;}
-    #content{width: 80%; height: 50%;}
+    #header{width: 100%; height: 10%;}
+    #content_1{width:100%; height: 45%;}
+    #content_2{width:100%; height: 45%;}
 
     #header{
         background-color: rgba(224, 224, 205, 0.63);
@@ -50,40 +51,67 @@
     #key{
       
         margin-left:250px;
-        width: 450px;
+        width: 500px;
         height: 30px;
+        overflow:auto;
 
 
+    }
+    
+    #key::-web-scrollbar{
+    	height:10px;
+    	
+    	
     }
     
 
     #content{
         background-color: beige;
-      
-        padding: 0px  30px  0px 0px;
-        width:1200px;
+        width:100px;
         flaot: right;
+     
         
 
     }
     
-    #roll{
+    #content_1{
     
-    	margin: 110px;
-    	width: 50px;
-    	margin-bottom :40px;
+    	
+    	margin:0px;
+    	background-color:beige;
+    	position:relative;
+    	
+    	
+    
     }
-
+    
+    
 
     #content_2{
         background-color: white;
         margin: auto;
+        
     }
 
+	#roll{
+		text-decoratin: none;
+	
+	}
 
-    #h2{
-        margin: center;
-        margin : auto;
+    #h2_1{
+        margin-right: 500px;
+        
+        font-size: 30px;
+        
+      
+   
+        
+    }
+    
+     #h2_2{
+        margin-left: 0px;
+        font-size: 30px;
+ 		
     }
 
 	#t{
@@ -139,7 +167,124 @@
         margin-right: 1px;
     }
 
+
+	.#t1{
+	
+	
+	margin-left: 50px;
+	width:80px;
+	height: 50px;
+	
+	
+	}
+	
+	
+	#t2{
+	
+	border-radius: 1px solid black;
+	margin-left: 10px;
+	width:1000px;
+	height: 200px;
+	
+	
+	
+	
+	
+	}
     
+	    
+	    * {
+	    padding: 0;
+	    margin: 0;
+	    box-sizing: border-box;
+	}
+	
+	a {
+	    text-decoration: none;
+	}
+	
+	.wrap {
+		width:500px;
+		height: 440px;
+	    padding: 15px 0;
+	    margin-top: 70px;
+	    background-color: lightcoral;
+	    position:absolute;
+	    top:10px;
+	    left:400px;
+	    float:right;
+	    z-index:2;
+	    
+	}
+	
+	.wrap .chat {
+	    display: flex;
+	    align-items: flex-start;
+	    padding: 20px;
+	}
+	
+	.wrap .chat .icon {
+	    position: relative;
+	    overflow: hidden;
+	    width: 50px;
+	    height: 50px;
+	    border-radius: 50%;
+	    background-color: #eee;
+	}
+	
+	.wrap .chat .icon i {
+	    position: absolute;
+	    top: 10px;
+	    left: 50%;
+	    font-size: 2.5rem;
+	    color: #aaa;
+	    transform: translateX(-50%);
+	}
+	
+	.wrap .chat .textbox {
+	    position: relative;
+	    display: inline-block;
+	    max-width: calc(100% - 70px);
+	    padding: 10px;
+	    margin-top: 7px;
+	    font-size: 13px;
+	    border-radius: 10px;
+	}
+	
+	.wrap .chat .textbox::before {
+	    position: absolute;
+	    display: block;
+	    top: 0;
+	    font-size: 1.5rem;
+	}
+	
+	.wrap .ch1 .textbox {
+	    margin-left: 20px;
+	    background-color: #ddd;
+	}
+	
+	.wrap .ch1 .textbox::before {
+	    left: -15px;
+	    content: "◀";
+	    color: #ddd;
+	}
+	
+	.wrap .ch2 {
+	    flex-direction: row-reverse;
+	}
+	
+	.wrap .ch2 .textbox {
+	    margin-right: 20px;
+	    background-color: #F9EB54;
+	}
+	
+	.wrap .ch2 .textbox::before {
+	    right: -15px;
+	    content: "▶";
+	    color: #F9EB54;
+	}
+	
+	
 
     
     
@@ -156,9 +301,16 @@
         <div id="header">
             <h2 id="h1" >여행자들과 자유롭게 소통해보세요</h2> 
 
-            <form action="city.do" > 
-                <select name="city" id="key">
-                    <option>국가,도시,키워드로 검색</option>
+            <form action="city.do"  id="key" width= "500px" height= "30px" > 
+                <select name="city" >
+                    <option >국가,도시,키워드로 검색</option>
+                    <option >일본</option>
+                    <option >도쿄(일본)</option>
+                    <option>오사카(일본)</option>
+                    <option>나라(일본)</option>
+                    <option>중국</option>
+                    <option>상해(중국)</option>
+                    <option>북경(중국)</option>
                     <option>일본</option>
                     <option>도쿄(일본)</option>
                     <option>오사카(일본)</option>
@@ -175,10 +327,10 @@
        
 
         </div>
-        <div id="content">
-            <h2>여행자 실시간 커뮤니티 
-            
-            <a href="<%=contextPath %>/insert.commu" id="roll" >글 등록하기</a> </h2> 
+        <div id="content_1">
+           <span id="h2_1">여행자 실시간 커뮤니티</span>
+            <span id="h2_2"> <a href="<%=contextPath %>/insert.commu" id="roll" >글 등록하기</a></span>
+      
     
         <!-- 중간영역의 왼쪽에 위치하여 순서대로 도시에 대한 사진을 보이게 할 예정 -->
         
@@ -192,8 +344,8 @@
         width: 300px;
         height: 300px;
         float:left;
-        margin-top: 30px;
-        margin-left: 10px;
+        margin-top: 70px;
+        margin-left: 20px;
         
     }
 
@@ -260,58 +412,37 @@
   
   
     <div>
+ 
       <!-- 커뮤니티의 글이  있는 곳!!! 되도록 실시간으로 소통이 된다는 전제로!!!-->
       
+    
+      
+      <div class="wrap">
+        <div class="chat ch1">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">안녕하세요. 반갑습니다.</div>
+        </div>
+        <div class="chat ch2">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">안녕하세요. 친절한효자손입니다. 그동안 잘 지내셨어요?</div>
+        </div>
+        <div class="chat ch1">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">아유~ 너무요너무요! 요즘 어떻게 지내세요?</div>
+        </div>
+        <div class="chat ch2">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">뭐~ 늘 똑같은 하루 하루를 보내는 중이에요. 코로나가 다시 극성이어서 모이지도 못하구 있군요 ㅠㅠ 얼른 좀 잠잠해졌으면 좋겠습니다요!</div>
+        </div>
+    </div>
       
       
-      <table  id="t">
-      <thead> 
-      
-      	<tr>
-      		<th>글 번호</th>
-      		<th>도시 번호</th>
-      		<th>멤버 번호</th>
-      		<th>글 내용</th>
-      		<th>조회수</th>
-      		<th>작성일</th>
-      		<th>회원상태</th>
-      	
-      	
-      	
-      	
-      	
-      	</tr>
-      
-      
-      
-      
-     <!-- 실시간으로 소통하는 여행자들이 있다!!! -->
-        <%--
-			<% if(list.isEmpty()) {%>
-					<tr>
-						<th colspan="6"> 실시간으로 대화하는 여행자가 없다!!!</th>
-					</tr> 
-			
-			<% } else { %>
-					
-					<% for(Community c : list) { %>
-					<tr>
-						<td<%= c.getComuNo() %>></td>
-						<td><%= c.getCityNo() %></td>
-						<td><%=c.getMemNo() %></td>
-						<td><%=c.getComuContent() %></td>
-						<td><%=c.getComuDate() %></td>
-						<td><%=c.getStatus() %></td>
-					</tr>
-			
-			
-			<% } %>	
-			
-		<% } %>
-		 --%>	
+     
+		
+		 
       </table>
      
-     
+ 
 
 
 
@@ -319,8 +450,7 @@
 
 
 
-
-
+	
     </div>
   
   
@@ -340,6 +470,7 @@
 
 
         </div>
+        
         <div id="content_2">
         <!-- 전체기간,통합 분류로 기간, 국가별,도시별, 제목+내용, 내용으로 검색어를 입력하여 검색이 가능하다 -->
        
@@ -366,47 +497,85 @@
 
             <span><input type="text" placeholder="검색어를 입력해주세요" id="g3"></span>
 
-            <button id="g4" onclick="ajax요청()">검색</button>
-            
-           <script>
-           		function ajax요청(){
-           			
-           			// console.log($('select :selected')[1].innerHTML);
-           			// console.log($('select :selected')[2].innerHTML);
-           			
-           			
-           			$.ajax({
-           				url:'search.do',
-           				type : 'post',
-           				data : {
-           					$('select: selected')[1],
-           					$('select: selected').val()
-           					
-           					
-           					
-           				},
-           				success : function(result){
-           					
-           				}
-           				
-           				
-           				
-           				
-           				
-           			});
-           		}
-           		
-           		
-           		
-           
-           </script>
-     
-            
+          <button id="g4"> 검색</button>
+          
+          
+          <span>  
+          
+	          
+	         <table class="table table-hover"  id="t2">
+	          	<thead >
+		    	    <tr>
+		          		<th>글 번호</th>
+			    		<th>도시</th>
+			      		<th>회원 번호</th>
+			      		<th>글 내용</th>
+			      		<th>조회수</th>
+			      		<th>작성일</th>
+			      		
+		        	</tr>
+	          	  </thead>
+	          	  <tbody>
+	     
+	          	  		<% if(list.isEmpty()) {%>
+					<tr>
+						<th colspan="6"></th>
+					</tr> 
+			
+			<% } else { %>
+					
+					<% for(Community c : list) { %>
+					<tr class="list">
+						<td><%= c.getComuNo() %></td>
+						<td><%= c.getCityNo() %></td>
+						<td><%=c.getMemNo() %></td>
+						<td><%=c.getComuContent() %></td>
+						<td><%=c.getCount() %></td>	
+						<td><%=c.getComuDate() %></td>
+						
+					</tr>
+			
+			
+			<% } %>	
+			
+		<% } %>
+	          	  </tbody>
+	          </table>
+	       </span>
+	       
+	       <script>
+                // 1절 선택한 뒤 이벤트 부여
+                $('tbody>tr.list').click(function(){
+                    
+                    // 2절 상세페이지 요청!!!
 
+                    // location.href='<%=contextPath%>/detail.commu';
+                    // 클릭했을 때 클릭한 공지사항의 번호를 넘겨줘야함!!!   
+                    // console.log(this);
+                    // 이벤트가 발생한 tr요소의 자식 중에서도 첫 번째 td요소의  Content영역의 값이 필요함!!
+                    // console.log(this.children()) => 찍어봤더니 말도안되는 소리 하지마라고 함!!!
+                    // console.log($(this).children().eq(0).text());
 
+                    const communityNo = $(this).children().eq(0).text();
 
+                    // 공지사항 번호를 이용한 요청
+                    // url을 보냈다 => GET방식 : 요청할 url?키=밸류&키=밸류&키=밸류
+                    // queryString		
+					// url을 직접 만들어 보낼 것!!!
+					// jsp/detail.commu?communityNo=글번호
+					location.href = '<%=contextPath%>/detail.commu?communityNo='+communityNo;
 
-     
+                });
+	       
+	       
+	       
+	       
+	       
+	       
+	       
+	       </script>
+          
+        
      
      
      

@@ -1,23 +1,30 @@
-package com.kh.semi.community.controller;
+package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.plan.model.service.PlanService;
+import com.kh.semi.plan.model.vo.PlanMain;
+
 /**
- * Servlet implementation class CommunityInsertController
+ * Servlet implementation class OthersPlanController
  */
-@WebServlet("/insert.commu")
-public class CommunityInsertController extends HttpServlet {
+@WebServlet("/othersPlan")
+public class OthersPlanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityInsertController() {
+    public OthersPlanController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,20 +33,22 @@ public class CommunityInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		List<PlanMain> othersPlanList = new PlanService().selectPlanList(userNo);
+		System.out.println("othersPlanList 컨트 = "+othersPlanList);
+		Member member =new MemberService().selectOtMember(userNo);
 		
-		// POST
-		request.setCharacterEncoding("UTF-8");
-		
-		//
+		request.setAttribute("othersPlanList", othersPlanList);
 		
 		
+		request.setAttribute("member", member);
 		
-	
-	
-		// 응답화면 지정
-		request.getRequestDispatcher("views/community/communityEnrollForm.jsp").forward(request, response);
-	
+		String dispatcherPath = "";
+		dispatcherPath = "views/member/OthersPlan.jsp";
+		
+		request.getRequestDispatcher(dispatcherPath).forward(request, response);
+		
 	}
 
 	/**

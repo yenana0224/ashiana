@@ -1,6 +1,6 @@
 package com.kh.semi.community.model.dao;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class CommunityDao {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -50,18 +50,23 @@ public class CommunityDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			rset = pstmt.executeQuery(); // SELECT문, 완성된 sql문이다!!!
+			rset = pstmt.executeQuery(); // SELECT문, 완성된 sql문이다!!!  => 위치홀더를 채울 필요가 없다
 			
-			while(rset.next()) {
+			while(rset.next()) {  // community는 지역변수다!!!
 				Community community = new Community();
-				community.setComuNo(rset.getInt("COMU_NO"));
+				community.setComuNo(rset.getInt("COMMUNITY_NO"));
 				community.setCityNo(rset.getInt("CITY_NO"));		
-				community.setMemNo(rset.getInt("MEM_NO"));
-				community.setComuContent(rset.getString("COMU_CONTENT"));
-				community.setComuDate(rset.getDate("COMU_DATE"));
+				community.setMemNo(rset.getInt("MEMBER_NO"));
+				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
+				community.setCount(rset.getInt("COUNT"));
+				community.setComuDate(rset.getDate("COMMUNITY_DATE"));
 				community.setStatus(rset.getString("STATUS").charAt(0));
 			
-				list.add(community);
+				list.add(community);  // 위에 있는 지역변수  community를 살려둘수 있게 list가 가리키고 있다!!!
+										// list에 요소를 추가해서  스택에 생긴변수가 힙에 생긴 변수를 가리키고 있다
+											// 참조하는 것을 가리키고 있다 => reference count라고 부른다!!! 참조개수
+											// reference count가 0이면 가비지 콜렉터가 출동!!!
+				
 			}
 			
 			
@@ -74,6 +79,53 @@ public class CommunityDao {
 		}
 		
 		return list;
+	}
+
+	public int increaseCount(Connection conn, int communityNo) {
+		
+
+		int result=0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, communityNo);
+			
+			result =pstmt.executeUpdate();
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			
+			
+		}
+		
+		return result;
+		
+	}
+	
+	
+	public Community selectCommunity(Connection conn, int communityNo) {
+		
+		Community community =null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCommunity");
+		
+		
+		
+		
+		
+		return community;
+				
+				
+		
+		
 	}
 
 	

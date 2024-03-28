@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"
 	
 import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%>
-	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("othersTravelList"); %>
+	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("othersTravelList"); 
+	Member m = (Member)request.getAttribute("member");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +69,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 
 	<div id="noticetext">
-		<p>여행기</p>
+		<p><%=m.getNickName() %>여행기</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>
@@ -98,15 +99,16 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 			            int reviewNo = travelReview.getReviewNo(); 
 			            String reviewTitle = travelReview.getReviewTitle(); 
 			            String cityName = travelReview.getCityName(); 
-			            String createDate = travelReview.getCreateDate(); 
-			            String status = travelReview.getStatus(); 
+			            String departureDate = travelReview.getDepartureDate(); 
+			            int count = travelReview.getCount(); 
+			            String nickName = travelReview.getNickName();
 			            %>
 			            <tr>
 			                <td><%= rowNumber %></td>
 			                <td><a href="#"><%= reviewTitle %></a></td>
 			                <td><a href="#"><%= cityName %></a></td>
-			                <td><a href="#"><%= createDate %></a></td>
-			                <td><a href="#"><%= status %></a></td>
+			                <td><a href="#"><%= departureDate %></a></td>
+			                <td><a href="#"><%= count %></a></td>
 			            </tr>
 			            <% rowNumber++; %>
 			        <% } %>

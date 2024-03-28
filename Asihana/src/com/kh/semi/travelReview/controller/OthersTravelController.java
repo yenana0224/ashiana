@@ -38,6 +38,7 @@ public class OthersTravelController extends HttpServlet {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String userNoForSelect=request.getParameter("userNo");
 		ArrayList<TravelReview> othersTravelList = new TravelReviewService().selectOthersList(userNo);
+		
 		Member member =new MemberService().selectMember(userNoForSelect);
 		
 		
@@ -48,7 +49,7 @@ public class OthersTravelController extends HttpServlet {
 		String dispatcherPath = "";
 		dispatcherPath = "views/member/OthersTravel.jsp";
 		
-		
+		request.getRequestDispatcher(dispatcherPath).forward(request, response);
 	
 	}
 

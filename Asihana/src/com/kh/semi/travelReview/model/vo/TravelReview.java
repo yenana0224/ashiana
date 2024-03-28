@@ -16,7 +16,26 @@ public class TravelReview {
 	private String planCheck;
 	private String status;
 	private int likes;
+	private String cityName;
+	private String nationName;
 	
+	
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getNationName() {
+		return nationName;
+	}
+
+	public void setNationName(String nationName) {
+		this.nationName = nationName;
+	}
+
 	public int getLikes() {
 		return likes;
 	}
@@ -158,6 +177,15 @@ public class TravelReview {
 				+ ", arrivalDate=" + arrivalDate + ", partner=" + partner + ", reviewPoint=" + reviewPoint + ", count="
 				+ count + ", createDate=" + createDate + ", cityNo=" + cityNo + ", planCheck=" + planCheck + ", status="
 				+ status + "]";
+	}
+
+	public TravelReview(int reviewNo, String reviewTitle, String createDate, String status, String cityName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewTitle = reviewTitle;
+		this.createDate = createDate;
+		this.status = status;
+		this.cityName = cityName;
 	}
 
 	@Override

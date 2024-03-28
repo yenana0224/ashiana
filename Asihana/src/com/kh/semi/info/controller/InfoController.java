@@ -25,6 +25,7 @@ public class InfoController {
 
 	public String search(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nation"));
+		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
 		String cityName = request.getParameter("city");
 
 		String view = "";
@@ -51,9 +52,11 @@ public class InfoController {
 			if(result > 0) {
 				// 도시정보 조회
 				City city = new CityService().searchCity(c);
+				AttachmentFile file = new CityService().selectPhoto(cityNo);
 				// 도시 내 즐길거리 조회
 				//List<Attraction> attraction = new InfoService().searchAttraction(c);
 				request.setAttribute("City", city);
+				request.setAttribute("file", file);
 				view = "views/info/cityInfo.jsp";
 			} else {
 				view = "views/common/errorPage.jsp";

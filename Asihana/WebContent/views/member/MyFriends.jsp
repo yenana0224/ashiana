@@ -114,12 +114,15 @@
 				<tr>
 				<%}else{ %>
 				<%for(FriendShip friendShip :list){ %>
+				<%String nickName =friendShip.getNickNameF();
+				int userNo = friendShip.getUserId2();%>
+				
 				<tr>
-					<td><%=friendShip.getNickNameF()%></td>
+					<td><%=nickName%></td>
 					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td><a href="#"><i class="fas fa-coffee"></i></a></td>
-					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
-					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= friendShip.getUserId2() %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= userNo %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
+					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= userNo %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
 				</tr>
 				<%} %>
 				<%} %>

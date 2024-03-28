@@ -83,7 +83,9 @@
        }
 
        #replyBox{
-		    height: auto;
+        	margin: auto;
+        	width: 750px;
+        	height: 500px;
 		    max-height: 500px;
 		    overflow-y: auto;
 		    padding-bottom: 20px; 
@@ -101,7 +103,7 @@
             border: 1px solid red;
             border-radius: 3px;
             font-size: 15px;
-            font-weight: 800;
+            font-weight: 400;
        }
        #replyText>button{
             width: 100px;
@@ -124,24 +126,33 @@
             height: 30px;
             width: 700px;
             margin: auto;
-            margin-bottom: 5px;
             border-bottom: 0.5px solid rgba(0, 0, 0, 0.267);
+            box-sizing: border-box;
        }
        #replySelect{
             width: 700px;
-            height: auto;
+            height: 135px;
             margin: auto;
+             box-sizing: border-box;
+       }
+       #replyAnswer{
+            overflow-y: auto;
+            max-height: 350px;
+		    padding-bottom: 20px; 
        }
        .answer{
             width: 700px;
             margin: auto;
-            height: 135px;
+            height: 130px;
+            box-sizing: border-box;
        }
        .answer a{
             position: relative;
             left: 90%;
             bottom: 50%;
             font-size: 12px;
+            line-height: 100px;
+            color: skyblue;
        }
        .answerTextBox{
             margin: auto;
@@ -150,19 +161,21 @@
             line-height: 70px;
             font-size: 15px;
             border-bottom: 0.5px solid rgba(0, 0, 0, 0.267);
-            margin-bottom: 30px;             
+            box-sizing: border-box;            
        }
        .answer:last-child {
             margin-bottom: 0; /* 마지막 답변 요소의 아래쪽 간격 제거 */
         }  
-       .answerDate{
-            position: relative;
-            bottom: 5%;
+       .answerName{
             font-size: 13px;
        }
        .answer a:hover{
             color:red;
        }
+       .answerText{
+       		margin:auto;
+       }
+       
 
 		.modal {
 			top: 0;
@@ -256,7 +269,6 @@
 
 
 
-		<div id="replyBox">
                     <% if(loginUser != null){ %>
                     <div id="replyText">
                         <textarea name="reply" id="reply" cols="90" rows="8"></textarea>
@@ -272,10 +284,8 @@
                     </div>
 					<% } %>
                     <div id="replyLine"></div>
-
+			<div id="replyBox">
                     <div id="replySelect">
-                        <div class="answer">
-                        </div>
                         
                     </div>
                 </div>
@@ -311,12 +321,12 @@
 					for(let i in result){
 						
 						resultStr += '<div class="answer">'
-								  +'<span class="answerDate"><label>작성자 </label>' + " " + result[i].replyWriter  + '</span>'
+								  +'<span class="answerName"><label style="color:red;">Name</label>' + " " + result[i].replyWriter  + '</span>'
                         		  +	'<div class="answerTextBox"><span class="answerText">' + result[i].replyComment + '</span></div>'
                                   + '<a class="replyUpdate">수정</a>  <a class="replyDelete">삭제</a>'
 								  + '</div>'
 					};
-					$('.answer').html(resultStr);
+					$('#replySelect').html(resultStr);
 				}
 			})
 		}

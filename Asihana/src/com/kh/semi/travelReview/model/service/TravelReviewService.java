@@ -81,7 +81,6 @@ public class TravelReviewService {
 		return review;
 	}
 	
-
 	public ArrayList<TravelReview> selectMyList(int userNo) {
 		Connection conn = getConnection();
 

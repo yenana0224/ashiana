@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.travelReview.model.service.TravelReviewService;
+import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
  * Servlet implementation class TravelReviewDetailController
@@ -42,8 +43,14 @@ public class TravelReviewDetailController extends HttpServlet {
 		// 조회수 update할 게시물
 		int result = new TravelReviewService().updateReviewCount(reviewNo);
 		
-		// 리뷰 상세 조회해올 게시물
-		//int review = new TravelReviewService().selectDetailReview(reviewNo);
+		// 상세 조회 시 필요한 것들 1)해당 게시물 2)해당 게시물의 좋아요 수치 3)해당 게시물의 해시태그 4)해당 게시물의 첨부파일  
+		
+		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
+		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
+		
+		// 3) 해당 게시물의 해시태그 
+		 new TravelReviewService().selectReviewHashTag();
+		
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}

@@ -16,7 +16,27 @@ public class TravelReview {
 	private String planCheck;
 	private String status;
 	private int likes;
+	private String cityName;
+	private String nationName;
 	
+	
+	
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getNationName() {
+		return nationName;
+	}
+
+	public void setNationName(String nationName) {
+		this.nationName = nationName;
+	}
+
 	public int getLikes() {
 		return likes;
 	}

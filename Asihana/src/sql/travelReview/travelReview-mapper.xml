@@ -73,6 +73,49 @@
 		     REVIEW_NO = ?
 	</entry>
 	
+	<entry key="selectDetailReview">
+		SELECT
+		      REVIEW_NO,
+		      REVIEW_TITLE,
+		      REVIEW_CONTENT,
+		      NICKNAME,
+		      DEPARTURE_DATE,
+		      ARRIVAL_DATE,
+		      PARTNER,
+		      STAR_POINT,
+		      CREATE_DATE,
+		      CITY_NAME,
+		      NATION_NAME,
+		      PLAN_CHECK,
+		      LIKES
+		  FROM
+		      TB_REVIEW
+		   JOIN
+		       MEMBER ON(REVIEW_WRITER = MEM_NO)
+		   JOIN
+		       TB_CITY USING(CITY_NO)
+		   JOIN
+		       TB_NATION USING(NATION_NO)
+		   JOIN
+			    (SELECT
+			           COUNT(*) AS LIKES,
+			            BOARD_NO,
+			            BOARD_TYPE
+			        FROM
+			             TB_LIKE
+			         GROUP
+			            BY
+			              BOARD_NO, BOARD_TYPE) ON(REVIEW_NO = BOARD_NO)
+	      WHERE
+	           BOARD_TYPE = 6
+	       AND
+	           TB_REVIEW.STATUS = 'Y'
+	       AND
+	           REVIEW_NO = ?
+	     ORDER
+	        BY
+	          LIKES DESC
+	</entry>
 
 
 </properties>

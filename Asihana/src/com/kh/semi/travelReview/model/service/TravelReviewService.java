@@ -65,4 +65,15 @@ public class TravelReviewService {
 		return result;
 	}
 	
+	public TravelReview selectDetailReview(int reviewNo) {
+		
+		Connection conn = getConnection();
+		
+		TravelReview review = new TravelReviewDao().selectDetailReview(conn, reviewNo);
+		
+		close(conn);
+		
+		return review;
+	}
+	
 }

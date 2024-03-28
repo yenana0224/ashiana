@@ -38,10 +38,8 @@ public class MyPlanController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		//세션에서 유저넘버 받아오기
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println(userNo);
 		List<PlanMain> myPlanList = new PlanService().selectPlanList(userNo);
 		
-		System.out.println("myPlanList contro "+myPlanList);
 		request.setAttribute("myPlanList", myPlanList);
 		
 		request.getRequestDispatcher("views/member/MyPlan.jsp").forward(request,response);

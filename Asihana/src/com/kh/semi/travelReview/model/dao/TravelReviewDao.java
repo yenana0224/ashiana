@@ -135,9 +135,7 @@ public class TravelReviewDao {
 		}
 		return result;
 	}
-<<<<<<< HEAD
 	
-<<<<<<< HEAD
 	public TravelReview selectDetailReview(Connection conn, int reviewNo) {
 		
 		PreparedStatement pstmt = null;
@@ -177,9 +175,8 @@ public class TravelReviewDao {
 			close(pstmt);
 		}
 		return review;
-=======
 	
-	
+	}
 	public ArrayList<TravelReview> selectMyList(Connection conn, int userNo) {
 		
 		ArrayList <TravelReview> list = new ArrayList();
@@ -203,8 +200,5 @@ public class TravelReviewDao {
 			e.printStackTrace();
 		}
 		return list;
->>>>>>> 7250b0074484ef8f3e3fe1e3a3588e374e6449c4
 	}
-=======
->>>>>>> 64908d1a347a4c82f5956f17ff6291ff3f5cc900
 }

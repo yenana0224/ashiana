@@ -65,8 +65,7 @@ public class TravelReviewService {
 		return result;
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	public TravelReview selectDetailReview(int reviewNo) {
 		
 		Connection conn = getConnection();
@@ -78,7 +77,7 @@ public class TravelReviewService {
 		return review;
 	}
 	
-=======
+
 	public ArrayList<TravelReview> selectMyList(int userNo) {
 		Connection conn = getConnection();
 
@@ -89,7 +88,5 @@ public class TravelReviewService {
 		return list;
 
 	}
->>>>>>> 7250b0074484ef8f3e3fe1e3a3588e374e6449c4
-=======
->>>>>>> 64908d1a347a4c82f5956f17ff6291ff3f5cc900
+
 }

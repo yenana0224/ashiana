@@ -16,16 +16,8 @@ public class TravelReview {
 	private String planCheck;
 	private String status;
 	private int likes;
-<<<<<<< HEAD
 	private String cityName;
-<<<<<<< HEAD
 	private String nationName;
-=======
-	
->>>>>>> 7250b0074484ef8f3e3fe1e3a3588e374e6449c4
-	
-=======
->>>>>>> 64908d1a347a4c82f5956f17ff6291ff3f5cc900
 	
 	
 	public String getCityName() {
@@ -185,6 +177,15 @@ public class TravelReview {
 				+ ", arrivalDate=" + arrivalDate + ", partner=" + partner + ", reviewPoint=" + reviewPoint + ", count="
 				+ count + ", createDate=" + createDate + ", cityNo=" + cityNo + ", planCheck=" + planCheck + ", status="
 				+ status + "]";
+	}
+
+	public TravelReview(int reviewNo, String reviewTitle, String createDate, String status, String cityName) {
+		super();
+		this.reviewNo = reviewNo;
+		this.reviewTitle = reviewTitle;
+		this.createDate = createDate;
+		this.status = status;
+		this.cityName = cityName;
 	}
 
 	@Override

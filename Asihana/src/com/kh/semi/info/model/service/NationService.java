@@ -27,7 +27,6 @@ public class NationService {
 		return list;
 	}
 	
-	// 전체 국가 리스트
 	public List<Nation> allNationList(){
 		Connection conn = getConnection();
 		List<Nation> list = new NationDao().allNationList(conn);

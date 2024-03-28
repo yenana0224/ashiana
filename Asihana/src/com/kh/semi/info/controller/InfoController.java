@@ -19,10 +19,7 @@ public class InfoController {
 	
 	public String main(HttpServletRequest request, HttpServletResponse response) {
 		List<City> list = new CityService().cityList();
-		List<Nation> nationList = new NationService().allNationList();
 		request.setAttribute("list", list);
-		request.setAttribute("nationList", nationList);
-		
 		return "views/info/selectCity.jsp";
 	};
 

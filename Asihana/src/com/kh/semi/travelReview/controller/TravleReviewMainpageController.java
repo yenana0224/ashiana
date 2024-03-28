@@ -72,7 +72,8 @@ public class TravleReviewMainpageController extends HttpServlet {
 		//System.out.println(likeList + "1");
 			
 		request.getSession().getAttribute("hashTagList");
-		System.out.println(request.getSession().getAttribute("hashTagList"));
+		request.getSession().getAttribute("checkedHashTagList");
+		//System.out.println(request.getSession().getAttribute("hashTagList"));
 		
 		
 		//request.setAttribute("hashTagList", hashTagList);

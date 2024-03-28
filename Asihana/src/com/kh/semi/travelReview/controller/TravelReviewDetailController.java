@@ -64,7 +64,7 @@ public class TravelReviewDetailController extends HttpServlet {
 		request.setAttribute("review", review);
 		
 		session.setAttribute("hashTagList", hashTagList);
-		session.setAttribute("hashTagList", checkedHashTagList);
+		session.setAttribute("checkedHashTagList", checkedHashTagList);
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}

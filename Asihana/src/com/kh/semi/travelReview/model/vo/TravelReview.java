@@ -16,8 +16,6 @@ public class TravelReview {
 	private String planCheck;
 	private String status;
 	private int likes;
-	private String cityName;
-	
 	
 	public int getLikes() {
 		return likes;
@@ -25,14 +23,6 @@ public class TravelReview {
 
 	public void setLikes(int likes) {
 		this.likes = likes;
-	}
-
-	public String getCityName() {
-		return cityName;
-	}
-
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
 	}
 
 	public TravelReview() {
@@ -254,16 +244,4 @@ public class TravelReview {
 			return false;
 		return true;
 	}
-
-	public TravelReview(int reviewNo, String reviewTitle, String createDate, String status, String cityName) {
-		super();
-		this.reviewNo = reviewNo;
-		this.reviewTitle = reviewTitle;
-		this.createDate = createDate;
-		this.status = status;
-		this.cityName = cityName;
-	}
-	
-	
-	
 }

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
 	City city = (City)request.getAttribute("City");
+	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>
 <!DOCTYPE html>
 <html>
@@ -274,7 +275,9 @@
                 </div>
             </div>
             <div class="cityphoto">
-                <img src="https://www.midascad.com/hs-fs/hubfs/image-png-Nov-13-2023-12-40-12-5631-AM.png?width=1200&height=846&name=image-png-Nov-13-2023-12-40-12-5631-AM.png">
+            	<% if(file !=null) {%>
+                <img src="<%=contextPath %>/<%=file.getFilePath()%>/<%=file.getChangeName()%>">
+                <% } %>
             </div>
         </div>
         <div class="checklist">

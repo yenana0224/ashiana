@@ -330,13 +330,15 @@ public class adminController {
 	}
 	
 	public String cityinfo(HttpServletRequest request, HttpServletResponse response) {
-		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
 		
+		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		City city = new CityService().selectCity(cityNo);
 		AttachmentFile file = new CityService().selectPhoto(cityNo);
 		
 		request.setAttribute("city", city);
 		request.setAttribute("file", file);
+		request.setAttribute("nationNo", nationNo);
 		
 		return "views/admin/cityInfoDetail.jsp";
 	}
@@ -345,22 +347,19 @@ public class adminController {
 		request.setCharacterEncoding("UTF-8");
 		
 		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
-		String cityName = request.getParameter("cityName");
-		String nationName = request.getParameter("nationName");
-		String cityContent = request.getParameter("cityContent");
-		String flyingTime = request.getParameter("flyingTime");
-		
-		City city = new City();
-		city.setCityNo(cityNo);
-		city.setCityName(cityName);
-		city.setNationName(nationName);
-		city.setCityContent(cityContent);
-		city.setFlyingTime(flyingTime);
-		
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		City city = new CityService().selectCity(cityNo);
 		AttachmentFile file = new CityService().selectPhoto(cityNo);
+		List<Nation> list = new NationService().allNationList();
+		
+		System.out.println(cityNo);
+		System.out.println(nationNo);
 		
 		request.setAttribute("city", city);
 		request.setAttribute("file", file);
+		request.setAttribute("list", list);
+		request.setAttribute("cityNo", cityNo);
+		request.setAttribute("nationNo", nationNo);
 		
 		return "views/admin/cityUpdateForm.jsp";
 	}
@@ -374,6 +373,7 @@ public class adminController {
 			String savePath = request.getServletContext().getRealPath("/resources/info/city");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
 			int cityNo = Integer.parseInt(multiRequest.getParameter("cityNo"));
 			String nationName = multiRequest.getParameter("nationName");
 			String cityName = multiRequest.getParameter("cityName");
@@ -381,6 +381,7 @@ public class adminController {
 			String flyingTime = multiRequest.getParameter("flyingTime");
 
 			City city = new City();
+			city.setNationNo(nationNo);
 			city.setCityNo(cityNo);
 			city.setNationName(nationName);
 			city.setCityName(cityName);
@@ -393,7 +394,7 @@ public class adminController {
 				file = new AttachmentFile();
 				file.setOriginName(multiRequest.getOriginalFileName("newFile"));
 				file.setChangeName(multiRequest.getFilesystemName("newFile"));
-				file.setFilePath("/resources/info/nation");
+				file.setFilePath("/resources/info/city");
 			}
 			
 			int result = new CityService().updateCity(city, file);

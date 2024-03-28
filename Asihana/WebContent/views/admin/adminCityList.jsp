@@ -164,8 +164,8 @@
                         </tr>
                     <% } else { %>
                         <% for(City c : list) { %>
-                            <tr>
-                                <td><%=c.getNationName() %></td>
+                            <tr class="cityOne">
+                                <td class="nationNo" id="<%=c.getNationNo()%>"><%=c.getNationName() %></td>
                                 <td class="cityName" id="<%=c.getCityNo() %>"><%=c.getCityName() %></td>
                                 <td><%=c.getCount() %></td>
                             </tr>
@@ -179,9 +179,8 @@
         
         $(function(){
 
-        	$('.cityName').click(function(){
-        		console.log('클릭');
-        		location.href="<%=contextPath%>/cityinfo.admin?cityNo=" + $(this).attr('id');
+        	$('.cityOne').click(function(){
+        		location.href="<%=contextPath%>/cityinfo.admin?nationNo=" + $(this).children('.nationNo').attr('id') + "&cityNo=" + $(this).children('.cityName').attr('id');
         	});
         	
         })

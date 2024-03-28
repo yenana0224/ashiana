@@ -3,6 +3,7 @@
 <%
 	City city = (City)request.getAttribute("city");
 	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
+	int nationNo = (int)request.getAttribute("nationNo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +109,7 @@
        
         <div class="photo">
         	<% if(file != null) { %>
-            <img src="<%=contextPath%>/<%=file.getFilePath()%>/<%=file.getChangeName()%>">
+            <img src="<%=contextPath%><%=file.getFilePath()%>/<%=file.getChangeName()%>">
             <% } %>
         </div>
         
@@ -117,6 +118,7 @@
         </div>
         
         <form action="<%=contextPath %>/cityUpdateForm.admin" method="post">
+            <input type="hidden" name="nationNo" value="<%=nationNo%>">
             <input type="hidden" name="cityNo" value="<%=city.getCityNo()%>">
             <div class="info-area"><input type="text" name="nationName" value = "<%=city.getNationName() %>" readonly></div>
             <div class="info-area"><input type="text" name="cityName" value = "<%=city.getCityName() %>" readonly></div>

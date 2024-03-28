@@ -24,7 +24,7 @@
         	margin-top : 10px;
         }
         
-        .titlePhoto{
+        .titlePicture{
         	width : 1000px;
         	height : 500px;
         	border : 1px solid darkgray;
@@ -32,7 +32,7 @@
             margin-bottom: 20px;
         }
         
-        .titlePhoto>img{
+        .titlePicture>img{
             width: 100%;
             height: 100%;
         }
@@ -121,7 +121,7 @@
             <h3>국가정보수정</h3>
         </div>
        
-        <div class="titlePhoto">
+        <div class="titlePicture">
         	<% if(title != null) { %>
             <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>/<%=title.getChangeName() %>">
             <% } %>

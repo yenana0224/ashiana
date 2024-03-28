@@ -33,6 +33,14 @@
 	         ROWNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="allNationList">
+	SELECT
+	     NATION_NO,
+	     NATION_NAME
+	 FROM
+	     TB_NATION
+	</entry>
+	
 	<entry key="countNation">
 	SELECT
 		 COUNT(*) COUNT

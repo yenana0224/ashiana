@@ -73,13 +73,17 @@ public class CityService {
 		if(city != null) {
 			// 사용 언어 조회 
 			List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-			city.setLanguage(langList.toString());
-			// 사용 전압 조회
+			String arr1 = langList.toString();
+			String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
+			city.setLanguage(lang);
 			List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-			city.setVoltage(volList.toString());
-			// 사용 화폐 조회
+			String arr2 = volList.toString();
+			String vol = arr2.substring(arr2.lastIndexOf("[")+1, arr2.lastIndexOf("]"));
+			city.setVoltage(vol);
 			List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-			city.setCurrency(curList.toString());
+			String arr3 = curList.toString();
+			String cur = arr3.substring(arr3.lastIndexOf("[")+1, arr3.lastIndexOf("]"));
+			city.setCurrency(cur);
 		}
 		
 		close(conn);
@@ -106,8 +110,22 @@ public class CityService {
 	// 도시 정보 수정
 	public int updateCity(City city, AttachmentFile file) {
 		Connection conn = getConnection();
-		int result = 0;
+		int cityNo = city.getCityNo();
+		int cityResult = new CityDao().updateCity(conn, city);
+		int fileResult = 1;
+		
+		if(file != null) {
+			if(new CityDao().selectPhoto(conn, cityNo) != null) {
+				fileResult = new CityDao().updatePhoto(conn, cityNo, file);
+			} else {
+				fileResult = new CityDao().insertPhoto(conn, cityNo, file);
+			}
+		}
+
+		int result = cityResult * fileResult;
+		if(result > 0) commit(conn);
 		close(conn);
+		
 		return result;
 	}
 }

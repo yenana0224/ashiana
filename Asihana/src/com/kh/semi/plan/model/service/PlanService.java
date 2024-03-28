@@ -23,6 +23,7 @@ public class PlanService {
 		
 		close(conn);
 		
+		System.out.println("list ser = "+list);
 		return list;
 	}
 

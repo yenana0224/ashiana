@@ -225,6 +225,7 @@ public class MemberDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		System.out.println(member);
 		return member;
 	}
 	

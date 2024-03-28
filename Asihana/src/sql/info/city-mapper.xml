@@ -141,6 +141,10 @@
 	
 	<entry key="selectPhotoList">
 	SELECT
+	         NATION_NO,
+	         NATION_NAME,
+	         CITY_NO,
+	         CITY_NAME,
 	         FILE_NO,
 	         BOARD_NO,
 	         FILE_PATH,
@@ -150,14 +154,22 @@
 	        (SELECT
 	                 ROWNUM RNUM,
 	                 COUNT,
+	                 NATION_NO,
+	                 NATION_NAME,
+	                 CITY_NO,
+	                 CITY_NAME,
 	                 FILE_NO,
 	                 BOARD_NO,
 	                 FILE_PATH,
 	                 ORIGIN_NAME,
 	                 CHANGE_NAME
-	           FROM
+	          FROM
 	                (SELECT
 	                     COUNT,
+	                     N.NATION_NO,
+	                     NATION_NAME,
+	                     CITY_NO,
+	                     CITY_NAME,
 	                     FILE_NO,
 	                     BOARD_NO,
 	                     FILE_PATH,
@@ -167,6 +179,8 @@
 	                     VW_CITY_COUNT V
 	                 JOIN 
 	                     TB_CITY C ON (C.CITY_NO = V.BOARD_NO)
+	                 JOIN
+	                     TB_NATION N ON (C.NATION_NO = N.NATION_NO)
 	                ORDER
 	                   BY
 	                     COUNT DESC))

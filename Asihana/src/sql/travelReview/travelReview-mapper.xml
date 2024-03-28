@@ -9,6 +9,7 @@
 	<entry key="selectCityList">
 		SELECT
 		      CITY_NAME,
+		      CITY_NO,
 		      NATION_NAME
 		  FROM
 		      TB_NATION

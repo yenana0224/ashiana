@@ -178,15 +178,14 @@ public class CityDao {
 		return cityList;
 	}
 	
-	public int increaseCity(Connection conn, City c) {
+	public int increaseCity(Connection conn, int cityNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("increaseCity");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, c.getNationNo());
-			pstmt.setString(2, c.getCityName());
+			pstmt.setInt(1, cityNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

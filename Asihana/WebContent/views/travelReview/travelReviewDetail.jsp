@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.travelReview.model.vo.TravelReview" %>
+<%
+	TravelReview review = (TravelReview)request.getAttribute("review");
+	List<HashTag> hashTagList = (List<HashTag>)request.getAttribute("hashTagList");
+%>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -230,6 +236,7 @@
 
 </head>
 <body>
+	<%@ include file="../common/headerbar.jsp" %>
     <div id="content-wrap" > <!-- content 전체를 감싸는 wrap영역 -->
         
         <!--여기부터 content의 3분할 중 1영역-->
@@ -279,26 +286,26 @@
 
                             <!--DB에서 조회된 결과가 내용에 들어감 -->
                             <div class="content-wrap-1-1-1" >
-                                <h3 style="margin : 0;">제목이에요 여행 다녀왔어요</h3>
+                                <h3 style="margin : 0;"><%=review.getReviewTitle() %></h3>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <!--별점 구현 해야함 + 마진으로 위치 조정 해야 함-->
                                 <label>별점</label><input type="radio"><input type="radio"><input type="radio"><input type="radio"><input type="radio">  <br>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <input type="date"> ~ <input type="date"> <br>
+                                <input type="date" value="<%=review.getDepartureDate()%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <label>여행지 : </label><span>일본</span>
+                                <label>여행지 : </label><span><%=review.getCityName() %></span>
                             </div>
                         </div>
                         <div id="content-warp-1-1-2">
                             <p>
                                 <!--DB에서 조회된 결과가 내용에 들어감-->
-                                <label>작성자 : </label><span>작성자</span> <br>
-                                <label>작성일 : </label><span>2024-04-03</span> <br>
-                                <label>조회수 : </label><span>256</span> <br>
-                                <label>좋아요 : </label><span>123</span> <br>
+                                <label>작성자 : </label><span><%= review.getReviewWriter() %></span> <br>
+                                <label>작성일 : </label><span><%= review.getCreateDate() %></span> <br>
+                                <label>조회수 : </label><span><%= review.getCount() %></span> <br>
+                                <label>좋아요 : </label><span><%= review.getLikes() %></span> <br>
                             </p>
                         </div>
                     </div>
@@ -310,10 +317,18 @@
                         <div id="content-wrap-1-2-2">
                             <!--DB에서 조회된 결과과 일치하는 input요소의 checked 속성 부여를 해야함, 일치하지 않는 input에는 disabled 속성 부여
                                 -->
-                            <input type="radio" name="partner" style="margin-top : 20px;" checked><label>나홀로</label>
-                            <input type="radio" name="partner"  disabled><label>가족</label>
-                            <input type="radio" name="partner"  disabled><label>친구</label>
-                            <input type="radio" name="partner"  disabled><label>사랑하는 사람과 함께</label>
+                            <input type="radio" name="partner" value="A" style="margin-top : 20px;" checked><label>나홀로</label>
+                            <input type="radio" name="partner" value="FM" disabled><label>가족</label>
+                            <input type="radio" name="partner" value="F" disabled><label>친구</label>
+                            <input type="radio" name="partner" value="L" disabled><label>사랑하는 사람과 함께</label>
+                            
+                            <script>
+                            	$(function(){
+                            		
+                            	})
+                            
+                            </script>
+                            
                         </div>
                     </div>
                 </div>
@@ -437,10 +452,8 @@
 
             </div>
         </div>
-       
-
-
     </div>
+    <%@ include file="../common/footer.jsp" %>
 
 
 </body>

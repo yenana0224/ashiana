@@ -13,11 +13,11 @@
     <!-- https://icons.getbootstrap.com/ -->
     <title>여행 플랜 상세 조회</title>
     <style>
-        div{
-            width: 1200px;
-            box-sizing: border-box;
-            margin: auto;
-        }
+	    div{
+		    width: 1200px;
+		    box-sizing: border-box;
+		    margin: auto;
+		}
     </style>
 </head>
 <body>

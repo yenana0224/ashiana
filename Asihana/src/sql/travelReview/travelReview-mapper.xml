@@ -116,6 +116,30 @@
 	        BY
 	          LIKES DESC
 	</entry>
+	
+	<entry key="selectReviewHashTagList">
+		SELECT
+		      REVIEW_NO,
+		      TAG_NUM,
+		      TAG_NAME
+		  FROM
+		      BRTB_TAG
+		  JOIN 
+		      TB_REVIEW USING(REVIEW_NO)
+		  JOIN
+		      TB_HASHTAG USING(TAG_NUM)
+		 WHERE
+		      REVIEW_NO = ?
+	</entry>
 
+	<entry key = "selectMyList">
+	SELECT R.REVIEW_NO, R.REVIEW_TITLE, C.CITY_NAME, R.CREATE_DATE, R.STATUS
+	FROM ASIHANA.TB_REVIEW R
+	JOIN ASIHANA.TB_CITY C ON R.CITY_NO = C.CITY_NO
+	WHERE R.REVIEW_WRITER = ?
+	ORDER BY  R.CREATE_DATE
+	
+	</entry>
+	
 
 </properties>

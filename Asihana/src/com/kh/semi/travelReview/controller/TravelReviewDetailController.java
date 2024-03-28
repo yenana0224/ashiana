@@ -1,6 +1,7 @@
 package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.travelReview.model.service.TravelReviewService;
+import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
@@ -47,9 +49,10 @@ public class TravelReviewDetailController extends HttpServlet {
 		
 		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
+		//System.out.println(review);
 		
-		// 3) 해당 게시물의 해시태그 
-		 new TravelReviewService().selectReviewHashTag();
+		List<HashTag> hashtagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
+		//System.out.println(hashtagList);
 		
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);

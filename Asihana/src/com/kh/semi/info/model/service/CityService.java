@@ -23,8 +23,7 @@ public class CityService {
 	// 도시 페이징
 	public List<City> allCityList(PageInfo pi){
 		Connection conn = getConnection();
-		List<City> list = new ArrayList<City>();
-		list = new CityDao().allCityList(conn, pi);
+		List<City> list = new CityDao().allCityList(conn, pi);
 		close(conn);
 		return list;
 	}

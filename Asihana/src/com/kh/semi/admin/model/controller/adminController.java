@@ -47,8 +47,7 @@ public class adminController {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		
+
 		List<Notice> noticeList = new ArrayList();
 		
 		if(select != null) {
@@ -71,7 +70,7 @@ public class adminController {
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(maxPage < endPage) endPage = maxPage;
 		
@@ -199,9 +198,11 @@ public class adminController {
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
-		if(maxPage < endPage) endPage = maxPage;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
@@ -216,16 +217,17 @@ public class adminController {
 	public String allCityList(HttpServletRequest request, HttpServletResponse response) {
 		
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
 		int listCount = new CityService().countCity();
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = ((currentPage - 1) / pageLimit ) * pageLimit + 1;
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(maxPage < endPage) endPage = maxPage;
-		
+
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
+
 		List<City> cityList = new CityService().allCityList(pi);
 		
 		request.setAttribute("pageInfo", pi);
@@ -326,8 +328,7 @@ public class adminController {
 			}
 			
 			int result = new NationService().updateNation(nation, title, file);
-			
-			
+
 			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
 		}
 		return view;

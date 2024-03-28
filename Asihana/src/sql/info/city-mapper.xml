@@ -114,7 +114,7 @@
 	      COUNT
 	FROM
 		    (SELECT
-		         ROWNUM,
+		         ROWNUM RNUM,
 		         NATION_NO,
 		         NATION_NAME,
 		         CITY_NO,
@@ -135,7 +135,7 @@
 			           BY
 			             TB_NATION.NATION_NO ASC))
 	 WHERE
-	     ROWNUM BETWEEN ? AND ?
+	     RNUM BETWEEN ? AND ?
 	
 	</entry>
 

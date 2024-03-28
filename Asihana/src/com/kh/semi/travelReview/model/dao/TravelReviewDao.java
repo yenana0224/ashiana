@@ -302,7 +302,7 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			close(pstmt);
 		}
 		
-		System.out.println(list);
+		//System.out.println(list);
 		return list;
 	}
 	

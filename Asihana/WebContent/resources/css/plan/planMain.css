@@ -1,9 +1,7 @@
 
-#outer-plan{
-    box-sizing: border-box;
-    width: 1200px;
+#outer-main{
     margin : auto;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 #my-plans-area{  /* 나의 여행 플랜 영역 */
         overflow: auto;

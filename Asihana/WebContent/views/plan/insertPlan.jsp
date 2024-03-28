@@ -254,6 +254,7 @@
 						data : {
 							planNo : <%=planNo%>,
 							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
+							
 						},
 						success : function(result){
 							if(result > 0){

@@ -38,7 +38,7 @@ public class CityDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			int start = (pi.getCurrentPage()- 1) * pi.getBoardLimit() + 1;
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int end = start + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);

@@ -69,7 +69,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 
 	<div id="noticetext">
-		<p>그의여행기</p>
+		<p>여행기</p>
 		
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">

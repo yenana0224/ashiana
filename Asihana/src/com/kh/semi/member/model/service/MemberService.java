@@ -33,7 +33,7 @@ public class MemberService {
 		Member member = new MemberDao().selectOtMember(conn, userNo);
 		JDBCTemplate.close(conn);
 
-		System.out.println(member);
+		System.out.println("member 서비스"+member);
 		return member;
 	}
 	

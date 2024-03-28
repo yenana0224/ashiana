@@ -184,7 +184,7 @@ public class MemberDao {
 									rset.getString("MEM_ID"),
 									rset.getString("MEM_PWD"),
 									rset.getString("NICKNAME"),
-									rset.getDate("ENORLL_DATE"),
+									rset.getDate("ENROLL_DATE"),
 									rset.getDate("MODIFY_DATE"),
 									rset.getString("STATUS"));
 			}
@@ -199,7 +199,7 @@ public class MemberDao {
 	
 
 	public Member selectOtMember(Connection conn, int userNo) {
-		Member updateMem=null;
+		Member member=null;
 		PreparedStatement pstmt=null;
 		ResultSet rset = null;
 		
@@ -211,11 +211,11 @@ public class MemberDao {
 			rset=pstmt.executeQuery();
 			
 			if(rset.next()) {
-				updateMem=new Member(rset.getInt("MEM_NO"),
+				member=new Member(rset.getInt("MEM_NO"),
 									rset.getString("MEM_ID"),
 									rset.getString("MEM_PWD"),
 									rset.getString("NICKNAME"),
-									rset.getDate("ENORLL_DATE"),
+									rset.getDate("ENROLL_DATE"),
 									rset.getDate("MODIFY_DATE"),
 									rset.getString("STATUS"));
 			}
@@ -225,7 +225,9 @@ public class MemberDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return updateMem;
+		System.out.println("member dao"+member);
+		
+		return member;
 	}
 	
 	/***

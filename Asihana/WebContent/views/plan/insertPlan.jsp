@@ -17,27 +17,19 @@
 		    margin: auto;
 		}
 		.planToast{ 
-		    display: none;
 		    display: inline-block;
 		    background-color: white;
 		    box-shadow: 0 0 1px 1px lightgray;
-		    width: 230px;
+		    width: 200px;
 		    border-radius: 10px;
 		    height: 43px;
 		    padding: 6px 3px 3px 5px;
 		    z-index: 10;
+		    display: none;
 		    
 		}    
-		.btn-dismiss-toast{
-		    width: 20px;
-		    height: 20px;
-		    margin-left: 5px;
-		    border: none;
-		    padding: 0;
-		    line-height: 0.6;
-		}
 		.btn-add-des{
-		    margin-left: 4px;
+		    margin-left: 5px;
 		    margin-right: 6px;
 		}
     </style>
@@ -87,7 +79,6 @@
 		               	<div class="planToast">
 		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
 		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
-		                    <button class="btn btn-sm btn-outline-secondary btn-dismiss-toast" style="border:none; padding:0;">Ｘ</button>
 		            	</div>
 		           	</div>
 
@@ -191,19 +182,14 @@
 					$('#planNo').val(plan);
 				}
 			})
-			
 	        // 출국 날짜 요구 메세지 슬라이드 업
 	        $('#start-date').change(function(){
 	            $('#required-msg').slideUp(500);
 	        })
 	        // 목적지 추가 토스트
 	        $('.des-add-btn').click(function(){
-	            if($('.planToast').css('display') == 'none') {
-	                $('.planToast').show(100);
-	            }
-	            else{
-	                $('.planToast').hide(100);
-	            }
+	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
+	            else $('.planToast').hide(100);
 	        })
 		})
 	</script>
@@ -299,8 +285,6 @@
 
     <!-- 모달 스크립트 -->
     <script>
-	    
-    	
     	$(function(){ // 모달 도시 셀렉트박스 
     		$('#country').change(function(){
     			$('#city').empty();
@@ -369,7 +353,7 @@
     <script>
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
-    			console.log($('#start-date').val());
+    			console.log($('#start-time').val());
     		})
     		
     		
@@ -402,8 +386,6 @@
         });
         
     </script>
-    
-    
     
     <!--디테일 테이블 스크립트-->
     <script>

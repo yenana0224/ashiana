@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.HashTag;
@@ -39,21 +40,31 @@ public class TravelReviewDetailController extends HttpServlet {
 		
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		
-		System.out.println(reviewNo);
+		//System.out.println(reviewNo);
 		
 		
 		// 조회수 update할 게시물
 		int result = new TravelReviewService().updateReviewCount(reviewNo);
 		
-		// 상세 조회 시 필요한 것들 1)해당 게시물 2)해당 게시물의 좋아요 수치 3)해당 게시물의 해시태그 4)해당 게시물의 첨부파일  
+		// 상세 조회 시 필요한 것들 1)해당 게시물 2)해당 게시물의 좋아요 수치 3)해당 게시물의 해시태그 4)해당 게시물의 첨부파일 5)다녀온 국가이름 
 		
 		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
 		//System.out.println(review);
 		
-		List<HashTag> hashtagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
+		// 해시태그 리스트
+		List<HashTag> hashTagList = new TravelReviewService().selectHashTagList();
+		
+		// 게시물 작성 유저가 체크한 해시태그 리스트
+		List<HashTag> checkedHashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
 		//System.out.println(hashtagList);
 		
+		HttpSession session = request.getSession();
+		
+		request.setAttribute("review", review);
+		
+		session.setAttribute("hashTagList", hashTagList);
+		session.setAttribute("checkedHashTagList", checkedHashTagList);
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}

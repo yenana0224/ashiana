@@ -32,6 +32,9 @@
         float: right;
         margin-right: 5px;
     }
+    >.btn-date-int{
+    	margin-bottom: 5px;
+    }
 }
 
 #planning-area{

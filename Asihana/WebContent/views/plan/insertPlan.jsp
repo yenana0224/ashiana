@@ -3,6 +3,7 @@
 <%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
+	int planNo = (int)request.getAttribute("planNo");
 %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
@@ -43,13 +44,15 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	            <input type="hidden" name="planNo" id="planNo">
+	            <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
 	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
 	            <input type="time" name="start-time" id="start-time" class="timepicker">
-	
+				<button class="btn btn-sm btn-success" type="button">설정</button>
+				
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
 	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
+	        	<img src="resources/icons">
 	        </div>
 	        <div id="planning-area">
 	            <div id="date-area">
@@ -172,16 +175,8 @@
 	
 	<%@ include file="../common/footer.jsp" %>
 	
-	<!-- AJAX -->
 	<script>
 		$(function(){
-			$.ajax({ // 작성중인 플랜의 planNo
-				url : 'selectInsertPlan.ajaxplan',
-				type : 'post',
-				success : function(plan){
-					$('#planNo').val(plan);
-				}
-			})
 	        // 출국 날짜 요구 메세지 슬라이드 업
 	        $('#start-date').change(function(){
 	            $('#required-msg').slideUp(500);
@@ -239,7 +234,7 @@
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
                         
                         <select name="transport" id="transport">
-                            <option value="">이동수단</option>
+                            <option value="" disabled>이동수단</option>
                             <option value="항공">항공</option>
                             <option value="기차">기차</option>
                             <option value="버스">버스</option>
@@ -291,7 +286,7 @@
     			$('<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>').prependTo('#city');
     			<% for(City city : cityList) { %>
     				if($('#country').val() == '<%=city.getNationName()%>'){
-    					$('<option value="<%= city.getCityName() %>"><%= city.getCityName() %></option>').insertAfter('#selectCity');
+    					$('<option value="<%= city.getCityNo() %>"><%= city.getCityName() %></option>').insertAfter('#selectCity');
     				}
     			<% } %>
     		})
@@ -311,10 +306,9 @@
         }
         $(function(){ // 모달 일정 요약 부분
             $('#city').change(function(){ // 도시 선택시 인풋 벨류 변경
-                $('#country-city').val($('#country').val() + '-' + $('#city').val());
+                $('#country-city').val($('#country').val() + '-' + $('#city option:checked').text());
             });
             $('#add-day').change(function(){ // +1일 체크박스
-                console.log($('#arr-time').val())
                 if($('#add-day').is(':checked')) {
                     let $arr = new Date($('#arr-date').val());
                     $arr.setDate($arr.getDate() + 1);
@@ -350,10 +344,30 @@
         })
     </script>
     
-    <script>
+    <script> <!-- AJAX -->
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
-    			console.log($('#start-time').val());
+    			$.ajax({
+    				url : 'insertDestination.ajaxplan',
+    				type : 'post',
+    				data : {
+    					planNo : $('#planNo').val(),
+    					cityNo : $('#city').val(),
+    					trans : $('#transport').val(),
+    					transPrice : $('#trans-price').val(),
+    					trip : $('#transport-op').val(),
+    					arrival : $('#arr-date').val() + ' ' + $('#arr-time').val(),
+    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
+    				},
+    				success : function(result){
+    					
+    					
+    					
+    					
+    					
+    					
+    				}
+    			});
     		})
     		
     		

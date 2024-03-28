@@ -7,17 +7,20 @@ public class Answer {
 	private int replyNo;
 	private int qnaNo;
 	private String replyComment;
-	private String replyWriter;
+	private String nickName;
+	private int replyWriter;
 	private Date commentDate;
 	private String status;
 	public Answer() {
 		super();
 	}
-	public Answer(int replyNo, int qnaNo, String replyComment, String replyWriter, Date commentDate, String status) {
+	public Answer(int replyNo, int qnaNo, String replyComment, String nickName, int replyWriter, Date commentDate,
+			String status) {
 		super();
 		this.replyNo = replyNo;
 		this.qnaNo = qnaNo;
 		this.replyComment = replyComment;
+		this.nickName = nickName;
 		this.replyWriter = replyWriter;
 		this.commentDate = commentDate;
 		this.status = status;
@@ -40,10 +43,16 @@ public class Answer {
 	public void setReplyComment(String replyComment) {
 		this.replyComment = replyComment;
 	}
-	public String getReplyWriter() {
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public int getReplyWriter() {
 		return replyWriter;
 	}
-	public void setReplyWriter(String replyWriter) {
+	public void setReplyWriter(int replyWriter) {
 		this.replyWriter = replyWriter;
 	}
 	public Date getCommentDate() {
@@ -60,58 +69,12 @@ public class Answer {
 	}
 	@Override
 	public String toString() {
-		return "Answer [replyNo=" + replyNo + ", qnaNo=" + qnaNo + ", replyComment=" + replyComment + ", replyWriter="
-				+ replyWriter + ", commentDate=" + commentDate + ", status=" + status + "]";
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((commentDate == null) ? 0 : commentDate.hashCode());
-		result = prime * result + qnaNo;
-		result = prime * result + ((replyComment == null) ? 0 : replyComment.hashCode());
-		result = prime * result + replyNo;
-		result = prime * result + ((replyWriter == null) ? 0 : replyWriter.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Answer other = (Answer) obj;
-		if (commentDate == null) {
-			if (other.commentDate != null)
-				return false;
-		} else if (!commentDate.equals(other.commentDate))
-			return false;
-		if (qnaNo != other.qnaNo)
-			return false;
-		if (replyComment == null) {
-			if (other.replyComment != null)
-				return false;
-		} else if (!replyComment.equals(other.replyComment))
-			return false;
-		if (replyNo != other.replyNo)
-			return false;
-		if (replyWriter == null) {
-			if (other.replyWriter != null)
-				return false;
-		} else if (!replyWriter.equals(other.replyWriter))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		return true;
+		return "Answer [replyNo=" + replyNo + ", qnaNo=" + qnaNo + ", replyComment=" + replyComment + ", nickName="
+				+ nickName + ", replyWriter=" + replyWriter + ", commentDate=" + commentDate + ", status=" + status
+				+ "]";
 	}
 
 	
 	
-	
 }
+

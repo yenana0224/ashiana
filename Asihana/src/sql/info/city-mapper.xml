@@ -48,9 +48,7 @@
    	   SET
       	  COUNT = COUNT + 1
 	 WHERE
-     	  NATION_NO = ?
-  	   AND
-     	  CITY_NAME = ?
+     	  CITY_NO = ?
 	</entry>
 	
 	
@@ -63,6 +61,9 @@
 	      TB_CITY
 	 WHERE
 	      NATION_NO = ?
+     ORDER
+     	BY
+     	  CITY_NAME ASC
 	</entry>
 	
 	
@@ -113,7 +114,7 @@
 	      COUNT
 	FROM
 		    (SELECT
-		         ROWNUM,
+		         ROWNUM RNUM,
 		         NATION_NO,
 		         NATION_NAME,
 		         CITY_NO,
@@ -134,7 +135,7 @@
 			           BY
 			             TB_NATION.NATION_NO ASC))
 	 WHERE
-	     ROWNUM BETWEEN ? AND ?
+	     RNUM BETWEEN ? AND ?
 	
 	</entry>
 

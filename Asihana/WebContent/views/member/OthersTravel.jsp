@@ -8,7 +8,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 여행기</title>
+<title>다른사람의 여행기</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -69,8 +69,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 
 	<div id="noticetext">
-		<p>여행기</p>
-		
+		<p><font color="blue"><%=m.getNickName() %></font>님의 여행기</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>

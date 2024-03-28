@@ -14,8 +14,6 @@ public class CommunityServiceImpl implements CommunityService {
 	public ArrayList<Community> selectCommunityList() {
 		
 		Connection conn = getConnection();		
-		
-		
 		ArrayList<Community> list =new CommunityDao().selectCommunityList(conn);
 			
 		close(conn);

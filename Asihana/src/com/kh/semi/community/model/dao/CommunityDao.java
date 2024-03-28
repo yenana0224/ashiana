@@ -30,7 +30,7 @@ public class CommunityDao {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -54,14 +54,19 @@ public class CommunityDao {
 			
 			while(rset.next()) {  // community는 지역변수다!!!
 				Community community = new Community();
-				community.setComuNo(rset.getInt("COMU_NO"));
+				community.setComuNo(rset.getInt("COMMUNITY_NO"));
 				community.setCityNo(rset.getInt("CITY_NO"));		
 				community.setMemNo(rset.getInt("MEMBER_NO"));
-				community.setComuContent(rset.getString("COMU_CONTENT"));
-				community.setComuDate(rset.getDate("COMU_DATE"));
+				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
+				community.setCount(rset.getInt("COUNT"));
+				community.setComuDate(rset.getDate("COMMUNITY_DATE"));
 				community.setStatus(rset.getString("STATUS").charAt(0));
 			
 				list.add(community);  // 위에 있는 지역변수  community를 살려둘수 있게 list가 가리키고 있다!!!
+										// list에 요소를 추가해서  스택에 생긴변수가 힙에 생긴 변수를 가리키고 있다
+											// 참조하는 것을 가리키고 있다 => reference count라고 부른다!!! 참조개수
+											// reference count가 0이면 가비지 콜렉터가 출동!!!
+				
 			}
 			
 			

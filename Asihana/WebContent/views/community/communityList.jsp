@@ -100,6 +100,7 @@
 
     #h2_1{
         margin-right: 500px;
+        
         font-size: 30px;
         
       
@@ -343,8 +344,8 @@
         width: 300px;
         height: 300px;
         float:left;
-        margin-top: 30px;
-        margin-left: 10px;
+        margin-top: 70px;
+        margin-left: 20px;
         
     }
 
@@ -436,30 +437,9 @@
     </div>
       
       
-     <!-- 실시간으로 소통하는 여행자들이 있다!!! -->
-        <%--
-			<% if(list.isEmpty()) {%>
-					<tr>
-						<th colspan="6"> 실시간으로 대화하는 여행자가 없다!!!</th>
-					</tr> 
-			
-			<% } else { %>
-					
-					<% for(Community c : list) { %>
-					<tr>
-						<td<%= c.getComuNo() %>></td>
-						<td><%= c.getCityNo() %></td>
-						<td><%=c.getMemNo() %></td>
-						<td><%=c.getComuContent() %></td>
-						<td><%=c.getComuDate() %></td>
-					
-					</tr>
-			
-			
-			<% } %>	
-			
-		<% } %>
-		 --%>	
+     
+		
+		 
       </table>
      
  
@@ -536,20 +516,21 @@
 		        	</tr>
 	          	  </thead>
 	          	  <tbody>
-	      <%-- 
-	          	  <% if(list.isEmpty()) {%>
+	     
+	          	  		<% if(list.isEmpty()) {%>
 					<tr>
-						<th colspan="6"> !</th>
+						<th colspan="6"></th>
 					</tr> 
 			
-				<% } else { %>
+			<% } else { %>
 					
 					<% for(Community c : list) { %>
 					<tr>
-						<td<%= c.getComuNo() %>></td>
+						<td><%= c.getComuNo() %></td>
 						<td><%= c.getCityNo() %></td>
 						<td><%=c.getMemNo() %></td>
 						<td><%=c.getComuContent() %></td>
+						<td><%=c.getCount() %></td>	
 						<td><%=c.getComuDate() %></td>
 						
 					</tr>
@@ -558,8 +539,6 @@
 			<% } %>	
 			
 		<% } %>
-		 --%>	
-	          	  	
 	          	  
 	          	  
 	          	  

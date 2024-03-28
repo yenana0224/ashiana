@@ -4,30 +4,40 @@
 
 	<comment>
 		Community Mapper
-	</comment>
+	 </comment>
 	
-	<entry key="selectCommunity">
+	<entry key="selectCommunityList">
 		SELECT
-				COMU_NO,
+				COMMUNITY_NO,
 				CITY_NO,
-				NICK_NAME,
-				COMU_CONTENT,
-				COMU_DATE
+				MEMBER_NO,
+				COMMUNITY_CONTENT,
+				COUNT,
+				COMMUNITY_DATE, 
+				TB_COMMUNITY.STATUS STATUS
 		    FROM
-			 	COMMUNITY
+			 	TB_COMMUNITY
+			
 			JOIN
-		
-				MENBER ON(MEM_NO = NICK_NAME)	
+				MEMBER
+			ON
+				(MEMBER.MEM_NO=TB_COMMUNITY.MEMBER_NO)
 		
 	    	WHERE 
-				COMMUNITY.STATUS = 'Y'
-		   ORDER
-		 	BY
-				COMU_DATE DESC;
+				TB_COMMUNITY.STATUS = 'Y'
+		
+		  
 	</entry>
 	
 	<entry key="increaseCount">
-	
+		UPDATE
+			  COMMUNITY
+		   SET
+		  	  COUNT = COUNT + 1
+	  	 WHERE
+	  	 	  COMMUNITY_NO = ?
+ 	 	   AND
+ 	 	   	  STATUS = 'Y'
 	
 	
 	

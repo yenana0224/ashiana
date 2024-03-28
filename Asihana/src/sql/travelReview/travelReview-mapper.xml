@@ -132,5 +132,14 @@
 		      REVIEW_NO = ?
 	</entry>
 
+	<entry key = "selectMyList">
+	SELECT R.REVIEW_NO, R.REVIEW_TITLE, C.CITY_NAME, R.CREATE_DATE, R.STATUS
+	FROM ASIHANA.TB_REVIEW R
+	JOIN ASIHANA.TB_CITY C ON R.CITY_NO = C.CITY_NO
+	WHERE R.REVIEW_WRITER = ?
+	
+	
+	</entry>
+	
 
 </properties>

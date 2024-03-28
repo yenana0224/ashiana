@@ -19,9 +19,16 @@
     <!--예약 및 일정 css-->
     <link rel="stylesheet" href="resources/css/plan/planInsertSched.css">
     <link rel="stylesheet" href="resources/css/plan/planDetailSched.css">
-    <!--목적지 추가/여행 종료 토스트 css-->
-    <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
     <!--목적지 추가 모달 css -->
     <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
+    <!--목적지 추가/여행 종료 토스트 css-->
+    <link rel="stylesheet" href="resources/css/plan/planInsertPlanToast.css">
+    <style>
+        div{
+            width: 1200px;
+            box-sizing: border-box;
+            margin: auto;
+        }
+    </style>
 </head>
 </html>

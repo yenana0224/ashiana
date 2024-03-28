@@ -237,7 +237,11 @@ public class adminController {
 	
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		Nation nation = new NationService().nationInfo(nationNo);
+		Nation nation = new NationService().searchNation(nationNo);
+		nation.setLanguage(new InfoService().nationLang(nationNo));
+		nation.setCurrency(new InfoService().nationCur(nationNo));
+		nation.setVoltage(new InfoService().nationVol(nationNo));
+
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
 				
@@ -352,9 +356,6 @@ public class adminController {
 		AttachmentFile file = new CityService().selectPhoto(cityNo);
 		List<Nation> list = new NationService().allNationList();
 		
-		System.out.println(cityNo);
-		System.out.println(nationNo);
-		
 		request.setAttribute("city", city);
 		request.setAttribute("file", file);
 		request.setAttribute("list", list);
@@ -398,9 +399,8 @@ public class adminController {
 			}
 			
 			int result = new CityService().updateCity(city, file);
-			
-			
-			if(result > 0) view = "/cityInfo.admin?cityNo=" + cityNo;
+			if(result > 0) view = "/cityinfo.admin?nationNo="+ nationNo + "&cityNo=" + cityNo;
+
 		}
 		return view;
 	}

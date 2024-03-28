@@ -159,7 +159,21 @@
 		  FROM
 		      TB_HASHTAG
 	</entry>
-	
+	<entry key="selectCheckedTagList">
+		SELECT
+		      REVIEW_NO,
+		      TAG_NUM,
+		      TAG_NAME
+		  FROM
+		      BRTB_TAG
+		  JOIN 
+		      TB_REVIEW USING(REVIEW_NO)
+		  JOIN
+		      TB_HASHTAG USING(TAG_NUM)
+		ORDER
+		   BY
+		     REVIEW_NO
+	</entry>
 	
 	
 

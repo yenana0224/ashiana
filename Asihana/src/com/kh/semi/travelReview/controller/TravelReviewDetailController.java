@@ -51,14 +51,18 @@ public class TravelReviewDetailController extends HttpServlet {
 		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
 		//System.out.println(review);
+		request.setAttribute("review", review);
 		
 		List<HashTag> checkedHashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
-
-		
-		request.getSession().getAttribute("hashTagList");
-		request.setAttribute("checkedHashTahList", checkedHashTagList);
+		request.setAttribute("checkedHashTagList", checkedHashTagList);
 	
-		request.setAttribute("review", review);
+		//System.out.println(review);
+		
+		//System.out.println(checkedHashTagList);
+		request.getSession().getAttribute("hashTagList");
+		
+		//System.out.println(request.getSession().getAttribute("hashTagList"));
+		
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}

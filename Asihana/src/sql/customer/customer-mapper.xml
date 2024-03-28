@@ -566,4 +566,13 @@
 		 WHERE
 		      REPLY_NO = ?        
 	</entry>
+	
+	<entry key="replyDelete">
+		DELETE
+		  FROM
+	          TB_ANSWER
+	     WHERE
+			REPLY_NO = ?
+	</entry>
+	
 </properties>

@@ -1,8 +1,6 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.customer.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,23 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.model.vo.Member;
-import com.kh.semi.plan.model.service.PlanService;
-import com.kh.semi.plan.model.vo.PlanMain;
-import com.kh.semi.travelReview.model.service.TravelReviewService;
-import com.kh.semi.travelReview.model.vo.TravelReview;
+import com.kh.semi.customer.model.service.CustomerService;
 
 /**
- * Servlet implementation class MyPlanController
+ * Servlet implementation class ReplyAjaxDelete
  */
-@WebServlet("/myPlan")
-public class MyPlanController extends HttpServlet {
+@WebServlet("/replyDelete.yo")
+public class ReplyAjaxDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPlanController() {
+    public ReplyAjaxDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,14 +29,16 @@ public class MyPlanController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
-		//세션에서 유저넘버 받아오기
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		List<PlanMain> myPlanList = new PlanService().selectPlanList(userNo);
 		
-		request.setAttribute("myPlanList", myPlanList);
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
+
+		int result = new CustomerService().replyDelete(replyNo);
 		
-		request.getRequestDispatcher("views/member/MyPlan.jsp").forward(request,response);
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result > 0 ? "success" : "fail");
+		
 	}
 
 	/**

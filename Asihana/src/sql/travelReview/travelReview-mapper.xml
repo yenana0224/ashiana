@@ -64,6 +64,15 @@
 		       LIKES DESC
 	</entry>
 	
+	<entry key="updateReviewCount">
+		UPDATE
+		      TB_REVIEW
+		   SET
+		      COUNT = COUNT + 1
+		WHERE
+		     REVIEW_NO = ?
+	</entry>
+	
 
 
 </properties>

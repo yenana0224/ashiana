@@ -3,8 +3,11 @@ package com.kh.semi.travelReview.model.service;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.friendShip.model.dao.FriendShipDao;
+import com.kh.semi.friendShip.model.vo.FriendShip;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.dao.TravelReviewDao;
 import com.kh.semi.travelReview.model.vo.TravelReview;
@@ -65,4 +68,14 @@ public class TravelReviewService {
 		return result;
 	}
 	
+	public ArrayList<TravelReview> selectMyList(int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<TravelReview> list = new TravelReviewDao().selectMyList(conn, userNo);
+
+		close(conn);
+		
+		return list;
+
+	}
 }

@@ -201,7 +201,7 @@
 		        null,
 		        ?,
 		        'N'
-		        );
+		        )
 	</entry>
 	
 	<entry key="updateStartDestination">
@@ -225,7 +225,7 @@
 		        ?,
 		        ?,      
 		        'N'
-		        );
+		        )
 	</entry>
 	
 	

@@ -3,9 +3,12 @@ package com.kh.semi.plan.model.dao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -243,9 +246,10 @@ public class PlanDao {
 		
 		String sql = prop.getProperty("insertStartDestination");
 		try {
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
-			pstmt.setString(2, returnDate);
+			pstmt.setDate(2, Date.valueOf(returnDate));
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

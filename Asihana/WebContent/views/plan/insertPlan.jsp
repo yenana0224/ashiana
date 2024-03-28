@@ -33,6 +33,10 @@
 		    margin-left: 5px;
 		    margin-right: 6px;
 		}
+		
+		#updateStartDate, #cancelUpdate, #doUpdate{
+			display : none;
+		}
     </style>
 </head>
 <body>
@@ -44,15 +48,17 @@
 	    </div>
 	    <form method="post">
 	        <div id="planning-interface">
-	            <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
-	                            출국일시 : <input type="date" name="start-date" id="start-date" required>
-	            <input type="time" name="start-time" id="start-time" class="timepicker">
-				<button class="btn btn-sm btn-success" type="button">설정</button>
-				
+		        <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
+		                  출국일시 : <input type="date" name="start-date" id="start-date">
+		        <input type="time" name="start-time" id="start-time" class="timepicker">
+				<button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
+				<button class="btn btn-sm btn-danger btn-date-int" id="updateStartDate" type="button">날짜 수정</button>
+				<button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
+				<button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
+
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
 	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
-	        	<img src="resources/icons">
 	        </div>
 	        <div id="planning-area">
 	            <div id="date-area">
@@ -177,10 +183,6 @@
 	
 	<script>
 		$(function(){
-	        // 출국 날짜 요구 메세지 슬라이드 업
-	        $('#start-date').change(function(){
-	            $('#required-msg').slideUp(500);
-	        })
 	        // 목적지 추가 토스트
 	        $('.des-add-btn').click(function(){
 	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
@@ -320,19 +322,87 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
-			$('#planning-interface').find('input').change(function(){ // 출발일시
-				$('.btn-des-disabled').attr('disabled', false); // 출발일 선택시 목적지 추가 가능해짐 
-                $('#dep-date').val($('#start-date').val());
-                $('#dep-time').val($('#start-time').val());
-            	
-                // 출발일 => 도착일 
-                $('#arr-date').val($('#dep-date').val());
-                // 출발일시 디스플레이
-                $('#dep-date-display').text($('#dep-date').val());
-                $('#dep-time-display').text($('#dep-time').val());
-                // 도착일 디스플레이
-                $('#arr-date-display').text($('#arr-date').val());
-			})
+            let sDate = '';
+            let sTime = '';
+            $('#planning-interface').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
+            	if($('#start-date').val() == ''){ // 날짜 설정 안함
+            		$('#start-date').focus(); return;
+            	}
+            	else{
+					sDate = $('#start-date').val();
+					sTime = $('#start-time').val();
+					
+					$.ajax({ // 날짜 설정시 출발지 DB로 INSERT
+						url : 'insertStartDestination.ajaxplan',
+						type : 'post',
+						data : {
+							planNo : $('#planNo').val(),
+							returnDate : sDate + ' ' + sTime
+						},
+						success : function(){
+						}
+					}) // ajax 출발 목적지 행 추가 
+					
+            		$('#required-msg').slideUp(500); // 알림 메세지 슬라이드 업
+	            	$('#start-date, #start-time').attr('disabled', true);
+	            	$('#setStartDate').css('display', 'none');
+	            	$('#doUpdate').css('display', 'inline-block'); // 수정 버튼
+					$('.btn-des-disabled').attr('disabled', false); // 출발일 설정시 목적지 추가 가능해짐 
+            	}
+            })
+            $('#planning-interface').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
+            	$('#start-date, #start-time').attr('disabled', false);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'inline-block'); // 날짜 수정 / 취소 버튼
+            	$('#doUpdate').css('display', 'none'); // 수정 버튼
+            })
+            $('#planning-interface').on('click', '#updateStartDate', function(){
+            	if($('#start-date').val() != sDate || $('#start-time').val() != sTime){
+            		$.ajax({ // 출발일시 업데이트
+            			url : 'updateStartDestination.ajaxplan',
+						type : 'post',
+						data : {
+							planNo : $('#planNo').val(),
+							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
+						},
+						success : function(){
+							sDate = $('#start-date').val();
+							sTime = $('#start-time').val();
+						},
+						error : function(){
+							$('#start-date').val() = sDate;
+							$('#start-time').val() = sTime;
+						}
+            		})
+            	}
+            	$('#start-date, #start-time').attr('disabled', true);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
+            	$('#doUpdate').css('display', 'inline-block');
+            })
+            $('#planning-interface').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
+            	$('#start-date').val(sDate);
+            	$('#start-time').val(sTime);
+            	$('#start-date, #start-time').attr('disabled', true);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
+            	$('#doUpdate').css('display', 'inline-block');
+            })
+	
+            if($('#addDesModal').css('display') == 'block'){
+            	console.log('hihi');
+            	if($('.root-card').length){
+            	}
+            	else{
+		            $('#dep-date').val($('#start-date').val());
+		            $('#dep-time').val($('#start-time').val());
+		            // 출발일 => 도착일 
+		            $('#arr-date').val($('#dep-date').val());
+		            // 출발일시 디스플레이
+		            $('#dep-date-display').text($('#dep-date').val());
+		            $('#dep-time-display').text($('#dep-time').val());
+		            // 도착일 디스플레이
+		            $('#arr-date-display').text($('#arr-date').val());
+            	}
+            }
+            
             $('#modal-form-area').find('input, select').change(function(){
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());

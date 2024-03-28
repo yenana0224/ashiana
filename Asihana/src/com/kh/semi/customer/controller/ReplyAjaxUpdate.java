@@ -12,16 +12,16 @@ import com.kh.semi.customer.model.service.CustomerService;
 import com.kh.semi.customer.model.vo.Answer;
 
 /**
- * Servlet implementation class ReplyAjaxInsert
+ * Servlet implementation class ReplyAjaxUpdate
  */
-@WebServlet("/replyInsert.yo")
-public class ReplyAjaxInsert extends HttpServlet {
+@WebServlet("/replyUpdate.yo")
+public class ReplyAjaxUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyAjaxInsert() {
+    public ReplyAjaxUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +33,18 @@ public class ReplyAjaxInsert extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		String coment = request.getParameter("content");
-		String qnaStatus = request.getParameter("qnaStatus");
-		
+	
 		Answer answer = new Answer();
-		answer.setQnaNo(qnaNo);
+		answer.setReplyNo(replyNo);
 		answer.setReplyComment(coment);
-		answer.setReplyWriter(userNo);
-		
-		int result = new CustomerService().replyInsert(answer, qnaStatus);
-		
+	
+		int result = new CustomerService().replyUpdate(answer);
+	
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result > 0 ? "success" : "fail");
 		
-	
-	
-	
 	}
 
 	/**

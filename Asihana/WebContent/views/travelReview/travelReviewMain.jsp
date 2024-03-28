@@ -6,9 +6,8 @@
 	List<City> cityList = (List<City>) request.getAttribute("cityList");
 	List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
 	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
-	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
-	List<HashTag> checkedHashTagList = (List<HashTag>)session.getAttribute("checkedHashTagList");
 %>
+
     
 <!DOCTYPE html>
 <html lang="en">
@@ -271,7 +270,7 @@
                         <p align="center">
                         	<!--  <span>제목 : </span> <span><%=reviewList.get(i).getReviewTitle() %></span> -->
                             <lable>작성자 : </lable><span><%= reviewList.get(i).getReviewWriter() %></span> <br>
-                            <span>해시태그1</span> <span><%= checkedHashTagList.get(i).getTagName() %></span>
+                            <span>해시태그1</span> <span></span>
                         </p>  
                     </div>    
                     <%} %>

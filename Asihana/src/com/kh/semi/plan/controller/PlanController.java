@@ -74,6 +74,11 @@ public class PlanController {
 		return view;
 	}
 
+	public int insertStartDestination(HttpServletRequest request, HttpServletResponse response) {
+		
+		return new PlanService().insertStartDestination(Integer.parseInt(request.getParameter("planNo")), request.getParameter("returnDate"));
+	}
+	
 	public List<DestinationDetail> insertDestination(HttpServletRequest request, HttpServletResponse response) {
 		
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
@@ -93,6 +98,7 @@ public class PlanController {
 		
 		return list;
 	}
+
 
 	
 

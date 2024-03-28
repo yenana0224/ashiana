@@ -30,6 +30,7 @@
 	           	 &nbsp;
 	           	 귀국일시 : <input type="date" name="end-date" id="end-date" required disabled>
 	            <input type="time" name="end-time" id="end-time"  class="timepicker" disabled>
+	            
 	 
 	            <button class="btn btn-sm btn-success btn-int" type="submit">여행 플랜 수정</button>
 	        </div>

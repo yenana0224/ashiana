@@ -210,7 +210,7 @@ public class TravelReviewDao {
 		return list;
 	}
 	
-	public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
+public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		
 		ArrayList <TravelReview> list = new ArrayList();
 		PreparedStatement pstmt= null;
@@ -227,7 +227,8 @@ public class TravelReviewDao {
 										rset.getString("REVIEW_TITLE"),
 										rset.getString("CITY_NAME"),
 										rset.getInt("COUNT"),
-										rset.getString("DEPARTURE_DATE")
+										rset.getString("DEPARTURE_DATE"),
+										rset.getString("NICKNAME")
 									));
 			}
 		} catch (SQLException e) {

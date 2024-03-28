@@ -18,8 +18,16 @@ public class TravelReview {
 	private int likes;
 	private String cityName;
 	private String nationName;
+	private String nickName;
 	
-	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public String getCityName() {
 		return cityName;
 	}
@@ -189,15 +197,18 @@ public class TravelReview {
 	}
 	
 
-	public TravelReview(int reviewNo, String reviewTitle, String departureDate, int count, String cityName) {
+	public TravelReview(int reviewNo, String reviewTitle, String departureDate, int count, String cityName,String nickName) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
 		this.departureDate = departureDate;
 		this.count = count;
 		this.cityName = cityName;
+		this.nickName = nickName;
 	}
 
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

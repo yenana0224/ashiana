@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.travelReview.model.vo.TravelReview" %>
+<%
+	TravelReview review = (TravelReview)request.getAttribute("review");
+	List<HashTag> hashTagList = (List<HashTag>)request.getAttribute("hashTagList");
+%>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -230,6 +236,7 @@
 
 </head>
 <body>
+	<%@ include file="../common/headerbar.jsp" %>
     <div id="content-wrap" > <!-- content 전체를 감싸는 wrap영역 -->
         
         <!--여기부터 content의 3분할 중 1영역-->
@@ -279,26 +286,26 @@
 
                             <!--DB에서 조회된 결과가 내용에 들어감 -->
                             <div class="content-wrap-1-1-1" >
-                                <h3 style="margin : 0;">제목이에요 여행 다녀왔어요</h3>
+                                <h3 style="margin : 0;"><%=review.getReviewTitle() %></h3>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <!--별점 구현 해야함 + 마진으로 위치 조정 해야 함-->
                                 <label>별점</label><input type="radio"><input type="radio"><input type="radio"><input type="radio"><input type="radio">  <br>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <input type="date"> ~ <input type="date"> <br>
+                                <input type="date" value="<%=review.getDepartureDate()%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <label>여행지 : </label><span>일본</span>
+                                <label>여행지 : </label><span><%=review.getCityName() %></span>
                             </div>
                         </div>
                         <div id="content-warp-1-1-2">
                             <p>
                                 <!--DB에서 조회된 결과가 내용에 들어감-->
-                                <label>작성자 : </label><span>작성자</span> <br>
-                                <label>작성일 : </label><span>2024-04-03</span> <br>
-                                <label>조회수 : </label><span>256</span> <br>
-                                <label>좋아요 : </label><span>123</span> <br>
+                                <label>작성자 : </label><span><%= review.getReviewWriter() %></span> <br>
+                                <label>작성일 : </label><span><%= review.getCreateDate() %></span> <br>
+                                <label>조회수 : </label><span><%= review.getCount() %></span> <br>
+                                <label>좋아요 : </label><span><%= review.getLikes() %></span> <br>
                             </p>
                         </div>
                     </div>
@@ -310,10 +317,18 @@
                         <div id="content-wrap-1-2-2">
                             <!--DB에서 조회된 결과과 일치하는 input요소의 checked 속성 부여를 해야함, 일치하지 않는 input에는 disabled 속성 부여
                                 -->
-                            <input type="radio" name="partner" style="margin-top : 20px;" checked><label>나홀로</label>
-                            <input type="radio" name="partner"  disabled><label>가족</label>
-                            <input type="radio" name="partner"  disabled><label>친구</label>
-                            <input type="radio" name="partner"  disabled><label>사랑하는 사람과 함께</label>
+                            <input type="radio" name="partner" value="A" style="margin-top : 20px;" checked><label>나홀로</label>
+                            <input type="radio" name="partner" value="FM" disabled><label>가족</label>
+                            <input type="radio" name="partner" value="F" disabled><label>친구</label>
+                            <input type="radio" name="partner" value="L" disabled><label>사랑하는 사람과 함께</label>
+                            
+                            <script>
+                            	$(function(){
+                            		
+                            	})
+                            
+                            </script>
+                            
                         </div>
                     </div>
                 </div>
@@ -392,11 +407,17 @@
                         <div id="hash-tag">
                             <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                 2) 보여지는checkbox의 checked 속성을 조작해야함-->
-                            <input type="checkbox" name="hashtag" value="tag1" checked disabled><label for="tag1" style="background-color: white;">#해시태그1</label>
-                            <input type="checkbox" name="hashtag" value="tag2" checked disabled><label for="tag2" style="background-color: white;">#해시태그2</label>
-                            <input type="checkbox" name="hashtag" value="tag3" checked disabled><label for="tag3" style="background-color: white;">#해시태그3</label>
-                            <input type="checkbox" name="hashtag" value="tag4" checked disabled><label for="tag4" style="background-color: white;">#해시태그4</label>
-                            <input type="checkbox" name="hashtag" value="tag5" checked disabled><label for="tag5" style="background-color: white;">#해시태그5</label>
+                             <%for(int i = 0; i < hashTagList.size(); i++){ %>
+                             <input type="checkbox" name="hash-tag" value="tag<%=i%>" disabled><label for="tag<%=i%>">a</label>
+                             <%} %>   
+                                
+                            <!--      
+                            <input type="checkbox" name="hashtag" value="tag1" checked disabled><label for="tag1" style="background-color: white;">#맛집탐방</label>
+                            <input type="checkbox" name="hashtag" value="tag2" checked disabled><label for="tag2" style="background-color: white;">#힐링여행</label>
+                            <input type="checkbox" name="hashtag" value="tag3" checked disabled><label for="tag3" style="background-color: white;">#자연경관</label>
+                            <input type="checkbox" name="hashtag" value="tag4" checked disabled><label for="tag4" style="background-color: white;">#랜드마크</label>
+                            <input type="checkbox" name="hashtag" value="tag5" checked disabled><label for="tag5" style="background-color: white;">#쇼핑</label>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -408,13 +429,19 @@
             <div id="content-4wrap">
                 <div id="content-wrap-4-1">
                     <div id="plan">
-                        <h3>여행 플랜 여부</h3>
+                        <h3>여행 플랜 </h3>
                     </div>
 
                     <div id="plan-check">
+                    	<%if(review.getPlanCheck().equals("Y")){%>
                         <div>
                             <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
-                            <a href="#" style="text-decoration: none; color : black;">등록된 여행기가 있습니다 / 없습니다</a>
+                            <a href="#" style="text-decoration: none; color : black;">
+                            	등록된 플랜이 있습니다.
+                            </a>
+                         <%} else {%>
+                         	등록된 여행플랜이 없습니다.
+                         <%} %>   
                         </div>
                     </div>
                 </div>
@@ -437,10 +464,8 @@
 
             </div>
         </div>
-       
-
-
     </div>
+    <%@ include file="../common/footer.jsp" %>
 
 
 </body>

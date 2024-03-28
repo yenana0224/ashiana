@@ -152,7 +152,7 @@
             bottom: 50%;
             font-size: 12px;
             line-height: 100px;
-            color: skyblue;
+            color: blue;
        }
        .answerTextBox{
             margin: auto;
@@ -294,14 +294,15 @@
             
     <script>
 		$('#reply').keyup(function (e){
-	    let content = $(this).val();
-	    $('#counter').html("("+ content.length +" / 300)");
-	
-	    if (content.length > 300){
-	        alert("최대 300자까지 입력 가능합니다.");
-	        $(this).val(content.substring(0, 300));
-	    }
+		    let content = $(this).val();
+		    $('#counter').html("("+ content.length +" / 300)");
+		
+		    if (content.length > 300){
+		        alert("최대 300자까지 입력 가능합니다.");
+		        $(this).val(content.substring(0, 300));
+		    }
 		});
+		
 		$('#backbutton').click(function(){
 			location.href="<%=contextPath%>/qa.customer?currentPage=<%=currentPage%>"
 		});
@@ -312,19 +313,43 @@
 			$('.modal').css('display', 'none');
 		})
 		
+		
 		function selectReplyList(){
+			
 			$.ajax({
 				url: 'replyList.yo',
 				data: {qnaNo : <%=qna.getQnaNo()%>},
 				success: function(result){
 					let resultStr = '';
 					for(let i in result){
-						
-						resultStr += '<div class="answer">'
-								  +'<span class="answerName"><label style="color:red;">Name</label>' + " " + result[i].replyWriter  + '</span>'
-                        		  +	'<div class="answerTextBox"><span class="answerText">' + result[i].replyComment + '</span></div>'
-                                  + '<a class="replyUpdate">수정</a>  <a class="replyDelete">삭제</a>'
-								  + '</div>'
+						let name = result[i].nickName;
+						let comment = result[i].replyComment;
+						let replyNo = result[i].replyNo;
+						let replyName = result[i].nickName;
+						let nickName = '<%= (loginUser != null) ? loginUser.getNickName() : "" %>';;
+							<% if(loginUser != null) { %>
+									if(nickName === replyName){
+										resultStr += '<div class="answer">'
+												  + '<input type="hidden" class="replyNo" value="'+replyNo+'">'
+												  + '<span class="answerName"><label style="color:red;">Name</label>' + " " + name  + '</span>'
+							                      +	'<div class="answerTextBox"><span class="answerText">' + comment + '</span></div>'
+							                      + '<a class="replyUpdate">수정</a>  <a class="replyDelete">삭제</a>'
+										     	  + '</div>';
+									}
+									else{
+										resultStr += '<div class="answer">'
+												  + '<div class="replyNo" style="display:none;">' + replyNo + '</div>'
+												  + '<span class="answerName"><label style="color:red;">Name</label>' + " " + name  + '</span>'
+							                      +	'<div class="answerTextBox"><span class="answerText">' + comment + '</span></div>'
+										     	  + '</div>';
+									}
+							<% } else { %>
+									resultStr += '<div class="answer">'
+											  +'<span class="answerName"><label style="color:red;">Name</label>' + " " + name  + '</span>'
+			                      		  	  +	'<div class="answerTextBox"><span class="answerText">' + comment + '</span></div>'
+											  + '</div>'
+							
+							<% }%>
 					};
 					$('#replySelect').html(resultStr);
 				}
@@ -351,10 +376,53 @@
 					if(result == 'success'){
 						$('#reply').val('');
 						selectReplyList();
-					};
+					}
 				}  
 			})
 		})
+
+		$(document).on('click', '.replyUpdate', function(){
+			
+				let update = $(this).siblings('.answerTextBox').children('.answerText').text();
+				let replyNo = $(this).siblings('.replyNo').val();
+				console.log(replyNo);
+				
+				$('#reply').val(update);
+				$('#replyInsert').css('display','none');
+				$('#replyUpdate').css('display', 'block');
+				
+				$(document).on('click', '#replyUpdate', function(){
+				    replyUpdate(replyNo);
+				});
+				
+		})
+		
+		function replyUpdate(e){
+			
+			let replyNo = e;
+			
+			$.ajax({
+				url:'replyUpdate.yo',
+				type: 'post',
+				data: {
+					  replyNo: replyNo,
+					  content : $('#reply').val()
+					  },
+				success : function(result){
+					if(result == 'success'){
+						$('#reply').val('');
+						$('#replyInsert').css('display','block');
+						$('#replyUpdate').css('display', 'none');
+						selectReplyList();
+					}
+					else{
+					    alert('수정 실패');	
+					}
+				}
+			})
+			
+		}
+		
 		
 		
 	</script>

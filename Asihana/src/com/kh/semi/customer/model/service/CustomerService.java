@@ -237,7 +237,7 @@ public class CustomerService {
 	public int replyInsert(Answer answer, String qnaStatus) {
 		
 		Connection conn = getConnection();
-		int userNo = Integer.parseInt(answer.getReplyWriter());
+		int userNo = answer.getReplyWriter();
 		int result = 0;
 		if(qnaStatus.equals("Y") && userNo == 1) {
 			result = new CustomerDao().replyInsert(conn, answer);
@@ -256,5 +256,19 @@ public class CustomerService {
 		return result;
 	}
 	
+	public int replyUpdate(Answer answer) {
+		
+		Connection conn = getConnection();
+		
+		int result = new CustomerDao().replyUpdate(conn, answer);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
 	
 }

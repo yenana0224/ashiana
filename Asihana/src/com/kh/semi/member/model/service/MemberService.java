@@ -27,6 +27,16 @@ public class MemberService {
 		return loginUser;
 	}
 	
+	public Member selectOtMember(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		Member member = new MemberDao().selectOtMember(conn, userNo);
+		JDBCTemplate.close(conn);
+
+		System.out.println("member 서비스"+member);
+		return member;
+	}
+	
 	/**
 	 *	회원가입
 	 * @param member

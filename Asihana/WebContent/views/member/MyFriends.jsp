@@ -119,8 +119,8 @@
 				
 				<tr>
 					<td><%=nickName%></td>
-					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td class ="userNo" id = "<%=userNo%>"><a href="#"><i class="fas fa-coffee"></i></a></td>
+					<td><a href="#"><i class="fas fa-cloud"></i></a></td>
 					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= userNo %>')"><i class="fas fa-file"></i><%= friendShip.getUserId2() %></a></td>
 					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= userNo %>')"><i class="fas fa-bars"></i><%= friendShip.getUserId2() %></a></td>
 				</tr>

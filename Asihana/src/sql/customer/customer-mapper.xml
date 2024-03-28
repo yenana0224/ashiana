@@ -480,6 +480,7 @@
 		      QNA_NO,
 		      REPLY_COMMENT,
 		      NICKNAME,
+		      REPLY_WRITER,
 		      COMMENT_DATE,
 		      T.STATUS
 		  FROM
@@ -555,6 +556,14 @@
 		      QA_STATUS = 'Y'
 		 WHERE
 		      Q_NO = ?        
+	</entry>
 	
+	<entry key="replyUpdate">
+		UPDATE
+		      TB_ANSWER
+		   SET
+		      REPLY_COMMENT = ?
+		 WHERE
+		      REPLY_NO = ?        
 	</entry>
 </properties>

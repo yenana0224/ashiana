@@ -94,7 +94,7 @@ public class CommunityDao {
 			pstmt.setInt(1, communityNo);
 			
 			result =pstmt.executeUpdate();
-			
+	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

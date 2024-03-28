@@ -152,6 +152,13 @@
 		ORDER BY R.CREATE_DATE;
 	</entry>
 	
+	<entry key="selectHashTagList">
+		SELECT
+		      TAG_NUM,
+		      TAG_NAME
+		  FROM
+		      TB_HASHTAG
+	</entry>
 	
 	
 	

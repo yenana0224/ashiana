@@ -51,11 +51,15 @@ public class TravelReviewDetailController extends HttpServlet {
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
 		//System.out.println(review);
 		
-		List<HashTag> hashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
+		// 해시태그 리스트
+		List<HashTag> hashTagList = new TravelReviewService().selectHashTagList();
+		
+		// 게시물 작성 유저가 체크한 해시태그 리스트
+		List<HashTag> checkedHashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
 		//System.out.println(hashtagList);
 		
 		request.setAttribute("review", review);
-		request.setAttribute("hashTagList", hashTagList);
+		request.setAttribute("hashTagList", checkedHashTagList);
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}

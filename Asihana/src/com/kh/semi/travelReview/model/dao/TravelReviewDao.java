@@ -271,5 +271,39 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		return list;
 	}
 	
+	public List<HashTag> selectHashTagList(Connection conn){
+		
+		List<HashTag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHashTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				HashTag tList = new HashTag();
+				
+				tList.setTagNo(rset.getInt("TAG_NUM"));
+				tList.setTagName(rset.getString("TAG_NAME"));
+				
+				list.add(tList);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println(list);
+		return list;
+	}
 	
 }

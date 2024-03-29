@@ -51,8 +51,13 @@ public class PlanService {
 	public List<DestinationDetail> selectDesDetail(int planNo) {
 		
 		Connection conn = getConnection();
+<<<<<<< HEAD
+		System.out.println(status);
+		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo, status);
+=======
 		
 		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo);
+>>>>>>> 0e81ddcfaeff957c750aa0a429c46f5af5795f06
 		
 		close(conn);
 		

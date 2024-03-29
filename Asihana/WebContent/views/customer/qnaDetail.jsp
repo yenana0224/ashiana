@@ -262,29 +262,20 @@ h4 {
 			<p><%=qna.getQnaContent()%></p>
 		</div>
 		<div id="downloadBox">
-			<%
-				if (qnaFile != null) {
-			%>
-			<label>첨부파일 / </label><a download="<%=qnaFile.getChangeName()%>"
+			<% if (qnaFile != null) {%>
+				<label>첨부파일 / </label><a download="<%=qnaFile.getChangeName()%>"
 				href="<%=contextPath + "/" + qnaFile.getFilePath() + "/" + qnaFile.getChangeName()%>"><%=qnaFile.getOriginName()%></a>
-			<%
-				} else {
-			%>
-			<label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
-
-			<%
-				}
-			%>
+			<% } else { %>
+				<label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
+			<% } %>
 		</div>
+		
 		<div id="buttonBox">
 			<button class="btn btn-sm btn-secondary" id="backbutton">목록</button>
-			<%
-				if (loginUser != null && loginUser.getUserNo() == qnaUserNo) {
-			%>
+			<% if (loginUser != null && loginUser.getUserNo() == qnaUserNo) { %>
 			<button class="btn btn-sm btn-danger" id="deleteButton">삭제</button>
-			<%
-				}
-			%>
+			<button class="btn btn-sm btn-success" id="updateButton">수정</button>
+			<% } %>
 		</div>
 
 		<div class="modal">

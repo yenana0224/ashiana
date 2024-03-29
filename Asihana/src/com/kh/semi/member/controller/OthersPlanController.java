@@ -36,7 +36,6 @@ public class OthersPlanController extends HttpServlet {
 
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		List<PlanMain> othersPlanList = new PlanService().selectPlanList(userNo);
-		System.out.println("othersPlanList 컨트 = "+othersPlanList);
 		Member member =new MemberService().selectOtMember(userNo);
 		
 		request.setAttribute("othersPlanList", othersPlanList);

@@ -105,7 +105,7 @@
 	        $('#root-area').on('click', '.des-add-btn', function(){
 	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
 	            else $('.planToast').hide(100);
-	        }
+	        })
 		})
 	</script>
         

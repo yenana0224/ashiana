@@ -32,6 +32,7 @@ public class InfoServelt extends HttpServlet {
 		
 		InfoController ic = new InfoController();
 		String view = "";
+		System.out.println("하잉");
 		
 		request.setCharacterEncoding("UTF-8");
 		

@@ -474,7 +474,6 @@
     		})
     	};
     	function selectDestination(){
-    		console.log('셀렉데스티');
     		$.ajax({
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',

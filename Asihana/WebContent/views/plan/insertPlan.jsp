@@ -560,12 +560,7 @@
     				
     				let rootArea = '';
     				let schedArea = '';
-<<<<<<< HEAD
-    				
-    				console.log(result);
-=======
-    				console.log(result[0].destNo);
->>>>>>> 0e81ddcfaeff957c750aa0a429c46f5af5795f06
+
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;

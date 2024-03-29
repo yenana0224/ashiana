@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
     <style> 
         .title{
             padding-left: 20px;
@@ -16,10 +18,23 @@
         .title>h3{
         	margin-top : 10px;
         }
+        
+        .storyPhoto{
+        	width : 600px;
+        	height : 200px;
+        	border : 1px solid darkgray;
+        	margin : auto;
+        }
+        
+        #titlePhoto{
+        	width : 100%;
+        	height : 100%;
+        }
 
         .form-area{
             width: 600px;
             height: auto;
+            margin: auto;
         }
 
        .title-area, .content-area, .fileAt, .check-area {
@@ -35,19 +50,6 @@
         input, textarea {
             border : none;
             width: 100%;
-        }
-
-        .check-area>input{
-            border : 1px solid red;
-            width: auto;
-            text-align: left;
-        }
-
-        .check-area>label{
-            display: inline-block;
-            font-size: 13px;
-            height: auto;
-            margin: 3px 3px 3px 0px;
         }
 
         .btn{
@@ -78,26 +80,56 @@
             <h2>여행스토리</h2>
             <h3>여행스토리등록</h3>
         </div>
+        
+        <div class="storyPhoto">
+        	<img id="titlePhoto" src="">
+        </div>
 
         <div class="form-area">
             <form action="<%=contextPath %>/storyInsert.admin" method="post" enctype="multipart/form-data">
                 <div class="title-area">
-                    <input type="text" placeholder="제목을 입력해주세요" name="title"> 
+                    <input type="text" placeholder="제목을 입력해주세요" name="title" required> 
                 </div>
+                
                 <div class="content-area" >
                     <textarea name="content" cols="30" rows="20" style="resize: none;"></textarea>
                 </div>
+                
+                <div class="content-area" >    
+                    <input type="text" placeholder="출처" name="from"> 
+                </div>
 
                 <div class="fileAt">
-                    <input type="file" name="storyFile">
+                    <input type="file" name="storyFile" onchange="loadImg(this)">
                 </div>
                 
                 <div class="btn">
                     <button type="submit"> 등록 </button>
-                    <button>취소</button>
                 </div>
+                
             </form>
+            
+            <div class="btn">
+            	 <button id="back">취소</button>
+            </div>
         </div>
+        
+       		<script>
+             	$('#back').click(function(){
+             		
+             		location.href="<%=contextPath%>/story.admin?currentPage=1";
+             	});
+             
+                function loadImg(inputFile){
+                    if(inputFile.files.length){
+                        const reader = new FileReader();
+                        reader.readAsDataURL(inputFile.files[0]);
+                        reader.onload = function(e){
+                            $('#titlePhoto').attr('src', e.target.result);
+	                        }
+	                    }
+	            }
+            </script>
     </div>
     
 </body>

@@ -23,6 +23,7 @@ import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
+import com.kh.semi.info.model.vo.StoryFile;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.oreilly.servlet.MultipartRequest;
@@ -191,6 +192,41 @@ public class adminController {
 	public String storyInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		return "views/admin/storyInsertForm.jsp";
+	}
+	
+	public String storyInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		String view = "";
+		int fileResult = 1;
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String savePath = request.getServletContext().getRealPath("/resources/story");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			String storyTitle = multiRequest.getParameter("title");
+			String storyContent = multiRequest.getParameter("content");
+			String storyFrom = multiRequest.getParameter("from");
+			
+			Story story = new Story();
+			story.setStoryTitle(storyTitle);
+			story.setStoryContent(storyContent);
+			story.setStoryFrom(storyFrom);
+			
+			StoryFile file = null;
+			
+			if(multiRequest.getParameter("storyFile") != null) {
+				file = new StoryFile();
+				file.setOriginName(multiRequest.getOriginalFileName("storyFile"));
+				file.setChangeName(multiRequest.getFilesystemName("storyFile"));
+				file.setFilePath("/resources/story");
+			}
+			
+			int result = new StoryService().insertStory(story, file);
+			
+			if(result > 0) view = "/story.admin?currentPage=1";
+		}
+		return view;
 	}
 	
 	public String nationList(HttpServletRequest request, HttpServletResponse response) {

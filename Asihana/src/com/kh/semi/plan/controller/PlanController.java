@@ -12,7 +12,7 @@ import com.kh.semi.plan.model.service.PlanService;
 import com.kh.semi.plan.model.vo.*;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 
-public class PlanController {
+public class PlanController {  
 	
 
 	public String selectPlanList(HttpServletRequest request, HttpServletResponse response) {

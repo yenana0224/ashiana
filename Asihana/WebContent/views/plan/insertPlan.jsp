@@ -47,10 +47,10 @@
 	            <label>출국 날짜를 설정해주세요.(시간 선택)</label>
 	        </div>
 	    </div>
+		<input type="hidden" name="StartDestNo" id="StartDestNo">
 	    <form method="post">
 	        <div id="planning-interface">
 		        <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
-		        <input type="hidden" name="StartDestNo" id="StartDestNo">
 		                  출국일시 : <input type="date" name="start-date" id="start-date">
 		        <input type="time" name="start-time" id="start-time" class="timepicker">
 				<button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>

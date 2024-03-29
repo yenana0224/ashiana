@@ -229,8 +229,8 @@
                             </div>
 
                             <div id="calendar-content"> <!--제목의 content영역-->
-                            	출발일<input type="date" name="departure"> <br>
-                            	도착일<input type="date" name="arrival">
+                            	출발일<input type="date" name="departure" required> <br>
+                            	도착일<input type="date" name="arrival" required>
                                 <!--  <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>-->
                             </div>
                         </div>
@@ -242,15 +242,11 @@
                             <div id="place-content"> <!-- 장소의 content영역-->
                                 <select name="city">
                            			
-                           			<!-- 
                                 	<%for(int i = 0; i < cityList.size(); i++) {%>
-                                	<option value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(0).getCityName() %></option>
-                                	<option selected value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(0).getCityName() %></option>
-                                	<option>3</option>
-                                	<option>4</option>
-                                	<option>5</option>
+                                	<option id="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
                                 	<%} %>
-                                	-->
+                                	
+                                	
                                 </select>
                                 
                             </div>
@@ -270,8 +266,8 @@
                         <div id="title"> <!--제목의 title영역-->
                             <h3 style="margin-bottom : 5px;">제목</h3>
                         </div>
-                        <div id="content"> <!--제목의 content영역-->
-                            <input type="text" name="content" style="width:950px; height: 30px" placeholder="제목"><label for="content"></label>
+                        <div id="title"> <!--제목의 content영역-->
+                            <input type="text" name="title" style="width:950px; height: 30px" placeholder="제목" required><label for="title"></label>
                         </div>
                         
 
@@ -316,7 +312,7 @@
                                 <h3>여행기 쓰기</h3>
                             </div>
                             <div>
-                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();"></textarea>
+                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();" required></textarea>
                             </div>
                             <script>
                            		function lengthCheck(e){

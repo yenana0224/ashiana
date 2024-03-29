@@ -52,12 +52,20 @@ public class TravelReviewInsertController extends HttpServlet {
 			String reviewContent = multiRequest.getParameter("content");
 			String arrivalDate = multiRequest.getParameter("arrival");
 			String departureDate = multiRequest.getParameter("departure");
+			int city = Integer.parseInt(multiRequest.getParameter("city"));
+			String partner = multiRequest.getParameter("partner");
 			
-			/*
+			System.out.println(reviewTitle);
 			System.out.println(reviewContent);
 			System.out.println(arrivalDate);
 			System.out.println(departureDate);
-			*/
+			System.out.println(partner);
+			
+			
+			//작성자
+			//별점
+			//플랜 첨부 여부
+			
 			
 			request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		}

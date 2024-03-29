@@ -177,8 +177,7 @@
 
 
         <div id="wrap-insert-form" align="left"> <!-- 전체를 감싸는 div-->
-            <form action="<%=contextPath%>/insertReview" mothod="post" id="form" 
-            	enctype="multipart/form-data>">
+            <form action="<%=contextPath%>" mothod="post" id="form">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
 

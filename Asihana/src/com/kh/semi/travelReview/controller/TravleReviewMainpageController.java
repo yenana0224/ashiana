@@ -62,9 +62,7 @@ public class TravleReviewMainpageController extends HttpServlet {
 				
 		// 3_3)해시태그가 담긴 여행기 리스트를 가져와야 함
 		
-		
-		request.setAttribute("cityList", cityList);
-		//System.out.println(cityList);
+	
 		
 		request.setAttribute("reviewList", reviewList);
 		//System.out.println(reviewList);
@@ -78,6 +76,7 @@ public class TravleReviewMainpageController extends HttpServlet {
 		// 해시태그 목록 리스트
 		List<HashTag> hashTagList = new TravelReviewService().selectHashTagList();		
 		HttpSession session = request.getSession();
+		session.setAttribute("cityList", cityList);
 		session.setAttribute("hashTagList", hashTagList);
 		
 		//System.out.println(hashTagList);

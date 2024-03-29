@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag"%>   
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.info.model.vo.City"%>   
 <%@ include file="../common/headerbar.jsp" %>   
 <%
+	List<City> cityList = (List<City>)session.getAttribute("cityList");
 	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList"); 
 
 %>    
@@ -227,10 +228,10 @@
                                 <h3 style="margin : 0;">언제 다녀오셨나요?</h3>
                             </div>
 
-                            <div id="calendar-content"><!--제목의 content영역-->
-                                <input type="text"></input>
-                                
-                                <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>
+                            <div id="calendar-content"> <!--제목의 content영역-->
+                            	출발일<input type="date" name="departure"> <br>
+                            	도착일<input type="date" name="arrival">
+                                <!--  <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>-->
                             </div>
                         </div>
 
@@ -239,16 +240,19 @@
                                 <h3>어디로 다녀오셨나요</h3>
                             </div>
                             <div id="place-content"> <!-- 장소의 content영역-->
-                                <input type="search" placeholder="국가, 도시, 키워드"> <br>
-                                <ol style="display : none; list-style : none; background-color : white;">
-                                    
-                                    <!--DB에서 조회된 국가/도시명을 출력식으로 표현, for문을 통해 국가.도시list.size만큼 반복-->
-                                    <li>국가/도시명</li>
-                                    <li>리스트2</li>
-                                    <li>리스트3</li>
-                                    <li>리스트4</li>
-                                    <li>리스트5</li>
-                                </ol>
+                                <select name="city">
+                           			
+                           			<!-- 
+                                	<%for(int i = 0; i < cityList.size(); i++) {%>
+                                	<option value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(0).getCityName() %></option>
+                                	<option selected value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(0).getCityName() %></option>
+                                	<option>3</option>
+                                	<option>4</option>
+                                	<option>5</option>
+                                	<%} %>
+                                	-->
+                                </select>
+                                
                             </div>
                         </div>
                         
@@ -294,7 +298,7 @@
                                     <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지1</label>
                                 </div>
-
+  
                                 <div>
                                     <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지1</label>

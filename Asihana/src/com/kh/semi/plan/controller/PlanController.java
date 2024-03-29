@@ -82,6 +82,11 @@ public class PlanController {
 		return new PlanService().insertStartDestination(planNo, returnDate);
 	}
 	
+	public int updateStartDestination(HttpServletRequest request, HttpServletResponse response) {
+		
+		return new PlanService().updateStartDestination(Integer.parseInt(request.getParameter("destNo")), request.getParameter("returnDate"));
+	}
+	
 	public List<DestinationDetail> insertDestination(HttpServletRequest request, HttpServletResponse response) {
 		
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
@@ -102,10 +107,6 @@ public class PlanController {
 		return list;
 	}
 
-	public int updateStartDestination(HttpServletRequest request, HttpServletResponse response) {
-		
-		return new PlanService().updateStartDestination(Integer.parseInt(request.getParameter("destNo")), request.getParameter("returnDate"));
-	}
 
 
 	

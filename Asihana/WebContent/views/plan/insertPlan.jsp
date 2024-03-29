@@ -258,7 +258,7 @@
             	}
             }
             
-            $('#modal-form-area').find('input, select').change(function(){
+            $('#modal-form-area').find('input, select').change(function(){ // 모달 디스플레이
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
                 $('#arr-time-display').text($('#arr-time').val());
@@ -270,7 +270,6 @@
     </script>
     
     <script> <!-- AJAX -->
-    
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
     			$.ajax({
@@ -287,17 +286,12 @@
     					status : 'N'
     				},
     				success : function(result){
-    					
-    					
-    					
-    					
-    					
-    					
+    					if(result > 0){
+    						selectDestination();
+    					}
     				}
     			});
-    		})
-    		
-    		
+    		});
     		
     	})
     </script>
@@ -489,18 +483,20 @@
     				let rootArea = '';
     				let schedArea = '';
 					
+    				let rootAddIcon = '<div class="root-icon">' // 루트 추가 아이콘
+					                + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
+					                + 	'<div class="planToast">'
+					                +     '<button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>'
+					                +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>'
+					                +		'</div>'
+					           	    + '</div>'; 
+    				
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
     						$('#startDestNo').val(result[i].destNo);
 	    					if(result.length == 1){ // 목적지가 없을 시(출발 목적지만 존재)
-	    						rootArea += '<div class="root-icon">' // 루트 추가 아이콘
-							              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
-							              + 	'<div class="planToast">'
-							              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
-							              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
-							              +		'</div>'
-							           	  + '</div>';
+	    						rootArea += rootAddIcon;
 	    					}
     					}
     					else if(result.length - 1 > 0 && i == result.length - 1) { // 마지막 목적지
@@ -530,13 +526,7 @@
 		  	                    	  + 	'</div>'
 		  	                          + '</div>';
 	  	                	rootArea += '<div class="root-line"></div>'; // 루트 라인 
-	  	                	rootArea += '<div class="root-icon">' // 루트 추가 아이콘
-						              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
-						              + 	'<div class="planToast">'
-						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
-						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
-						              +		'</div>'
-						           	  + '</div>';
+	  	                	rootArea += rootAddIcon;
     					}
     					else{ // 도시			
     						// 목적지 구역

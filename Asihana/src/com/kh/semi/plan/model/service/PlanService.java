@@ -108,6 +108,19 @@ public class PlanService {
 		return result;
 	}
 	
+	public int updateStartDestination(int destNo, String returnDate) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().updateStartDestination(conn, destNo, returnDate);
+		
+		if(result > 0) commit(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	public int insertDestination(Destination des) {
 		
 		Connection conn = getConnection();
@@ -121,18 +134,6 @@ public class PlanService {
 		return result;
 	}
 
-	public int updateStartDestination(int destNo, String returnDate) {
-		
-		Connection conn = getConnection();
-		
-		int result = new PlanDao().updateStartDestination(conn, destNo, returnDate);
-		
-		if(result > 0) commit(conn);
-		
-		close(conn);
-		
-		return result;
-	}
 
 
 

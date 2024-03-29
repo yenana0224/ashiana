@@ -3,7 +3,7 @@
 
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview, com.kh.semi.info.model.vo.City, com.kh.semi.travelReview.model.vo.HashTag" %>
 <%  
-	List<City> cityList = (List<City>) request.getAttribute("cityList");
+	List<City> cityList = (List<City>)session.getAttribute("cityList");
 	List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
 	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
 	List<HashTag> checkedTagList = (List<HashTag>)request.getAttribute("checkedTagList");

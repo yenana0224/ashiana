@@ -137,10 +137,10 @@
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>"></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"><%=nation.getNationContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>"></div>
-            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>"></div>
-            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>"></div>
-            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>"></div>
+            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
+            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
+            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
+            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
 			
 			<div class="info-area">
                 <label>도시사진변경</label>

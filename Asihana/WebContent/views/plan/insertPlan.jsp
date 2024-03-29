@@ -240,25 +240,27 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
-	
-            if($('#addDesModal').css('display') == 'block'){
-            	console.log('hihi');
-            	if($('.root-card').length){
-            	}
-            	else{
-		            $('#dep-date').val($('#start-date').val());
-		            $('#dep-time').val($('#start-time').val());
-		            // 출발일 => 도착일 
-		            $('#arr-date').val($('#dep-date').val());
-		            // 출발일시 디스플레이
-		            $('#dep-date-display').text($('#dep-date').val());
-		            $('#dep-time-display').text($('#dep-time').val());
-		            // 도착일 디스플레이
-		            $('#arr-date-display').text($('#arr-date').val());
-            	}
-            }
+			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
+				if($('.root-card').length == 0){ // 목적지가 없을 시 여행 출발일시로 디스플레이됨 
+				    $('#dep-date').val($('#start-date').val());
+				    $('#dep-time').val($('#start-time').val());
+				    // 출발일 => 도착일 
+				    $('#arr-date').val($('#dep-date').val());
+				    // 출발일시 디스플레이
+				    $('#dep-date-display').text($('#dep-date').val());
+				    $('#dep-time-display').text($('#dep-time').val());
+				    // 도착일 디스플레이
+				    $('#arr-date-display').text($('#arr-date').val());
+				}
+				else{
+					
+				}
+				
+
+			})
             
             $('#modal-form-area').find('input, select').change(function(){ // 모달 디스플레이
+            	
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
                 $('#arr-time-display').text($('#arr-time').val());
@@ -348,7 +350,7 @@
                         +       '<img class="sched-detail-btn detail-btn-add" src="resources/icons/check-circle-fill-green.svg">'
                         +       '<img class="sched-detail-btn detail-btn-cancel" src="resources/icons/x-circle-fill-red.svg">'
                         +   '</td>'
-                    +  '</tr>';
+                    	+  '</tr>';
             const $detail = $(this).parents('.sched-des').next().find('.sched-des-detail-body');
             
             if($detail.find('.sched-tr-add').length == 0){ // 예약/일정 추가 행이 존재하는지 여부
@@ -521,6 +523,7 @@
 		  	                          +		'<img src="resources/대련.jpg">'
 		  	                    	  + 	'</div>'
 		  	                          + 	'<div class="des-info">'
+		  	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
 		  	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
 		  	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
 		  	                    	  + 	'</div>'
@@ -551,6 +554,7 @@
 	    	                          +		'<img src="resources/대련.jpg">'
 	    	                    	  + 	'</div>'
 	    	                          + 	'<div class="des-info">'
+	    	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
 	    	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
 	    	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
 	    	                    	  + 	'</div>'

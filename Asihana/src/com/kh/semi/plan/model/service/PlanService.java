@@ -48,22 +48,27 @@ public class PlanService {
 		return planDetail;
 	}
 
-	public List<DestinationDetail> selectDesDetail(int planNo, String status) {
+	public List<DestinationDetail> selectDesDetail(int planNo) {
 		
 		Connection conn = getConnection();
+<<<<<<< HEAD
 		System.out.println(status);
 		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo, status);
+=======
+		
+		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo);
+>>>>>>> 0e81ddcfaeff957c750aa0a429c46f5af5795f06
 		
 		close(conn);
 		
 		return list;
 	}
 
-	public List<Schedule> selectSchedule(int destNo, String status) {
+	public List<Schedule> selectSchedule(int destNo) {
 		
 		Connection conn = getConnection();
 		
-		List<Schedule> list = new PlanDao().selectSchedule(conn, destNo, status);
+		List<Schedule> list = new PlanDao().selectSchedule(conn, destNo);
 		
 		close(conn);
 		

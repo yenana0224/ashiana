@@ -102,10 +102,10 @@
 	<script>
 		$(function(){
 	        // 목적지 추가 토스트
-	        $('.des-add-btn').click(function(){
+	        $('#root-area').on('click', '.des-add-btn', function(){
 	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
 	            else $('.planToast').hide(100);
-	        })
+	        }
 		})
 	</script>
         

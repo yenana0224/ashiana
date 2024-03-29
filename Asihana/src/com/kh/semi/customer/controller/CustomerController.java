@@ -306,7 +306,7 @@ public class CustomerController {
 		
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 		String replyContent = request.getParameter("content");
-		String userNo = request.getParameter("userNo");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String qnaStatus = request.getParameter("qnaStatus");
 		
 		Answer answer = new Answer();

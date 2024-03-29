@@ -551,7 +551,8 @@
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>
+    				planNo : <%= planNo %>,
+    				status : 'N'
     			},
     			success : function(result){    				
     				let departure = '';
@@ -560,7 +561,8 @@
     				
     				let rootArea = '';
     				let schedArea = '';
-
+					
+    				console.log(result);
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
@@ -681,7 +683,8 @@
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : destNo
+    				destNo : destNo,
+    				status : 'N'
     			},
     			success : function(result){
     				let schedTable = '';

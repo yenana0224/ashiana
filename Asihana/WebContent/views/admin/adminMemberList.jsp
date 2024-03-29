@@ -146,7 +146,7 @@
             </form>
         </div>
 
-        <form action="<%=contextPath %>/changeHold.admin" method="get">
+        <form action="<%=contextPath %>" method="get">
             <table class="noticeList">
                 <thead>
                     <tr>
@@ -194,8 +194,8 @@
                 </tbody>
             </table>
             <div class="btn">
-                선택 게시물 
-                <button type="submit">고정</button>
+                선택 회원
+                <button type="submit">탈퇴</button>
             </div>
         </form>
         
@@ -218,18 +218,13 @@
 			  <button onclick="; location.href='<%=contextPath%>/member.admin?currentPage=<%=currentPage + 1%>'">다음</button>
 			<% } %>
         </div>
-        
 
-		<div class="btn">
-        	<a href="<%=contextPath %>/noticeInsertForm.admin">글작성하기</a>
-        </div>
-        
            <script>
             
             $(function(){
             	
             	$('.noticeTitle').click(function(){
-            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
+            		location.href="<%=contextPath%>/memberDetail.admin?memberNo=" + $(this).attr('id');
             	});
             });
             </script>

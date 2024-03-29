@@ -428,4 +428,9 @@ public class adminController {
 		return "views/admin/adminMemberList.jsp";
 	}
 	
+	public String memberdelete(HttpServletRequest request, HttpServletResponse response) {
+		String userNos = request.getParameterValues("userNo");
+		System.out.println(userNos.length);
+	}
+	
 }

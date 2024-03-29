@@ -190,8 +190,8 @@
                 
                 <!-- Modal footer -->
                 <div id="modal-footer">
-                    <button type="reset" id="insertDes" class="btn btn-danger" data-dismiss="modal">추가</button>
-                    <button type="reset" class="btn btn-dark" data-dismiss="modal">취소</button>
+                    <button type="button" id="insertDes" class="btn btn-danger" data-dismiss="modal">추가</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">취소</button>
                 </div>
                 </form>
             </div>
@@ -241,8 +241,14 @@
                 }
             })
 			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
-				
+				$('#country option:first').prop('selected', true);
+				$('#city option:first').prop('selected', true);
+				$('#transport option:first').prop('selected', true);
+				$('#transport-op option:first').prop('selected', true);
+				$('#trans-price').val('0');
+				$('#country-city').text('');
 				if($('.root-card').length == 0){ // 목적지가 없을 시 여행 출발일시로 디스플레이됨 
+				    $('#add-day').prop('checked', false); // 체크 박스 해제
 				    $('#dep-date').val($('#start-date').val());
 				    $('#dep-time').val($('#start-time').val());
 				    // 출발일 => 도착일 
@@ -252,12 +258,25 @@
 				    $('#dep-time-display').text($('#dep-time').val());
 				    // 도착일 디스플레이
 				    $('#arr-date-display').text($('#arr-date').val());
+				    $('#arr-time').val('');
+				    $('#end-date').val('');
+				    $('#end-time').val('');
 				}
 				else{
-					console.log($('.root-card').last());
+					console.log($('.root-card').last().find('input[name=destNo]').val());
+					
+					$('#add-day').prop('checked', false); // 체크 박스 해제
+					$('#dep-date').val($('#end-date').val());
+				    $('#dep-time').val($('#end-time').val());
+				    $('#arr-date').val($('#end-date').val());
+				    $('#dep-date-display').text($('#dep-date').val());
+				    $('#dep-time-display').text($('#dep-time').val());
+				    // 도착일 디스플레이
+				    $('#arr-date-display').text($('#arr-date').val());
+				    $('#arr-time').val('');
+				    $('#end-date').val('');
+				    $('#end-time').val('');
 				}
-				
-
 			})
             
             $('#modal-form-area').find('input, select').change(function(){ // 모달 디스플레이
@@ -275,7 +294,6 @@
     <script> <!-- AJAX -->
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
-    			console.log($('#city').val())
     			$.ajax({
     				url : 'insertDestination.ajaxplan',
     				type : 'post',
@@ -494,7 +512,6 @@
 					                +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>'
 					                +		'</div>'
 					           	    + '</div>'; 
-    				
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
@@ -503,14 +520,19 @@
 	    						rootArea += rootAddIcon;
 	    					}
     					}
-    					else if(result.length - 1 > 0 && i == result.length - 1) { // 마지막 목적지
+    					else if(i == result.length - 1) { // 마지막 목적지
     						rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
 			                		  + '</div>';
 							arrival = result[i].arrival;
 							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
 							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-							rootInfo = result[i].trans + '(' + rootHour + '시간';
+							if(result[i].trans == undefined){
+    							rootInfo += '(' + rootHour + '시간';
+    						}
+    						else{
+	    						rootInfo += result[i].trans + '(' + rootHour + '시간';
+    						}
 							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
 							rootInfo += ')';
 							rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
@@ -541,7 +563,12 @@
     						arrival = result[i].arrival;
     						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
     						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+    						if(result[i].trans == undefined){
+    							rootInfo += '(' + rootHour + '시간';
+    						}
+    						else{
+	    						rootInfo += result[i].trans + '(' + rootHour + '시간';
+    						}
     						if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
     						rootInfo += ')';
     						rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포

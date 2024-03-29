@@ -241,6 +241,7 @@
                 }
             })
 			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
+				
 				if($('.root-card').length == 0){ // 목적지가 없을 시 여행 출발일시로 디스플레이됨 
 				    $('#dep-date').val($('#start-date').val());
 				    $('#dep-time').val($('#start-time').val());
@@ -253,7 +254,7 @@
 				    $('#arr-date-display').text($('#arr-date').val());
 				}
 				else{
-					
+					console.log($('.root-card').last());
 				}
 				
 
@@ -274,6 +275,7 @@
     <script> <!-- AJAX -->
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
+    			console.log($('#city').val())
     			$.ajax({
     				url : 'insertDestination.ajaxplan',
     				type : 'post',

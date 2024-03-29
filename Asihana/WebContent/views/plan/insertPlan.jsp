@@ -534,10 +534,10 @@
 							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
 							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
 							if(result[i].trans == undefined){
-    							rootInfo += '(' + rootHour + '시간';
+    							rootInfo = '(' + rootHour + '시간';
     						}
     						else{
-	    						rootInfo += result[i].trans + '(' + rootHour + '시간';
+	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
     						}
 							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
 							rootInfo += ')';
@@ -560,6 +560,35 @@
 		  	                          + '</div>';
 	  	                	rootArea += '<div class="root-line"></div>'; // 루트 라인 
 	  	                	rootArea += rootAddIcon;
+	  	                	
+	  	               // 예약 및 일정 구역
+	    	                schedArea += '<div class="sched-des">' // 아코디언 div
+				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
+				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
+				    	               +     '<div class="sched-btn-area">'
+				    	               +         '<button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
+				    	               +     '</div>'
+				    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+				    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
+				    	               + '</div>'
+				    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
+				    	               +     '<table class="table table-hover table-bordered">'
+				    	               +         '<thead>'
+				    	               +             '<tr>'
+				    	               +                 '<th class="th1">카테고리</th>'
+				    	               +                 '<th class="th2">예약/일정 명</th>'
+				    	               +                 '<th class="th3">상세 내용</th>'
+				    	               +                 '<th class="th4">예상 금액</th>'
+				    	               + 				 '<th class="th5"></th>'
+				    	               +             '</tr>'
+				    	               +         '</thead>'
+				    	               +         '<tbody class="sched-des-detail-body">'
+	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
+				    	               +         '</tbody>'
+				    	               +       '</table>'
+				    	               + '</div>';
+				    	               
+				    		selectSchedule(result[i].destNo);
     					}
     					else{ // 도시			
     						// 목적지 구역
@@ -570,10 +599,10 @@
     						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
     						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
     						if(result[i].trans == undefined){
-    							rootInfo += '(' + rootHour + '시간';
+    							rootInfo = '(' + rootHour + '시간';
     						}
     						else{
-	    						rootInfo += result[i].trans + '(' + rootHour + '시간';
+	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
     						}
     						if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
     						rootInfo += ')';

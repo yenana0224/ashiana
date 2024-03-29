@@ -228,9 +228,9 @@
                             </div>
 
                             <div id="calendar-content"><!--제목의 content영역-->
-                                <input type="text"></input>
-                                
-                                <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>
+                            	출발일<input type="date" > <br>
+                            	도착일<input type="date" >
+                                <!--  <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>-->
                             </div>
                         </div>
 

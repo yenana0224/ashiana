@@ -27,7 +27,7 @@ public class TravelReviewEnrollForm extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("ㅎㅎ");
+		request.getSession().getAttribute("hashTagList"); // 해시태그 리스트를 보낸다 ㅁㄴㅇ
 		request.getRequestDispatcher("views/travelReview/travelReviewEnrollForm.jsp").forward(request, response);
 	}
 

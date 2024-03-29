@@ -12,7 +12,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
         #login_join{
             height: 50px;
@@ -130,6 +134,63 @@
             padding-bottom: 7px; 
         }
         #navi > li > ul a:hover{font-size : 14px;}
+        
+        #navi_mypage{
+            list-style: none;
+            margin: 0;
+            height: 100%;
+            position: relative;
+            bottom: 20%;
+            right: 5%;
+            top:70%
+        }
+
+        #navi_mypage > li{
+            float: right;
+            width: 13%;
+            height: 100%;
+            text-align: center;
+        }
+
+        #navi_mypage a{
+            text-decoration: none;
+            color: rgb(85, 83, 83);
+            font-weight: 700;
+            width: 100%;
+            height: 100%; 
+            display : block; 
+            line-height: 50px;
+            z-index: 2;
+        }
+
+        #navi_mypage > li > ul{
+            list-style : none;
+            padding : 0px;
+            display: none;
+        }
+
+        #navi_mypage > li > a:hover + ul{
+            display: block;
+        }
+
+        #navi_mypage > li > ul:hover {
+           display: block;
+        }
+
+        #navi_mypage a:hover{
+            font-size: 18px;
+            color: red;
+        }
+
+        #navi_mypage > li > ul > li > a{
+            position: relative; 
+            font-weight: bold;
+            font-size : 14px; 
+            background-color: rgba(226, 86, 86, 0.452);
+            height: 40px;
+            padding-bottom: 7px; 
+        }
+        #navi_mypage > li > ul a:hover{font-size : 14px;}
     </style>
 </head>
 <body>
@@ -143,7 +204,16 @@
 	    	<!-- 로그인시 -->
     	<div id="login_join">
     		<% if(!loginUser.getUserId().equals("admin")) {%>
-	        <a href="<%=contextPath%>/views/member/myPage.jsp">마이페이지</a>
+    		<ul id="navi_mypage" >
+	        <li>
+                 <a href="<%=contextPath%>/views/member/myPage.jsp">⚙</a>
+                <ul>
+                    <li><a href="<%=contextPath%>/myPlan">📅My여행플랜</a></li>
+                    <li><a href="<%=contextPath%>/myTravel">📝My여행기</a></li>
+                    <li><a href="<%=contextPath%>/friendList">👨‍👩‍👦‍👦친구</a></li>
+                </ul>
+	        </li>
+	        </ul>
 	        <% } else {%>
 	        <a href="<%=contextPath%>/main.admin">관리자페이지</a>
 	        <% } %>

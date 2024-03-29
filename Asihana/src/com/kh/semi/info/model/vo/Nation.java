@@ -6,7 +6,12 @@ public class Nation {
 	private String nationName;
 	private String nationContent;
 	private String visaName;
+	private String language;
+	private String currency;
+	private String voltage;
 
+	
+	
 	public Nation() {
 		super();
 	}
@@ -19,6 +24,31 @@ public class Nation {
 		this.visaName = visaName;
 	}
 	
+	
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public String getVoltage() {
+		return voltage;
+	}
+
+	public void setVoltage(String voltage) {
+		this.voltage = voltage;
+	}
 
 	public int getNationNo() {
 		return nationNo;

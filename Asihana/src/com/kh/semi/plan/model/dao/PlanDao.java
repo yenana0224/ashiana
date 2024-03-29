@@ -266,8 +266,8 @@ public class PlanDao {
 		String sql = prop.getProperty("updateStartDestination");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, destNo);
-			pstmt.setString(2, returnDate);
+			pstmt.setString(1, returnDate);
+			pstmt.setInt(2, destNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

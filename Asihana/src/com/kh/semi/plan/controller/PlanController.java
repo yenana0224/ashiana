@@ -50,12 +50,12 @@ public class PlanController {
 
 	public List<DestinationDetail> selectDesDetail(HttpServletRequest request, HttpServletResponse response) {
 		
-		return new PlanService().selectDesDetail(Integer.parseInt(request.getParameter("planNo")));
+		return new PlanService().selectDesDetail(Integer.parseInt(request.getParameter("planNo")), request.getParameter("status"));
 	}
 
 	public List<Schedule> selectSchedule(HttpServletRequest request, HttpServletResponse response) {
 		
-		return new PlanService().selectSchedule(Integer.parseInt(request.getParameter("destNo")));
+		return new PlanService().selectSchedule(Integer.parseInt(request.getParameter("destNo")), request.getParameter("status"));
 	}
 
 	public String insertPlan(HttpServletRequest request, HttpServletResponse response) {
@@ -97,7 +97,7 @@ public class PlanController {
 		
 		List<DestinationDetail> list = new ArrayList();
 		
-		if(result > 0) list = new PlanService().selectDesDetail(planNo);
+		if(result > 0) list = new PlanService().selectDesDetail(planNo, request.getParameter("status"));
 		
 		return list;
 	}

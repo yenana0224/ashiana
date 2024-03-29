@@ -200,6 +200,7 @@
 	<%@ include file="../common/headerbar.jsp" %>
 
     <div class="outer">
+    
         <div class="selectbar">
             <div id="selectwrap">
                 <h5>다른 여행지 보기</h5>

@@ -23,6 +23,7 @@ import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -404,6 +405,27 @@ public class adminController {
 
 		}
 		return view;
+	}
+	
+	public String memberList(HttpServletRequest request, HttpServletResponse response){
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int listCount = new AdminService().countMember();
+		int pageLimit = 10;
+		int boardLimit = 20;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		List<Member> list = new AdminService().memberList(pi);
+		
+		request.setAttribute("pageInfo", pi);
+		request.setAttribute("list", list);
+		
+		return  "views/admin/adminMemberList.jsp";
 	}
 	
 }

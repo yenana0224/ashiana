@@ -17,12 +17,12 @@ import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.CityFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
-public class CityDao {
+public class CityDao2 {
 	
 	private Properties prop = new Properties();
 	
-	public CityDao() {
-		String filePath = CityDao.class.getResource("/sql/info/city-mapper.xml").getPath();
+	public CityDao2() {
+		String filePath = CityDao2.class.getResource("/sql/info/city-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));

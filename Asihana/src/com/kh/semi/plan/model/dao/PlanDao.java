@@ -133,7 +133,7 @@ public class PlanDao {
 	}
 
 
-	public List<DestinationDetail> selectDesDetail(Connection conn, int planNo) {
+	public List<DestinationDetail> selectDesDetail(Connection conn, int planNo, String status) {
 		
 		List<DestinationDetail> list = new ArrayList();
 		ResultSet rset = null;
@@ -142,8 +142,10 @@ public class PlanDao {
 		String sql = prop.getProperty("selectDesDetail");
 		
 		try {
+			System.out.println(status);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
+			pstmt.setString(2, status);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -167,7 +169,7 @@ public class PlanDao {
 	}
 
 
-	public List<Schedule> selectSchedule(Connection conn, int destNo) {
+	public List<Schedule> selectSchedule(Connection conn, int destNo, String status) {
 		
 		List<Schedule> list = new ArrayList();
 		ResultSet rset = null;
@@ -178,6 +180,7 @@ public class PlanDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, destNo);
+			pstmt.setString(2, status);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -266,8 +269,8 @@ public class PlanDao {
 		String sql = prop.getProperty("updateStartDestination");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, destNo);
-			pstmt.setString(2, returnDate);
+			pstmt.setString(1, returnDate);
+			pstmt.setInt(2, destNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

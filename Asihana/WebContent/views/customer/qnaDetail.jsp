@@ -262,29 +262,20 @@ h4 {
 			<p><%=qna.getQnaContent()%></p>
 		</div>
 		<div id="downloadBox">
-			<%
-				if (qnaFile != null) {
-			%>
-			<label>첨부파일 / </label><a download="<%=qnaFile.getChangeName()%>"
+			<% if (qnaFile != null) {%>
+				<label>첨부파일 / </label><a download="<%=qnaFile.getChangeName()%>"
 				href="<%=contextPath + "/" + qnaFile.getFilePath() + "/" + qnaFile.getChangeName()%>"><%=qnaFile.getOriginName()%></a>
-			<%
-				} else {
-			%>
-			<label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
-
-			<%
-				}
-			%>
+			<% } else { %>
+				<label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
+			<% } %>
 		</div>
+		
 		<div id="buttonBox">
 			<button class="btn btn-sm btn-secondary" id="backbutton">목록</button>
-			<%
-				if (loginUser != null && loginUser.getUserNo() == qnaUserNo) {
-			%>
+			<% if (loginUser != null && loginUser.getUserNo() == qnaUserNo) { %>
 			<button class="btn btn-sm btn-danger" id="deleteButton">삭제</button>
-			<%
-				}
-			%>
+			<button class="btn btn-sm btn-success" id="updateButton">수정</button>
+			<% } %>
 		</div>
 
 		<div class="modal">
@@ -305,7 +296,7 @@ h4 {
 		<div id="replyText">
 			<textarea name="reply" id="reply" cols="90" rows="8"></textarea>
 			<button id="replyInsert">작 성</button>
-			<button id="replyUpdate" style="display: none;">수정</button>
+			<button id="replyUpdate" style="display: none;">수 정</button>
 			<div id="counter">(0 / 300)</div>
 		</div>
 		<%
@@ -368,21 +359,21 @@ h4 {
 										resultStr += '<div class="answer">'
 												  + '<input type="hidden" class="replyNo" value="'+replyNo+'">'
 												  + '<span class="answerName"><label style="color:red;">Name</label>' + " " + name  + '</span>'
-							                      +	'<div class="answerTextBox"><span class="answerText">' + comment + '</span></div>'
+							                      +	'<div class="answerTextBox"><pre class="answerText">' + comment + '</pre></div>'
 							                      + '<a class="replyUpdate">수정</a>  <a class="replyDelete">삭제</a>'
 										     	  + '</div>';
 									}
 									else{
 										resultStr += '<div class="answer">'
-												  + '<div class="replyNo" style="display:none;">' + replyNo + '</div>'
+												  + '<input type="hidden" class="replyNo" value="'+replyNo+'">'
 												  + '<span class="answerName"><label style="color:red;">Name</label>' + " " + name  + '</span>'
-							                      +	'<div class="answerTextBox"><span class="answerText">' + comment + '</span></div>'
+							                      +	'<div class="answerTextBox"><pre class="answerText">' + comment + '</pre></div>'
 										     	  + '</div>';
 									}
 							<%} else {%>
 									resultStr += '<div class="answer">'
 											  +'<span class="answerName"><label style="color:red;">Name</label>' + " " + name  + '</span>'
-			                      		  	  +	'<div class="answerTextBox"><span class="answerText">' + comment + '</span></div>'
+			                      		  	  +	'<div class="answerTextBox"><pre class="answerText">' + comment + '</pre></div>'
 											  + '</div>'
 							
 							<%}%>
@@ -397,47 +388,61 @@ h4 {
 		});
 		
 		$('#replyInsert').click(function(){
-			$.ajax({
-				url: 'replyInsert.yo',
-				type : 'post',
-				data: {
-						qnaNo : <%=qna.getQnaNo()%>,
-						content : $('#reply').val(),
-						<%if (loginUser != null) {%>
-						userNo : <%=loginUser.getUserNo()%>,
-						<%}%>
-						qnaStatus : '<%=qna.getQnaStatus()%>'
-					  },
-				success : function(result){
-					if(result == 'success'){
-						$('#reply').val('');
-						selectReplyList();
-					}
-				}  
-			})
+			
+			let blank = $('#reply').val().replace(/\s/gi, "").length;
+			
+			if(blank > 0){
+				$.ajax({
+					url: 'replyInsert.yo',
+					type : 'post',
+					data: {
+							qnaNo : <%=qna.getQnaNo()%>,
+							content : $('#reply').val(),
+							<%if (loginUser != null) {%>
+							userNo : <%=loginUser.getUserNo()%>,
+							<%}%>
+							qnaStatus : '<%=qna.getQnaStatus()%>'
+						  },
+					success : function(result){
+						if(result == 'success'){
+							$('#reply').val('');
+							selectReplyList();
+						}
+						else{
+							alert('작성실패')
+						}
+					}  
+				})
+			}
+			else{
+				alert('작성할 댓글을 입력해주세요');
+			}
 		})
 
 		$(document).on('click', '.replyUpdate', function(){
 			
 				let update = $(this).siblings('.answerTextBox').children('.answerText').text();
-				let replyNo = $(this).siblings('.replyNo').val();
-				console.log(replyNo);
-				
+			    let replyNo = $(this).closest('.answer').find('.replyNo').val();
 				$('#reply').val(update);
-				
+				$('#reply').text(replyNo);
 				$('#replyInsert').css('display','none');
 				$('#replyUpdate').css('display', 'block');
 				
-				$(document).on('click', '#replyUpdate', function(){
-						replyUpdate(replyNo);
-				});
-				
 		})
 		
-		function replyUpdate(e){
+		$(document).on('click', '#replyUpdate', function() {
+		    
+			replyUpdate();
 			
-			const replyNo = e;
+		});
+				
+		function replyUpdate(){
 			
+			let replyNo = $('#reply').text();
+			// 공백확인용
+			let blank = $('#reply').val().replace(/\s/gi, "").length;
+			// 빈문자일때 alert창
+			if(blank > 0){
 			$.ajax({
 				url:'replyUpdate.yo',
 				type: 'post',
@@ -457,7 +462,10 @@ h4 {
 					}
 				}
 			})
-			
+			}
+			else{
+				alert('수정할 문자를 입력해주세요')
+			}
 		}
 		
 		$(document).on('click', '.replyDelete', function(){
@@ -472,7 +480,13 @@ h4 {
 			    success : function(result){
 			    	if(result == 'success'){
 				    	alert('삭제완료');
+				    	$('#replyInsert').css('display','block');
+						$('#replyUpdate').css('display', 'none');
+						$('#reply').val('')
 				    	selectReplyList();
+			    	}
+			    	else{
+			    		alert('삭제실패')
 			    	}
 			    }
 			})

@@ -92,4 +92,16 @@
 	    RNUM BETWEEN ? AND ?
   	
   	</entry>
+  	
+  	
+  	<entry key="memberDelete">
+  	UPDATE
+	     MEMBER
+	  SET
+	    STATUS = 'N'
+	WHERE
+	    MEM_NO = ?
+  	</entry>
+  	
+  	
 </properties>

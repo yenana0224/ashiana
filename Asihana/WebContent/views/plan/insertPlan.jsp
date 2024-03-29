@@ -105,7 +105,7 @@
 	        $('#root-area').on('click', '.des-add-btn', function(){
 	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
 	            else $('.planToast').hide(100);
-	        }
+	        })
 		})
 	</script>
         
@@ -258,7 +258,7 @@
             	}
             }
             
-            $('#modal-form-area').find('input, select').change(function(){
+            $('#modal-form-area').find('input, select').change(function(){ // 모달 디스플레이
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
                 $('#arr-time-display').text($('#arr-time').val());
@@ -270,7 +270,6 @@
     </script>
     
     <script> <!-- AJAX -->
-    
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
     			$.ajax({
@@ -287,17 +286,12 @@
     					status : 'N'
     				},
     				success : function(result){
-    					
-    					
-    					
-    					
-    					
-    					
+    					if(result > 0){
+    						selectDestination();
+    					}
     				}
     			});
-    		})
-    		
-    		
+    		});
     		
     	})
     </script>
@@ -497,8 +491,8 @@
 	    						rootArea += '<div class="root-icon">' // 루트 추가 아이콘
 							              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
 							              + 	'<div class="planToast">'
-							              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
-							              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
+							              +     '<button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
+							              +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button" disabled>여행 종료</button>'
 							              +		'</div>'
 							           	  + '</div>';
 	    					}
@@ -533,8 +527,8 @@
 	  	                	rootArea += '<div class="root-icon">' // 루트 추가 아이콘
 						              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
 						              + 	'<div class="planToast">'
-						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
-						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
+						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>'
+						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>'
 						              +		'</div>'
 						           	  + '</div>';
     					}

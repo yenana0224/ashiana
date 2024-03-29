@@ -48,8 +48,25 @@
 	
 	<entry key="selectCommunity">
 		SELECT
+				COMMUNITY_NO,
+				CITY_NO,
+				MEMBER_NO,
+				COMMUNITY_CONTENT,
+				COUNT,
+				COMMUNITY_DATE, 
+				TB_COMMUNITY.STATUS STATUS
+		    FROM
+			 	TB_COMMUNITY
 			
+			JOIN
+				MEMBER
+			ON
+				(MEMBER.MEM_NO=TB_COMMUNITY.MEMBER_NO)
+		
+	    	WHERE 
+				TB_COMMUNITY.STATUS = 'Y'
 	
+		
 	
 	
 	</entry>

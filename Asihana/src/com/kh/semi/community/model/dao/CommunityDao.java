@@ -90,9 +90,7 @@ public class CommunityDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, communityNo);
-			
 			result =pstmt.executeUpdate();
 	
 			
@@ -114,9 +112,35 @@ public class CommunityDao {
 		Community community =null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
 		String sql = prop.getProperty("selectCommunity");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,communityNo);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				community = new Community();
+				community.setComuNo(rset.getInt("COMMUNITY_NO"));
+				community.setCityNo(rset.getInt("CITY_NO"));		
+				community.setMemNo(rset.getInt("MEMBER_NO"));
+				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
+				community.setCount(rset.getInt("COUNT"));
+				community.setComuDate(rset.getDate("COMMUNITY_DATE"));
+				community.setStatus(rset.getString("STATUS").charAt(0));
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+			
+		}
 		
 		
 		

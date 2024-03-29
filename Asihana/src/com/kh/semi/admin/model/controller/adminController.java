@@ -425,7 +425,7 @@ public class adminController {
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", list);
 		
-		return  "views/admin/adminMemberList.jsp";
+		return "views/admin/adminMemberList.jsp";
 	}
 	
 }

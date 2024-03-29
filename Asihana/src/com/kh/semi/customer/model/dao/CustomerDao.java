@@ -769,7 +769,28 @@ public class CustomerDao {
 		}
 		
 		return result;
+	}
+	
+	public int qnaReplyDelete(Connection conn, int qnaNo) {
 		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("qnaReplyDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, qnaNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	public int replyInsert(Connection conn, Answer answer) {
@@ -860,9 +881,54 @@ public class CustomerDao {
 		return result;
 	}
 	
+	public int updateQna(Connection conn, QNA qna) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, qna.getQnaTitle());
+			pstmt.setString(2, qna.getQnaContent());
+			pstmt.setInt(3, qna.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
-	
-	
+	public int updateInsertFile(Connection conn, NoticeFile file) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateInsertFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, file.getBoardNo());
+			pstmt.setString(2, file.getFilePath());
+			pstmt.setString(3, file.getOriginName());
+			pstmt.setString(4, file.getChangeName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 }

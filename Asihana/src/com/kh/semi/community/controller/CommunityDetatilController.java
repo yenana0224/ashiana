@@ -53,12 +53,12 @@ public class CommunityDetatilController extends HttpServlet {
 			if(community != null) {
 				
 				request.setAttribute("community", community);
-				request.getRequestDispatcher("views/common/communityDetail.jsp").forward(request,response);
+				request.getRequestDispatcher("views/community/communityDetail.jsp").forward(request,response);
 		
 			} else {
 				
-				//request.setAttribute("errorMsg", "공지사항 상세 조회실패!!!");
-				//request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
+				request.setAttribute("errorMsg", "공지사항 상세 조회실패!!!");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
 				
 				
 			}

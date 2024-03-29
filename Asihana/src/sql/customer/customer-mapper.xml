@@ -549,6 +549,14 @@
 		      )     
 	</entry>
 	
+	<entry key="qnaReplyDelete">
+		DELETE
+		  FROM
+		      TB_ANSWER
+		 WHERE
+		      QNA_NO = ?     
+	</entry>
+	
 	<entry key="completed">
 		UPDATE
 		      TB_QNA
@@ -572,7 +580,34 @@
 		  FROM
 	          TB_ANSWER
 	     WHERE
-			REPLY_NO = ?
+			  REPLY_NO = ?
+	</entry>
+	
+	<entry key="updateQna">
+		UPDATE
+		      TB_QNA
+		   SET
+		      QA_TITLE = ?,
+		      QA_CONTENT = ?
+		 WHERE
+		      Q_NO = ?   
+	
+	</entry>
+	
+	<entry key="updateInsertFile">
+		INSERT
+		  INTO
+		      TB_FILE
+		VALUES
+		      (
+		      SEQ_FILE.NEXTVAL,
+		      ?,
+		      ?,
+		      ?,
+		      ?,
+		      8
+		      )     
+	
 	</entry>
 	
 </properties>

@@ -19,7 +19,17 @@ public class TravelReview {
 	private String cityName;
 	private String nationName;
 	private String nickName;
+	private Double starPoint;
 	
+	
+	public Double getStarPoint() {
+		return starPoint;
+	}
+
+	public void setStarPoint(Double starPoint) {
+		this.starPoint = starPoint;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}

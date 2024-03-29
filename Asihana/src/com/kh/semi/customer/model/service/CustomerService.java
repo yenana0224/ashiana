@@ -213,17 +213,24 @@ public class CustomerService {
 		return qna;
 	}
 	
-	public int qnaDelete(int qnaNo) {
+	public int qnaDelete(int qnaNo, int qnaFileNo) {
 		
 		Connection conn = getConnection();
+		int fileResult = 1;
+		int replyResult = 1;
 		
-		
-		int qnaResult = new CustomerDao().qnaDelete(conn, qnaNo);
-		if(qnaResult > 0) {
-			new CustomerDao().fileDelete(conn, qnaNo);
+		List<Answer> reply = new CustomerDao().selectAnswer(conn, qnaNo);
+		if(!reply.isEmpty()) {
+			replyResult = new CustomerDao().qnaReplyDelete(conn, qnaNo);
 		}
 		
-		if(qnaResult > 0) {
+		if(qnaFileNo > 0) {
+			fileResult = new CustomerDao().fileDelete(conn, qnaNo);
+		}
+		
+		int qnaResult = new CustomerDao().qnaDelete(conn, qnaNo);
+		
+		if((qnaResult * fileResult * replyResult) > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -231,7 +238,7 @@ public class CustomerService {
 		
 		close(conn);
 		
-		return qnaResult;
+		return (qnaResult * fileResult * replyResult);
 	}
 	
 	public int replyInsert(Answer answer, String qnaStatus) {
@@ -248,11 +255,8 @@ public class CustomerService {
 			result = new CustomerDao().replyInsert(conn, answer);
 		}
 		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
+		if(result > 0) commit(conn);
+
 		return result;
 	}
 	
@@ -283,7 +287,45 @@ public class CustomerService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
+	}
+	
+//	public int fileDelete(int qnaNo){
+//		
+//		Connection conn = getConnection();
+//		
+//		int result = new CustomerDao().fileDelete(conn, qnaNo);
+//		
+//		if(result > 0) commit(conn);
+//		
+//		close(conn);
+//		
+//		return result;
+//	}
+	
+	public int updateQna(QNA qna, NoticeFile newfile, NoticeFile originFile) {
+		
+		Connection conn = getConnection();
+		int fileResult = 1;
+		int originFileResult = 1;
+		if(newfile != null) {
+			if(originFile != null) {
+				originFileResult = new CustomerDao().fileDelete(conn, qna.getQnaNo());
+			}
+			fileResult = new CustomerDao().updateInsertFile(conn, newfile);
+		}
+		int qnaResult = new CustomerDao().updateQna(conn, qna);
+		if((fileResult * qnaResult * originFileResult) > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return (fileResult * qnaResult * originFileResult);
 	}
 	
 	

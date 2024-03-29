@@ -8,7 +8,9 @@ public class Community {
 	
 	private  int comuNo;
 	private int cityNo;
+	private String cityName;
 	private int memNo;
+	private String memberNickname;
 	private String comuContent;
 	private int count;
 	private Date comuDate;
@@ -19,12 +21,14 @@ public class Community {
 		super();
 	}
 
-	public Community(int comuNo, int cityNo, int memNo, String comuContent, int count, Date comuDate, char status,
-			int memberNo) {
+	public Community(int comuNo, int cityNo, String cityName, int memNo, String memberNickname, String comuContent,
+			int count, Date comuDate, char status, int memberNo) {
 		super();
 		this.comuNo = comuNo;
 		this.cityNo = cityNo;
+		this.cityName = cityName;
 		this.memNo = memNo;
+		this.memberNickname = memberNickname;
 		this.comuContent = comuContent;
 		this.count = count;
 		this.comuDate = comuDate;
@@ -48,12 +52,28 @@ public class Community {
 		this.cityNo = cityNo;
 	}
 
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
 
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
+	}
+
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
 	}
 
 	public String getComuContent() {
@@ -100,12 +120,14 @@ public class Community {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
 		result = prime * result + cityNo;
 		result = prime * result + ((comuContent == null) ? 0 : comuContent.hashCode());
 		result = prime * result + ((comuDate == null) ? 0 : comuDate.hashCode());
 		result = prime * result + comuNo;
 		result = prime * result + count;
 		result = prime * result + memNo;
+		result = prime * result + ((memberNickname == null) ? 0 : memberNickname.hashCode());
 		result = prime * result + memberNo;
 		result = prime * result + status;
 		return result;
@@ -120,6 +142,11 @@ public class Community {
 		if (getClass() != obj.getClass())
 			return false;
 		Community other = (Community) obj;
+		if (cityName == null) {
+			if (other.cityName != null)
+				return false;
+		} else if (!cityName.equals(other.cityName))
+			return false;
 		if (cityNo != other.cityNo)
 			return false;
 		if (comuContent == null) {
@@ -138,6 +165,11 @@ public class Community {
 			return false;
 		if (memNo != other.memNo)
 			return false;
+		if (memberNickname == null) {
+			if (other.memberNickname != null)
+				return false;
+		} else if (!memberNickname.equals(other.memberNickname))
+			return false;
 		if (memberNo != other.memberNo)
 			return false;
 		if (status != other.status)
@@ -147,10 +179,13 @@ public class Community {
 
 	@Override
 	public String toString() {
-		return "Community [comuNo=" + comuNo + ", cityNo=" + cityNo + ", memNo=" + memNo + ", comuContent="
-				+ comuContent + ", count=" + count + ", comuDate=" + comuDate + ", status=" + status + ", memberNo="
-				+ memberNo + "]";
+		return "Community [comuNo=" + comuNo + ", cityNo=" + cityNo + ", cityName=" + cityName + ", memNo=" + memNo
+				+ ", memberNickname=" + memberNickname + ", comuContent=" + comuContent + ", count=" + count
+				+ ", comuDate=" + comuDate + ", status=" + status + ", memberNo=" + memberNo + "]";
 	}
 
+	
+	
+	
 	
 }

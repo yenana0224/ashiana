@@ -53,9 +53,9 @@ public class TravelReviewInsertController extends HttpServlet {
 			
 			
 			
-			request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		}
 		
+		request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		
 	}
 

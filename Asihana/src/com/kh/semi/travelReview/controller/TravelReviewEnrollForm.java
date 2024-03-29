@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TravelReviewEnrollFormController
+ * Servlet implementation class TravelReviewEnrollForm
  */
-@WebServlet("/reviewEnrollForm")
-public class TravelReviewEnrollFormController extends HttpServlet {
+@WebServlet("/review.EnrollForm")
+public class TravelReviewEnrollForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TravelReviewEnrollFormController() {
+    public TravelReviewEnrollForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,10 +27,8 @@ public class TravelReviewEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession().getAttribute("hashTagList");
-		
+		System.out.println("ㅎㅎ");
 		request.getRequestDispatcher("views/travelReview/travelReviewEnrollForm.jsp").forward(request, response);
-	
 	}
 
 	/**

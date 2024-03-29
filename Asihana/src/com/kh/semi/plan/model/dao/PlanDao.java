@@ -246,7 +246,6 @@ public class PlanDao {
 		
 		String sql = prop.getProperty("insertStartDestination");
 		try {
-			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
 			pstmt.setString(2, returnDate);

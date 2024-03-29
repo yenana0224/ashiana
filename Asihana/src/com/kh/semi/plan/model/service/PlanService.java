@@ -23,7 +23,6 @@ public class PlanService {
 		
 		close(conn);
 		
-		System.out.println("list ser = "+list);
 		return list;
 	}
 
@@ -49,22 +48,23 @@ public class PlanService {
 		return planDetail;
 	}
 
-	public List<DestinationDetail> selectDesDetail(int planNo) {
+	public List<DestinationDetail> selectDesDetail(int planNo, String status) {
 		
 		Connection conn = getConnection();
-		
-		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo);
+
+
+		List<DestinationDetail> list = new PlanDao().selectDesDetail(conn, planNo, status);
 		
 		close(conn);
 		
 		return list;
 	}
 
-	public List<Schedule> selectSchedule(int destNo) {
+	public List<Schedule> selectSchedule(int destNo, String status) {
 		
 		Connection conn = getConnection();
 		
-		List<Schedule> list = new PlanDao().selectSchedule(conn, destNo);
+		List<Schedule> list = new PlanDao().selectSchedule(conn, destNo, status);
 		
 		close(conn);
 		

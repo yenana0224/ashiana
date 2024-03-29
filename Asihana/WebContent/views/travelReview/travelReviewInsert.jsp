@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag"%>   
+<%@ include file="../common/headerbar.jsp" %>   
+<%
+	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList"); 
+
+%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -155,9 +161,7 @@
     </style>
 
 </head>
-<body>
-    
-	<%@ include file="../common/headerbar.jsp" %>
+<body>   
     <div id="content-wrap">
         <div id="content-1wrap" align="center">
             <div id="content-1-1">
@@ -177,7 +181,8 @@
 
 
         <div id="wrap-insert-form" align="left"> <!-- 전체를 감싸는 div-->
-            <form action="<%=contextPath%>/insertReview" mothod="post" id="form">
+            <form action="<%=contextPath%>/insertReview" method="post" id="form"
+            	enctype="multipart/form-data">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
 
@@ -189,15 +194,16 @@
                             <div id="star-content"> <!--별점의 content영역-->
                                 <!--radio 버튼으로 구현, radio button은 display : none으로 안보이게 해두고 연결된 label로 별점 조정 가능하게 구현-->
                                 
-                                <input type="radio" name="star" id="star1" checked> <label for="star2" style="font-size : 30px;">한개</label>
-                                <input type="radio" name="star" id="star3"> <label for="star3">3</label>
-                                <input type="radio" name="" id="star4"> <label for="star4">4</label>
-                                <input type="radio" name="" id="star5"> <label for="star5">5</label>
-                                <input type="radio" name="" id="star6"> <label for="star6">6</label>
-                                <input type="radio" name="" id="star7"> <label for="star7">7</label>
-                                <input type="radio" name="" id="star8"> <label for="star8">8</label>
-                                <input type="radio" name="" id="star9"> <label for="star9">9</label>
-                                <input type="radio" name="" id="star10"> <label for="star10">10</label>
+                                <input type="radio" name="star" id="star1" value="1" checked> <label for="star2" style="font-size : 30px;">1</label>
+                                <input type="radio" name="star" id="star2" value="2"> <label for="star2">2</label>
+                                <input type="radio" name="star" id="star3" value="3"> <label for="star3">3</label>
+                                <input type="radio" name="star" id="star4" value="4"> <label for="star4">4</label>
+                                <input type="radio" name="star" id="star5" value="5"> <label for="star5">5</label>
+                                <input type="radio" name="star" id="star6" value="6"> <label for="star6">6</label>
+                                <input type="radio" name="star" id="star7" value="7"> <label for="star7">7</label>
+                                <input type="radio" name="star" id="star8" value="8"> <label for="star8">8</label>
+                                <input type="radio" name="star" id="star9" value="9"> <label for="star9">9</label>
+                                <input type="radio" name="star" id="star10" value="10"> <label for="star10">10</label>
                               
                            
                             </div>
@@ -261,7 +267,7 @@
                             <h3 style="margin-bottom : 5px;">제목</h3>
                         </div>
                         <div id="content"> <!--제목의 content영역-->
-                            <input type="text" id="content" style="width:950px; height: 30px" placeholder="제목"><label for="content"></label>
+                            <input type="text" name="content" style="width:950px; height: 30px" placeholder="제목"><label for="content"></label>
                         </div>
                         
 
@@ -306,8 +312,16 @@
                                 <h3>여행기 쓰기</h3>
                             </div>
                             <div>
-                                <textarea style="width: 950px;" name="" id="" cols="30" rows="10">내용</textarea>
+                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();"></textarea>
                             </div>
+                            <script>
+                           		function lengthCheck(e){
+                               		if(e.value.length > e.maxlength){
+                               			e.value = e.value.slice(0, e.maxlength);
+                               		}
+                               	}
+                            </script>
+                            
                         </div>
 
                     </div>
@@ -320,11 +334,24 @@
                         <div id="hash-tag">
                                 <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                     2) 보여지는checkbox의 checked 속성을 조작해야함-->
-                                <input type="checkbox" name="hashtag" value="tag1"><label for="tag1" style="background-color: white;">#해시태그1</label>
-                                <input type="checkbox" name="hashtag" value="tag2"><label for="tag2" style="background-color: white;">#해시태그2</label>
-                                <input type="checkbox" name="hashtag" value="tag3"><label for="tag3" style="background-color: white;">#해시태그3</label>
-                                <input type="checkbox" name="hashtag" value="tag4"><label for="tag4" style="background-color: white;">#해시태그4</label>
-                                <input type="checkbox" name="hashtag" value="tag5"><label for="tag5" style="background-color: white;">#해시태그5</label>
+                                
+                                <%if(hashTagList != null){ %>
+                                <input type="checkbox" name="hashtag" id="tag1" value="tag1"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(0).getTagName() %></label>
+                                <input type="checkbox" name="hashtag" id="tag2" value="tag2"><label class="hashtag" for="tag2" style="background-color: white;"><%=hashTagList.get(1).getTagName() %></label>
+                                <input type="checkbox" name="hashtag" id="tag3" value="tag3"><label class="hashtag" for="tag3" style="background-color: white;"><%=hashTagList.get(2).getTagName() %></label>
+                                <input type="checkbox" name="hashtag" id="tag4" value="tag4"><label class="hashtag" for="tag4" style="background-color: white;"><%=hashTagList.get(3).getTagName() %></label>
+                                <input type="checkbox" name="hashtag" id="tag5" value="tag5"><label class="hashtag" for="tag5" style="background-color: white;"><%=hashTagList.get(4).getTagName() %></label>
+                                <%} %>
+                                <!--  
+                                <script>
+                                	$(fucntion(){
+                                		$('.hashtag').click(function(){
+                                			$(':checkbox').attr('checked', true);
+                                		})
+                                	})
+                                </script>
+                                -->
+                                
                         </div>
                         
 
@@ -351,8 +378,12 @@
                                 <option value="private">비공개</option>
                             </select>
                             <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
-                            <button style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;">취소</button>
+                            <button id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>
+                     
                         </div>
+                        
+                        
+                        
                     </div>
 
                 </div>

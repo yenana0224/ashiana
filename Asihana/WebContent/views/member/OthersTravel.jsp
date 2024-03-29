@@ -81,10 +81,10 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 			<thead class="thead-light">
 				<tr>
 					<th>No</th>
-					<th>제목</th>
-					<th>상태</th>
-					<th>도시</th>
 					<th>작성일</th>
+					<th>도시</th>
+					<th>제목</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody id="myTable">

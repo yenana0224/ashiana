@@ -118,8 +118,7 @@
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>,
-    				status : 'Y'
+    				planNo : <%= planNo %>
     			},
     			success : function(result){    				
     				let departure = '';
@@ -224,8 +223,7 @@
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : destNo,
-    				status : 'Y'
+    				destNo : destNo
     			},
     			success : function(result){
     				let schedTable = '';

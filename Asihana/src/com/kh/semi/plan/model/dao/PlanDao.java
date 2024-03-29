@@ -133,7 +133,7 @@ public class PlanDao {
 	}
 
 
-	public List<DestinationDetail> selectDesDetail(Connection conn, int planNo, String status) {
+	public List<DestinationDetail> selectDesDetail(Connection conn, int planNo) {
 		
 		List<DestinationDetail> list = new ArrayList();
 		ResultSet rset = null;
@@ -144,7 +144,6 @@ public class PlanDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
-			pstmt.setString(2, status);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -168,7 +167,7 @@ public class PlanDao {
 	}
 
 
-	public List<Schedule> selectSchedule(Connection conn, int destNo, String status) {
+	public List<Schedule> selectSchedule(Connection conn, int destNo) {
 		
 		List<Schedule> list = new ArrayList();
 		ResultSet rset = null;
@@ -179,7 +178,6 @@ public class PlanDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, destNo);
-			pstmt.setString(2, status);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

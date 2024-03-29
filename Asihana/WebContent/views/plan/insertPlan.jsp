@@ -4,6 +4,7 @@
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
 	int planNo = (int)request.getAttribute("planNo");
+	System.out.println(planNo);
 %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
@@ -50,6 +51,7 @@
 		<input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
 	    <form method="post">
 	        <div id="planning-interface">
+
 				출국일시 : <input type="date" name="start-date" id="start-date">
 				<input type="time" name="start-time" id="start-time" class="timepicker">
 			    <button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
@@ -107,6 +109,7 @@
 	        })
 		})
 	</script>
+        
 
     <!-- 타임 피커 -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js">
@@ -238,7 +241,80 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
-
+            // 출발일시 추가
+            let sDate = '';
+            let sTime = '';
+            $('#outer-plan').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
+            	if($('#start-date').val() == ''){ // 날짜 설정 안함
+            		$('#start-date').focus(); return;
+            	}
+            	else{
+					$.ajax({ // 날짜 설정시 출발지 DB로 INSERT
+						url : 'insertStartDestination.ajaxplan',
+						type : 'post',
+						data : {
+							planNo : <%=planNo%>,
+							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
+							
+						},
+						success : function(result){
+							if(result > 0){
+								sDate = $('#start-date').val();
+								sTime = $('#start-time').val();
+								selectDestination();
+							}
+							else{
+								$('#start-date').val('');
+								$('#start-time').val('');
+							}
+						}
+					}) // ajax 출발 목적지 행 추가 
+					
+            		$('#required-msg').slideUp(500); // 알림 메세지 슬라이드 업
+	            	$('#start-date, #start-time').attr('disabled', true);
+	            	$('#setStartDate').css('display', 'none');
+	            	$('#doUpdate').css('display', 'inline-block'); // 수정 버튼
+					$('.btn-des-disabled').attr('disabled', false); // 출발일 설정시 목적지 추가 가능해짐 
+            	}
+            })
+            $('#outer-plan').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
+            	$('#start-date, #start-time').attr('disabled', false);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'inline-block'); // 날짜 수정 / 취소 버튼
+            	$('#doUpdate').css('display', 'none'); // 수정 버튼
+            })
+            $('#outer-plan').on('click', '#updateStartDate', function(){
+            	if($('#start-date').val() != sDate || $('#start-time').val() != sTime){
+            		$.ajax({ // 출발일시 업데이트
+            			url : 'updateStartDestination.ajaxplan',
+						type : 'post',
+						data : {
+							destNo : $('#startDestNo').val(),
+							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
+						},
+						success : function(result){
+							if(result > 0){
+								sDate = $('#start-date').val();
+								sTime = $('#start-time').val();
+								selectDestination();
+							}
+							else{
+								$('#start-date').val(sDate);
+								$('#start-time').val(sTime);
+							}
+						}
+            		})
+            	}
+            	$('#start-date, #start-time').attr('disabled', true);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
+            	$('#doUpdate').css('display', 'inline-block');
+            })
+            $('#outer-plan').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
+            	$('#start-date').val(sDate);
+            	$('#start-time').val(sTime);
+            	$('#start-date, #start-time').attr('disabled', true);
+            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
+            	$('#doUpdate').css('display', 'inline-block');
+            })
 	
             if($('#addDesModal').css('display') == 'block'){
             	console.log('hihi');
@@ -374,83 +450,6 @@
     </script>
 	
 	<script> // AJAX 
-		$(function(){
-            // 출발일시 추가
-            let sDate = '';
-            let sTime = '';
-            $('#outer-plan').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
-            	if($('#start-date').val() == ''){ // 날짜 설정 안함
-            		$('#start-date').focus(); return;
-            	}
-            	else{
-            		console.log('날짜 설정 버튼 클릭 시 ');
-					$.ajax({ // 날짜 설정시 출발지 DB로 INSERT
-						url : 'insertStartDestination.ajaxplan',
-						type : 'post',
-						data : {
-							planNo : <%=planNo%>,
-							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
-						},
-						success : function(result){
-							if(result > 0){
-								sDate = $('#start-date').val();
-								sTime = $('#start-time').val();
-								selectDestination();
-							}
-							else{
-								$('#start-date').val('');
-								$('#start-time').val('');
-							}
-						}
-					}) // ajax 출발 목적지 행 추가 
-					console.log('날짜 ajax 끝 ');
-            		$('#required-msg').slideUp(500); // 알림 메세지 슬라이드 업
-	            	$('#start-date, #start-time').attr('disabled', true);
-	            	$('#setStartDate').css('display', 'none');
-	            	$('#doUpdate').css('display', 'inline-block'); // 수정 버튼
-					$('.btn-des-disabled').attr('disabled', false); // 출발일 설정시 목적지 추가 가능해짐 
-            	}
-            })
-            $('#planning-interface').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
-            	$('#start-date, #start-time').attr('disabled', false);
-            	$('#updateStartDate, #cancelUpdate').css('display', 'inline-block'); // 날짜 수정 / 취소 버튼
-            	$('#doUpdate').css('display', 'none'); // 수정 버튼
-            })
-            $('#planning-interface').on('click', '#updateStartDate', function(){
-            	if($('#start-date').val() != sDate || $('#start-time').val() != sTime){
-            		$.ajax({ // 출발일시 업데이트
-            			url : 'updateStartDestination.ajaxplan',
-						type : 'post',
-						data : {
-							destNo : $('#startDestNo').val(),
-							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
-						},
-						success : function(result){
-							if(result > 0){
-								sDate = $('#start-date').val();
-								sTime = $('#start-time').val();
-								selectDestination();
-							}
-							else{
-								$('#start-date').val(sDate);
-								$('#start-time').val(sTime);
-							}
-						}
-            		})
-            	}
-            	$('#start-date, #start-time').attr('disabled', true);
-            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
-            	$('#doUpdate').css('display', 'inline-block');
-            })
-            $('#planning-interface').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
-            	$('#start-date').val(sDate);
-            	$('#start-time').val(sTime);
-            	$('#start-date, #start-time').attr('disabled', true);
-            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
-            	$('#doUpdate').css('display', 'inline-block');
-            })	
-		});
-	
     	function selectPlan(){
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
@@ -478,8 +477,7 @@
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>,
-    				status : 'N'
+    				planNo : <%= planNo %>
     			},
     			success : function(result){    				
     				let departure = '';
@@ -488,7 +486,7 @@
     				
     				let rootArea = '';
     				let schedArea = '';
-    				console.log(result);
+    				console.log(result[0].destNo);
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
@@ -609,8 +607,7 @@
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : destNo,
-    				status : 'N'
+    				destNo : destNo
     			},
     			success : function(result){
     				let schedTable = '';

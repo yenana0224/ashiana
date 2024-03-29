@@ -52,7 +52,6 @@ public class TravelReviewInsertController extends HttpServlet {
 			System.out.println(content);
 			
 			
-			request.getSession().getAttribute("hashTagList");
 			
 			request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		}

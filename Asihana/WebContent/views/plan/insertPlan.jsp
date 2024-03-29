@@ -49,15 +49,15 @@
 	    </div>
 		<input type="hidden" name="startDestNo" id="startDestNo" value="">
 		<input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
-		출국일시 : <input type="date" name="start-date" id="start-date">
-		<input type="time" name="start-time" id="start-time" class="timepicker">
-	    <button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
-	    <button class="btn btn-sm btn-danger btn-date-int" id="updateStartDate" type="button">날짜 수정</button>
-	    <button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
-	    <button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
 	    <form method="post">
 	        <div id="planning-interface">
 
+				출국일시 : <input type="date" name="start-date" id="start-date">
+				<input type="time" name="start-time" id="start-time" class="timepicker">
+			    <button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
+			    <button class="btn btn-sm btn-danger btn-date-int" id="updateStartDate" type="button">날짜 수정</button>
+			    <button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
+			    <button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
 	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>

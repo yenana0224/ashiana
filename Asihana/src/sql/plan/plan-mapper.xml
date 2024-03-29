@@ -208,7 +208,7 @@
 		UPDATE
 		      TB_DESTINATION
 		   SET
-		      RETURN_DATE = ?
+		      RETURN_DATE = TO_DATE(?, 'YYYY-MM-DD HH24:MI')
 		 WHERE
 		      DEST_NO = ?
 	</entry>

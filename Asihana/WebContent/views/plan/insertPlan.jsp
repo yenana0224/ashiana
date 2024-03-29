@@ -344,7 +344,6 @@
     </script>
     
     <script> <!-- AJAX -->
-    	function selectDe
     
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
@@ -491,6 +490,15 @@
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
     						$('#startDestNo').val(result[i].destNo);
+    					}
+    					else if(result.length == 1){ // 목적지가 없을 시(출발 목적지만 존재)
+    						rootArea += '<div class="root-icon">' // 루트 추가 아이콘
+						              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
+						              + 	'<div class="planToast">'
+						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
+						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
+						              +		'</div>'
+						           	  + '</div>';
     					}
     					else if(i == result.length - 1 && result.length - 1 > 0) { // 마지막 목적지
     						rootArea += '<div class="root-icon">' // 루트 아이콘

@@ -110,5 +110,12 @@ public class AdminService {
 		return list;
 	}
 	
+	public int memberDelete(int userNo) {
+		Connection conn = getConnection();
+		int result = new AdminDao().memberDelete(conn, userNo);
+		close(conn);
+		return result;
+	}
+	
 
 }

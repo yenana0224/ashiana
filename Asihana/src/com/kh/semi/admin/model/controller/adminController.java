@@ -428,9 +428,18 @@ public class adminController {
 		return "views/admin/adminMemberList.jsp";
 	}
 	
-	public String memberdelete(HttpServletRequest request, HttpServletResponse response) {
-		String userNos = request.getParameterValues("userNo");
-		System.out.println(userNos.length);
+	public String memberDelete(HttpServletRequest request, HttpServletResponse response) {
+		String[] userNos = request.getParameterValues("userNo");
+		// System.out.println(userNos.length);
+		int result = 1;
+		for(int i = 0; i<userNos.length; i++) {
+			int userNo = Integer.parseInt(userNos[i]);
+			int delResult = new AdminService().memberDelete(userNo);
+			result = result * delResult;
+		}
+
+		
+		return "views/admin/adminMemberList.jsp";
 	}
 	
 }

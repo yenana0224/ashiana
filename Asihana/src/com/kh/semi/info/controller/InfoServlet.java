@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class InfoServelt
  */
 @WebServlet("*.info")
-public class InfoServelt extends HttpServlet {
+public class InfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InfoServelt() {
+    public InfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,6 @@ public class InfoServelt extends HttpServlet {
 		
 		InfoController ic = new InfoController();
 		String view = "";
-		System.out.println("하잉");
 		
 		request.setCharacterEncoding("UTF-8");
 		

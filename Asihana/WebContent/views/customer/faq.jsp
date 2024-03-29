@@ -13,7 +13,7 @@
             padding-top: 80px;
             font-size: 30px;
         }
-        b{
+        #title b{
             border-bottom: 1px solid rgb(0, 0, 0);
             color: rgb(10, 10, 10);
             padding-bottom: 5px;
@@ -74,7 +74,7 @@
         <p class="a">A. 네 가능합니다.</p>
         <div class="line"></div>
         <div class="q">Q. [여행기] 여행기를 작성하려면 어떻게 해야 하나요?</div>
-        <p class="a">A: 로그인을 하면 여행기 페이지 우측 상단 부근에 작성하기 버튼이 활성화 됩니다.<br>  버튼을 누른 후 여행기 작성 페이지에서 본인의 여행기를 적어주세요.</p>
+        <p class="a">A. 로그인을 하면 여행기 페이지 우측 상단 부근에 작성하기 버튼이 활성화 됩니다.<br>  버튼을 누른 후 여행기 작성 페이지에서 본인의 여행기를 적어주세요.</p>
         <div class="line"></div>
         <div class="q"></div>
         <p class="a"></p>

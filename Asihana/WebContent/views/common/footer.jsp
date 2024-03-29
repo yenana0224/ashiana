@@ -8,6 +8,7 @@
 	<style>
         #footer{
             height: 200px;
+            width: 100%;
         }
         #footerLine{
             height: 50px;

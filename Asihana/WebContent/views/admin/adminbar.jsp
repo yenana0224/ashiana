@@ -120,9 +120,6 @@
                 <li><a href="<%=contextPath %>/member.admin?currentPage=1">전체 회원 조회</a></li>
                 <li><a href="<%=contextPath %>/notmember.admin?currentPage=1">탈퇴 회원 조회</a></li>
             </ul>
-            <ul class="menu"> <span>문의 관리</span>
-                <li><a href="#">QNA</a></li>
-            </ul>
         </ul>
         <div class="mainbtn">
             <a href="<%=contextPath %>">메인화면</a>

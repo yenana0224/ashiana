@@ -138,5 +138,15 @@
  	 
   	</entry>
   	
+  	<entry key="memberRollback">
+  	UPDATE
+	     MEMBER
+	  SET
+	     STATUS = 'U',
+	     MODIFY_DATE = SYSDATE
+	WHERE
+	     MEM_NO = ?
+  	</entry>
+  	
   	
 </properties>

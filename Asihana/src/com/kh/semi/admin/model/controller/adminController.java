@@ -460,4 +460,21 @@ public class adminController {
 		return "views/admin/adminUserDeleteList.jsp";
 	}
 	
+	public String memberRollback(HttpServletRequest request, HttpServletResponse response) {
+		String[] userNos = request.getParameterValues("userNo");
+		int result = 1;
+		for(int i = 0; i < userNos.length; i++) {
+			int userNo = Integer.parseInt(userNos[i]);
+			int rollbackResult = new AdminService().memberRollback(userNo);
+			result = result * rollbackResult;
+		}
+		
+		if(result > 0) {
+			
+		} else {
+			
+		}
+		return "/notmember.admin?currentPage=1";
+	}
+	
 }

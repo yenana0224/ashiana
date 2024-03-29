@@ -56,6 +56,7 @@ public class adminServlet extends HttpServlet {
 		case "cityUpdate" : view = ac.cityUpdate(request, response); flag = false; break;
 		case "member" : view = ac.memberList(request, response); break;
 		case "memberDelete" : view = ac.memberDelete(request, response); flag = false; break;
+		case "notmember" : view = ac.userDeleteList(request, response); break;
 		}
 		
 		if(flag) {

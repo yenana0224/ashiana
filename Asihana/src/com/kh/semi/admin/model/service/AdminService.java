@@ -113,8 +113,16 @@ public class AdminService {
 	public int memberDelete(int userNo) {
 		Connection conn = getConnection();
 		int result = new AdminDao().memberDelete(conn, userNo);
+		commit(conn);
 		close(conn);
 		return result;
+	}
+	
+	public List<Member> userDeleteList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Member> list = new AdminDao().userDeleteList(conn, pi);
+		close(conn);
+		return list;
 	}
 	
 

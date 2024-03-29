@@ -179,7 +179,7 @@
                        	 출국시간 : <input type="time" name="end-time" id="end-time">
                         
                         <div id="des-sum">
-                            <label>***</label>님의 일정 요약 <br>
+                            <label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>
                             <p>
                                 <label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>
                                                                         해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.
@@ -241,12 +241,18 @@
                 }
             })
 			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
+				let display = '<label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>'
+				            + '<p>'
+				            + '<label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>'
+				            + '해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.'
+				            + '</p>'
 				$('#country option:first').prop('selected', true);
 				$('#city option:first').prop('selected', true);
 				$('#transport option:first').prop('selected', true);
 				$('#transport-op option:first').prop('selected', true);
 				$('#trans-price').val('0');
-				$('#country-city').text('');
+				$('#country-city').val('국가-도시 선택');
+				$('#des-sum').html(display);
 				if($('.root-card').length == 0){ // 목적지가 없을 시 여행 출발일시로 디스플레이됨 
 				    $('#add-day').prop('checked', false); // 체크 박스 해제
 				    $('#dep-date').val($('#start-date').val());

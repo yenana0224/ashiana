@@ -97,7 +97,7 @@ public class PlanController {
 		
 		List<DestinationDetail> list = new ArrayList();
 		
-		if(result > 0) list = new PlanService().insertDestination(planNo);
+		if(result > 0) list = new PlanService().selectDesDetail(planNo, request.getParameter("status"));
 		
 		return list;
 	}

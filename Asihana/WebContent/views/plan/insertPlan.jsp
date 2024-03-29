@@ -357,7 +357,8 @@
     					transPrice : $('#trans-price').val(),
     					trip : $('#transport-op').val(),
     					arrival : $('#arr-date').val() + ' ' + $('#arr-time').val(),
-    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
+    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val(),
+    					status : 'N'
     				},
     				success : function(result){
     					

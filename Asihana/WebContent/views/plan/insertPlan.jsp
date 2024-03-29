@@ -330,7 +330,7 @@
         // 등록 유도 행
         var trEmpty = '<tr class="sched-tr-empty"><td colspan="5">등록된 예약 및 일정이 없습니다.</td></tr>';
         
-        $('.sched-des').on('click', '.sched-btn-area>img', function(){
+        $('#sched-box').on('click', '.sched-btn-area>img', function(){
             let $div = $(this).parent().parent().next();
             if($div.css('display') == 'none'){
                 $div.slideDown(500);
@@ -583,7 +583,7 @@
 				    	               +             '</tr>'
 				    	               +         '</thead>'
 				    	               +         '<tbody class="sched-des-detail-body">'
-	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
+	    	                		   +     		 '<input type="hidden" id="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
@@ -647,7 +647,7 @@
 				    	               +             '</tr>'
 				    	               +         '</thead>'
 				    	               +         '<tbody class="sched-des-detail-body">'
-	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
+	    	                		   +     		 '<input type="hidden" id="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
@@ -689,7 +689,7 @@
 			                            + '</tr>';
     					}
     				}
-                    $(schedTable).insertAfter('input[value=' + destNo + ']');
+                    $(schedTable).insertAfter('#schedDestNo[value=' + destNo + ']');
     			}
     		})
     	};

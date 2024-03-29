@@ -48,4 +48,48 @@
 		 	  STORY_NO = ?
   	</entry>
   	
+  	<entry key="countMember">
+  	
+  	SELECT
+	     COUNT(*) COUNT
+	  FROM
+	     MEMBER
+	WHERE
+	     STATUS NOT IN 'N'
+	ORDER
+	   BY
+	     ENROLL_DATE DESC
+  		
+  	</entry>
+  	
+  	<entry key="memberList">
+  	SELECT
+	     MEM_NO,
+	     MEM_ID,
+	     NICKNAME,
+	     ENROLL_DATE
+	  FROM
+	        (SELECT
+	             ROWNUM RNUM,
+	             MEM_NO,
+	             MEM_ID,
+	             NICKNAME,
+	             ENROLL_DATE
+	         FROM
+	            (SELECT
+	                 MEM_NO,
+	                 MEM_ID,
+	                 NICKNAME,
+	                 TO_CHAR(ENROLL_DATE, 'YYYY/MM/DD') ENROLL_DATE
+	             FROM
+	                 MEMBER
+	            WHERE
+	                 STATUS NOT IN 'N'
+	            ORDER
+	               BY
+	                 ENROLL_DATE DESC))
+	WHERE
+	    RNUM BETWEEN ? AND ?
+  	
+  	</entry>
 </properties>

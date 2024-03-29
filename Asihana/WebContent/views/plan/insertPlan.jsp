@@ -357,7 +357,8 @@
     					transPrice : $('#trans-price').val(),
     					trip : $('#transport-op').val(),
     					arrival : $('#arr-date').val() + ' ' + $('#arr-time').val(),
-    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val()
+    					returnDate : $('#end-date').val() + ' ' + $('#end-time').val(),
+    					status : 'N'
     				},
     				success : function(result){
     					
@@ -551,7 +552,8 @@
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>
+    				planNo : <%= planNo %>,
+    				status : 'N'
     			},
     			success : function(result){    				
     				let departure = '';
@@ -560,12 +562,8 @@
     				
     				let rootArea = '';
     				let schedArea = '';
-<<<<<<< HEAD
-    				
+					
     				console.log(result);
-=======
-    				console.log(result[0].destNo);
->>>>>>> 0e81ddcfaeff957c750aa0a429c46f5af5795f06
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
@@ -686,7 +684,8 @@
     			url : 'selectSchedule.ajaxplan',
     			type : 'post',
     			data : {
-    				destNo : destNo
+    				destNo : destNo,
+    				status : 'N'
     			},
     			success : function(result){
     				let schedTable = '';

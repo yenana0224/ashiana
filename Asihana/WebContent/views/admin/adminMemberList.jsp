@@ -54,7 +54,7 @@
             font-size : 15px;
         }
 
-        .noticeList{
+        .memberList{
             border-top : 1px solid lightgray;
             border-collapse: collapse;
             width: 80%;
@@ -68,19 +68,19 @@
             margin-top: 10px;
         }
 
-        .noticeList th{
+        .memberList th{
             background-color: lightgray;
             border-bottom: 1px solid lightgray;
         }
 
 
-          .noticeTitle:hover {
-              text-decoration: underline;
-              cursor : pointer;
-          }
+         .memberTitle:hover {
+             text-decoration: underline;
+             cursor : pointer;
+         }
 
         
-        .noticeList tbody td{
+        .memberList tbody td{
         	text-align : center;
         	border-bottom: 1px solid lightgray;
         	padding : 5px 0px 5px 0px;
@@ -146,8 +146,8 @@
             </form>
         </div>
 
-        <form action="<%=contextPath %>" method="get">
-            <table class="noticeList">
+        <form action="<%=contextPath %>/memberDelete.admin" method="get">
+            <table class="memberList">
                 <thead>
                     <tr>
                         <th> <input type="checkbox" name="memberNo" id="checkAll"></th>
@@ -165,10 +165,10 @@
                         <% for(Member m : list) { %>
                             <tr>
                                 <td>
-                                	<input class="ckOne" type="checkbox" name="status" value="<%=m.getUserNo() %>"> 
+                                	<input class="ckOne" type="checkbox" name="userNo" value="<%=m.getUserNo() %>"> 
                                 </td>
                                 <td><%=m.getUserId() %></td>
-                                <td class="noticeTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
+                                <td class="memberTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
                                 <td><%=m.geteDate() %></td>
                             </tr>
                         <% } %>
@@ -223,7 +223,7 @@
             
             $(function(){
             	
-            	$('.noticeTitle').click(function(){
+            	$('.memberTitle').click(function(){
             		location.href="<%=contextPath%>/memberDetail.admin?memberNo=" + $(this).attr('id');
             	});
             });

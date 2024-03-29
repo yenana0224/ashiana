@@ -50,11 +50,18 @@ public class TravelReviewInsertController extends HttpServlet {
 			
 			String reviewTitle = multiRequest.getParameter("title");
 			String reviewContent = multiRequest.getParameter("content");
-			System.out.println(content);
+			String arrivalDate = multiRequest.getParameter("arrival");
+			String departureDate = multiRequest.getParameter("departure");
 			
+			/*
+			System.out.println(reviewContent);
+			System.out.println(arrivalDate);
+			System.out.println(departureDate);
+			*/
+			
+			request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		}
 		
-		request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
 		
 	}
 

@@ -12,7 +12,7 @@ import com.kh.semi.plan.model.service.PlanService;
 import com.kh.semi.plan.model.vo.*;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 
-public class PlanController {
+public class PlanController {  
 	
 
 	public String selectPlanList(HttpServletRequest request, HttpServletResponse response) {
@@ -82,7 +82,12 @@ public class PlanController {
 		return new PlanService().insertStartDestination(planNo, returnDate);
 	}
 	
-	public List<DestinationDetail> insertDestination(HttpServletRequest request, HttpServletResponse response) {
+	public int updateStartDestination(HttpServletRequest request, HttpServletResponse response) {
+		
+		return new PlanService().updateStartDestination(Integer.parseInt(request.getParameter("destNo")), request.getParameter("returnDate"));
+	}
+	
+	public int insertDestination(HttpServletRequest request, HttpServletResponse response) {
 		
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		Destination des = new Destination(planNo,
@@ -93,19 +98,9 @@ public class PlanController {
 										  request.getParameter("arrival"),
 										  request.getParameter("returnDate"));
 		
-		int result = new PlanService().insertDestination(des);
-		
-		List<DestinationDetail> list = new ArrayList();
-		
-		if(result > 0) list = new PlanService().selectDesDetail(planNo, request.getParameter("status"));
-		
-		return list;
+		return new PlanService().insertDestination(des);
 	}
 
-	public int updateStartDestination(HttpServletRequest request, HttpServletResponse response) {
-		
-		return new PlanService().updateStartDestination(Integer.parseInt(request.getParameter("destNo")), request.getParameter("returnDate"));
-	}
 
 
 	

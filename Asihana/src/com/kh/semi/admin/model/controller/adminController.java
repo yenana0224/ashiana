@@ -428,4 +428,53 @@ public class adminController {
 		return "views/admin/adminMemberList.jsp";
 	}
 	
+	public String memberDelete(HttpServletRequest request, HttpServletResponse response) {
+		String[] userNos = request.getParameterValues("userNo");
+		int result = 1;
+		for(int i = 0; i<userNos.length; i++) {
+			int userNo = Integer.parseInt(userNos[i]);
+			int delResult = new AdminService().memberDelete(userNo);
+			result = result * delResult;
+		}
+		return "/member.admin?currentPage=1";
+	}
+	
+	public String userDeleteList(HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int listCount = new AdminService().countMember();
+		int pageLimit = 10;
+		int boardLimit = 20;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		List<Member> list = new AdminService().userDeleteList(pi);
+		
+		request.setAttribute("pageInfo", pi);
+		request.setAttribute("list", list);
+		
+		return "views/admin/adminUserDeleteList.jsp";
+	}
+	
+	public String memberRollback(HttpServletRequest request, HttpServletResponse response) {
+		String[] userNos = request.getParameterValues("userNo");
+		int result = 1;
+		for(int i = 0; i < userNos.length; i++) {
+			int userNo = Integer.parseInt(userNos[i]);
+			int rollbackResult = new AdminService().memberRollback(userNo);
+			result = result * rollbackResult;
+		}
+		
+		if(result > 0) {
+			
+		} else {
+			
+		}
+		return "/notmember.admin?currentPage=1";
+	}
+	
 }

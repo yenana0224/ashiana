@@ -4,7 +4,6 @@
 <%
 	List<City> cityList = (List<City>)request.getAttribute("cityList");
 	int planNo = (int)request.getAttribute("planNo");
-	System.out.println(planNo);
 %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>

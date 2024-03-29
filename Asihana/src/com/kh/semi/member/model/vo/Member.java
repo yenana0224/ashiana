@@ -20,6 +20,7 @@ public class Member {
 	private Date modifyDate;
 	private String status;
 	private String eDate; // enrollDate
+	private String modiDate; // modifyDate
 	
 	
 	public int getUserNo() {
@@ -70,6 +71,13 @@ public class Member {
 	}
 	public void seteDate(String eDate) {
 		this.eDate = eDate;
+	}
+
+	public String getModiDate() {
+		return modiDate;
+	}
+	public void setModiDate(String modiDate) {
+		this.modiDate = modiDate;
 	}
 	
 	public Member(int userNo, String userId, String userPwd, String nickName, Date enrollDate, Date modifyDate,

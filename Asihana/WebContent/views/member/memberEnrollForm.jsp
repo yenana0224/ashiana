@@ -9,7 +9,7 @@
 	<style>
 	#content{
             width: 1000px;
-            margin: auto;
+            margin: auto;   
             text-align: center;
             padding-top: 80px;
             font-size: 30px;

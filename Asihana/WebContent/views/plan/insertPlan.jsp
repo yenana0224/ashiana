@@ -102,7 +102,7 @@
 	<script>
 		$(function(){
 	        // 목적지 추가 토스트
-	        $('.des-add-btn').click(function(){
+	        $('#root-area').on('click', '.des-add-btn', function(){
 	            if($('.planToast').css('display') == 'none') $('.planToast').show(100);
 	            else $('.planToast').hide(100);
 	        })
@@ -179,7 +179,7 @@
                        	 출국시간 : <input type="time" name="end-time" id="end-time">
                         
                         <div id="des-sum">
-                            <label>***</label>님의 일정 요약 <br>
+                            <label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>
                             <p>
                                 <label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>
                                                                         해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.
@@ -190,8 +190,8 @@
                 
                 <!-- Modal footer -->
                 <div id="modal-footer">
-                    <button type="reset" id="insertDes" class="btn btn-danger" data-dismiss="modal">추가</button>
-                    <button type="reset" class="btn btn-dark" data-dismiss="modal">취소</button>
+                    <button type="button" id="insertDes" class="btn btn-danger" data-dismiss="modal">추가</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">취소</button>
                 </div>
                 </form>
             </div>
@@ -240,99 +240,53 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
-            // 출발일시 추가
-            let sDate = '';
-            let sTime = '';
-            $('#outer-plan').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
-            	if($('#start-date').val() == ''){ // 날짜 설정 안함
-            		$('#start-date').focus(); return;
-            	}
-            	else{
-					$.ajax({ // 날짜 설정시 출발지 DB로 INSERT
-						url : 'insertStartDestination.ajaxplan',
-						type : 'post',
-						data : {
-							planNo : <%=planNo%>,
-							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
-							
-						},
-						success : function(result){
-							if(result > 0){
-								sDate = $('#start-date').val();
-								sTime = $('#start-time').val();
-								selectDestination();
-							}
-							else{
-								$('#start-date').val('');
-								$('#start-time').val('');
-							}
-						}
-					}) // ajax 출발 목적지 행 추가 
+			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
+				let display = '<label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>'
+				            + '<p>'
+				            + '<label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>'
+				            + '해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.'
+				            + '</p>'
+				$('#country option:first').prop('selected', true);
+				$('#city option:first').prop('selected', true);
+				$('#transport option:first').prop('selected', true);
+				$('#transport-op option:first').prop('selected', true);
+				$('#trans-price').val('0');
+				$('#country-city').val('국가-도시 선택');
+				$('#des-sum').html(display);
+				if($('.root-card').length == 0){ // 목적지가 없을 시 여행 출발일시로 디스플레이됨 
+				    $('#add-day').prop('checked', false); // 체크 박스 해제
+				    $('#dep-date').val($('#start-date').val());
+				    $('#dep-time').val($('#start-time').val());
+				    // 출발일 => 도착일 
+				    $('#arr-date').val($('#dep-date').val());
+				    // 출발일시 디스플레이
+				    $('#dep-date-display').text($('#dep-date').val());
+				    $('#dep-time-display').text($('#dep-time').val());
+				    // 도착일 디스플레이
+				    $('#arr-date-display').text($('#arr-date').val());
+				    $('#arr-time').val('');
+				    $('#end-date').val('');
+				    $('#end-time').val('');
+				}
+				else{
+					console.log($('.root-card').last().find('input[name=destNo]').val());
 					
-            		$('#required-msg').slideUp(500); // 알림 메세지 슬라이드 업
-	            	$('#start-date, #start-time').attr('disabled', true);
-	            	$('#setStartDate').css('display', 'none');
-	            	$('#doUpdate').css('display', 'inline-block'); // 수정 버튼
-					$('.btn-des-disabled').attr('disabled', false); // 출발일 설정시 목적지 추가 가능해짐 
-            	}
-            })
-            $('#outer-plan').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
-            	$('#start-date, #start-time').attr('disabled', false);
-            	$('#updateStartDate, #cancelUpdate').css('display', 'inline-block'); // 날짜 수정 / 취소 버튼
-            	$('#doUpdate').css('display', 'none'); // 수정 버튼
-            })
-            $('#outer-plan').on('click', '#updateStartDate', function(){
-            	if($('#start-date').val() != sDate || $('#start-time').val() != sTime){
-            		$.ajax({ // 출발일시 업데이트
-            			url : 'updateStartDestination.ajaxplan',
-						type : 'post',
-						data : {
-							destNo : $('#startDestNo').val(),
-							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
-						},
-						success : function(result){
-							if(result > 0){
-								sDate = $('#start-date').val();
-								sTime = $('#start-time').val();
-								selectDestination();
-							}
-							else{
-								$('#start-date').val(sDate);
-								$('#start-time').val(sTime);
-							}
-						}
-            		})
-            	}
-            	$('#start-date, #start-time').attr('disabled', true);
-            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
-            	$('#doUpdate').css('display', 'inline-block');
-            })
-            $('#outer-plan').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
-            	$('#start-date').val(sDate);
-            	$('#start-time').val(sTime);
-            	$('#start-date, #start-time').attr('disabled', true);
-            	$('#updateStartDate, #cancelUpdate').css('display', 'none');
-            	$('#doUpdate').css('display', 'inline-block');
-            })
-	
-            if($('#addDesModal').css('display') == 'block'){
-            	console.log('hihi');
-            	if($('.root-card').length){
-            	}
-            	else{
-		            $('#dep-date').val($('#start-date').val());
-		            $('#dep-time').val($('#start-time').val());
-		            // 출발일 => 도착일 
-		            $('#arr-date').val($('#dep-date').val());
-		            // 출발일시 디스플레이
-		            $('#dep-date-display').text($('#dep-date').val());
-		            $('#dep-time-display').text($('#dep-time').val());
-		            // 도착일 디스플레이
-		            $('#arr-date-display').text($('#arr-date').val());
-            	}
-            }
+					$('#add-day').prop('checked', false); // 체크 박스 해제
+					$('#dep-date').val($('#end-date').val());
+				    $('#dep-time').val($('#end-time').val());
+				    $('#arr-date').val($('#end-date').val());
+				    $('#dep-date-display').text($('#dep-date').val());
+				    $('#dep-time-display').text($('#dep-time').val());
+				    // 도착일 디스플레이
+				    $('#arr-date-display').text($('#arr-date').val());
+				    $('#arr-time').val('');
+				    $('#end-date').val('');
+				    $('#end-time').val('');
+				}
+			})
             
-            $('#modal-form-area').find('input, select').change(function(){
+            $('#modal-form-area').find('input, select').change(function(){ // 모달 디스플레이
+            	
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
                 $('#arr-time-display').text($('#arr-time').val());
@@ -344,7 +298,6 @@
     </script>
     
     <script> <!-- AJAX -->
-    
     	$(function(){ // 목적지 추가
     		$('#insertDes').click(function(){
     			$.ajax({
@@ -361,17 +314,12 @@
     					status : 'N'
     				},
     				success : function(result){
-    					
-    					
-    					
-    					
-    					
-    					
+    					if(result > 0){
+    						selectDestination();
+    					}
     				}
     			});
-    		})
-    		
-    		
+    		});
     		
     	})
     </script>
@@ -382,7 +330,7 @@
         // 등록 유도 행
         var trEmpty = '<tr class="sched-tr-empty"><td colspan="5">등록된 예약 및 일정이 없습니다.</td></tr>';
         
-        $('.sched-des').on('click', '.sched-btn-area>img', function(){
+        $('#sched-box').on('click', '.sched-btn-area>img', function(){
             let $div = $(this).parent().parent().next();
             if($div.css('display') == 'none'){
                 $div.slideDown(500);
@@ -428,7 +376,7 @@
                         +       '<img class="sched-detail-btn detail-btn-add" src="resources/icons/check-circle-fill-green.svg">'
                         +       '<img class="sched-detail-btn detail-btn-cancel" src="resources/icons/x-circle-fill-red.svg">'
                         +   '</td>'
-                    +  '</tr>';
+                    	+  '</tr>';
             const $detail = $(this).parents('.sched-des').next().find('.sched-des-detail-body');
             
             if($detail.find('.sched-tr-add').length == 0){ // 예약/일정 추가 행이 존재하는지 여부
@@ -547,7 +495,7 @@
     			}
     		})
     	};
-    	function selectDestination(){
+    	function selectDestination(){ 
     		$.ajax({
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
@@ -563,29 +511,34 @@
     				let rootArea = '';
     				let schedArea = '';
 					
-    				console.log(result);
+    				let rootAddIcon = '<div class="root-icon">' // 루트 추가 아이콘
+					                + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
+					                + 	'<div class="planToast">'
+					                +     '<button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>'
+					                +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>'
+					                +		'</div>'
+					           	    + '</div>'; 
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
     						$('#startDestNo').val(result[i].destNo);
+	    					if(result.length == 1){ // 목적지가 없을 시(출발 목적지만 존재)
+	    						rootArea += rootAddIcon;
+	    					}
     					}
-    					else if(result.length == 1){ // 목적지가 없을 시(출발 목적지만 존재)
-    						rootArea += '<div class="root-icon">' // 루트 추가 아이콘
-						              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
-						              + 	'<div class="planToast">'
-						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
-						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
-						              +		'</div>'
-						           	  + '</div>';
-    					}
-    					else if(i == result.length - 1 && result.length - 1 > 0) { // 마지막 목적지
+    					else if(i == result.length - 1) { // 마지막 목적지
     						rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
 			                		  + '</div>';
 							arrival = result[i].arrival;
 							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
 							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-							rootInfo = result[i].trans + '(' + rootHour + '시간';
+							if(result[i].trans == undefined){
+    							rootInfo = '(' + rootHour + '시간';
+    						}
+    						else{
+	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+    						}
 							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
 							rootInfo += ')';
 							rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
@@ -600,18 +553,42 @@
 		  	                          +		'<img src="resources/대련.jpg">'
 		  	                    	  + 	'</div>'
 		  	                          + 	'<div class="des-info">'
+		  	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
 		  	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
 		  	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
 		  	                    	  + 	'</div>'
 		  	                          + '</div>';
 	  	                	rootArea += '<div class="root-line"></div>'; // 루트 라인 
-	  	                	rootArea += '<div class="root-icon">' // 루트 추가 아이콘
-						              + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
-						              + 	'<div class="planToast">'
-						              +     '<button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>'
-						              +     '<button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>'
-						              +		'</div>'
-						           	  + '</div>';
+	  	                	rootArea += rootAddIcon;
+	  	                	
+	  	               // 예약 및 일정 구역
+	    	                schedArea += '<div class="sched-des">' // 아코디언 div
+				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
+				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
+				    	               +     '<div class="sched-btn-area">'
+				    	               +         '<button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
+				    	               +     '</div>'
+				    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+				    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
+				    	               + '</div>'
+				    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
+				    	               +     '<table class="table table-hover table-bordered">'
+				    	               +         '<thead>'
+				    	               +             '<tr>'
+				    	               +                 '<th class="th1">카테고리</th>'
+				    	               +                 '<th class="th2">예약/일정 명</th>'
+				    	               +                 '<th class="th3">상세 내용</th>'
+				    	               +                 '<th class="th4">예상 금액</th>'
+				    	               + 				 '<th class="th5"></th>'
+				    	               +             '</tr>'
+				    	               +         '</thead>'
+				    	               +         '<tbody class="sched-des-detail-body">'
+	    	                		   +     		 '<input type="hidden" id="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
+				    	               +         '</tbody>'
+				    	               +       '</table>'
+				    	               + '</div>';
+				    	               
+				    		selectSchedule(result[i].destNo);
     					}
     					else{ // 도시			
     						// 목적지 구역
@@ -621,7 +598,12 @@
     						arrival = result[i].arrival;
     						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
     						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+    						if(result[i].trans == undefined){
+    							rootInfo = '(' + rootHour + '시간';
+    						}
+    						else{
+	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+    						}
     						if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
     						rootInfo += ')';
     						rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
@@ -636,6 +618,7 @@
 	    	                          +		'<img src="resources/대련.jpg">'
 	    	                    	  + 	'</div>'
 	    	                          + 	'<div class="des-info">'
+	    	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
 	    	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
 	    	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
 	    	                    	  + 	'</div>'
@@ -664,7 +647,7 @@
 				    	               +             '</tr>'
 				    	               +         '</thead>'
 				    	               +         '<tbody class="sched-des-detail-body">'
-	    	                		   +     		 '<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
+	    	                		   +     		 '<input type="hidden" id="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
 				    	               +         '</tbody>'
 				    	               +       '</table>'
 				    	               + '</div>';
@@ -706,7 +689,7 @@
 			                            + '</tr>';
     					}
     				}
-                    $(schedTable).insertAfter('input[value=' + destNo + ']');
+                    $(schedTable).insertAfter('#schedDestNo[value=' + destNo + ']');
     			}
     		})
     	};

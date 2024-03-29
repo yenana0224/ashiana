@@ -132,7 +132,7 @@
 
         <div class="title">
             <h2>회원조회</h2>
-            <h3>전체회원목록</h3>
+            <h3>탈퇴회원목록</h3>
         </div>
 
         <div class="search">
@@ -146,14 +146,14 @@
             </form>
         </div>
 
-        <form action="<%=contextPath %>/memberDelete.admin" method="get">
+        <form action="<%=contextPath %>/memberRollback.admin" method="get">
             <table class="memberList">
                 <thead>
                     <tr>
                         <th> <input type="checkbox" name="memberNo" id="checkAll"></th>
                         <th>아이디</th>
                         <th>닉네임</th>
-                        <th>회원가입일</th>
+                        <th>회원탈퇴일</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -169,7 +169,7 @@
                                 </td>
                                 <td><%=m.getUserId() %></td>
                                 <td class="memberTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
-                                <td><%=m.geteDate() %></td>
+                                <td><%=m.getModiDate() %></td>
                             </tr>
                         <% } %>
                     <% } %>
@@ -195,7 +195,7 @@
             </table>
             <div class="btn">
                 선택 회원
-                <button type="submit">탈퇴</button>
+                <button type="submit">복원</button>
             </div>
         </form>
         

@@ -3,7 +3,7 @@
 
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.TravelReview, com.kh.semi.info.model.vo.City, com.kh.semi.travelReview.model.vo.HashTag" %>
 <%  
-	List<City> cityList = (List<City>) request.getAttribute("cityList");
+	List<City> cityList = (List<City>)session.getAttribute("cityList");
 	List<TravelReview> reviewList = (List<TravelReview>)request.getAttribute("reviewList");
 	List<TravelReview> likeList = (List<TravelReview>)request.getAttribute("likeList");	
 	List<HashTag> checkedTagList = (List<HashTag>)request.getAttribute("checkedTagList");
@@ -244,7 +244,7 @@
             </div>
             <div id="content-1-3" class="content-1wrap" >
                 <!-- 추후 로그인 유저가 null이 아닐 때만 뜨게 바꿔야함 -->
-                <p><a href="<%=contextPath%>/reviewEnrollForm">여행기 쓰기</a></p>
+                <p><a href="<%=contextPath%>/review.EnrollForm">여행기 쓰기</a></p>
                 
             </div>
         </div>

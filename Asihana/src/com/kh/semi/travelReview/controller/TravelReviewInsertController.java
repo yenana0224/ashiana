@@ -45,12 +45,26 @@ public class TravelReviewInsertController extends HttpServlet {
 			String savePath = request.getServletContext().getRealPath("/resources/travelReview");
 			
 			// 2) MultipartRequest 객체 생성하면서 파일의 이름을 수정하면서 업로드
-			MultipartRequest multiReuqest =
+			MultipartRequest multiRequest =
 					new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			String content = multiReuqest.getParameter("content");
-			System.out.println(content);
+			String reviewTitle = multiRequest.getParameter("title");
+			String reviewContent = multiRequest.getParameter("content");
+			String arrivalDate = multiRequest.getParameter("arrival");
+			String departureDate = multiRequest.getParameter("departure");
+			int city = Integer.parseInt(multiRequest.getParameter("city"));
+			String partner = multiRequest.getParameter("partner");
 			
+			System.out.println(reviewTitle);
+			System.out.println(reviewContent);
+			System.out.println(arrivalDate);
+			System.out.println(departureDate);
+			System.out.println(partner);
+			
+			
+			//작성자
+			//별점
+			//플랜 첨부 여부
 			
 			
 			request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);

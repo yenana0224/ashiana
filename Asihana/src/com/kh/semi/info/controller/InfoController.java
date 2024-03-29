@@ -24,7 +24,7 @@ public class InfoController {
 		List<CityFile> files = new CityService().fileList();
 		request.setAttribute("nationList", nationList);
 		request.setAttribute("files", files);
-		
+
 		return "views/info/selectCity.jsp";
 	};
 
@@ -35,6 +35,7 @@ public class InfoController {
 		if(!cityName.equals("도시선택")) {
 			cityNo = Integer.parseInt(cityName);
 		}		
+		
 
 		String view = "";
 		

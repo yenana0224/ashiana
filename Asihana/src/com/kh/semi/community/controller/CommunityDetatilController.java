@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.community.model.service.CommunityServiceImpl;
+import com.kh.semi.community.model.vo.Community;
 
 /**
  * Servlet implementation class CommunityDetatilController
@@ -47,9 +48,21 @@ public class CommunityDetatilController extends HttpServlet {
 			
 			
 			// 5) 화면 지정
-			new CommunityServiceImpl().selectCommunity(communityNo);
-			request.getRequestDispatcher("views/common/communityDetail.jsp").forward(request,response);
+			Community community = new CommunityServiceImpl().selectCommunity(communityNo);
+			
+			if(community != null) {
+				
+				request.setAttribute("community", community);
+				request.getRequestDispatcher("views/community/communityDetail.jsp").forward(request,response);
 		
+			} else {
+				
+				request.setAttribute("errorMsg", "공지사항 상세 조회실패!!!");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response);
+				
+				
+			}
+			
 			
 		} else {// 실패 => 에러페이지 보내기
 			// 5) 화면 지정

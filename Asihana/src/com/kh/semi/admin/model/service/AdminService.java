@@ -102,13 +102,23 @@ public class AdminService {
 		return result;
 	}
 	
-
+	/***
+	 * 전체 회원 리스트
+	 * @param pi
+	 * @return
+	 */
 	public List<Member> memberList(PageInfo pi){
 		Connection conn = getConnection();
 		List<Member> list = new AdminDao().memberList(conn, pi);
 		close(conn);
 		return list;
 	}
+	
+	/***
+	 * 회원 1명 탈퇴 처리
+	 * @param userNo
+	 * @return
+	 */
 	
 	public int memberDelete(int userNo) {
 		Connection conn = getConnection();
@@ -118,6 +128,11 @@ public class AdminService {
 		return result;
 	}
 	
+	/***
+	 * 탈퇴 회원 전체 조회
+	 * @param pi
+	 * @return
+	 */
 	public List<Member> userDeleteList(PageInfo pi){
 		Connection conn = getConnection();
 		List<Member> list = new AdminDao().userDeleteList(conn, pi);
@@ -125,5 +140,17 @@ public class AdminService {
 		return list;
 	}
 	
+	/***
+	 * 회원 복구 
+	 * @param userNo
+	 * @return
+	 */
+	public int memberRollback(int userNo) {
+		Connection conn = getConnection();
+		int result = new AdminDao().memberRollback(conn, userNo);
+		commit(conn);
+		close(conn);
+		return result;
+	}
 
 }

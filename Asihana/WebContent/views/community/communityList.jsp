@@ -29,7 +29,7 @@
 
         width: 1000px;
         height: 1200px;
-       margin:auto;
+        margin:auto;
     }
 
     #header{width: 100%; height: 10%;}

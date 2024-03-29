@@ -117,7 +117,7 @@
                 <li><a href="<%=contextPath %>/info.admin?currentPage=1">여행정보</a></li>
             </ul>
             <ul class="menu"> <span>회원 관리</span>
-                <li><a href="#">전체 회원 조회</a></li>
+                <li><a href="<%=contextPath %>/member.admin?currentPage=1">전체 회원 조회</a></li>
                 <li><a href="#">탈퇴 회원 조회</a></li>
             </ul>
             <ul class="menu"> <span>문의 관리</span>

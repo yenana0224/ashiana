@@ -5,7 +5,7 @@
 
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Notice> list = (List<Notice>)request.getAttribute("noticeList");
+	List<Member> list = (List<Member>)request.getAttribute("list");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -162,18 +162,14 @@
                             <td colspan="4"> 게시글이 없습니다</td>
                         </tr>
                     <% } else { %>
-                        <% for(Notice n : list) { %>
+                        <% for(Member m : list) { %>
                             <tr>
                                 <td>
-                                <% if(n.getNoticeHold().equals("Y")) { %>
-                                	<input class="ckOne" type="checkbox" name="hold" value="<%=n.getNoticeNo() %>" checked>
-                                <% } else { %>
-                                	<input class="ckOne" type="checkbox" name="hold" value="<%=n.getNoticeNo() %>"> 
-                                <% } %>
+                                	<input class="ckOne" type="checkbox" name="status" value="<%=m.getUserNo() %>"> 
                                 </td>
-                                <td><%=n.getNoticeNo() %></td>
-                                <td class="noticeTitle" id="<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></td>
-                                <td><%=n.getCreateDate() %></td>
+                                <td><%=m.getUserId() %></td>
+                                <td class="noticeTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
+                                <td><%=m.geteDate() %></td>
                             </tr>
                         <% } %>
                     <% } %>
@@ -206,20 +202,20 @@
         <div class="paging-area" align="center">
         
         	<% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/notice.admin?currentPage=<%=currentPage -1 %>'">이전</button>
+        		<button onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=currentPage -1 %>'">이전</button>
           	<% } %>   
         	
 			<% for(int i = startPage; i <= endPage; i++){ %>
 			
 				<% if(currentPage != i){ %>
-				<button class="pagebtn" onclick="location.href='<%=contextPath%>/notice.admin?currentPage=<%=i%>'"><%= i %></button>
+				<button class="pagebtn" onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=i%>'"><%= i %></button>
 				<%} else {%>
 					<button disabled><%=i %></button>
 				<%} %>
 			<%} %>
 			
 			<% if(currentPage != maxPage) { %>
-			  <button onclick="; location.href='<%=contextPath%>/notice.admin?currentPage=<%=currentPage + 1%>'">다음</button>
+			  <button onclick="; location.href='<%=contextPath%>/member.admin?currentPage=<%=currentPage + 1%>'">다음</button>
 			<% } %>
         </div>
         

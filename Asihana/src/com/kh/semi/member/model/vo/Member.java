@@ -19,6 +19,7 @@ public class Member {
 	private Date enrollDate;
 	private Date modifyDate;
 	private String status;
+	private String eDate; // enrollDate
 	
 	
 	public int getUserNo() {
@@ -64,6 +65,12 @@ public class Member {
 		this.status = status;
 	}
 	
+	public String geteDate() {
+		return eDate;
+	}
+	public void seteDate(String eDate) {
+		this.eDate = eDate;
+	}
 	
 	public Member(int userNo, String userId, String userPwd, String nickName, Date enrollDate, Date modifyDate,
 			String status) {

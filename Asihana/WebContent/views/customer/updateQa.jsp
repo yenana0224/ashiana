@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page
+	import="com.kh.semi.customer.model.vo.*"
+%>   
+ 
+<%
+	NoticeFile file = (NoticeFile) request.getAttribute("file");
+	QNA qna = (QNA) request.getAttribute("qna");
+	String currentPage = (String) request.getAttribute("currentPage");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +32,6 @@
         line-height: 0%;
 	}
 </style>
-
-
 </head>
 <body>
 	
@@ -32,23 +39,26 @@
 
 	<div style="height:80px ;"></div>
 
-	<form action="<%=contextPath%>/insertQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
+	<form action="<%=contextPath%>/updateQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
 
-		<input type="hidden" name="userNo"
-			value="<%= loginUser.getUserNo() %>">
+		<input type="hidden" name="qnaNo"
+			value="<%= qna.getQnaNo() %>">
+		<input type="hidden" name="currentPage"
+			value="<%= currentPage %>">
 
 		<div class="form-group">
 			<label for="usr"> 제목</label> <input type="text" class="form-control"
-				id="usr" name="title">
+				id="usr" name="title" value="<%=qna.getQnaTitle()%>">
 		</div>
 		<div class="form-group">
 			<label for="comment">내용</label>
 			<textarea class="form-control" rows="19" id="comment" placeholder="1000자까지 입력가능합니다."
-				style="resize: none;" name="content"></textarea>
+				style="resize: none;" name="content"><%=qna.getQnaContent() %></textarea>
 		</div>
 		<div id="counter">(0 / 1000)</div>
 		<div class="form-group">
-			<input type="file" name="qnaFile">
+			<input type="file" name="qnaFile" value="<%=file.getOriginName()%>">
+			<label><%= (file != null) ? file.getOriginName() : "존재하는 파일이 없습니다." %></label>
 		</div>
 	
 		<div align="center" style="margin-top: 40px;">

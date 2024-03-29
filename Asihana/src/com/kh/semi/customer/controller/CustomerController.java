@@ -3,6 +3,7 @@ package com.kh.semi.customer.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -287,14 +288,23 @@ public class CustomerController {
 	public String qnaDelete(HttpServletRequest request, HttpServletResponse response) {
 		
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+		int qnaFileNo = Integer.parseInt(request.getParameter("qnaFileNo"));
+		int boardType = 8;
 		
-		int result = new CustomerService().qnaDelete(qnaNo);
+		NoticeFile file = new CustomerService().selectFile(qnaNo, boardType);
+		
+		int result = new CustomerService().qnaDelete(qnaNo, qnaFileNo);
+		
+		ServletContext application = request.getSession().getServletContext();
+		String savePath = application.getRealPath("/resources/qa_files/");
 		
 		String view = "";
 		
 		if(result > 0) {
+			new File(savePath + file.getChangeName()).delete();
 			request.getSession().setAttribute("alertMsg", "삭제 성공");
 			view = "qa.customer?currentPage=1";
+			
 		} else {
 			request.setAttribute("errorMsg", "삭제 실패");
 			view = "views/common/errorPage.jsp";
@@ -302,34 +312,78 @@ public class CustomerController {
 		return view;
 	}
 	
-//	public void replyInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		
-//		
-//		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-//		int userNo = Integer.parseInt(request.getParameter("userNo"));
-//		String coment = request.getParameter("content");
-//		String qnaStatus = request.getParameter("qnaStatus");
-//		
-//		Answer answer = new Answer();
-//		answer.setQnaNo(qnaNo);
-//		answer.setReplyComment(coment);
-//		answer.setReplyWriter(userNo);
-//		
-//		int result = new CustomerService().replyInsert(answer, qnaStatus);
-//		
-//		response.setContentType("text/html; charset=UTF-8");
-//		response.getWriter().print(result > 0 ? "success" : "fail");
-//	}
-//	
+	public String updateQaView(HttpServletRequest request, HttpServletResponse response) {
+		
+		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+		int boardType = 8;
+		String currentPage = request.getParameter("currentPage");
+		
+		NoticeFile file = new CustomerService().selectFile(qnaNo, boardType);
+		
+		QNA qna = new CustomerService().selectQna(qnaNo);
+		
+		request.setAttribute("file", file);
+		request.setAttribute("qna", qna);
+		request.setAttribute("currentPage", currentPage);
+		
+		String view = "views/customer/updateQa.jsp";
+		
+		return view;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String updateQa(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String view = "";
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			
+			HttpSession session = request.getSession();
+			ServletContext application = session.getServletContext();
+			String savePath = application.getRealPath("/resources/qa_files/");// 파일 경로
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			int qnaNo = Integer.parseInt(multiRequest.getParameter("qnaNo"));
+			String title = multiRequest.getParameter("title");
+			String content = multiRequest.getParameter("content");
+			String currentPage = multiRequest.getParameter("currentPage");
+			
+			QNA qna = new QNA();
+			qna.setQnaNo(qnaNo);
+			qna.setQnaTitle(title);
+			qna.setQnaContent(content);
+			
+			HashMap<String, NoticeFile> files = new HashMap<String, NoticeFile>();
+			
+			if(multiRequest.getOriginalFileName("qnaFile") != null) {
+				NoticeFile originFile = new CustomerService().selectFile(qnaNo, 8);
+				
+				NoticeFile file = new NoticeFile();
+				file.setOriginName(multiRequest.getOriginalFileName("qnaFile"));
+				file.setChangeName(multiRequest.getFilesystemName("qnaFile"));
+				file.setBoardNo(qnaNo);
+				file.setFilePath("resources/qa_files");
+				
+				files.put("file", file);
+				files.put("originFile", originFile);
+			}
+			
+			int updateResult = new CustomerService().updateQna(qna, files.get("file"), files.get("originFile"));
+			
+			if(updateResult > 0) {
+				if(files.get("originFile") != null) {
+					new File(savePath + files.get("originFile").getChangeName()).delete();
+				}
+				request.getSession().setAttribute("alertMsg", "수정 성공");;
+				view = "/qnaDetail.customer?qnaNo="+ qnaNo +"&currentPage=" + currentPage;
+			} else {
+				request.setAttribute("errorMsg", "수정 실패");
+				view = "views/common/errorPage.jsp";
+			}
+		}
+		return view;
+	}
 	
 	
 	

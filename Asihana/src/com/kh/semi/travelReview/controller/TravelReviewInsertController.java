@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.semi.common.MyFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
+
 /**
  * Servlet implementation class TravelReviewInsertController
  */
@@ -36,13 +39,16 @@ public class TravelReviewInsertController extends HttpServlet {
 			
 			// 1) MultipartRequest 생성
 			// 1_1) 용량제한(10MB)
-			int MaxSize = 1024 * 1024 * 10;
+			int maxSize = 1024 * 1024 * 10;
 			
 			// 1_2) 저장할 경로 구함
 			String savePath = request.getServletContext().getRealPath("/resources/travelReview");
 			
-			String content = request.getParameter("content");
+			// 2) MultipartRequest 객체 생성하면서 파일의 이름을 수정하면서 업로드
+			MultipartRequest multiReuqest =
+					new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			String content = multiReuqest.getParameter("content");
 			System.out.println(content);
 			
 			

@@ -157,7 +157,7 @@
 </head>
 <body>
     
-
+	<%@ include file="../common/headerbar.jsp" %>
     <div id="content-wrap">
         <div id="content-1wrap" align="center">
             <div id="content-1-1">
@@ -177,7 +177,7 @@
 
 
         <div id="wrap-insert-form" align="left"> <!-- 전체를 감싸는 div-->
-            <form action="<%=contextPath%>" mothod="post" id="form">
+            <form action="<%=contextPath%>/insertReview" mothod="post" id="form">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
 
@@ -360,7 +360,8 @@
         </div>
     </div>        
     
-    <br><br><br><br><br><br>
-
+    <%@ include file="../common/footer.jsp" %>
+	
+	
 </body>
 </html>

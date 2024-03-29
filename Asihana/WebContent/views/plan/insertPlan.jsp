@@ -383,7 +383,6 @@
             		$('#start-date').focus(); return;
             	}
             	else{
-            		console.log('날짜 설정 버튼 클릭 시 ');
 					$.ajax({ // 날짜 설정시 출발지 DB로 INSERT
 						url : 'insertStartDestination.ajaxplan',
 						type : 'post',
@@ -403,7 +402,6 @@
 							}
 						}
 					}) // ajax 출발 목적지 행 추가 
-					console.log('날짜 ajax 끝 ');
             		$('#required-msg').slideUp(500); // 알림 메세지 슬라이드 업
 	            	$('#start-date, #start-time').attr('disabled', true);
 	            	$('#setStartDate').css('display', 'none');
@@ -488,6 +486,7 @@
     				
     				let rootArea = '';
     				let schedArea = '';
+    				
     				console.log(result);
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발

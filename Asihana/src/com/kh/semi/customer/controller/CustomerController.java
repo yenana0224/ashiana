@@ -302,24 +302,25 @@ public class CustomerController {
 		return view;
 	}
 	
-	public void replyInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-		String replyContent = request.getParameter("content");
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String qnaStatus = request.getParameter("qnaStatus");
-		
-		Answer answer = new Answer();
-		answer.setQnaNo(qnaNo);
-		answer.setReplyComment(replyContent);
-		answer.setReplyWriter(userNo);
-		
-		int result = new CustomerService().replyInsert(answer, qnaStatus);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().print(result > 0 ? "success" : "fail");
-	}
-	
+//	public void replyInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		
+//		
+//		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+//		int userNo = Integer.parseInt(request.getParameter("userNo"));
+//		String coment = request.getParameter("content");
+//		String qnaStatus = request.getParameter("qnaStatus");
+//		
+//		Answer answer = new Answer();
+//		answer.setQnaNo(qnaNo);
+//		answer.setReplyComment(coment);
+//		answer.setReplyWriter(userNo);
+//		
+//		int result = new CustomerService().replyInsert(answer, qnaStatus);
+//		
+//		response.setContentType("text/html; charset=UTF-8");
+//		response.getWriter().print(result > 0 ? "success" : "fail");
+//	}
+//	
 	
 	
 	

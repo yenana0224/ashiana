@@ -473,7 +473,7 @@
     			}
     		})
     	};
-    	function selectDestination(){
+    	function selectDestination(){ 
     		$.ajax({
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',

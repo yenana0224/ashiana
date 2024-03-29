@@ -450,7 +450,6 @@
     </script>
 	
 	<script> // AJAX 
-<<<<<<< HEAD
 		$(function(){
             // 출발일시 추가
             let sDate = '';
@@ -526,8 +525,6 @@
             })	
 		});
 	
-=======
->>>>>>> 0e81ddcfaeff957c750aa0a429c46f5af5795f06
     	function selectPlan(){
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',

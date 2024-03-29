@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.info.model.vo.City"%>   
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.info.model.vo.City
+				"
+				
+%>   
 <%@ include file="../common/headerbar.jsp" %>   
 <%
 	List<City> cityList = (List<City>)session.getAttribute("cityList");
-	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList"); 
-
-%>    
+	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
+%>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,32 +189,29 @@
             	enctype="multipart/form-data">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
-
+                	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> 
                     <div id="insert-1"><!--content영역1 (별점, 여행시기, 장소, 동행)-->
                         <div id="area-star"><!--별점 영역-->
                             <div id="star-title">  <!--별점의 title영역-->
-                                <h3 style="margin : 0;" id="check1">여행은 어떠셨나요?</h3>
+                                <h3 style="margin : 0;">여행은 어떠셨나요?</h3>
                             </div>
                             <div id="star-content"> <!--별점의 content영역-->
                                 <!--radio 버튼으로 구현, radio button은 display : none으로 안보이게 해두고 연결된 label로 별점 조정 가능하게 구현-->
                                 
-                                <input type="radio" name="star" id="star1" value="1" checked> <label for="star2" style="font-size : 30px;">1</label>
-                                <input type="radio" name="star" id="star2" value="2"> <label for="star2">2</label>
-                                <input type="radio" name="star" id="star3" value="3"> <label for="star3">3</label>
-                                <input type="radio" name="star" id="star4" value="4"> <label for="star4">4</label>
-                                <input type="radio" name="star" id="star5" value="5"> <label for="star5">5</label>
-                                <input type="radio" name="star" id="star6" value="6"> <label for="star6">6</label>
-                                <input type="radio" name="star" id="star7" value="7"> <label for="star7">7</label>
-                                <input type="radio" name="star" id="star8" value="8"> <label for="star8">8</label>
-                                <input type="radio" name="star" id="star9" value="9"> <label for="star9">9</label>
-                                <input type="radio" name="star" id="star10" value="10"> <label for="star10">10</label>
-                              
-                           
+                                <input type="radio" name="star" id="star1" value="1" checked> <label for="star1" style="font-size : 30px;">1</label>
+                                <input type="radio" name="star" id="star2" value="1.5"> <label for="star2">2</label>
+                                <input type="radio" name="star" id="star3" value="2"> <label for="star3">3</label>
+                                <input type="radio" name="star" id="star4" value="2.5"> <label for="star4">4</label>
+                                <input type="radio" name="star" id="star5" value="3"> <label for="star5">5</label>
+                                <input type="radio" name="star" id="star6" value="3.5"> <label for="star6">6</label>
+                                <input type="radio" name="star" id="star7" value="4"> <label for="star7">7</label>
+                                <input type="radio" name="star" id="star8" value="4.5"> <label for="star8">8</label>
+                                <input type="radio" name="star" id="star9" value="5"> <label for="star9">9</label>
                             </div>
 
                             <script>
                                 $(function(){
-                                    $('#check1').click(function(){
+                                    $('#star1').click(function(){
                                         console.log('ㅎㅎ');
                                     
                                     });
@@ -335,12 +335,8 @@
                                 <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                     2) 보여지는checkbox의 checked 속성을 조작해야함-->
                                 
-                                <%if(hashTagList != null){ %>
-                                <input type="checkbox" name="hashtag" id="tag1" value="tag1"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(0).getTagName() %></label>
-                                <input type="checkbox" name="hashtag" id="tag2" value="tag2"><label class="hashtag" for="tag2" style="background-color: white;"><%=hashTagList.get(1).getTagName() %></label>
-                                <input type="checkbox" name="hashtag" id="tag3" value="tag3"><label class="hashtag" for="tag3" style="background-color: white;"><%=hashTagList.get(2).getTagName() %></label>
-                                <input type="checkbox" name="hashtag" id="tag4" value="tag4"><label class="hashtag" for="tag4" style="background-color: white;"><%=hashTagList.get(3).getTagName() %></label>
-                                <input type="checkbox" name="hashtag" id="tag5" value="tag5"><label class="hashtag" for="tag5" style="background-color: white;"><%=hashTagList.get(4).getTagName() %></label>
+                                <%for(int i = 0; i < hashTagList.size(); i++) {%>
+                                <input type="checkbox" name="hashTag" id="tag<%=i%>" value="<%=hashTagList.get(i).getTagNo()%>"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(i).getTagName() %></label>
                                 <%} %>
                                 <!--  
                                 <script>
@@ -363,7 +359,12 @@
                             <div id="plan-add">
                                 <div>
                                     <!-- 여행기 첨부하기, 버튼을 누르면 DB에서 작성자와 정보가 동일한 여행플랜이 있을 경우 결과 조회, 조회된 결과 첨부 가능-->
-                                    <a href="#" style="background-color : rgb(46, 204, 113); text-decoration: none; text-decoration : none; color : black;">여행기 첨부하기</a>
+                                    <select name="planCheck">
+                                    	<option value="Y">있음</option>
+                                    	<option value="N">없음</option>
+                                    </select>
+                                    
+                                    <!--<a href="#" style="background-color : rgb(46, 204, 113); text-decoration: none; text-decoration : none; color : black;">여행기 첨부하기</a>-->
                                 </div>
                             </div>
                         </div>

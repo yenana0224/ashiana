@@ -47,16 +47,16 @@
 	            <label>출국 날짜를 설정해주세요.(시간 선택)</label>
 	        </div>
 	    </div>
-		<input type="hidden" name="StartDestNo" id="StartDestNo">
+		<input type="hidden" name="startDestNo" id="startDestNo" value="">
+		<input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
+		출국일시 : <input type="date" name="start-date" id="start-date">
+		<input type="time" name="start-time" id="start-time" class="timepicker">
+	    <button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
+	    <button class="btn btn-sm btn-danger btn-date-int" id="updateStartDate" type="button">날짜 수정</button>
+	    <button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
+	    <button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
 	    <form method="post">
 	        <div id="planning-interface">
-		        <input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
-		                  출국일시 : <input type="date" name="start-date" id="start-date">
-		        <input type="time" name="start-time" id="start-time" class="timepicker">
-				<button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
-				<button class="btn btn-sm btn-danger btn-date-int" id="updateStartDate" type="button">날짜 수정</button>
-				<button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
-				<button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
 
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
 	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
@@ -244,7 +244,7 @@
             // 출발일시 추가
             let sDate = '';
             let sTime = '';
-            $('#planning-interface').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
+            $('#outer-plan').on('click', '#setStartDate', function(){ // 날짜 설정 버튼 클릭 시 
             	if($('#start-date').val() == ''){ // 날짜 설정 안함
             		$('#start-date').focus(); return;
             	}
@@ -277,12 +277,12 @@
 					$('.btn-des-disabled').attr('disabled', false); // 출발일 설정시 목적지 추가 가능해짐 
             	}
             })
-            $('#planning-interface').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
+            $('#outer-plan').on('click', '#doUpdate', function(){ // 수정 버튼 클릭 시 
             	$('#start-date, #start-time').attr('disabled', false);
             	$('#updateStartDate, #cancelUpdate').css('display', 'inline-block'); // 날짜 수정 / 취소 버튼
             	$('#doUpdate').css('display', 'none'); // 수정 버튼
             })
-            $('#planning-interface').on('click', '#updateStartDate', function(){
+            $('#outer-plan').on('click', '#updateStartDate', function(){
             	if($('#start-date').val() != sDate || $('#start-time').val() != sTime){
             		$.ajax({ // 출발일시 업데이트
             			url : 'updateStartDestination.ajaxplan',
@@ -308,7 +308,7 @@
             	$('#updateStartDate, #cancelUpdate').css('display', 'none');
             	$('#doUpdate').css('display', 'inline-block');
             })
-            $('#planning-interface').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
+            $('#outer-plan').on('click', '#cancelUpdate', function(){ // 취소 버튼 클릭 시
             	$('#start-date').val(sDate);
             	$('#start-time').val(sTime);
             	$('#start-date, #start-time').attr('disabled', true);
@@ -486,7 +486,7 @@
     				
     				let rootArea = '';
     				let schedArea = '';
-    				
+    				console.log(result[0].destNo);
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;

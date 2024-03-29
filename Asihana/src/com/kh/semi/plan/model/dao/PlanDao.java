@@ -142,7 +142,6 @@ public class PlanDao {
 		String sql = prop.getProperty("selectDesDetail");
 		
 		try {
-			System.out.println(status);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
 			pstmt.setString(2, status);

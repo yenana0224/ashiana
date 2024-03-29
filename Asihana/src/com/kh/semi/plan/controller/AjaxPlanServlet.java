@@ -39,9 +39,11 @@ public class AjaxPlanServlet extends HttpServlet {
 		response.setContentType("application/json; charset=UTF-8");
 		
 		PlanController pc = new PlanController();
+		
+		//System.out.println("이상함");
 		switch(mapping) {
 		case "selectPlanDetail" : new Gson().toJson(pc.selectPlanDetail(request, response), response.getWriter()); break;
-		case "selectDesDetail" : System.out.println("디테일"); new Gson().toJson(pc.selectDesDetail(request, response), response.getWriter()); break;
+		case "selectDesDetail" :  new Gson().toJson(pc.selectDesDetail(request, response), response.getWriter()); break;
 		case "selectSchedule" : new Gson().toJson(pc.selectSchedule(request, response), response.getWriter()); break;
 		case "insertStartDestination" : new Gson().toJson(pc.insertStartDestination(request, response), response.getWriter()); break;
 		case "insertDestination" : new Gson().toJson(pc.insertDestination(request, response), response.getWriter()); break;

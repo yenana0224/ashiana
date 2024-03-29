@@ -129,15 +129,15 @@
     <div class="outer">
 
         <div class="title">
-            <h2>국가/도시정보</h2>
-            <h3>도시목록 </h3>
+            <h2>회원 조회</h2>
+            <h3>회원 목록 </h3>
         </div>
 
         <div class="search">
             <form action="#" method="get">
                 <select name="category">
-                    <option value="title">국가</option>
-                    <option value="content">도시</option>
+                    <option value="memId">아이디</option>
+                    <option value="nickname">닉네임</option>
                 </select>
                 <input type="text" name="keyword">
                 <button type="submit">검색</button>

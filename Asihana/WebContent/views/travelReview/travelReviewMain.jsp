@@ -26,7 +26,7 @@
         margin : auto;
         background-color : rgb(250, 243, 221);
     }
-    #content-1wrap{
+    #content-1wrap{	
         width: 100%;
         height : 250px;
         background-color :rgb(46, 204, 113);

@@ -170,4 +170,36 @@ public class AdminDao {
 		}
 		return result;
 	}
+	
+	public List<Member> userDeleteList(Connection conn, PageInfo pi){
+		List<Member> list = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("userDeleteList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() - 1;
+			int end = start + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUserNo(rset.getInt("MEM_NO"));
+				member.setUserId(rset.getString("MEM_ID"));
+				member.setNickName(rset.getString("NICKNAME"));
+				member.seteDate(rset.getString("ENROLL_DATE"));
+				member.setModiDate(rset.getString("MODIFY_DATE"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

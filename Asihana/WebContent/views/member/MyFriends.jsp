@@ -121,8 +121,8 @@
 					<td><%=nickName%></td>
 					<td class ="userNo" id = "<%=userNo%>"><a href="#">📝</a></td>
 					<td class ="userNo_plan" id = "<%=userNo%>"><a href="#">📅</a></td>
-					<td><a href="<%=contextPath%>/insert.friend" onclick="insertFriend('<%= userNo %>')">🤝</a></td>
-					<td><a href="<%=contextPath%>/delete.friend" onclick="deleteFriend('<%= userNo %>')">✂</a></td>
+					<td><button class="add-friend" data-user-no="<%= userNo %>">🤝</button></td>
+					<td><button class="delete-friend" data-user-no="<%= userNo %>">✂</button></td>
 				</tr>
 				<%} %>
 				<%} %>
@@ -160,53 +160,60 @@
 		  });
 		});
 		
-		
-	function insertFriend(userId){
-		   if (userId !== null) {
-		        $.ajax({
-		            url: 'insert.friend',
-		            type: 'post',
-		            data: {
-		                userId2: userId
-		            },
-		            success: function(result) {
-		                if (result == 'success') {
-		                    alert("친구가 추가되었습니다.");
-		                };
-		            },
-		            error: function(xhr, status, error) {
-		                console.error(error);
-		            }
-		        });
-		    } else {
-		        // userId가 null일 때 예외 처리
-		        console.error("userId가 null입니다.");
-		    }
-			
-		};
-	function deleteFriend(userId){
-		   if (userId !== null) {
-			$.ajax({
-				url:'delete.friend',
-				type : 'post',
-				data : {
-					userId2: userId
-				},
-				 success: function(result) {
-					 if(result == 'success'){
-			            alert("친구가 삭제되었습니다.");
-					 };
-			    },
-			    error: function(xhr, status, error) {
-		            // 요청이 실패했을 때 수행할 작업을 여기에 작성합니다.
-		            console.error(error);
+		$(document).ready(function() {
+		    // 친구 추가 클릭 이벤트 처리
+		    $('.add-friend').on('click', function(e) {
+		        e.preventDefault();
+		        var userNo = $(this).data('user-no');
+		        if (userNo !== null) {
+		            $.ajax({
+		                url: '<%=contextPath%>/insert.friend',
+		                type: 'post',
+		                data: {
+		                    userId2: userNo
+		                },
+		                success: function(result) {
+		                    if (result === 'success') {
+		                        alert("친구가 추가되었습니다.");
+		                        location.reload();
+		                    }
+		                },
+		                error: function(xhr, status, error) {
+		                    console.error(error);
+		                }
+		            });
+		        } else {
+		            console.error("userId가 null입니다.");
 		        }
-			});
-		   } else {
-			// userId가 null일 때 예외 처리
-		        console.error("userId가 null입니다.");
-		    }
-		};
+		    });
+
+		    // 친구 삭제 클릭 이벤트 처리
+		    $('.delete-friend').on('click', function(e) {
+		        e.preventDefault();
+		        var userNo = $(this).data('user-no');
+		        if (userNo !== null) {
+		            $.ajax({
+		                url: '<%=contextPath%>/delete.friend',
+		                type: 'post',
+		                data: {
+		                    userId2: userNo
+		                },
+		                success: function(result) {
+		                    if (result === 'success') {
+		                        alert("친구가 삭제되었습니다.");
+		                        location.reload();
+		                    }
+		                },
+		                error: function(xhr, status, error) {
+		                    console.error(error);
+		                }
+		            });
+		        } else {
+		            console.error("userId가 null입니다.");
+		        }
+		    });
+		});
+
 		
 	</script>
 

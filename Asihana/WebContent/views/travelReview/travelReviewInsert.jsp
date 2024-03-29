@@ -177,7 +177,7 @@
 
 
         <div id="wrap-insert-form" align="left"> <!-- 전체를 감싸는 div-->
-            <form action="#" mothod="post" id="form">
+            <form action="<%=contextPath%>" mothod="post" id="form">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
 
@@ -222,6 +222,8 @@
                             </div>
 
                             <div id="calendar-content"><!--제목의 content영역-->
+                                <input type="text"></input>
+                                
                                 <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>
                             </div>
                         </div>
@@ -348,7 +350,7 @@
                                 <option value="public">공개</option>
                                 <option value="private">비공개</option>
                             </select>
-                            <button style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
+                            <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;">취소</button>
                         </div>
                     </div>

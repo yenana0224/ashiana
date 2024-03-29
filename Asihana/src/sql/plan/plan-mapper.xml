@@ -150,7 +150,7 @@
 		            BY
 		              DEST_NO) USING(DEST_NO)
 		 WHERE PLAN_NO = ?
-		   AND STATUS = 'Y'
+		   AND STATUS = ?
 		 ORDER
 		    BY DEST_NO
 	</entry>
@@ -169,7 +169,7 @@
 		          FROM TB_DESTINATION
 		          JOIN TB_CITY USING(CITY_NO)) USING(DEST_NO)
 		 WHERE DEST_NO = ?
-		   AND STATUS = 'Y'
+		   AND STATUS = ?
 		 ORDER
 		    BY SCHED_NO
 	</entry>

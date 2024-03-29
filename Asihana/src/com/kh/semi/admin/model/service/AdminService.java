@@ -1,18 +1,26 @@
 package com.kh.semi.admin.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.customer.model.dao.CustomerDao;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
+import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 public class AdminService {
 	
-	
+	/**
+	 * 공지사항 게시판 : 체크박스로 선택된 게시글 상단 고정
+	 * 
+	 * @param holds
+	 * @return
+	 */
 	public int changeHolds(String[] holds) {
 		Connection conn = getConnection();
 		int change = 1;
@@ -33,6 +41,12 @@ public class AdminService {
 		return change;
 		
 		}
+	/**
+	 * 공지사항 게시판 : 공지사항 수정
+	 * @param notice
+	 * @param noticeFile
+	 * @return
+	 */
 	
 	public int updateNotice(Notice notice, NoticeFile noticeFile) {
 		Connection conn = getConnection();
@@ -58,6 +72,11 @@ public class AdminService {
 		return fileResult * noticeResult;
 	}
 	
+	/**
+	 * 여행스토리 게시판 : 체크박스로 수정된 게시글 삭제
+	 * @param storyNos
+	 * @return
+	 */
 	public int storyDel(String[] storyNos) {
 		Connection conn = getConnection();
 		int result = 1;
@@ -70,6 +89,25 @@ public class AdminService {
 		if(result > 0) commit(conn);
 		close(conn);
 		return result;
+	}
+	
+	/**
+	 * 탈퇴회원을 제외한 전체 회원의 수
+	 * @return
+	 */
+	public int countMember() {
+		Connection conn = getConnection();
+		int result = new AdminDao().countMember(conn);
+		close(conn);
+		return result;
+	}
+	
+
+	public List<Member> memberList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Member> list = new AdminDao().memberList(conn, pi);
+		close(conn);
+		return list;
 	}
 	
 

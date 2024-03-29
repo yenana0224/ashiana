@@ -6,11 +6,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.info.model.dao.InfoDao;
+import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.pageInfo.model.vo.PageInfo;
 public class AdminDao {
 	
 	private Properties prop = new Properties();
@@ -96,6 +101,57 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int countMember(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) result = rset.getInt("COUNT");		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public List<Member> memberList(Connection conn, PageInfo pi){
+		List<Member> list = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("memberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() - 1;
+			int end = start + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUserNo(rset.getInt("MEM_NO"));
+				member.setUserId(rset.getString("MEM_ID"));
+				member.setNickName(rset.getString("NICKNAME"));
+				member.seteDate(rset.getString("ENROLL_DATE"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

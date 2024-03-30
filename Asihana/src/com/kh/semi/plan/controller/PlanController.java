@@ -101,6 +101,13 @@ public class PlanController {
 		return new PlanService().insertDestination(des);
 	}
 
+	public void cancelPlan(HttpServletRequest request, HttpServletResponse response) {
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
+		
+		
+		
+	}
+
 
 
 	

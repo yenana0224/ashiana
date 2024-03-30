@@ -662,10 +662,11 @@
     <script>
     	$(function(){
     		
-	    	$(window).on('beforeunload', function(){
-	    		return '페이지 이동 시 작성중인 여행플랜이 삭제됩니다. 정말로 이동하시겠습니까?';
+	    	$(window).on('beforeunload', function(e){
+	    		return '';
 	    	});
-	    	window.closeAction = function(){
+	    	
+	    	 function unloadPlan() {
 				$.ajax({
 					url : 'cancelPlan.ajaxplan',
 					type : 'post',
@@ -673,10 +674,13 @@
 						planNo : <%= planNo %>
 					},
 					success : function(){
-						<% System.out.println("삭제 성공"); %>
+						<% System.out.println("언로드"); %>
+						console.log('언로드');
 					}
 				})
-	    	}
+	    	      
+	    	  };
+
     	})
     </script>
     

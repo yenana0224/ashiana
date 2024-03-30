@@ -36,6 +36,7 @@ public class PlanServlet extends HttpServlet {
 		case "planMain" : view = pc.selectPlanList(request, response); break;
 		case "planDetail" : view = pc.userPlanCheck(request, response); break;
 		case "insert" : view = pc.insertPlan(request, response); break;
+		case "cancelPlan" : System.out.println("언로드"); view = pc.cancelPlan(request, response); break;
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);

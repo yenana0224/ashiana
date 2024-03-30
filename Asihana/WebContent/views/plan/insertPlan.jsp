@@ -660,28 +660,16 @@
     </script>
     
     <script>
-    	$(function(){
-    		
-	    	$(window).on('beforeunload', function(e){
-	    		return '';
-	    	});
-	    	
-	    	 function unloadPlan() {
-				$.ajax({
-					url : 'cancelPlan.ajaxplan',
-					type : 'post',
-					data : {
-						planNo : <%= planNo %>
-					},
-					success : function(){
-						<% System.out.println("언로드"); %>
-						console.log('언로드');
-					}
-				})
-	    	      
-	    	  };
-
-    	})
+    	window.addEventListener('beforeunload', (event) => {
+	        // Cancel the event as stated by the standard.
+	        event.preventDefault();
+	        // Chrome requires returnValue to be set.
+	        event.returnValue = '';
+      	});
+    	window.addEventListener("unload", function (event) {
+    		console.log(event);
+            event.location.href = '<%=contextPath%>/cancelPlan.plan';
+          });
     </script>
     
 </body>

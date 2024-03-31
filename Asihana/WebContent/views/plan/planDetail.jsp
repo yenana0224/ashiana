@@ -96,7 +96,8 @@
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>
+    				planNo : <%= planNo %>,
+    				status : 'Y'
     			},
     			success : function(result){
     				// 상단 출국일시 귀국일시

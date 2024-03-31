@@ -99,7 +99,7 @@ public class PlanDao {
 	}
 
 
-	public PlanDetail selectPlanDetail(Connection conn, int planNo) {
+	public PlanDetail selectPlanDetail(Connection conn, int planNo, String status) {
 		
 		PlanDetail planDetail = null;
 		ResultSet rset = null;
@@ -110,6 +110,7 @@ public class PlanDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
+			pstmt.setString(2, status);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -197,6 +198,63 @@ public class PlanDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int deletePlanCache(Connection conn, int userNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("deletePlanCache");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteDestCache(Connection conn, int userNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("deleteDestCache");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteSchedCache(Connection conn, int userNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		
+		String sql = prop.getProperty("deleteSchedCache");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	public int insertPlan(Connection conn, int userNo) {
@@ -302,6 +360,8 @@ public class PlanDao {
 		}
 		return result;
 	}
+
+
 
 
 }

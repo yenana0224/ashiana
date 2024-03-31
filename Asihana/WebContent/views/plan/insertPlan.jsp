@@ -478,7 +478,8 @@
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>
+    				planNo : <%= planNo %>,
+    				status : 'N'
     			},
     			success : function(result){
     				// 상단 출국일시 귀국일시
@@ -658,7 +659,8 @@
 		*/
     	
     </script>
-    
+   	
+
     <script>
     	window.addEventListener('beforeunload', (event) => {
 	        // Cancel the event as stated by the standard.
@@ -666,11 +668,7 @@
 	        // Chrome requires returnValue to be set.
 	        event.returnValue = '';
       	});
-    	window.addEventListener("unload", function (event) {
-    		console.log(event);
-            event.location.href = '<%=contextPath%>/cancelPlan.plan';
-          });
     </script>
-    
+
 </body>
 </html>

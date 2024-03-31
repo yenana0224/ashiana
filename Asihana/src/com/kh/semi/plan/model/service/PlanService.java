@@ -37,11 +37,11 @@ public class PlanService {
 		return result;
 	}
 
-	public PlanDetail selectPlanDetail(int planNo) {
+	public PlanDetail selectPlanDetail(int planNo, String status) {
 		
 		Connection conn = getConnection();
 		
-		PlanDetail planDetail = new PlanDao().selectPlanDetail(conn, planNo);
+		PlanDetail planDetail = new PlanDao().selectPlanDetail(conn, planNo, status);
 		
 		close(conn);
 		
@@ -71,6 +71,17 @@ public class PlanService {
 		return list;
 	}
 
+	public void deletePlanCache(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		if(new PlanDao().deleteSchedCache(conn, userNo) > 0) commit(conn);
+		if(new PlanDao().deleteDestCache(conn, userNo) > 0) commit(conn);
+		if(new PlanDao().deletePlanCache(conn, userNo) > 0) commit(conn);
+		
+		close(conn);
+	}
+	
 	public int insertPlan(int userNo) {
 		
 		Connection conn = getConnection();
@@ -133,6 +144,7 @@ public class PlanService {
 		
 		return result;
 	}
+
 
 
 

@@ -244,8 +244,11 @@
             </div>
             <div id="content-1-3" class="content-1wrap" >
                 <!-- 추후 로그인 유저가 null이 아닐 때만 뜨게 바꿔야함 -->
-                <p><a href="<%=contextPath%>/review.EnrollForm">여행기 쓰기</a></p>
                 
+                <%if(loginUser != null) {%>
+                <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+                <p><a href="<%=contextPath%>/review.EnrollForm">여행기 쓰기</a></p>
+                <%} %>
             </div>
         </div>
 

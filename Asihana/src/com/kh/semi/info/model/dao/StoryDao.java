@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.info.model.vo.Story;
+import com.kh.semi.info.model.vo.StoryFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class StoryDao {
@@ -110,6 +111,44 @@ public class StoryDao {
 			close(pstmt);
 		}
 		return story;
+	}
+	
+	public int insertStory(Connection conn, Story story) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertStory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, story.getStoryTitle());
+			pstmt.setString(2, story.getStoryContent());
+			pstmt.setString(3, story.getStoryFrom());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertFile(Connection conn, StoryFile file) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, file.getFilePath());
+			pstmt.setString(2, file.getOriginName());
+			pstmt.setString(3, file.getChangeName());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

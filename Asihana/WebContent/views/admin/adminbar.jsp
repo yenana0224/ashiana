@@ -104,7 +104,6 @@
             padding-right: 30px;
         }
 
-
     </style>
 </head>
 <body>
@@ -126,9 +125,6 @@
             <a href="#">로그아웃</a>
         </div>
     </div>
-    
 
-
-    
 </body>
 </html>

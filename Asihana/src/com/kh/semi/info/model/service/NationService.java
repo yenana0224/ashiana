@@ -106,6 +106,14 @@ public class NationService {
 		return file;
 	}
 	
+	// 국가이름조회
+	public List<Nation> searchName(String keyword){
+		Connection conn = getConnection();
+		List<Nation> list = new NationDao().searchName(conn, keyword);
+		close(conn);
+		return list;
+	}
+	
 	
 
 }

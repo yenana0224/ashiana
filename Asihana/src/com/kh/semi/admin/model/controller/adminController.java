@@ -568,4 +568,24 @@ public class adminController {
 		return "/notmember.admin?currentPage=1";
 	}
 	
+	public String searchInfo(HttpServletRequest request, HttpServletResponse response) {
+		String view = "";
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+		List list = new ArrayList();
+		
+		if(category.equals("nation")) {
+			list = new NationService().searchName(keyword);
+			request.setAttribute("list", list);
+			view = "/info.admin?category="+category+"&keyword="+keyword;
+		} else {
+			list = new CityService().searchName(keyword);
+			request.setAttribute("list", list);
+			view = "/";
+		}
+
+		return view;
+		
+	}
+	
 }

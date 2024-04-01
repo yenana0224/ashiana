@@ -116,20 +116,15 @@
         </div>
 
         <div class="search">
-            <form action="#" method="get">
+            <form action="Info.admin?" method="get">
                 <select name="category">
-                    <option value="title">국가</option>
-                    <option value="content">도시</option>
+                    <option value="nation">국가</option>
+                    <option value="city">도시</option>
                 </select>
                 <input type="text" name="keyword">
                 <button type="submit">검색</button>
             </form>
         </div>
-
-		<div class="btn">
-        	<a href="<%=contextPath%>/nationCityList.admin?currentPage=1">도시 보기</a>
-        </div>
-        
 
             <table class="nationList">
                 <thead>

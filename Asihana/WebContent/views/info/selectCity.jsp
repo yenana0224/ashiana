@@ -120,7 +120,6 @@
             <div class="selectbar">
                 <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange()">
-                        <option> 국가 선택 </option>
                          <% for(Nation n : nationList) {%>
                         <option class="nationList" value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
                         <% } %>
@@ -136,7 +135,13 @@
             function nationChange(){
             	
             	$('#selectCity').empty();
-            	$('#selectCity').append("<option>도시선택</option>");
+            	
+            	// console.log($('#selectNation').val());
+            	const nationNo = $('#selectNation').val();
+            	
+            	if(nationNo != 65 && nationNo != 852 && nationNo != 853){
+	            	$('#selectCity').append("<option>도시선택</option>");
+            	}
             	
             	$.ajax({
             		url : 'cityList.infoaj',

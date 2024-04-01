@@ -62,6 +62,7 @@ public class adminServlet extends HttpServlet {
 		case "memberDelete" : view = ac.memberDelete(request, response); flag = false; break;
 		case "notmember" : view = ac.userDeleteList(request, response); break;
 		case "memberRollback" : view = ac.memberRollback(request, response); flag = false; break;
+		case "searchInfo" : view = ac.searchInfo(request, response); flag=false; break;
 		}
 		
 		if(flag) {

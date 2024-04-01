@@ -162,7 +162,12 @@
             function nationChange(){
             	
             	$('#selectCity').empty();
-            	$('#selectCity').append("<option>도시선택</option>");
+            	
+            	const nationNo = $('#selectNation').val();
+            	
+            	if(nationNo != 65 && nationNo != 852 && nationNo != 853){
+	            	$('#selectCity').append("<option>도시선택</option>");
+            	}
             	
             	$.ajax({
             		url : 'cityList.infoaj',
@@ -190,7 +195,7 @@
             <a href="<%=contextPath%>/main.info">홈</a> 
             <span> > </span>
             <a href="<%=contextPath%>/search.info?nation=<%=nation.getNationNo() %>&city=도시선택"><%= nation.getNationName() %></a>
-            <% if(nation.getNationNo() != 852 || nation.getNationNo() != 65) {%>
+            <% if(nation.getNationNo() != 853 && nation.getNationNo() != 852 && nation.getNationNo() != 65) {%>
             	<span> > </span>
 	           		 <a href="#"><%= city.getCityName() %></a>
     	     		 <% } %>

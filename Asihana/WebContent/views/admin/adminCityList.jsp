@@ -82,7 +82,7 @@
         }
         
         .btn{
-            width: 80%;
+            width: 100%;
             margin: auto;
         }
         
@@ -129,26 +129,21 @@
     <div class="outer">
 
         <div class="title">
-            <h2>회원 조회</h2>
-            <h3>회원 목록 </h3>
+            <h2>국가/도시정보</h2>
+            <h3>도시목록 </h3>
         </div>
 
         <div class="search">
-            <form action="#" method="get">
+            <form action="searchInfo.admin" method="get">
                 <select name="category">
-                    <option value="memId">아이디</option>
-                    <option value="nickname">닉네임</option>
+                    <option value="nation">국가</option>
+                    <option value="city">도시</option>
                 </select>
                 <input type="text" name="keyword">
                 <button type="submit">검색</button>
             </form>
         </div>
-        
-        
-		<div class="btn">
-        	<a href="<%=contextPath %>/info.admin?currentPage=1">국가 보기</a>
-        </div>
-
+ 
             <table class="cityList">
                 <thead>
                     <tr>

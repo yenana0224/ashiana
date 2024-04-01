@@ -222,7 +222,12 @@
             function nationChange(){
             	
             	$('#selectCity').empty();
-            	$('#selectCity').append("<option>도시선택</option>");
+            	
+            	const nationNo = $('#selectNation').val();
+            	
+            	if(nationNo != 65 && nationNo != 852 && nationNo != 853){
+	            	$('#selectCity').append("<option>도시선택</option>");
+            	}
             	
             	$.ajax({
             		url : 'cityList.infoaj',

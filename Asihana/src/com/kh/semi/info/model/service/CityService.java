@@ -104,4 +104,12 @@ public class CityService {
 		
 		return result;
 	}
+	
+	// 도시이름조회
+	public List<City> searchName(String keyword){
+		Connection conn = getConnection();
+		List<City> list = new CityDao().searchName(conn, keyword);
+		close(conn);
+		return list;
+	}
 }

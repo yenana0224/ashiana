@@ -118,6 +118,15 @@ public class PlanController {
 		return new PlanService().insertSchedule(sched);
 	}
 
+	public int insertEndDestination(HttpServletRequest request, HttpServletResponse response) {
+		Destination des = new Destination(Integer.parseInt(request.getParameter("planNo")),
+														   request.getParameter("trans"),
+														   request.getParameter("transPrice"),
+														   request.getParameter("trip"),
+														   request.getParameter("arrival"));
+		return new PlanService().insertEndDestination(des);
+	}
+
 
 
 

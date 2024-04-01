@@ -246,5 +246,22 @@
 		       )
 	</entry>
 	
+	<entry key="insertEndDestination">
+		INSERT
+			  INTO
+			      TB_DESTINATION
+			VALUES
+			      (
+			      SEQ_DEST.NEXTVAL,
+			      SEQ_PLAN.CURRVAL,
+			      0,
+			      '항공',
+			      100000,
+			      '편도',
+			      '2024-05-06 16:00',
+			      NULL,
+			      'N'
+			      )
+	</entry>
 	
 </properties>

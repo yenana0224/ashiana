@@ -151,6 +151,21 @@ public class PlanService {
 		
 		if(result > 0) commit(conn);
 		
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertEndDestination(Destination des) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().insertEndDestination(conn, des);
+		
+		if(result > 0) commit(conn);
+		
+		close(conn);
+		
 		return result;
 	}
 

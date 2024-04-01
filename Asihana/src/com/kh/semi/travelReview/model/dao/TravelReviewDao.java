@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.vo.City;
 import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
@@ -340,5 +341,87 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		}
 		return list;
 	}
+	
+	public int insertReview(Connection conn, TravelReview t) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getReviewTitle());
+			pstmt.setString(2, t.getReviewContent());
+			pstmt.setString(3, t.getReviewWriter());
+			pstmt.setString(4, t.getDepartureDate());
+			pstmt.setString(5, t.getArrivalDate());
+			pstmt.setString(6, t.getPartner());
+			pstmt.setDouble(7, t.getStarPoint());
+			pstmt.setInt(8, t.getCityNo());
+			pstmt.setString(9, t.getPlanCheck());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertTagList(Connection conn, List<HashTag> tagList) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTagList");
+		
+		try {
+			
+			
+			for(int i = 0; i < tagList.size(); i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, tagList.get(i).getTagNo());
+				
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertFileList(Connection conn, List<AttachmentFile> fileList) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFileList");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, fileList.get(i).getFilePath());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3, fileList.get(i).getChangeName());
+				pstmt.setInt(4, 6);
+				
+				result += pstmt.executeUpdate();
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return result;
+	}
+	
 	
 }

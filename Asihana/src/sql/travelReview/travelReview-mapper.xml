@@ -175,6 +175,77 @@
 		     REVIEW_NO
 	</entry>
 	
+	<entry key="insertReview">
+		INSERT 
+		  INTO
+		      TB_REVIEW
+		      (
+		      REVIEW_NO,
+		      REVIEW_TITLE,
+		      REVIEW_CONTENT,
+		      REVIEW_WRITER,
+		      DEPARTURE_DATE,
+		      ARRIVAL_DATE,
+		      PARTNER,
+		      STAR_POINT,
+		      CITY_NO,
+		      PLAN_CHECK
+		      )
+		VALUES
+			  (
+			  SEQ_REVIEW.NEXTVAL,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?
+			  )
+	</entry>
+	
+	<entry key="insertTagList">
+		INSERT
+		  INTO
+		      BRTB_TAG
+		      (
+		      TAG_NUM,
+		      REVIEW_NO
+		      )
+		VALUES
+			  (
+			  ?,
+			  SEQ_REVIEW.CURRVAL
+			  )
+	</entry>
+	
+	<entry key="insertFileList">
+		INSERT
+		  INTO
+		      TB_FILE
+		      (
+		      FILE_NO,
+		      BOARD_NO,
+		      FILE_PATH,
+		      ORIGIN_NAME,
+		      CHANGE_NAME,
+		      BOARD_TYPE
+		      )
+		VALUES
+		      (
+		      SEQ_FILE.NEXTVAL,
+		      SEQ_REVIEW.CURRVAL,
+		      ?,
+		      ?,
+		      ?,
+		      ?
+		      )
+		
+	
+	
+	</entry>
 	
 
 </properties>

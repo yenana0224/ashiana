@@ -219,44 +219,6 @@ public class PlanDao {
 		return result;
 	}
 	
-	public int deleteDestCache(Connection conn, int userNo) {
-		
-		int result = 0;
-		PreparedStatement pstmt = null;	
-		
-		String sql = prop.getProperty("deleteDestCache");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public int deleteSchedCache(Connection conn, int userNo) {
-		
-		int result = 0;
-		PreparedStatement pstmt = null;	
-		
-		String sql = prop.getProperty("deleteSchedCache");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
 	public int insertPlan(Connection conn, int userNo) {
 		
 		int result = 0;

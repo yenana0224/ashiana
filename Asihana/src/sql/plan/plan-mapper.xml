@@ -178,25 +178,6 @@
 		DELETE FROM TB_PLAN WHERE MEM_NO = ? AND STATUS = 'N'
 	</entry>
 	
-	<entry key="deleteDestCache">
-		DELETE FROM TB_DESTINATION D
-		 WHERE D.PLAN_NO = (SELECT P.PLAN_NO
-		                      FROM TB_PLAN P
-		                     WHERE D.PLAN_NO = P.PLAN_NO
-		                       AND MEM_NO = ?
-		                       AND STATUS = 'N')
-	</entry>
-	
-	<entry key="deleteSchedCache">
-		DELETE FROM TB_SCHEDULE S
-		 WHERE S.DEST_NO = (SELECT D.DEST_NO
-		                      FROM TB_DESTINATION D
-		                      JOIN (SELECT PLAN_NO
-		                              FROM TB_PLAN
-		                             WHERE MEM_NO = ?
-		                               AND STATUS = 'N') USING(PLAN_NO))
-	</entry>
-	
 	<entry key="insertPlan">
 		INSERT INTO TB_PLAN VALUES (SEQ_PLAN.NEXTVAL, ?, 'N', SYSDATE)
 	</entry>

@@ -55,7 +55,7 @@ public class CommunityDao {
 			while(rset.next()) {  // community는 지역변수다!!!
 				Community community = new Community();
 				community.setComuNo(rset.getInt("COMMUNITY_NO"));
-				community.setCityNo(rset.getInt("CITY_NO"));		
+				community.setCityName(rset.getString("CITY_NAME"));		
 				community.setMemNo(rset.getInt("MEMBER_NO"));
 				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
 				community.setCount(rset.getInt("COUNT"));
@@ -125,7 +125,7 @@ public class CommunityDao {
 				
 				community = new Community();
 				community.setComuNo(rset.getInt("COMMUNITY_NO"));
-				community.setCityName(rset.getString("CITY_NAME"));		
+				community.setCityName(rset.getString("CITY_NAME"));
 				community.setMemberNickname(rset.getString("NICKNAME"));
 				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
 				community.setCount(rset.getInt("COUNT"));

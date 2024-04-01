@@ -1,4 +1,4 @@
-package com.kh.semi.community;
+package com.kh.semi.community.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -352,10 +352,10 @@
     
     <!--디테일 테이블 스크립트-->
     <script>
-        $('.sched-des-detail-body').on('mouseover', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
+        $('#sched-box').on('mouseover', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
             $(this).find('.sched-detail-btn').css('visibility','visible');
         });
-        $('.sched-des-detail-body').on('mouseout', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
+        $('#sched-box').on('mouseout', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
             $(this).find('.sched-detail-btn').css('visibility','hidden');
         });
         $('#sched-box').on('click', '.btn-add-sched', function(){// 추가 버튼 클릭시
@@ -397,26 +397,28 @@
         });
         // 예약 및 일정 추가 
         $('#sched-box').on('click', '.detail-btn-add', function(){
-        	const $sched = $(this).parent().parent();
-        	console.log($sched.siblings('.schedDesNo').val());
-        	console.log($sched.find('.sched-category').val());
-        	console.log($sched.find('.sched-name').val());
-        	console.log($sched.find('.sched-content').val());
-        	console.log($sched.find('.sched-price').val());
-        	
-        	
+        	const $sched = $(this).parent().parent();     	
         	$.ajax({
         		url : 'insertSched.ajaxplan',
         		type : 'post',
         		data : {
-        			destNo : $sched.siblings('.schedDesNo').val(),
+        			destNo : $sched.siblings('.schedDestNo').val(),
         			category : $sched.find('.sched-category').val(),
         			schedName : $sched.find('.sched-name').val(),
         			schedContent : $sched.find('.sched-content').val(),
-        			schedPrice : $sched.find('.sched-price').val()
+        			schedCost : $sched.find('.sched-price').val()
         		},
         		success : function(result){
-        			console.log(result);
+        			if(result > 0){
+        				selectDestination();
+        				selectSchedule($sched.siblings('.schedDestNo').val());
+        				$sched.remove();
+        			}
+        			else{
+        				alert("예약 및 일정 추가를 다시 시도해주세요..")
+        				selectSchedule($sched.siblings('.schedDestNo').val());
+        				$sched.remove();
+        			}
         		}
         	})
         })
@@ -652,6 +654,7 @@
 			                            + '</tr>';
     					}
     				}
+    				$('.schedDestNo[value=' + destNo + ']').nextAll().remove();
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
     			}
     		})

@@ -232,5 +232,19 @@
 		        )
 	</entry>
 	
+	<entry key="insertSchedule">
+		INSERT
+		  INTO TB_SCHEDULE
+		VALUES (
+		       SEQ_SCHED.NEXTVAL,
+		       ?,
+		       ?,
+		       ?,
+		       ?,
+		       ?,
+		       'N'
+		       )
+	</entry>
+	
 	
 </properties>

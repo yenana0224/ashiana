@@ -324,6 +324,31 @@ public class PlanDao {
 	}
 
 
+	public int insertSchedule(Connection conn, Schedule sched) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertSchedule");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sched.getDestNo());
+			pstmt.setString(2, sched.getCategory());
+			pstmt.setString(3, sched.getSchedName());
+			pstmt.setString(4, sched.getSchedContent());
+			pstmt.setInt(5, Integer.parseInt(sched.getSchedCost().trim()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 
 }

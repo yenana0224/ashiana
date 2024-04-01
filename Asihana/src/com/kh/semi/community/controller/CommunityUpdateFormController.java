@@ -33,14 +33,14 @@ public class CommunityUpdateFormController extends HttpServlet {
 	// GET방식
 		
 	// 값뽑기
-	int communityNo=Integer.parseInt(request.getParameter("communityNo"));
+	//int communityNo=Integer.parseInt(request.getParameter("communityNo"));
 	
 	// 가공
 	
 	//서비스호출
-	Community community = new CommunityServiceImpl(),selectCommunity(communityNo);
+	//Community community = new CommunityServiceImpl(),selectCommunity(communityNo);
 	
-	request.setAttribute("community", community);	
+	//request.setAttribute("community", community);	
 		
 	
 		
@@ -49,9 +49,7 @@ public class CommunityUpdateFormController extends HttpServlet {
 	
 	}
 
-	private void selectCommunity(int communityNo) {
-	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

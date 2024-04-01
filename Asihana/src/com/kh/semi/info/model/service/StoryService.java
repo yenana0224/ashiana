@@ -21,9 +21,9 @@ public class StoryService {
 		return count;
 	}
 	
-	public List<Story> storyList(PageInfo pi){
+	public List<StoryFile> storyList(PageInfo pi){
 		Connection conn = getConnection();
-		List<Story> list = new StoryDao().storyList(conn, pi);
+		List<StoryFile> list = new StoryDao().storyList(conn, pi);
 		close(conn);
 		return list;
 	}
@@ -33,9 +33,9 @@ public class StoryService {
 	 * @param storyNo
 	 * @return
 	 */
-	public Story detailStory(int storyNo) {
+	public StoryFile detailStory(int storyNo) {
 		Connection conn = getConnection();
-		Story story = new StoryDao().detailStory(conn, storyNo);
+		StoryFile story = new StoryDao().detailStory(conn, storyNo);
 		close(conn);
 		return story;
 	}

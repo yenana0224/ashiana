@@ -292,19 +292,6 @@ public class CustomerService {
 		return result;
 	}
 	
-//	public int fileDelete(int qnaNo){
-//		
-//		Connection conn = getConnection();
-//		
-//		int result = new CustomerDao().fileDelete(conn, qnaNo);
-//		
-//		if(result > 0) commit(conn);
-//		
-//		close(conn);
-//		
-//		return result;
-//	}
-	
 	public int updateQna(QNA qna, NoticeFile newfile, NoticeFile originFile) {
 		
 		Connection conn = getConnection();

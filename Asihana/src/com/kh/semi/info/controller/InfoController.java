@@ -14,6 +14,7 @@ import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.CityFile;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
+import com.kh.semi.info.model.vo.StoryFile;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoController {
@@ -82,6 +83,13 @@ public class InfoController {
 		return view;
 	}
 	
+	/***
+	 * Story list
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String story(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new StoryService().countStory();
@@ -94,7 +102,7 @@ public class InfoController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Story> storyList = new StoryService().storyList(pi);
+		List<StoryFile> storyList = new StoryService().storyList(pi);
 		
 		String view = "";
 		
@@ -107,7 +115,7 @@ public class InfoController {
 	
 	public String detailStory(HttpServletRequest request, HttpServletResponse response) {
 		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
-		Story story = new StoryService().detailStory(storyNo);
+		StoryFile story = new StoryService().detailStory(storyNo);
 		
 		request.setAttribute("pageNo", Integer.parseInt(request.getParameter("pageNo")));
 		request.setAttribute("story", story);

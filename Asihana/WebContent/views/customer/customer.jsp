@@ -271,11 +271,14 @@
    
    <div id="content">
         <p>고객센터</p>
+        
         <div id="noticeBoard">
+        
             <div id="noticeAll" class="notice">
                 <p>공지사항</p>
                 <a href="<%=contextPath%>/notice.customer?currentPage=1">더보기</a>
             </div>
+            
             <div id="first" class="notice">
                 <div id="firstNotice">
                     <label>아시하나 소식</label>
@@ -297,33 +300,38 @@
                 </div>
                 <a href="<%=contextPath%>/noticeDetail.customer?noticeNo=<%=notice[2].getNoticeNo()%>" class="noticePlus detailPlus">+</a>
             </div>
+            
         </div>
-        <script>
-        	$('.detail').click(function(){
-        		
-        		let noticeNo = $(this).text();
-        		
-        	})
         
-        </script>
         <div id="contentLine"></div>
+        
         <div id="boardAll">
             <div id="faq">
                 <button onclick="faq();">GO</button>
             </div>
+            
             <div id="qa">
                 <button onclick="qa();">GO</button>
             </div>
         </div>
+        
     </div>
       
       <script>
-      	function faq(){
-      		location.href = "<%=contextPath%>/faq.customer";
-      	}
-      	function qa(){
-      		location.href = "<%=contextPath%>/qa.customer?currentPage=1";
-      	}
+      
+		    $('.detail').click(function(){
+		  		
+		  		let noticeNo = $(this).text();
+		  		
+		  	})
+	      
+	      
+	      	function faq(){
+	      		location.href = "<%=contextPath%>/faq.customer";
+	      	}
+	      	function qa(){
+	      		location.href = "<%=contextPath%>/qa.customer?currentPage=1";
+	      	}
       	
       </script>
       

@@ -252,6 +252,7 @@
 	<div id="qnaMark">
 		<p>Q & A</p>
 	</div>
+	
 	<div id="qnaBox">
 
 		<div id="titleBox">
@@ -411,6 +412,7 @@
 			selectReplyList();
 		});
 		
+		// 댓글 작성 버튼 클릭시
 		$('#replyInsert').click(function(){
 			
 			let blank = $('#reply').val().replace(/\s/gi, "").length;
@@ -428,21 +430,23 @@
 							qnaStatus : '<%=qna.getQnaStatus()%>'
 						  },
 					success : function(result){
-						if(result == 'success'){
-							$('#reply').val('');
-							selectReplyList();
-						}
-						else{
-							alert('작성실패')
-						}
-					}  
+									if(result == 'success'){
+										$('#reply').val('');
+										selectReplyList();
+									}
+									else{
+										alert('작성실패')
+									}
+							   }  
 				})
 			}
 			else{
 				alert('작성할 댓글을 입력해주세요');
 			}
+			
 		})
-
+		
+		// 댓글 수정 a태그 클릭 시
 		$(document).on('click', '.replyUpdate', function(){
 			
 				let update = $(this).siblings('.answerTextBox').children('.answerText').text();
@@ -451,15 +455,16 @@
 				$('#reply').text(replyNo);
 				$('#replyInsert').css('display','none');
 				$('#replyUpdate').css('display', 'block');
-				
 		})
 		
+		// 댓글 수정 버튼 클릭시 수정함수 호출
 		$(document).on('click', '#replyUpdate', function() {
 		    
 			replyUpdate();
 			
 		});
-				
+		
+		// 댓글 수정 함수
 		function replyUpdate(){
 			
 			let replyNo = $('#reply').text();
@@ -475,49 +480,46 @@
 					  content : $('#reply').val()
 					  },
 				success : function(result){
-					if(result == 'success'){
-						$('#reply').val('')
-						$('#replyInsert').css('display','block');
-						$('#replyUpdate').css('display', 'none');
-						selectReplyList();
-					}
-					else{
-					    alert('수정 실패');	
-					}
-				}
+							if(result == 'success'){
+								$('#reply').val('')
+								$('#replyInsert').css('display','block');
+								$('#replyUpdate').css('display', 'none');
+								selectReplyList();
+							}
+							else{
+							    alert('수정 실패');	
+							}
+					      }
 			})
 			}
 			else{
 				alert('수정할 문자를 입력해주세요')
 			}
 		}
-		
+		// 댓글 삭제 a태그 클릭 시
 		$(document).on('click', '.replyDelete', function(){
 			
 			const replyNo = $(this).siblings('.replyNo').val();
-			console.log(replyNo);
+			
 			$.ajax({
 				url:'replyDelete.yo',
 				data:{
 					 replyNo : replyNo
 					},
 			    success : function(result){
-			    	if(result == 'success'){
-				    	alert('삭제완료');
-				    	$('#replyInsert').css('display','block');
-						$('#replyUpdate').css('display', 'none');
-						$('#reply').val('')
-				    	selectReplyList();
-			    	}
-			    	else{
-			    		alert('삭제실패')
-			    	}
-			    }
+					    	if(result == 'success'){
+						    	alert('삭제완료');
+						    	$('#replyInsert').css('display','block');
+								$('#replyUpdate').css('display', 'none');
+								$('#reply').val('')
+						    	selectReplyList();
+					    	}
+					    	else{
+					    		alert('삭제실패')
+					    	}
+			    		   }
 			})
 		});
-		
-		
-		
 		
 	</script>
 

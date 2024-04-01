@@ -71,7 +71,7 @@
 		               	<img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
 		               	<div class="planToast">
 		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
-		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
+		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" data-toggle="modal" data-target="#endDesModal" disabled>여행 종료</button>
 		            	</div>
 		           	</div>
 		           	
@@ -116,7 +116,7 @@
         });
     </script>
 
-    <!-- The Modal -->
+    <!-- 목적지 추가 Modal -->
     <div class="modal" id="addDesModal">
         <div id="modal-dialog">
             <div id="modal-content">
@@ -197,7 +197,7 @@
         </div>
     </div>
 
-    <!-- 모달 스크립트 -->
+    <!-- 목적지 추가 모달 스크립트 -->
     <script>
     	$(function(){ // 모달 도시 셀렉트박스 
     		$('#country').change(function(){
@@ -498,9 +498,11 @@
             	$('#doUpdate').css('display', 'inline-block');
             })	
 		});
-	
+		// 귀국일 insert 
+		//$('#root-area').on('click', '.btn-end-plan', function(){ // 여행 종료 버튼 클릭시
+			
+		//});
     	function selectPlan(){
-    		console.log('셀렉플랜');
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
@@ -509,14 +511,6 @@
     				status : 'N'
     			},
     			success : function(result){
-    				console.log('플랜 셀렉트 성공');
-    				console.log(result);
-    				console.log(result.startDate);
-    				// 상단 출국일시 귀국일시
-    				$('#start-date').val(result.startDate);
-    				$('#start-time').val(result.startTime);
-    				$('#end-date').val(result.endDate);
-    				$('#end-time').val(result.endTime);
     				// 몇박몇일
     				$('#sched-date-sum').text(result.travelDate);
     				// 하단 총 예산
@@ -618,8 +612,7 @@
 					    	               + '</div>';
 	    	                }
 	    	                else{
-	    	                	$('.schedDestNo').eq(i-1).find('.sched-des-price').eq(0).find('label').text(result[i].schedCostSum);
-	    	                	$('.schedDestNo').eq(i-1).find('.sched-des-price').eq(1).find('label').text(result[i].transPrice);
+	    	                	$('.schedDestNo').eq(i-1).parents('.sched-des-detail').prev('.sched-des').find('.sched-des-price').eq(0).find('label').text(result[i].schedCostSum);
 	    	                }
 						    	selectSchedule(result[i].destNo);
 		    					$('#sched-box').append(schedArea);
@@ -667,6 +660,32 @@
     	};
     	
     </script>
+
+	
+	<!-- 여행 종료 Modal -->
+	<div class="modal" id="endDesModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			
+				      <!-- Modal Header -->
+				<div class="modal-header">
+				    <h4 class="modal-title">Modal Heading</h4>
+				    <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				
+				      <!-- Modal body -->
+				<div class="modal-body">
+				        Modal body..
+				</div>
+				
+				      <!-- Modal footer -->
+				<div class="modal-footer">
+				    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+				
+			</div>
+		</div>
+	</div>
    	
 
     <script>

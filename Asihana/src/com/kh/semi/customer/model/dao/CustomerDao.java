@@ -147,7 +147,7 @@ public class CustomerDao {
 	
 	public List<Notice> noticeList(Connection conn, PageInfo pi){
 		
-		List<Notice> list = new ArrayList();
+		List<Notice> list = new ArrayList<Notice>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -187,7 +187,7 @@ public class CustomerDao {
 	
 	public List<Notice> noticeTitleSearch(Connection conn, String searchContent, PageInfo pi){
 		
-		List<Notice> list = new ArrayList();
+		List<Notice> list = new ArrayList<Notice>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -231,7 +231,7 @@ public class CustomerDao {
 	
 	public List<Notice> noticeContentSearch(Connection conn, String searchContent, PageInfo pi){
 		
-		List<Notice> list = new ArrayList();
+		List<Notice> list = new ArrayList<Notice>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -466,7 +466,7 @@ public class CustomerDao {
 	
 	public List<QNA> qnaTitleSearch(Connection conn,String searchContent, PageInfo pi){
 		
-		List<QNA> list = new ArrayList();
+		List<QNA> list = new ArrayList<QNA>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("qnaTitleSearch");
@@ -508,7 +508,7 @@ public class CustomerDao {
 	
 	public List<QNA> qnaContentSearch(Connection conn,String searchContent, PageInfo pi){
 		
-		List<QNA> list = new ArrayList();
+		List<QNA> list = new ArrayList<QNA>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("qnaContentSearch");
@@ -549,7 +549,7 @@ public class CustomerDao {
 	
 	public List<QNA> qnaList(Connection conn, PageInfo pi){
 		
-		List<QNA> list = new ArrayList();
+		List<QNA> list = new ArrayList<QNA>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("qnaList");
@@ -662,7 +662,7 @@ public class CustomerDao {
 	
 	public List<Answer> selectAnswer(Connection conn, int qnaNo){
 		
-		List<Answer> list = new ArrayList();
+		List<Answer> list = new ArrayList<Answer>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectAnswer");

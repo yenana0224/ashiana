@@ -1,4 +1,4 @@
-package com.kh.semi.community.controller;
+package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CommunityInsertController
+ * Servlet implementation class AjaxLikePointController
  */
-@WebServlet("/insert.commu")
-public class CommunityInsertController extends HttpServlet {
+@WebServlet("/likeUp.do")
+public class AjaxLikePointController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityInsertController() {
+    public AjaxLikePointController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,27 +26,9 @@ public class CommunityInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		
-		// POST
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		//
-		
-		
-		
-	
-	
-		// 응답화면 지정
-		request.getRequestDispatcher("views/community/communityListEnrollForm.jsp").forward(request, response);
-	
 	}
 
 	/**

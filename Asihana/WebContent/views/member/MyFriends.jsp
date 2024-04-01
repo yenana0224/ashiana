@@ -176,10 +176,15 @@
 		                    if (result === 'success') {
 		                        alert("친구가 추가되었습니다.");
 		                        location.reload();
+		                    }else{
+		                    	alert("추가할 수 없습니다.");
 		                    }
 		                },
-		                error: function(xhr, status, error) {
-		                    console.error(error);
+		                error: function(result) {
+		                	if (result === 'fail') {
+		                        alert("추가할 수 없습니다.");
+		                        location.reload();
+		                    }
 		                }
 		            });
 		        } else {

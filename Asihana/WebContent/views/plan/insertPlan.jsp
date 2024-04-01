@@ -37,6 +37,19 @@
 		#updateStartDate, #cancelUpdate, #doUpdate{
 			display : none;
 		}
+		
+		.modal-content{
+			width:340px;
+		}
+		#openEndDetail{
+			margin-left: 95px;
+		}
+		#endDesDetailModalBody > select, input{
+			margin-top:10px;
+		}
+		#insertEndDest{
+			margin-left:270px;
+		}
     </style>
 </head>
 <body>
@@ -71,7 +84,7 @@
 		               	<img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
 		               	<div class="planToast">
 		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
-		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" data-toggle="modal" data-target="#endDesModal" disabled>여행 종료</button>
+		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
 		            	</div>
 		           	</div>
 		           	
@@ -153,7 +166,7 @@
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
                         
                         <select name="transport" id="transport">
-                            <option value="" disabled>이동수단</option>
+                            <option value="" disabled selected>이동수단</option>
                             <option value="항공">항공</option>
                             <option value="기차">기차</option>
                             <option value="버스">버스</option>
@@ -314,6 +327,8 @@
     				},
     				success : function(result){
     					if(result > 0){
+    						$('#dep-date-end').val($('#end-date').val());
+    					    $('#dep-time-end').val($('#end-time').val());
     						selectDestination();
     					}
     				}
@@ -498,10 +513,7 @@
             	$('#doUpdate').css('display', 'inline-block');
             })	
 		});
-		// 귀국일 insert 
-		//$('#root-area').on('click', '.btn-end-plan', function(){ // 여행 종료 버튼 클릭시
-			
-		//});
+		
     	function selectPlan(){
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
@@ -664,25 +676,117 @@
 	
 	<!-- 여행 종료 Modal -->
 	<div class="modal" id="endDesModal">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
+				<div class="modal-body" id="endModalBody">
+					<p>돌아가는 이동 수단을 등록 하시겠습니까?</p>
+					<button class="btn btn-sm btn-primary" id="openEndDetail">등록 진행</button>
+					<button class="btn btn-sm btn-success" id="insertEndDestNull">등록 안함</button>
+					<button class="btn btn-sm btn-dark" id="cancelEndDest">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 등록 진행 시  -->
+	<script>
+	$(function(){
+		// 귀국일 insert 
+		$('#root-area').on('click', '.btn-end-plan', function(){ // 여행 종료 버튼 클릭시
+			if($('.root-card').length == 0){
+				alert('목적지가 최소 한개 이상 등록이 되어야합니다.');				
+			}
+			else{
+				$('#endDesModal').show();
+			}
+		});
+		$('#cancelEndDest').click(function(){ // 취소버튼 
+			$('#endDesModal').hide();
+		});
+		$('#cancelEndDesDetail').click(function(){ // 귀국 이동수단 취소버튼
+			$('#endDesDetailModal').hide();
+		});
+		$('#openEndDetail').click(function(){
+			$('#endDesModal').hide();
 			
-				      <!-- Modal Header -->
-				<div class="modal-header">
-				    <h4 class="modal-title">Modal Heading</h4>
-				    <button type="button" class="close" data-dismiss="modal">&times;</button>
+			// input 값 초기화
+			$('#transport-end option:first').prop('selected', true);
+			$('#trans-price-end').val('0');
+			$('#add-day-end').prop('checked', false);
+			$('#arr-date-end').val('');
+			$('#arr-time-end').val('');
+			
+			$('#endDesDetailModal').show();
+		});
+		// 귀국 INSERT 등록 안했을 시
+		$('#insertEndDestNull').click(function(){
+			const endDest = {
+					planNo : <% planNo %>,
+					trans : null,
+					transPrice : null,
+					trip : null,
+					arrival : $('#dep-date-end').val() + ' ' + $('#dep-time-end').val()
+			}
+			insertEndDestination(endDest);
+		});
+		// 귀국 INSERT 이동수단 등록 시 
+		$('#insertEndDest').click(function(){
+			const endDest = {
+					planNo : <%= planNo %>,
+					trans : $('#transport-end').val(),
+					transPrice : $('#trans-price-end').val(),
+					trip : '편도',
+					arrival : $('#arr-date-end').val() + ' ' + $('#arr-time-end').val()
+			}
+			insertEndDestination(endDest);
+			
+		})
+	})
+	// 귀국 INSERT AJAX
+	function insertEndDestination(endDest){
+		console.log(endDest);
+	}
+	
+	
+	$('#add-day-end').change(function(){ // +1일 체크박스
+        if($('#add-day-end').is(':checked')) {
+            let $arr = new Date($('#arr-date-end').val());
+            $arr.setDate($arr.getDate() + 1);
+            $('#arr-date-end').val(formatDate($arr));
+        }
+        else{
+            let $arr = new Date($('#arr-date-end').val());
+            $arr.setDate($arr.getDate() - 1);
+            $('#arr-date-end').val(formatDate($arr));
+        }
+    })
+	</script>
+	
+	<!-- 여행 종료 Modal -->
+	<div class="modal" id="endDesDetailModal">
+		<div class="modal-dialog-centered modal-lg" id="modal-dialog-endDes">
+			<div class="modal-content" id="modal-content-endDes" style="width:380px">
+				<div class="modal-body" id="endDesDetailModalBody">
+					<select name="transport" id="transport-end">
+	                    <option value="" disabled selected>이동수단</option>
+	                    <option value="항공">항공</option>
+	                    <option value="기차">기차</option>
+	                    <option value="버스">버스</option>
+	                    <option value="여객선">여객선</option>
+	                    <option value="렌트카">렌트카</option>
+	                    <option value="기타">기타</option>
+                    </select>
+                    <input type="text" name="trans-price" id="trans-price-end" value="0">원 <br>
+					출발일시 : <input type="date" name="dep-date" id="dep-date-end" disabled> 
+                    <input type="time" name="dep-time" id="dep-time-end" class="timepicker" disabled><br>
+                    <input type="date" name="arr-date" id="arr-date-end" style="display:none;">
+                                             도착시간 : <input type="time" name="arr-time" id="arr-time-end" class="timepicker">
+                    <input type="checkbox" name="add-day" id="add-day-end"><label for="add-day">+1 일</label> <br>
 				</div>
-				
-				      <!-- Modal body -->
-				<div class="modal-body">
-				        Modal body..
+				<div style="margin-bottom:12px;">
+					<button class="btn btn-sm btn-danger btn-endDest" id="insertEndDest">등록</button>
+					<button class="btn btn-sm btn-dark btn-endDest" id="cancelEndDesDetail">취소</button>
 				</div>
-				
-				      <!-- Modal footer -->
-				<div class="modal-footer">
-				    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-				
 			</div>
 		</div>
 	</div>

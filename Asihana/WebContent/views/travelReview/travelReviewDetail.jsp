@@ -6,8 +6,7 @@
 	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
 	List<HashTag> checkedHashTagList = (List<HashTag>)request.getAttribute("checkedHashTagList");
 %>
-
-    
+<%@ include file="../common/headerbar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,10 +157,7 @@
         }
     }
 
-    #content-wrap-3-2-1{
-        width: 35%;
-        height : 100%;
-    }
+   
 
     #content-wrap-3-2-2{
         width: 65%;
@@ -169,7 +165,7 @@
     }
 
     #content-4wrap{
-        width: 90%;
+        width: 100%;
         height : 200px;
         float : left;
 
@@ -203,7 +199,7 @@
     }
 
     #content-wrap-4-2{
-        width: 60%;
+        width: 59%;
     }
     
     #content-wrap-4-2-1{
@@ -211,13 +207,14 @@
 
         >div{
             width: 100%;
+            display : inline-block;
         }
     }
     #like-area1{
         height : 60%;
     }
     #like-area2{
-        height : 40%;
+        height : 35%;
     }
 
     #content-wrap-4-2-2{
@@ -238,7 +235,6 @@
 
 </head>
 <body>
-	<%@ include file="../common/headerbar.jsp" %>
     <div id="content-wrap" > <!-- content 전체를 감싸는 wrap영역 -->
         
         <!--여기부터 content의 3분할 중 1영역-->
@@ -306,8 +302,9 @@
                                 <!--DB에서 조회된 결과가 내용에 들어감-->
                                 <label>작성자 : </label><span><%= review.getReviewWriter() %></span> <br>
                                 <label>작성일 : </label><span><%= review.getCreateDate() %></span> <br>
+                                <%System.out.println(review.getCount() + ""); %>
                                 <label>조회수 : </label><span><%= review.getCount() %></span> <br>
-                                <label>좋아요 : </label><span><%= review.getLikes() %></span> <br>
+                                <label>좋아요 : </label><span id="likePoint"><%= review.getLikes() %></span> <br>
                             </p>
                         </div>
                     </div>
@@ -405,8 +402,8 @@
                     <div id="content-wrap-3-2-1">
                     </div>
 
-                    <div id="content-wrap-3-2-2" align="right">
-                        <div id="hash-tag">
+                    <div id="content-wrap-3-2-2" align="left">
+                        <div id="hash-tag">                        	
                             <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                 2) 보여지는checkbox의 checked 속성을 조작해야함-->
                             <%for(int i = 0; i < checkedHashTagList.size(); i++) {%>
@@ -450,18 +447,33 @@
                 <div id="content-wrap-4-2">
                     <div id="content-wrap-4-2-1" align="right">
                         <div id="like-area1">
-
                         </div>
                         <div id="like-area2">
-                            <img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20210703%2Fourlarge%2Fpngtree-3d-like-and-thumbs-up-button-png-image_3558644.jpg&type=sc960_832" style="width: 50px; height: 50px;" alt="좋아요"><span style="margin-right : 40px;">여행기 추천하기</span>
+                            <a id="likeUp" href="http://www.naver.com"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 50px; height: 50px;" alt="좋아요"></a>
                         </div>
                     </div>
 
                     <div id="content-wrap-4-2-2" align="right">
-                        <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px; margin-right : 40px;">목록</button>
+                        <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px; margin-right : 40px;" onclick="history.back();">목록</button>
                     </div>
                 </div>
 
+                <script>
+                	/* 다음에 다시
+                	$('#likeUp').click(function(){
+                		$.ajax({
+                			url : 'likeUp.do',
+                			data : {span : $('#likePoint').text()},
+                			type : 'get',
+                			success : function(result){}
+                			
+                			console.log('성공');
+                		});
+                	})
+                	*/
+                
+                
+                </script>
                 
 
             </div>

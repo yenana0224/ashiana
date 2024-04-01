@@ -88,6 +88,7 @@
 		      CITY_NAME,
 		      NATION_NAME,
 		      PLAN_CHECK,
+		      TB_REVIEW.COUNT,
 		      LIKES
 		  FROM
 		      TB_REVIEW
@@ -99,7 +100,7 @@
 		       TB_NATION USING(NATION_NO)
 		   JOIN
 			    (SELECT
-			           COUNT(*) AS LIKES,
+			           COUNT(*)-1 AS LIKES,
 			            BOARD_NO,
 			            BOARD_TYPE
 			        FROM
@@ -242,9 +243,25 @@
 		      ?,
 		      ?
 		      )
-		
+	</entry>
 	
-	
+	<entry key="insertLikePoint">
+		INSERT
+		   INTO
+		       TB_LIKE
+		  	   (
+		  	   LIKE_NO,
+		  	   MEM_NO,
+		  	   BOARD_TYPE,
+		  	   BOARD_NO
+		  	   )
+		 VALUES
+		       (
+		       	SEQ_LIKE.NEXTVAL,
+		       	?,
+		       	?,
+		       	SEQ_REVIEW.CURRVAL
+		       )
 	</entry>
 	
 

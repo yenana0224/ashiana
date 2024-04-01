@@ -4,15 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 import com.oreilly.servlet.MultipartRequest;
@@ -49,7 +53,9 @@ public class TravelReviewInsertController extends HttpServlet {
 			int maxSize = 1024 * 1024 * 10;
 			
 			// 1_2) 저장할 경로 구함
-			String savePath = request.getServletContext().getRealPath("/resources/travelReview");
+			HttpSession session = request.getSession();
+			ServletContext application = session.getServletContext();
+			String savePath = application.getRealPath("/resources/travelReview/");
 			
 			// 2) MultipartRequest 객체 생성하면서 파일의 이름을 수정하면서 업로드
 			MultipartRequest multiRequest =
@@ -71,14 +77,17 @@ public class TravelReviewInsertController extends HttpServlet {
 			System.out.println(reviewContent + "내용");
 			System.out.println(arrivalDate + "떠나날");
 			System.out.println(city + "도시");
-			System.out.println(departureDate + "복구날");
 			System.out.println(partner + "파트너");
+			System.out.println(departureDate + "복구날");
 			System.out.println(starPoint + "별점");
 			System.out.println(Arrays.toString(hashTagList));
 			*/
 			
+			
 			// 여행기 값 VO에 담기
+			
 			TravelReview t = new TravelReview();
+			
 			t.setReviewWriter(reviewWriter);
 			t.setReviewTitle(reviewTitle);
 			t.setReviewContent(reviewContent);
@@ -90,18 +99,38 @@ public class TravelReviewInsertController extends HttpServlet {
 			t.setPlanCheck(planCheck);
 			
 			//해시태그 값 VO에 담기
-			List<HashTag> list = new ArrayList();
+			List<HashTag> tagList = new ArrayList();
 
 			if(hashTagList != null) {
 				for(int i = 0; i < hashTagList.length; i++) {
 					HashTag h = new HashTag();
 					h.setTagNo(Integer.parseInt(hashTagList[i]));
-					list.add(h);
+					tagList.add(h);
+				}
+			}
+			// 첨부파일 
+			List<AttachmentFile> fileList = new ArrayList();
+			
+			for(int i = 0; i <= 4; i++) {
+				String key = "file" + i;
+				
+				if(multiRequest.getOriginalFileName(key) != null) {
+					
+					AttachmentFile at = new AttachmentFile();
+					
+					at.setOriginName(multiRequest.getOriginalFileName(key));
+					at.setChangeName(multiRequest.getFilesystemName(key));
+					at.setFilePath("resources/travelReview");
+					fileList.add(at);
 				}
 			}
 			
+			// 서비스 요청
+			int result = new TravelReviewService().intsertReview(t , tagList, fileList);
 			
-			request.getRequestDispatcher("views/travelReview/travelReviewInsert.jsp").forward(request, response);
+			
+			
+			request.getRequestDispatcher("views/travelReview/travelReviewMain11.jsp").forward(request, response);
 		}
 		
 		

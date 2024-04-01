@@ -54,11 +54,14 @@ public class CommunityServiceImpl {
 		
 	}
 	
-	
-	
-	
-	
+	public int insert(Community community) { // 글 작성 , 1행 추가한다라는 의미
+	 
+		Connection conn= getConnection();
 		
+		int result = new CommunityDao().insert(conn, community);
+	
+	
+	}
 	
 	
 

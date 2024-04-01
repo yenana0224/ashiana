@@ -97,7 +97,7 @@
     <div>
 
   
-        <h2>여행자 실시간 커뮤니티  </h2>     
+        <h2>커뮤니티 글 수정하기  </h2>     
                     
                     
                
@@ -106,34 +106,14 @@
        <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
        <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
-      
+
+	      
 
        
         <div class="form-group" id="s1">
             <label for="comment">
-            <span> 
-            	<select id="s2" >
-            		<option>도시이름</option>
-            		<option>싱가포르</option>
-            		<option>치앙마이(태국)</option>
-            		<option>방콬(태국)</option>
-            		<option>후아힌(태국)</option>
-            	
-            	
-            	</select>
             
             
-            <select  >
-            		
-            		<option></option>
-            		
-            	
-            	
-            	</select>
-            
-			             
-             
-             </span>
            
             
             

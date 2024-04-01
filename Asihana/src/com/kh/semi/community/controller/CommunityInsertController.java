@@ -31,6 +31,13 @@ public class CommunityInsertController extends HttpServlet {
 		// POST
 		request.setCharacterEncoding("UTF-8");
 		
+		
+		
+		
+		
+		
+		
+		
 		//
 		
 		

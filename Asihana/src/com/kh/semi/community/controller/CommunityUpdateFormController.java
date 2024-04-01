@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.community.model.service.CommunityServiceImpl;
+import com.kh.semi.community.model.vo.Community;
+
 /**
  * Servlet implementation class CommunityUpdateFormController
  */
@@ -27,7 +30,18 @@ public class CommunityUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+	// GET방식
+		
+	// 값뽑기
+	//int communityNo=Integer.parseInt(request.getParameter("communityNo"));
 	
+	// 가공
+	
+	//서비스호출
+	//Community community = new CommunityServiceImpl(),selectCommunity(communityNo);
+	
+	//request.setAttribute("community", community);	
+		
 	
 		
 	request.getRequestDispatcher("views/community/communityUpdateForm.jsp").forward(request, response);		
@@ -35,6 +49,7 @@ public class CommunityUpdateFormController extends HttpServlet {
 	
 	}
 
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -37,9 +37,10 @@
 
         .form-group{
 
-          	 margin-top:40px;
+          	 margin-top:130px;
+          	 margin-bottom:1px;
             margin-left: 135px;
-            width: 500px;
+            width: 550px;
         }
         
         .form-control{
@@ -48,14 +49,15 @@
         
         }
         
-        #s1{
-        	
+        #s2{
+        	margin-left :150px;
+        	margin-top: 50px;
         	
         
         }
         #comment{
         
-        margin-top: 130px;
+        margin-top: 10px;
         
         }
 
@@ -97,21 +99,26 @@
     <div>
 
   
-        <h2>여행자 실시간 커뮤니티  </h2>     
+        <h2>커뮤니티 글 수정하기  </h2>     
                     
                     
                
        
-       <form action="<%=contextPath%> /insert.commu" method="post" id="insert-form">
-       <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
+       <form action="<%=contextPath%> /updateForm.commu" method="post" id="insert-form">
+       <input type="hidden" name ="userNo" >
        <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
-      
 
-       
-        <div class="form-group" id="s1">
-            <label for="comment">
-            <span> 
+	      
+
+            
+        <form action="<%=contextPath%>/update.notice" method="post" id="insert-form">
+        
+        	<input type="hidden" name="communityNo"> 
+         
+         
+         
+         	<span> 
             	<select id="s2" >
             		<option>도시이름</option>
             		<option>싱가포르</option>
@@ -122,33 +129,23 @@
             	
             	</select>
             
-            
-            <select  >
-            		
-            		<option></option>
-            		
-            	
-            	
-            	</select>
-            
+         
 			             
              
              </span>
-           
+         
+         
             
-            
-            
-            </label>
-            <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
-            <button class="input-group-text"  id="b3" >등록</button>
-            <span class="limit">0/100</span>
-        </div>
+            <div class="form-group">
+                <label for="comment">내용</label>
+                <textarea class="form-control" rows="20" id="comment" style="resize: none;" name="content"></textarea>
+            </div>
 
-
-       
-
-    </form>
-    
+            <div align="center">
+                <button type="submit" class="btn btn-info">수정</button>
+                <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
+            </div>
+        </form>
     
     </div>
     

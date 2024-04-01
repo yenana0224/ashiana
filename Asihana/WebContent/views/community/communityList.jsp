@@ -514,6 +514,18 @@
           
       
            <button id="g5" > 글 작성하기</button>
+          <!--글 작성하기를  누르면 글 작성폼으로 연결 -->
+          
+          <script>
+          	$('#g5').click(function(){
+          		location.href='<%=contextPath%>()/insert.commu';
+          		
+          		
+          	});
+          
+          
+          </script>
+          
           
           
                     

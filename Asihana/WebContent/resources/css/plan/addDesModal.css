@@ -9,16 +9,6 @@
     }
 }
 
-#endDesModal{
-    margin-left: 200px;
-    margin-top: 100px;
-    width: 300px;
-    height: 200px;
-    >div{
-        width: 100%;
-    }
-}
-
 #modal-dialog{
     height: 100%;
 }
@@ -52,7 +42,6 @@
         margin: 0px;
     }
 }
-
 #modal-footer{
     background-color: white;
     height: 50px;
@@ -76,13 +65,31 @@
     background-color: beige;
 }
 
+#endDesModal{
+	margin-left: 200px;
+	margin-top: 100px;
+	width: 300px;
+	height: 200px;
+	>div{
+		width: 100%;
+		background-color: white;
+	}
+}
+/*
+#endDesDetailModal{
+			margin-left: 200px;
+			margin-top: 100px;
+			width: 400px;
+			height: 400px;
+				
+			>div{
+				display: inline-block;
+				width: 100%;
+				background-color: white;
+			}
+		}
 
-
-
-
-
-
-
+*/
 
 
 

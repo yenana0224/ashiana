@@ -3,6 +3,7 @@ package com.kh.semi.info.model.service;
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -59,8 +60,25 @@ public class StoryService {
 		int result = fileResult * StoryResult;
 		
 		if(result > 0) commit(conn);
+		else rollback(conn);
+		
 		close(conn);
 		
+		return result;
+	};
+	
+	public int updateStory(Story story, StoryFile file) {
+		Connection conn = getConnection();
+		int fileResult = 1;
+		int storyResult = new StoryDao().updateStory(conn, story);
+		if(file != null) {
+			fileResult = new StoryDao().updateStoryFile(conn, file);
+		}
+		int result = storyResult * fileResult;
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
 		return result;
 	}
 

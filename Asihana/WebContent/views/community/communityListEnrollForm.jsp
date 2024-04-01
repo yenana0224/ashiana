@@ -78,6 +78,8 @@
         }
 
 
+  		
+
 		
 
        
@@ -97,13 +99,13 @@
     <div>
 
   
-        <h2>여행자 실시간 커뮤니티  </h2>     
+        <h2>커뮤니티 글 작성  </h2>     
                     
                     
                
        
-       <form action="<%=contextPath%> /insert.commu" method="post" id="insert-form">
-       <input type="hidden" name ="userNo" value ="<%=loginUser.getUserNo() %>">
+       <form action="<%=contextPath%>/insert.commu" method="post" id="insert-form">
+       <input type="hidden" name ="userNo" >
        <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
       
@@ -122,15 +124,7 @@
             	
             	</select>
             
-            
-            <select  >
-            		
-            		<option></option>
-            		
-            	
-            	
-            	</select>
-            
+         
 			             
              
              </span>
@@ -140,7 +134,8 @@
             
             </label>
             <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
-            <button class="input-group-text"  id="b3" >등록</button>
+            <button class="input-group-text"  id="b3" onclick="history.back();">취소</button>
+              <button class="input-group-text"  id="b3" >등록</button>
             <span class="limit">0/100</span>
         </div>
 

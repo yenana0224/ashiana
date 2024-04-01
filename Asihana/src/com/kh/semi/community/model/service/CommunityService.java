@@ -7,6 +7,8 @@ import com.kh.semi.community.model.vo.Community;
 public interface CommunityService {
 	
 	// 가이드라인을 잡아놨다고 생각을 해라!!!!
+	// jsp -> controller(servlet) -> service -> dao -> mapper
+	// 화면                 화면 지정                                       연산      sql연결       sql문 작성
 	
 	// 공지사항에서 이루어질 수 있는 기능들 : 목록조회, 상세조회, 작성, 수정, 삭제
 	
@@ -17,13 +19,15 @@ public interface CommunityService {
 	Community selectCoummunity(int comuNo);
 	
 	// 커뮤니티  작성(C)
+	Community insert(int comuNO);
 	
 	
 	// 커뮤니티 수정(U)
+	Community update(int comuNO);
 	
 	
 	// 커뮤니티 삭제(D/U)
-	
+	Community delete(int comuNO);
 	
 	
 

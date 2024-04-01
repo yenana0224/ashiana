@@ -36,10 +36,10 @@ public class InfoController {
 		if(!cityName.equals("도시선택")) {
 			cityNo = Integer.parseInt(cityName);
 		}		
-		
 
 		String view = "";
-		
+
+
 		// 나라만 선택하는 경우
 		if(cityName.equals("도시선택")) {
 			AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
@@ -48,11 +48,11 @@ public class InfoController {
 			request.setAttribute("cityList", cityList);
 			request.setAttribute("title", title);
 			view = "views/info/nationInfo.jsp";
-			
 		// 도시까지 선택하는 경우
 		} else {
 			// City 조회수 1증가
 			int result = new CityService().increaseCity(cityNo);
+			
 			if(result > 0) {
 				// 도시정보 조회
 				City city = new CityService().selectCity(cityNo);

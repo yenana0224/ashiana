@@ -37,7 +37,6 @@ public class TravelReviewDetailController extends HttpServlet {
 		// get방식 인코딩 X
 		
 		// 조회페이지이기 때문에 조회수부터 올리기
-		
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		
 		//System.out.println(reviewNo);
@@ -50,18 +49,19 @@ public class TravelReviewDetailController extends HttpServlet {
 		
 		// 1) + 2) 게시물 + 좋아요 수치 당겨옴
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
-		//System.out.println(review);
 		request.setAttribute("review", review);
 		
 		List<HashTag> checkedHashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
 		request.setAttribute("checkedHashTagList", checkedHashTagList);
 	
-		//System.out.println(review);
-		
-		//System.out.println(checkedHashTagList);
 		request.getSession().getAttribute("hashTagList");
 		
-		//System.out.println(request.getSession().getAttribute("hashTagList"));
+		System.out.println(reviewNo);
+		System.out.println(result);
+		System.out.println(review);
+		System.out.println(checkedHashTagList);
+		
+		
 		
 		
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);

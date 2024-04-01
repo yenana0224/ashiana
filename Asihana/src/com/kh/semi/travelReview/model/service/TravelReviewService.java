@@ -156,24 +156,27 @@ public class TravelReviewService {
 		int insertReview = new TravelReviewDao().insertReview(conn, t);
 		
 		// 해시태그 insert
+		int insertTagList = 1;
+		
 		if(!tagList.isEmpty()) {
-			int insertTagList = new TravelReviewDao().insertTagList(conn, tagList);
+			insertTagList = new TravelReviewDao().insertTagList(conn, tagList);
 		}
 		
 		// 파일첨부 (최소 1개 존재)
 		int insertFileList = new TravelReviewDao().insertFileList(conn, fileList);
 		
+		if(insertReview * insertTagList * insertFileList > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		
-		
-		
-		// 트랜잭션처리
-		
-		// 게시물 + 해시태그(있을 수도 없을 수도 있음), 파일(무조건 1개는 있음)
-		
+		//좋아요 테이블 생성
+		int insertLikePoint = new TravelReviewDao().insertLikePoint(conn, t);
 		
 		close(conn);
 		
-		return insertReview;
+		return (insertReview * insertTagList * insertFileList * insertLikePoint);
 	}
 
 }

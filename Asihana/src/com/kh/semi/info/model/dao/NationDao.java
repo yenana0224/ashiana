@@ -289,5 +289,31 @@ public class NationDao {
 		return result;
 	}
 	
+	public List<Nation> searchName(Connection conn, String keyword){
+		List<Nation> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Nation nation = new Nation();
+				nation.setNationNo(rset.getInt("NATION_NO"));
+				nation.setNationName(rset.getString("NATION_NAME"));
+				list.add(nation);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 
 }

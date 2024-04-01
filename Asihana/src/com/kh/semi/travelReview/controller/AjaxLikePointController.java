@@ -1,4 +1,4 @@
-package com.kh.semi.community.controller;
+package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.community.model.service.CommunityServiceImpl;
-import com.kh.semi.community.model.vo.Community;
-
 /**
- * Servlet implementation class CommunityUpdateFormController
+ * Servlet implementation class AjaxLikePointController
  */
-@WebServlet("/updateForm.commu")
-public class CommunityUpdateFormController extends HttpServlet {
+@WebServlet("/likeUp.do")
+public class AjaxLikePointController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityUpdateFormController() {
+    public AjaxLikePointController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +27,10 @@ public class CommunityUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	// GET방식
 		
-	// 값뽑기
-	//int communityNo=Integer.parseInt(request.getParameter("communityNo"));
-	
-	// 가공
-	
-	//서비스호출
-	//Community community = new CommunityServiceImpl(),selectCommunity(communityNo);
-	
-	//request.setAttribute("community", community);	
 		
-	
-		
-	request.getRequestDispatcher("views/community/communityUpdateForm.jsp").forward(request, response);		
-	
-	
 	}
 
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

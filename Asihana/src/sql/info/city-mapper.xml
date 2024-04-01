@@ -311,6 +311,33 @@
 		     )
 	</entry>
 
+	<entry key="searchName">
+	SELECT
+     	  CITY_NO,
+     	  CITY_NAME,
+     	  NATION_NO,
+    	  NATION_NAME,
+    	  COUNT
+	  FROM 
+	  	  (SELECT
+    		  	 CITY_NO,
+   				 CITY_NAME,
+    			 TB_CITY.NATION_NO,
+    			 NATION_NAME,
+    			 COUNT
+ 			 FROM
+    			 TB_CITY
+ 			 JOIN
+    			 TB_NATION ON(TB_CITY.NATION_NO = TB_NATION.NATION_NO)
+             WHERE
+                 NOT TB_NATION.NATION_NO = 82
+			ORDER 
+			   BY 
+			   	 NATION_NO ASC)
+	  WHERE 
+	  		CITY_NAME LIKE '%'||?||'%'        
+	
+	</entry>
 
 	
 </properties>

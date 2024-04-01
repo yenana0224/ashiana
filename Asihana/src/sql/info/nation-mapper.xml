@@ -193,5 +193,14 @@
 	     BOARD_NO = ?
 	</entry>
 
+	<entry key="searchName">
+	SELECT
+	     NATION_NO,
+	     NATION_NAME
+	 FROM
+	    TB_NATION
+	WHERE
+	     NATION_NAME LIKE '%'||?||'%'
+	</entry>
 	
 </properties>

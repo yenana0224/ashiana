@@ -78,6 +78,8 @@
         }
 
 
+  		
+
 		
 
        
@@ -122,15 +124,7 @@
             	
             	</select>
             
-            
-            <select  >
-            		
-            		<option></option>
-            		
-            	
-            	
-            	</select>
-            
+         
 			             
              
              </span>
@@ -140,8 +134,8 @@
             
             </label>
             <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
-            <button class="input-group-text"  id="b3" >등록</button>
-              <button class="input-group-text"  id="b3" onclick="history.back();">취소</button>
+            <button class="input-group-text"  id="b3" onclick="history.back();">취소</button>
+              <button class="input-group-text"  id="b3" >등록</button>
             <span class="limit">0/100</span>
         </div>
 

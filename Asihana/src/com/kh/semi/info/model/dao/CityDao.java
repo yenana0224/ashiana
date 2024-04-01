@@ -342,6 +342,35 @@ public class CityDao {
 		return result;
 	}
 	
+	public List<City> searchName(Connection conn, String keyword){
+		List<City> list = new ArrayList<City>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				City city = new City();
+				city.setCityNo(rset.getInt("CITY_NO"));
+				city.setCityName(rset.getString("CITY_NAME"));
+				city.setNationNo(rset.getInt("NATION_NO"));
+				city.setNationName(rset.getString("NATION_NAME"));
+				city.setCount(rset.getInt("COUNT"));
+				list.add(city);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	
 	

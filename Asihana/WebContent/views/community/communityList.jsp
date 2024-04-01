@@ -527,7 +527,7 @@
 					<% for(Community c : list) { %>
 					<tr class="list">
 						<td><%= c.getComuNo() %></td>
-						<td><%= c.getCityNo() %></td>
+						<td><%= c.getCityName() %></td>
 						<td><%=c.getMemNo() %></td>
 						<td><%=c.getComuContent() %></td>
 						<td><%=c.getCount() %></td>	

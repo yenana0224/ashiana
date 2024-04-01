@@ -144,9 +144,7 @@ public class TravelReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectDetailReview");
-		TravelReview review = null;
-
-		
+		TravelReview review = null;		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -170,6 +168,7 @@ public class TravelReviewDao {
 			review.setCityName(rset.getString("CITY_NAME"));
 			review.setNationName(rset.getString("NATION_NAME"));
 			review.setPlanCheck(rset.getString("PLAN_CHECK"));
+			review.setCount(rset.getInt("COUNT"));
 			review.setLikes(rset.getInt("LIKES"));
 		
 		} catch (SQLException e) {
@@ -178,6 +177,8 @@ public class TravelReviewDao {
 			close(rset);
 			close(pstmt);
 		}
+		
+		System.out.println(review + "리뷰체크");
 		return review;
 	
 	}
@@ -416,10 +417,29 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return result;
+	}
+	
+	public int insertLikePoint(Connection conn, TravelReview t) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql  = prop.getProperty("insertLikePoint");
 		
 		
-		
-		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(t.getReviewWriter()));
+			pstmt.setInt(2, 6);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 	

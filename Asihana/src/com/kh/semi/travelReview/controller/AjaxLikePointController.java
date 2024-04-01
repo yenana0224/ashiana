@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TravelReviewEnrollForm
+ * Servlet implementation class AjaxLikePointController
  */
-@WebServlet("/review.EnrollForm")
-public class TravelReviewEnrollForm extends HttpServlet {
+@WebServlet("/likeUp.do")
+public class AjaxLikePointController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TravelReviewEnrollForm() {
+    public AjaxLikePointController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,11 +27,8 @@ public class TravelReviewEnrollForm extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession().getAttribute("loginUser");
-		request.getSession().getAttribute("hashTagList"); // 해시태그 리스트를 보낸다 
 		
 		
-		request.getRequestDispatcher("views/travelReview/travelReviewEnrollForm.jsp").forward(request, response);
 	}
 
 	/**

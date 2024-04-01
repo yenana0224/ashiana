@@ -84,7 +84,6 @@ public class TravleReviewMainpageController extends HttpServlet {
 		List<HashTag> checkedTagList = new TravelReviewService().selectCheckedTagList();
 		request.setAttribute("checkedTagList", checkedTagList);
 		request.getRequestDispatcher("views/travelReview/travelReviewMain.jsp").forward(request, response);
-	
 	}
 
 	/**

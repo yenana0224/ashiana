@@ -108,6 +108,7 @@ public class TravelReviewInsertController extends HttpServlet {
 					tagList.add(h);
 				}
 			}
+			
 			// 첨부파일 
 			List<AttachmentFile> fileList = new ArrayList();
 			
@@ -117,7 +118,6 @@ public class TravelReviewInsertController extends HttpServlet {
 				if(multiRequest.getOriginalFileName(key) != null) {
 					
 					AttachmentFile at = new AttachmentFile();
-					
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("resources/travelReview");
@@ -126,11 +126,15 @@ public class TravelReviewInsertController extends HttpServlet {
 			}
 			
 			// 서비스 요청
-			int result = new TravelReviewService().intsertReview(t , tagList, fileList);
+			int result = new TravelReviewService().intsertReview(t, tagList, fileList);
 			
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+			} else {
+				request.setAttribute("errorMsg", "게시글 작성 실패");
+			}
+			response.sendRedirect(request.getContextPath() + "/travelReviewMain");
 			
-			
-			request.getRequestDispatcher("views/travelReview/travelReviewMain11.jsp").forward(request, response);
 		}
 		
 		

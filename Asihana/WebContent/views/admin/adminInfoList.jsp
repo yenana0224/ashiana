@@ -116,12 +116,13 @@
         </div>
 
         <div class="search">
-            <form action="Info.admin?" method="get">
+            <form action="info.admin" method="get">
                 <select name="category">
                     <option value="nation">국가</option>
                     <option value="city">도시</option>
                 </select>
                 <input type="text" name="keyword">
+                <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
                 <button type="submit">검색</button>
             </form>
         </div>

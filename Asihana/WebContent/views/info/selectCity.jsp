@@ -173,8 +173,8 @@
                 <div class="city">
                     <div class="cityPhoto"><img src="<%=contextPath%><%=c.getFilePath() %>/<%=c.getChangeName()%>"></div>
                     <div class="cityName">
-	                    <h5><%=c.getCityName() %></h5>
-	                    <h6><%=c.getNationName() %></h6>
+	                    <h5 class="namecity" id="<%=c.getCityNo() %>"><%=c.getCityName() %></h5>
+	                    <h6 class="namenation" id="<%=c.getNationNo() %>"><%=c.getNationName() %></h6>
                 	</div>
                	</div>
 
@@ -184,10 +184,13 @@
             
 
             <script>
-                $(document).on('click', '.city', function(event){
-                    location.href="<%=contextPath%>/search.info?nation=66&city=끄라비"
-                })
-
+	            $(function(){
+	            	$('.city').click(function(){
+	            		const cityNo = $(this).find('.namecity').attr('id');
+	            		const nationNo = $(this).find('.namenation').attr('id')
+	            		location.href="<%=contextPath%>/search.info?nation=" + nationNo + "&city=" + cityNo;
+	            	})
+	            })
             </script>
 
         </div>

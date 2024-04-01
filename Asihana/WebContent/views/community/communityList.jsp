@@ -528,7 +528,7 @@
 					<tr class="list">
 						<td><%= c.getComuNo() %></td>
 						<td><%= c.getCityName() %></td>
-						<td><%=c.getMemNo() %></td>
+						<td><%=c.getMemberNickname() %></td>
 						<td><%=c.getComuContent() %></td>
 						<td><%=c.getCount() %></td>	
 						<td><%=c.getComuDate() %></td>

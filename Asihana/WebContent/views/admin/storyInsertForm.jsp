@@ -87,6 +87,8 @@
 
         <div class="form-area">
             <form action="<%=contextPath %>/storyInsert.admin" method="post" enctype="multipart/form-data">
+            	<input type="hidden" name="board" value="7">
+            	
                 <div class="title-area">
                     <input type="text" placeholder="제목을 입력해주세요" name="title" required> 
                 </div>
@@ -100,7 +102,7 @@
                 </div>
 
                 <div class="fileAt">
-                    <input type="file" name="storyFile" onchange="loadImg(this)">
+                    <input type="file" name="storyFile" onchange="loadImg(this)" required>
                 </div>
                 
                 <div class="btn">

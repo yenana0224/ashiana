@@ -5,6 +5,7 @@ public class StoryFile extends Story{
 	private String filePath;
 	private String OriginName;
 	private String ChangeName;
+	private int boardNo; // BOARD_TYPE == 7
 
 	
 	
@@ -17,6 +18,16 @@ public class StoryFile extends Story{
 		this.filePath = filePath;
 		OriginName = originName;
 		ChangeName = changeName;
+	}
+	
+	
+
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
 	public String getFilePath() {

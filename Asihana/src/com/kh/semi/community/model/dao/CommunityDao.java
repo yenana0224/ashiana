@@ -56,7 +56,7 @@ public class CommunityDao {
 				Community community = new Community();
 				community.setComuNo(rset.getInt("COMMUNITY_NO"));
 				community.setCityName(rset.getString("CITY_NAME"));		
-				community.setMemNo(rset.getInt("MEMBER_NO"));
+				community.setMemberNickname(rset.getString("NICKNAME"));
 				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
 				community.setCount(rset.getInt("COUNT"));
 				community.setComuDate(rset.getDate("COMMUNITY_DATE"));
@@ -129,6 +129,7 @@ public class CommunityDao {
 				community.setMemberNickname(rset.getString("NICKNAME"));
 				community.setComuContent(rset.getString("COMMUNITY_CONTENT"));
 				community.setCount(rset.getInt("COUNT"));
+				community.setMemNo(rset.getInt("MEMBER_NO"));
 				community.setComuDate(rset.getDate("COMMUNITY_DATE"));
 				community.setStatus(rset.getString("STATUS").charAt(0));
 			
@@ -144,7 +145,7 @@ public class CommunityDao {
 		
 		
 		
-		
+		System.out.println(community);
 		return community;
 				
 				

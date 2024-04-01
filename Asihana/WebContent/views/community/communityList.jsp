@@ -166,6 +166,19 @@
         margin-left: 1px;
         margin-right: 1px;
     }
+    
+     #g5{
+        background-color: lightgreen;
+        font-weight: 800px;
+        font-style: rgb(221, 201, 201);
+        height: 30px;
+        width: 90px;
+        margin-top:20px;
+        margin-left: 5px;
+        margin-right: 1px;
+    }
+    
+    
 
 
 	.#t1{
@@ -329,7 +342,7 @@
         </div>
         <div id="content_1">
            <span id="h2_1">여행자 실시간 커뮤니티</span>
-            <span id="h2_2"> <a href="<%=contextPath %>/insert.commu" id="roll" >글 등록하기</a></span>
+          
       
     
         <!-- 중간영역의 왼쪽에 위치하여 순서대로 도시에 대한 사진을 보이게 할 예정 -->
@@ -499,7 +512,11 @@
 
           <button id="g4"> 검색</button>
           
+      
+           <button id="g5" > 글 작성하기</button>
           
+          
+                    
           <span>  
           
 	          
@@ -528,7 +545,7 @@
 					<tr class="list">
 						<td><%= c.getComuNo() %></td>
 						<td><%= c.getCityName() %></td>
-						<td><%=c.getMemNo() %></td>
+						<td><%=c.getMemberNickname() %></td>
 						<td><%=c.getComuContent() %></td>
 						<td><%=c.getCount() %></td>	
 						<td><%=c.getComuDate() %></td>

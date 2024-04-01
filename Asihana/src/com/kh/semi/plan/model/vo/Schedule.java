@@ -11,6 +11,18 @@ public class Schedule {
 	public Schedule() {
 		super();
 	}
+	
+
+	public Schedule(int destNo, String category, String schedName, String schedContent, String schedCost) {
+		super();
+		this.destNo = destNo;
+		this.category = category;
+		this.schedName = schedName;
+		this.schedContent = schedContent;
+		this.schedCost = schedCost;
+	}
+
+
 	public Schedule(int schedNo, int destNo, String category, String schedName, String schedContent, String schedCost) {
 		super();
 		this.schedNo = schedNo;

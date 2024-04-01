@@ -80,17 +80,16 @@
 	        </div>
 	        <div id="sched-area">
 	            <div id="sched-box">
-	                <h2>예약 및 일정</h2> <label id="sched-date-sum">6박 7일</label>
+	                <h2>예약 및 일정</h2> <label id="sched-date-sum"></label>
 	               
 	            </div> <!-- #sched-box -->
 	        </div> <!-- #sched-area -->
 	        <div id="submit-area">
 	            <div id="plan-sum">
-	                <span>이동 수단 가격 </span><label class="plan-sum-price">450,000원</label> +
-	                <span>예약 및 일정 예산 </span><label class="plan-sum-price"> 720,000원</label> +
-	                <span>귀국 항공 가격 </span><label class="plan-sum-price">200,000원</label> =
-	                <label class="plan-sum-total">총 예산 1,320,000원</label>
-	            </div>
+		            <span>이동 수단 가격 <label class="plan-sum-price" id="trans-sum"></label> + </span>
+		            <span>예약 및 일정 예산 <label class="plan-sum-price" id="sched-sum"></label> = </span>
+		            <label class="plan-sum-total">총 예산 <label></label>원</label>
+	        	</div>
 	            <button type="submit" class="btn btn-danger">여행 플랜 완료</button>
 	            <button class="btn btn-dark">취소</button>
 	        </div>
@@ -352,10 +351,10 @@
     
     <!--디테일 테이블 스크립트-->
     <script>
-        $('.sched-des-detail-body').on('mouseover', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
+        $('#sched-box').on('mouseover', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
             $(this).find('.sched-detail-btn').css('visibility','visible');
         });
-        $('.sched-des-detail-body').on('mouseout', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
+        $('#sched-box').on('mouseout', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
             $(this).find('.sched-detail-btn').css('visibility','hidden');
         });
         $('#sched-box').on('click', '.btn-add-sched', function(){// 추가 버튼 클릭시
@@ -397,26 +396,28 @@
         });
         // 예약 및 일정 추가 
         $('#sched-box').on('click', '.detail-btn-add', function(){
-        	const $sched = $(this).parent().parent();
-        	console.log($sched.siblings('.schedDesNo').val());
-        	console.log($sched.find('.sched-category').val());
-        	console.log($sched.find('.sched-name').val());
-        	console.log($sched.find('.sched-content').val());
-        	console.log($sched.find('.sched-price').val());
-        	
-        	
+        	const $sched = $(this).parent().parent();     	
         	$.ajax({
         		url : 'insertSched.ajaxplan',
         		type : 'post',
         		data : {
-        			destNo : $sched.siblings('.schedDesNo').val(),
+        			destNo : $sched.siblings('.schedDestNo').val(),
         			category : $sched.find('.sched-category').val(),
         			schedName : $sched.find('.sched-name').val(),
         			schedContent : $sched.find('.sched-content').val(),
-        			schedPrice : $sched.find('.sched-price').val()
+        			schedCost : $sched.find('.sched-price').val()
         		},
         		success : function(result){
-        			console.log(result);
+        			if(result > 0){
+        				selectDestination();
+        				selectSchedule($sched.siblings('.schedDestNo').val());
+        				$sched.remove();
+        			}
+        			else{
+        				alert("예약 및 일정 추가를 다시 시도해주세요..")
+        				selectSchedule($sched.siblings('.schedDestNo').val());
+        				$sched.remove();
+        			}
         		}
         	})
         })
@@ -499,6 +500,7 @@
 		});
 	
     	function selectPlan(){
+    		console.log('셀렉플랜');
     		$.ajax({
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
@@ -507,6 +509,9 @@
     				status : 'N'
     			},
     			success : function(result){
+    				console.log('플랜 셀렉트 성공');
+    				console.log(result);
+    				console.log(result.startDate);
     				// 상단 출국일시 귀국일시
     				$('#start-date').val(result.startDate);
     				$('#start-time').val(result.startTime);
@@ -548,9 +553,6 @@
     					if(i == 0){ // 출발
     						departure = result[i].returnDate;
     						$('#startDestNo').val(result[i].destNo);
-	    					if(result.length == 1){ // 목적지가 없을 시(출발 목적지만 존재)
-	    						rootArea += rootAddIcon;
-	    					}
     					}
     					else{ // 도시			
     						// 목적지 구역
@@ -589,7 +591,7 @@
 	    	                
 	    	                // 예약 및 일정 구역
 	    	                if($('.schedDestNo').eq(i-1).val() != result[i].destNo) {
-		    	                schedArea += '<div class="sched-des">' // 아코디언 div
+		    	                schedArea  = '<div class="sched-des">' // 아코디언 div
 					    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
 					    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
 					    	               +     '<div class="sched-btn-area">'
@@ -614,13 +616,18 @@
 					    	               +         '</tbody>'
 					    	               +       '</table>'
 					    	               + '</div>';
-		  	                	rootArea += rootAddIcon;
-						    	selectSchedule(result[i].destNo);
 	    	                }
+	    	                else{
+	    	                	$('.schedDestNo').eq(i-1).find('.sched-des-price').eq(0).find('label').text(result[i].schedCostSum);
+	    	                	$('.schedDestNo').eq(i-1).find('.sched-des-price').eq(1).find('label').text(result[i].transPrice);
+	    	                }
+						    	selectSchedule(result[i].destNo);
+		    					$('#sched-box').append(schedArea);
     					}
     				} // for문
+		  	            rootArea += rootAddIcon;
     					$('#root-area').html(rootArea);
-    					$('#sched-box').append(schedArea);
+    					selectPlan();
     			}
     		})
     	};
@@ -652,7 +659,9 @@
 			                            + '</tr>';
     					}
     				}
+    				$('.schedDestNo[value=' + destNo + ']').nextAll().remove();
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
+                    
     			}
     		})
     	};

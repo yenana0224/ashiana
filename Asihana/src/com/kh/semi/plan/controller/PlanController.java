@@ -108,6 +108,16 @@ public class PlanController {
 		return new PlanService().insertDestination(des);
 	}
 
+	public int insertSchedule(HttpServletRequest request, HttpServletResponse response) {
+		
+		Schedule sched = new Schedule(Integer.parseInt(request.getParameter("destNo")),
+									  request.getParameter("category"),
+									  request.getParameter("schedName"),
+									  request.getParameter("schedContent"),
+									  request.getParameter("schedCost"));
+		return new PlanService().insertSchedule(sched);
+	}
+
 
 
 

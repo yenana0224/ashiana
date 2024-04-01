@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, java.util.List, com.kh.semi.pageInfo.model.vo.PageInfo" %>
 <%
-	List<Story> list = (List<Story>)request.getAttribute("list");
+	List<StoryFile> list = (List<StoryFile>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
 	
 	int currentPage = pi.getCurrentPage();
@@ -147,10 +147,10 @@
            	
             <% } else { %>
             
-	         <% for(Story s : list) { %>
+	         <% for(StoryFile s : list) { %>
 	            <div class="story" id="<%=s.getStoryNo() %>">
 	                <div class="storyphoto">
-	                    <img src="" alt="">
+	                    <img src="<%=contextPath%>/<%=s.getFilePath()%>/<%=s.getChangeName()%>">
 	                </div>
 	                <div class="content">
 	                	<div class="createDate"><p><%=s.getCreateDate() %></p></div>

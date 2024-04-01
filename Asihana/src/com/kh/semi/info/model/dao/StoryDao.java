@@ -155,5 +155,48 @@ public class StoryDao {
 		}
 		return result;
 	}
+	
+	public int updateStory(Connection conn, Story story) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, story.getStoryTitle());
+			pstmt.setString(2, story.getStoryContent());
+			pstmt.setString(3, story.getStoryFrom());
+			pstmt.setInt(4, story.getStoryNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+	
+	public int updateStoryFile(Connection conn, StoryFile file) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStoryFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, file.getFilePath());
+			pstmt.setString(2, file.getOriginName());
+			pstmt.setString(3, file.getChangeName());
+			pstmt.setInt(4, file.getBoardNo());
+			pstmt.setInt(5, file.getStoryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 
 }

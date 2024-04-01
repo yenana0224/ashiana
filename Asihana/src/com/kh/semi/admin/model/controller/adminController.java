@@ -231,6 +231,59 @@ public class adminController {
 		return view;
 	}
 	
+	public String storyDetail(HttpServletRequest request, HttpServletResponse response) {
+		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
+		StoryFile file = new StoryService().detailStory(storyNo);
+		request.setAttribute("file", file);
+		return "views/admin/storyDetail.jsp";
+	}
+	
+	public String storyUpdateForm(HttpServletRequest request, HttpServletResponse response) {
+		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
+		StoryFile file = new StoryService().detailStory(storyNo);
+		request.setAttribute("file", file);
+		return "views/admin/storyUpdateForm.jsp";
+	}
+	
+	public String storyUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		String view = "";
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String savePath = request.getServletContext().getRealPath("/resources/story");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			int storyNo = Integer.parseInt(multiRequest.getParameter("storyNo"));
+			String storyTitle = multiRequest.getParameter("title");
+			String storyContent = multiRequest.getParameter("StoryContent");
+			String storyFrom = multiRequest.getParameter("from");
+			
+			Story story = new Story();
+			story.setStoryNo(storyNo);
+			story.setStoryTitle(storyTitle);
+			story.setStoryContent(storyContent);
+			story.setStoryFrom(storyFrom);
+			
+			StoryFile file = null;
+			if(multiRequest.getOriginalFileName("newFile") != null) {
+				file = new StoryFile();
+				file.setBoardNo(Integer.parseInt(multiRequest.getParameter("board")));
+				file.setOriginName(multiRequest.getOriginalFileName("newFile"));
+				file.setChangeName(multiRequest.getFilesystemName("newFile"));
+				file.setFilePath("/resources/story");
+			}
+			
+			int result = new StoryService().updateStory(story, file);
+			if (result > 0) {
+				view = "/storyDetail.admin?storyNo=" + storyNo;
+			} else {
+				
+			}
+		}
+		return view;
+	}
+	
 	public String nationList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new NationService().countNation();

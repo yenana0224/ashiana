@@ -94,7 +94,7 @@
                 </div>
                 
                 <div class="content-area" >
-                    <textarea name="content" cols="30" rows="20" style="resize: none;"></textarea>
+                    <textarea name="content" cols="30" rows="20" style="resize: none;" required></textarea>
                 </div>
                 
                 <div class="content-area" >    

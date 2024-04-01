@@ -3,6 +3,7 @@ package com.kh.semi.admin.model.service;
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -37,6 +38,7 @@ public class AdminService {
 			}
 		}
 		if(change > 0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return change;
 		
@@ -67,13 +69,14 @@ public class AdminService {
 		
 		int result = fileResult * noticeResult;
 		if(result > 0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		
 		return fileResult * noticeResult;
 	}
 	
 	/**
-	 * 여행스토리 게시판 : 체크박스로 수정된 게시글 삭제
+	 * 여행스토리 게시판 : 체크박스로 게시글 삭제
 	 * @param storyNos
 	 * @return
 	 */
@@ -87,6 +90,7 @@ public class AdminService {
 			result = result * del;
 		}
 		if(result > 0) commit(conn);
+
 		close(conn);
 		return result;
 	}

@@ -143,6 +143,17 @@ public class PlanService {
 		return result;
 	}
 
+	public int insertSchedule(Schedule sched) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().insertSchedule(conn, sched);
+		
+		if(result > 0) commit(conn);
+		
+		return result;
+	}
+
 
 
 

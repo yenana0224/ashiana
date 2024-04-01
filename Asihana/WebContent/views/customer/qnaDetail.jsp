@@ -279,7 +279,7 @@
 				
 			<% } else { %>
 			
-				<label>첨부파일 / </label><a download=""> 존재하는 파일이 없습니다.</a>
+				<label>첨부파일 / </label><a> 존재하는 파일이 없습니다.</a>
 			
 			<% } %>
 		</div>
@@ -500,25 +500,28 @@
 		$(document).on('click', '.replyDelete', function(){
 			
 			const replyNo = $(this).siblings('.replyNo').val();
+			if(confirm('삭제를 원하시면 확인을 눌러주세요')){
+				
+				$.ajax({
+					url:'replyDelete.yo',
+					data:{
+						 replyNo : replyNo
+						},
+				    success : function(result){
+						    	if(result == 'success'){
+							    	alert('삭제완료');
+							    	$('#replyInsert').css('display','block');
+									$('#replyUpdate').css('display', 'none');
+									$('#reply').val('')
+							    	selectReplyList();
+						    	}
+						    	else{
+						    		alert('삭제실패')
+						    	}
+				    		   }
+				})
+			}
 			
-			$.ajax({
-				url:'replyDelete.yo',
-				data:{
-					 replyNo : replyNo
-					},
-			    success : function(result){
-					    	if(result == 'success'){
-						    	alert('삭제완료');
-						    	$('#replyInsert').css('display','block');
-								$('#replyUpdate').css('display', 'none');
-								$('#reply').val('')
-						    	selectReplyList();
-					    	}
-					    	else{
-					    		alert('삭제실패')
-					    	}
-			    		   }
-			})
 		});
 		
 	</script>

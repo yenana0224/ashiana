@@ -70,7 +70,7 @@ public class CustomerController {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		
-		List<Notice> noticeList = new ArrayList();
+		List<Notice> noticeList = new ArrayList<Notice>();
 		
 		if(select != null) {
 			noticeList = new CustomerService().noticeSearch(select, searchContent, pi);
@@ -111,7 +111,6 @@ public class CustomerController {
 	}
 	
 	public String noticeInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
-			request.setCharacterEncoding("UTF-8");
 			String view = "";
 
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -134,7 +133,7 @@ public class CustomerController {
 			
 			String key = "noticeFile";
 			NoticeFile noticeFile = null;
-
+			
 			if(multiRequest.getOriginalFileName(key)!=null) {
 				noticeFile = new NoticeFile();
 				noticeFile.setOriginName(multiRequest.getOriginalFileName(key));
@@ -186,7 +185,7 @@ public class CustomerController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<QNA> qnaList = new ArrayList();
+		List<QNA> qnaList = new ArrayList<QNA>();
 		
 		if(select != null) {
 			qnaList = new CustomerService().qnaSearch(select, searchContent, pi);
@@ -212,8 +211,7 @@ public class CustomerController {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
 			
-			HttpSession session = request.getSession();
-			ServletContext application = session.getServletContext();
+			ServletContext application = request.getSession().getServletContext();
 			String savePath = application.getRealPath("/resources/qa_files/");// 파일 경로
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
@@ -300,13 +298,16 @@ public class CustomerController {
 		String view = "";
 		
 		if(result > 0) {
+			
 			new File(savePath + file.getChangeName()).delete();
 			request.getSession().setAttribute("alertMsg", "삭제 성공");
 			view = "qa.customer?currentPage=1";
 			
 		} else {
+			
 			request.setAttribute("errorMsg", "삭제 실패");
 			view = "views/common/errorPage.jsp";
+			
 		}
 		return view;
 	}
@@ -328,6 +329,7 @@ public class CustomerController {
 		String view = "views/customer/updateQa.jsp";
 		
 		return view;
+		
 	}
 	
 	public String updateQa(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -337,8 +339,7 @@ public class CustomerController {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
 			
-			HttpSession session = request.getSession();
-			ServletContext application = session.getServletContext();
+			ServletContext application = request.getSession().getServletContext();
 			String savePath = application.getRealPath("/resources/qa_files/");// 파일 경로
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
@@ -356,6 +357,7 @@ public class CustomerController {
 			HashMap<String, NoticeFile> files = new HashMap<String, NoticeFile>();
 			
 			if(multiRequest.getOriginalFileName("qnaFile") != null) {
+				
 				NoticeFile originFile = new CustomerService().selectFile(qnaNo, 8);
 				
 				NoticeFile file = new NoticeFile();

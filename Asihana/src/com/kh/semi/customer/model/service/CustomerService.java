@@ -68,7 +68,7 @@ public class CustomerService {
 		
 		Connection conn = getConnection();
 		
-		List<Notice> list = new ArrayList();
+		List<Notice> list = new ArrayList<Notice>();
 		
 		if(search.equals("title")) {
 			list = new CustomerDao().noticeTitleSearch(conn, searchContent, pi);
@@ -158,7 +158,7 @@ public class CustomerService {
 		
 		Connection conn = getConnection();
 		
-		List<QNA> list = new ArrayList();
+		List<QNA> list = new ArrayList<QNA>();
 		
 		if(search.equals("title")) {
 			list = new CustomerDao().qnaTitleSearch(conn, searchContent, pi);

@@ -16,44 +16,41 @@
 	</entry>
 	
 	<entry key="storyList">
-	SELECT
-		STORY_NO,
-		STORY_TITLE,
-		CREATE_DATE
-	FROM
-		(SELECT 
-			S.STORY_NO STORY_NO,
-			S.STORY_TITLE STORY_TITLE,
-			S.CREATE_DATE CREATE_DATE,
-			ROWNUM RNUM
-		FROM
-			(SELECT
-				 STORY_NO,
-			     STORY_TITLE,
-			     TO_CHAR(STORY_DATE, 'YYYY/MM/DD') CREATE_DATE
-			  FROM
-			    TB_STORY
-			 WHERE
-			    STATUS = 'Y'
-		     ORDER
-		        BY
-		          STORY_NO DESC) S)
-     WHERE
-     	 RNUM BETWEEN ? AND ?
+SELECT
+     STORY_NO,
+     STORY_TITLE,
+     STORY_DATE,
+     FILE_PATH,
+     CHANGE_NAME
+ FROM
+    VW_STORY_LIST
+WHERE
+    RNUM BETWEEN ? AND ?
 	</entry>
 
 	<entry key="detailStory">
 	
 	SELECT
-		 STORY_NO,
-		 STORY_TITLE,
-		 STORY_CN,
-		 TO_CHAR(STORY_DATE, 'YYYY/MM/DD') STORY_DATE,
-		 STORY_FROM
-	 FROM
-	 	 TB_STORY
- 	WHERE
- 		 STORY_NO = ?
+	    STORY_NO,
+	    STORY_TITLE,
+	    STORY_CN,
+	    STORY_DATE,
+	    STORY_FROM,
+	    FILE_PATH,
+	    CHANGE_NAME
+	FROM
+	    (SELECT
+	         BOARD_NO,
+	         FILE_PATH,
+	         CHANGE_NAME
+	      FROM
+	         TB_FILE
+	    WHERE
+	         BOARD_TYPE = 7) F
+	JOIN
+	    TB_STORY ON(F.BOARD_NO = TB_STORY.STORY_NO)
+	WHERE
+	     BOARD_NO = ?
 	  AND
 	  	 STATUS = 'Y'
 	
@@ -74,94 +71,7 @@
 	   AND
 	      BOARD_NO = ?
 	</entry>
-	
-		<entry key="selectPhoto">
-	SELECT
-		  BOARD_TYPE,
-	      FILE_NO,
-	      FILE_PATH,
-	      ORIGIN_NAME,
-	      CHANGE_NAME
-	  FROM
-	      TB_FILE
-	 WHERE      
-	      BOARD_TYPE = 1
-	   AND
-	      BOARD_NO = ?
-	</entry>
-	
-	<entry key="insertTitlePhoto">
-		INSERT 
-		  INTO
-		      TB_FILE
-		      (
-		      FILE_NO,
-		      BOARD_NO,
-		      FILE_PATH,
-		      ORIGIN_NAME,
-		      CHANGE_NAME,
-		      BOARD_TYPE
-		      )
-		VALUES
-		     (
-		     SEQ_FILE.NEXTVAL,
-		     ?,
-		     ?,
-		     ?,
-		     ?,
-		     9     
-		     )
-	</entry>
-	
-	<entry key="insertPhoto">
-		INSERT 
-		  INTO
-		      TB_FILE
-		      (
-		      FILE_NO,
-		      BOARD_NO,
-		      FILE_PATH,
-		      ORIGIN_NAME,
-		      CHANGE_NAME,
-		      BOARD_TYPE
-		      )
-		VALUES
-		     (
-		     SEQ_FILE.NEXTVAL,
-		     ?,
-		     ?,
-		     ?,
-		     ?,
-		     1     
-		     )
-	</entry>
-	
-	<entry key="updateTitlePhoto">
-	UPDATE
-	     TB_FILE
-	  SET
-	     FILE_PATH = ?,
-	     ORIGIN_NAME = ?,
-	     CHANGE_NAME = ?
-	WHERE
-	     BOARD_TYPE = 9
-	  AND
-	     BOARD_NO = ?
-	</entry>
-	
-	<entry key="updatePhoto">
-	UPDATE
-	     TB_FILE
-	  SET
-	     FILE_PATH = ?,
-	     ORIGIN_NAME = ?,
-	     CHANGE_NAME = ?
-	WHERE
-	     BOARD_TYPE = 1
-	  AND
-	     BOARD_NO = ?
-	</entry>
-	
+
 	<entry key="insertStory">
 	INSERT
 	  INTO
@@ -202,7 +112,7 @@
 	     ?,
 	     ?,
 	     ?,
-	     7
+	     ?
 	     )
 	</entry>
 

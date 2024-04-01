@@ -54,8 +54,6 @@
 				<td colspan="3"><%=c.getComuDate() %></td>
 				<td>회원상태</td>
 				<td colspan="1"><%=c.getStatus() %></td>
-				<td>회원넘버</td>
-				<td colspan="1"><%= c.getMemberNo() %></td>
 				
 			</tr>
 

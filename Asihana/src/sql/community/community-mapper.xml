@@ -51,6 +51,7 @@
 		   COM.COMMUNITY_CONTENT,
 		    COM.COMMUNITY_DATE,
 		    COM.COUNT,
+		     COM.MEMBER_NO,
 		    COM.STATUS
 		    
 		

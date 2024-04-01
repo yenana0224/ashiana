@@ -18,7 +18,9 @@ public interface CommunityService {
 	
 	// 커뮤니티  작성(C)
 	
+	
 	// 커뮤니티 수정(U)
+	
 	
 	// 커뮤니티 삭제(D/U)
 	

@@ -34,19 +34,21 @@
 
 	<form action="<%=contextPath%>/insertQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
 
-		<input type="hidden" name="userNo"
-			value="<%= loginUser.getUserNo() %>">
+		<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
 
 		<div class="form-group">
 			<label for="usr"> 제목</label> <input type="text" class="form-control"
 				id="usr" name="title">
 		</div>
+		
 		<div class="form-group">
 			<label for="comment">내용</label>
 			<textarea class="form-control" rows="19" id="comment" placeholder="1000자까지 입력가능합니다."
 				style="resize: none;" name="content"></textarea>
 		</div>
+		
 		<div id="counter">(0 / 1000)</div>
+		
 		<div class="form-group">
 			<input type="file" name="qnaFile">
 		</div>

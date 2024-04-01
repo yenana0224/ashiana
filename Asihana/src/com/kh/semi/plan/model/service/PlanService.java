@@ -75,8 +75,6 @@ public class PlanService {
 		
 		Connection conn = getConnection();
 		
-		if(new PlanDao().deleteSchedCache(conn, userNo) > 0) commit(conn);
-		if(new PlanDao().deleteDestCache(conn, userNo) > 0) commit(conn);
 		if(new PlanDao().deletePlanCache(conn, userNo) > 0) commit(conn);
 		
 		close(conn);
@@ -141,6 +139,17 @@ public class PlanService {
 		if(result > 0) commit(conn);
 		
 		close(conn);
+		
+		return result;
+	}
+
+	public int insertSchedule(Schedule sched) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().insertSchedule(conn, sched);
+		
+		if(result > 0) commit(conn);
 		
 		return result;
 	}

@@ -53,8 +53,8 @@ public class StoryDao {
 		
 	}
 	
-	public List<Story> storyList(Connection conn, PageInfo pi){
-		List<Story> list = new ArrayList<Story>();
+	public List<StoryFile> storyList(Connection conn, PageInfo pi){
+		List<StoryFile> list = new ArrayList<StoryFile>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("storyList");
@@ -70,10 +70,12 @@ public class StoryDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Story s = new Story();
+				StoryFile s = new StoryFile();
 				s.setStoryNo(rset.getInt("STORY_NO"));
 				s.setStoryTitle(rset.getString("STORY_TITLE"));
-				s.setCreateDate(rset.getString("CREATE_DATE"));
+				s.setCreateDate(rset.getString("STORY_DATE"));
+				s.setFilePath(rset.getString("FILE_PATH"));
+				s.setChangeName(rset.getString("CHANGE_NAME"));
 				list.add(s);
 			}
 		} catch (SQLException e) {
@@ -85,8 +87,8 @@ public class StoryDao {
 		return list;
 	}
 	
-	public Story detailStory(Connection conn, int storyNo) {
-		Story story = null;
+	public StoryFile detailStory(Connection conn, int storyNo) {
+		StoryFile story = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("detailStory");
@@ -97,12 +99,14 @@ public class StoryDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				story = new Story();
+				story = new StoryFile();
 				story.setStoryNo(rset.getInt("STORY_NO"));
 				story.setStoryTitle(rset.getString("STORY_TITLE"));
 				story.setStoryContent(rset.getString("STORY_CN"));
 				story.setCreateDate(rset.getString("STORY_DATE"));
 				story.setStoryFrom(rset.getString("STORY_FROM"));
+				story.setFilePath(rset.getString("FILE_PATH"));
+				story.setChangeName(rset.getString("CHANGE_NAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -142,6 +146,7 @@ public class StoryDao {
 			pstmt.setString(1, file.getFilePath());
 			pstmt.setString(2, file.getOriginName());
 			pstmt.setString(3, file.getChangeName());
+			pstmt.setInt(4, file.getBoardNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

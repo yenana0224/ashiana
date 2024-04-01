@@ -83,7 +83,7 @@
 		      FLOOR(E_DATE - S_DATE) || '박' || CEIL(E_DATE - S_DATE) || '일' AS TRAVEL_DATE,
 		      NVL(TO_CHAR(TRANSFER_SUM, 'FM999,999,999,999'), '0') AS TRANS_SUM,
 		      NVL(TO_CHAR(SCH_SUM, 'FM999,999,999,999'), '0') AS SCHED_SUM,
-		      NVL(TO_CHAR(TRANSFER_SUM + SCH_SUM, 'FM999,999,999,999'), '0') AS TOTAL_SUM
+		      NVL(TO_CHAR(NVL(TRANSFER_SUM, 0) + NVL(SCH_SUM, 0), 'FM999,999,999,999'), '0') AS TOTAL_SUM
 		  FROM
 		      TB_PLAN P,
 		      (SELECT PLAN_NO,
@@ -114,7 +114,7 @@
 		 WHERE P.PLAN_NO = SD.PLAN_NO
 		   AND P.PLAN_NO = ED.PLAN_NO
 		   AND P.PLAN_NO = TP.PLAN_NO
-		   AND P.PLAN_NO = SS.PLAN_NO
+		   AND P.PLAN_NO = SS.PLAN_NO(+)
 		   AND P.PLAN_NO = ?
 		   AND P.STATUS = ?
 		 GROUP
@@ -178,25 +178,6 @@
 		DELETE FROM TB_PLAN WHERE MEM_NO = ? AND STATUS = 'N'
 	</entry>
 	
-	<entry key="deleteDestCache">
-		DELETE FROM TB_DESTINATION D
-		 WHERE D.PLAN_NO = (SELECT P.PLAN_NO
-		                      FROM TB_PLAN P
-		                     WHERE D.PLAN_NO = P.PLAN_NO
-		                       AND MEM_NO = ?
-		                       AND STATUS = 'N')
-	</entry>
-	
-	<entry key="deleteSchedCache">
-		DELETE FROM TB_SCHEDULE S
-		 WHERE S.DEST_NO = (SELECT D.DEST_NO
-		                      FROM TB_DESTINATION D
-		                      JOIN (SELECT PLAN_NO
-		                              FROM TB_PLAN
-		                             WHERE MEM_NO = ?
-		                               AND STATUS = 'N') USING(PLAN_NO))
-	</entry>
-	
 	<entry key="insertPlan">
 		INSERT INTO TB_PLAN VALUES (SEQ_PLAN.NEXTVAL, ?, 'N', SYSDATE)
 	</entry>
@@ -249,6 +230,20 @@
 		        TO_DATE(?, 'YYYY-MM-DD HH24:MI'),      
 		        'N'
 		        )
+	</entry>
+	
+	<entry key="insertSchedule">
+		INSERT
+		  INTO TB_SCHEDULE
+		VALUES (
+		       SEQ_SCHED.NEXTVAL,
+		       ?,
+		       ?,
+		       ?,
+		       ?,
+		       ?,
+		       'N'
+		       )
 	</entry>
 	
 	

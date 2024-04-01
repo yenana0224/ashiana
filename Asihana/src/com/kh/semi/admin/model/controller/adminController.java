@@ -78,7 +78,7 @@ public class adminController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Story> storyList = new StoryService().storyList(pi);
+		List<StoryFile> storyList = new StoryService().storyList(pi);
 		
 		String view = "";
 		
@@ -213,15 +213,17 @@ public class adminController {
 			story.setStoryContent(storyContent);
 			story.setStoryFrom(storyFrom);
 			
-			StoryFile file = null;
 			
-			if(multiRequest.getParameter("storyFile") != null) {
+			StoryFile file = null;
+	
+			if(multiRequest.getOriginalFileName("storyFile") != null) {
 				file = new StoryFile();
+				file.setBoardNo(Integer.parseInt(multiRequest.getParameter("board")));
 				file.setOriginName(multiRequest.getOriginalFileName("storyFile"));
 				file.setChangeName(multiRequest.getFilesystemName("storyFile"));
 				file.setFilePath("/resources/story");
 			}
-			
+
 			int result = new StoryService().insertStory(story, file);
 			
 			if(result > 0) view = "/story.admin?currentPage=1";

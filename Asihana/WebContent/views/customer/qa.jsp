@@ -168,6 +168,7 @@
 	<div id="qaText">
         <p>Q & A</p>
     </div>
+    
     <div id="search">
         <form action="<%=contextPath %>/qa.customer" method="get">
             <select name="select" id="select">
@@ -197,20 +198,26 @@
                <td colspan="4" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
             </tr>
         <% } else { %>
+        
         	<% for(QNA qna : qnaList){ %>
-            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
-                <td class="td qaNo"><%=qna.getQnaNo() %></td>
-                <% if(qna.getQnaStatus().equals("Y")) {%>
-                	<td class="td status" style="color:red;font-weight:bold;">답변완료</td>
-                <% } else { %>
-                	<td class="td status"></td>
-                <% } %>
-                <td class="td title"><%=qna.getQnaTitle() %></td>
-                <td class="td date"><%=qna.getCreateDate() %></td>
-            </tr>
+	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
+	                <td class="td qaNo"><%=qna.getQnaNo() %></td>
+	                
+	                <% if(qna.getQnaStatus().equals("Y")) {%>
+	                	<td class="td status" style="color:red;font-weight:bold;">답변완료</td>
+	                <% } else { %>
+	                	<td class="td status"></td>
+	                <% } %>
+	                
+	                <td class="td title"><%=qna.getQnaTitle() %></td>
+	                <td class="td date"><%=qna.getCreateDate() %></td>
+	                
+	            </tr>
          	<% } %>
+         	
         <% } %> 	
         </tbody>
+        
     </table>
     <% if(loginUser != null) { %>
     <div id="insertQa">
@@ -219,44 +226,53 @@
 	<% } %>
 	
 	<% if(!qnaList.isEmpty()) {%>
-	<% if(searchContent != null) { %>
-		<div id="buttonBox">
-		<% if(pi.getCurrentPage() > 1){ %>
-        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
-        <% } %>
-        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
-        	<% if( pi.getCurrentPage() != i) { %>
-        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
-        	<% } else{ %>
-        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
-        	<% } %>
-        <% } %>
-        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
-       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
-        <% } %>
-    </div>
-	<% } else { %>
-	
-		<div id="buttonBox">
+		<% if(searchContent != null) { %>
+			<div id="buttonBox">
 			<% if(pi.getCurrentPage() > 1){ %>
-	        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+	        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
 	        <% } %>
+	        
 	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+	        
 	        	<% if( pi.getCurrentPage() != i) { %>
-	        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%=i%>'"><%= i %></button>
+	        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
 	        	<% } else{ %>
 	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
 	        	<% } %>
+	        	
 	        <% } %>
-	        <% if(pi.getCurrentPage() < pi.getMaxPage()) {%>
-	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+	        
+	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
 	        <% } %>
-	    </div>
-	<% } %>
+	    	</div>
+		<% } else { %>
+		
+			<div id="buttonBox">
+				<% if(pi.getCurrentPage() > 1){ %>
+		        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+		        <% } %>
+		        
+		        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+		        	<% if( pi.getCurrentPage() != i) { %>
+		        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%=i%>'"><%= i %></button>
+		        	<% } else{ %>
+		        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
+		        	<% } %>
+		        <% } %>
+		        
+		        <% if(pi.getCurrentPage() < pi.getMaxPage()) {%>
+		       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+		        <% } %>
+		        
+		    </div>
+		<% } %>
+		
 	<% } else { %>
 		<div id="buttonBox">
 		</div>
 	<% } %>
+	
 	
 	<script>
 		$('#insertQa>button').click(function(){

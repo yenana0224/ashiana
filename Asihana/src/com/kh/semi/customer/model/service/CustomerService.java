@@ -68,7 +68,7 @@ public class CustomerService {
 		
 		Connection conn = getConnection();
 		
-		List<Notice> list = new ArrayList();
+		List<Notice> list = new ArrayList<Notice>();
 		
 		if(search.equals("title")) {
 			list = new CustomerDao().noticeTitleSearch(conn, searchContent, pi);
@@ -157,7 +157,7 @@ public class CustomerService {
 		
 		Connection conn = getConnection();
 		
-		List<QNA> list = new ArrayList();
+		List<QNA> list = new ArrayList<QNA>();
 		
 		if(search.equals("title")) {
 			list = new CustomerDao().qnaTitleSearch(conn, searchContent, pi);
@@ -291,19 +291,6 @@ public class CustomerService {
 		
 		return result;
 	}
-	
-//	public int fileDelete(int qnaNo){
-//		
-//		Connection conn = getConnection();
-//		
-//		int result = new CustomerDao().fileDelete(conn, qnaNo);
-//		
-//		if(result > 0) commit(conn);
-//		
-//		close(conn);
-//		
-//		return result;
-//	}
 	
 	public int updateQna(QNA qna, NoticeFile newfile, NoticeFile originFile) {
 		

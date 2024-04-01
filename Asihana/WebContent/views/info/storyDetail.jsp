@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*"%>
 <%
-	Story s = (Story)request.getAttribute("story");
+	StoryFile s = (StoryFile)request.getAttribute("story");
 	int pageNo = (int)request.getAttribute("pageNo");
 %>
 <!DOCTYPE html>
@@ -99,7 +99,7 @@
             </div>
 
             <div class="photo">
-                <img src="" alt="">
+                <img src="<%=contextPath %>/<%=s.getFilePath() %>/<%=s.getChangeName() %>">
             </div>
 
             <div class="content-area">
@@ -109,7 +109,9 @@
             </div>
 
             <div class="from-area">
-                <p><%= s.getStoryFrom() %> </p>
+            	<% if(s.getStoryFrom() != null) { %>
+                <p>출처 : <%= s.getStoryFrom() %> </p>
+                <% } %>
             </div>
 
             <div class="btn">

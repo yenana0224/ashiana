@@ -269,7 +269,7 @@
 				    $('#end-time').val('');
 				}
 				else{
-					console.log($('.root-card').last().find('input[name=destNo]').val());
+					//console.log($('.root-card').last().find('input[name=destNo]').val());
 					
 					$('#add-day').prop('checked', false); // 체크 박스 해제
 					$('#dep-date').val($('#end-date').val());
@@ -358,7 +358,7 @@
         $('.sched-des-detail-body').on('mouseout', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
             $(this).find('.sched-detail-btn').css('visibility','hidden');
         });
-        $('.btn-add-sched').on('click', function(){// 추가 버튼 클릭시
+        $('#sched-box').on('click', '.btn-add-sched', function(){// 추가 버튼 클릭시
             const trAdd = '<tr class="sched-tr-add">' // 예약 및 일정 추가 행 
                         +   '<td>'
                         +       '<select name="sched-category" class="sched-category">'
@@ -376,7 +376,7 @@
                         +       '<img class="sched-detail-btn detail-btn-add" src="resources/icons/check-circle-fill-green.svg">'
                         +       '<img class="sched-detail-btn detail-btn-cancel" src="resources/icons/x-circle-fill-red.svg">'
                         +   '</td>'
-                    	+  '</tr>';
+                    	+ '</tr>';
             const $detail = $(this).parents('.sched-des').next().find('.sched-des-detail-body');
             
             if($detail.find('.sched-tr-add').length == 0){ // 예약/일정 추가 행이 존재하는지 여부
@@ -387,7 +387,7 @@
                 alert('추가 중인 예약 및 일정이 존재합니다.'); // 예약/일정 추가 행이 이미 있을 경우
             }
         });
-        $('.sched-des-detail-body').on('click', '.detail-btn-cancel',function(){ // 예약/일정 추가 행 제거
+        $('#sched-box').on('click', '.detail-btn-cancel',function(){ // 예약/일정 추가 행 제거
             
             let trAdd = $(this).parent().parent('.sched-tr-add');
             if(trAdd.siblings('.sched-tr').length == 0){
@@ -395,6 +395,31 @@
             }
             trAdd.remove();
         });
+        // 예약 및 일정 추가 
+        $('#sched-box').on('click', '.detail-btn-add', function(){
+        	const $sched = $(this).parent().parent();
+        	console.log($sched.siblings('.schedDesNo').val());
+        	console.log($sched.find('.sched-category').val());
+        	console.log($sched.find('.sched-name').val());
+        	console.log($sched.find('.sched-content').val());
+        	console.log($sched.find('.sched-price').val());
+        	
+        	
+        	$.ajax({
+        		url : 'insertSched.ajaxplan',
+        		type : 'post',
+        		data : {
+        			destNo : $sched.siblings('.schedDesNo').val(),
+        			category : $sched.find('.sched-category').val(),
+        			schedName : $sched.find('.sched-name').val(),
+        			schedContent : $sched.find('.sched-content').val(),
+        			schedPrice : $sched.find('.sched-price').val()
+        		},
+        		success : function(result){
+        			console.log(result);
+        		}
+        	})
+        })
     </script>
 	
 	<script> // AJAX 
@@ -478,7 +503,8 @@
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>
+    				planNo : <%= planNo %>,
+    				status : 'N'
     			},
     			success : function(result){
     				// 상단 출국일시 귀국일시
@@ -526,70 +552,6 @@
 	    						rootArea += rootAddIcon;
 	    					}
     					}
-    					else if(i == result.length - 1) { // 마지막 목적지
-    						rootArea += '<div class="root-icon">' // 루트 아이콘
-			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
-			                		  + '</div>';
-							arrival = result[i].arrival;
-							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
-							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-							if(result[i].trans == undefined){
-    							rootInfo = '(' + rootHour + '시간';
-    						}
-    						else{
-	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
-    						}
-							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
-							rootInfo += ')';
-							rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
-							departure = result[i].returnDate;
-							rootArea += '<div class="root-line"></div>'; // 루트 라인 
-							
-							let startDate = new Date(arrival).getMonth() + 1 + '월' + new Date(arrival).getDate() + '일'; 
-							let endDate = new Date(departure).getMonth() + 1 + '월' + new Date(departure).getDate() + '일';
-							
-							rootArea += '<div class="root-card">' // 루트 카드
-		  	                    	  +	'<div class="des-img">'
-		  	                          +		'<img src="resources/대련.jpg">'
-		  	                    	  + 	'</div>'
-		  	                          + 	'<div class="des-info">'
-		  	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
-		  	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
-		  	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
-		  	                    	  + 	'</div>'
-		  	                          + '</div>';
-	  	                	rootArea += '<div class="root-line"></div>'; // 루트 라인 
-	  	                	rootArea += rootAddIcon;
-	  	                	
-	  	               // 예약 및 일정 구역
-	    	                schedArea += '<div class="sched-des">' // 아코디언 div
-				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
-				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
-				    	               +     '<div class="sched-btn-area">'
-				    	               +         '<button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
-				    	               +     '</div>'
-				    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
-				    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
-				    	               + '</div>'
-				    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
-				    	               +     '<table class="table table-hover table-bordered">'
-				    	               +         '<thead>'
-				    	               +             '<tr>'
-				    	               +                 '<th class="th1">카테고리</th>'
-				    	               +                 '<th class="th2">예약/일정 명</th>'
-				    	               +                 '<th class="th3">상세 내용</th>'
-				    	               +                 '<th class="th4">예상 금액</th>'
-				    	               + 				 '<th class="th5"></th>'
-				    	               +             '</tr>'
-				    	               +         '</thead>'
-				    	               +         '<tbody class="sched-des-detail-body">'
-	    	                		   +     		 '<input type="hidden" id="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
-				    	               +         '</tbody>'
-				    	               +       '</table>'
-				    	               + '</div>';
-				    	               
-				    		selectSchedule(result[i].destNo);
-    					}
     					else{ // 도시			
     						// 목적지 구역
     						rootArea += '<div class="root-icon">' // 루트 아이콘
@@ -626,34 +588,35 @@
 	    	                rootArea += '<div class="root-line"></div>'; // 루트 라인 
 	    	                
 	    	                // 예약 및 일정 구역
-	    	                schedArea += '<div class="sched-des">' // 아코디언 div
-				    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
-				    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
-				    	               +     '<div class="sched-btn-area">'
-				    	               +         '<button class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
-				    	               +     '</div>'
-				    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
-				    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
-				    	               + '</div>'
-				    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
-				    	               +     '<table class="table table-hover table-bordered">'
-				    	               +         '<thead>'
-				    	               +             '<tr>'
-				    	               +                 '<th class="th1">카테고리</th>'
-				    	               +                 '<th class="th2">예약/일정 명</th>'
-				    	               +                 '<th class="th3">상세 내용</th>'
-				    	               +                 '<th class="th4">예상 금액</th>'
-				    	               + 				 '<th class="th5"></th>'
-				    	               +             '</tr>'
-				    	               +         '</thead>'
-				    	               +         '<tbody class="sched-des-detail-body">'
-	    	                		   +     		 '<input type="hidden" id="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
-				    	               +         '</tbody>'
-				    	               +       '</table>'
-				    	               + '</div>';
-				    	               
-				    		selectSchedule(result[i].destNo);
-				    		
+	    	                if($('.schedDestNo').eq(i-1).val() != result[i].destNo) {
+		    	                schedArea += '<div class="sched-des">' // 아코디언 div
+					    	               +     '<span class="sched-des-city">' + result[i].cityName + '</span>'
+					    	               +     '<span class="sched-des-date">' + result[i].destDate + '</span>'
+					    	               +     '<div class="sched-btn-area">'
+					    	               +         '<button type="button" class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
+					    	               +     '</div>'
+					    	               +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+					    	               +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
+					    	               + '</div>'
+					    	               + '<div class="sched-des sched-des-detail">' // 아코디언 내부
+					    	               +     '<table class="table table-hover table-bordered">'
+					    	               +         '<thead>'
+					    	               +             '<tr>'
+					    	               +                 '<th class="th1">카테고리</th>'
+					    	               +                 '<th class="th2">예약/일정 명</th>'
+					    	               +                 '<th class="th3">상세 내용</th>'
+					    	               +                 '<th class="th4">예상 금액</th>'
+					    	               + 				 '<th class="th5"></th>'
+					    	               +             '</tr>'
+					    	               +         '</thead>'
+					    	               +         '<tbody class="sched-des-detail-body">'
+		    	                		   +     		 '<input type="hidden" class="schedDestNo" name="destNo" value="' + result[i].destNo + '">'
+					    	               +         '</tbody>'
+					    	               +       '</table>'
+					    	               + '</div>';
+		  	                	rootArea += rootAddIcon;
+						    	selectSchedule(result[i].destNo);
+	    	                }
     					}
     				} // for문
     					$('#root-area').html(rootArea);
@@ -689,39 +652,22 @@
 			                            + '</tr>';
     					}
     				}
-                    $(schedTable).insertAfter('#schedDestNo[value=' + destNo + ']');
+                    $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
     			}
     		})
     	};
     	
-    	
-    	/*
-		else if(i == result.length - 1) { // 귀국
-			rootArea += '<div class="root-icon">' // 루트 아이콘
-                	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
-            		  + '</div>';
-			arrival = result[i].arrival;
-			rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
-			rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-			rootInfo = result[i].trans + '(' + rootHour + '시간';
-			if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
-			rootInfo += ')';
-			rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
-			departure = result[i].returnDate;
-			rootArea += '<div class="root-line"></div>'; // 루트 라인 
-			rootArea += '<div class="root-icon">' // 루트 아이콘
-                	  +		'<img src="resources/icons/house-door-fill.svg">'
-            		  + '</div>';
-            		  
-            // 귀국 항공편이 있을 시
-            if(result[i].transPrice != 0){
-            	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
-            }
-		}
-		*/
-    	
-    	
     </script>
-    
+   	
+
+    <script>
+    	window.addEventListener('beforeunload', (event) => {
+	        // Cancel the event as stated by the standard.
+	        event.preventDefault();
+	        // Chrome requires returnValue to be set.
+	        event.returnValue = '';
+      	});
+    </script>
+
 </body>
 </html>

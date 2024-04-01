@@ -63,7 +63,6 @@ public class CustomerController {
 		
 		endPage = startPage + pageLimit - 1;
 		
-		// endPage를 maxPage값으로 변경
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}

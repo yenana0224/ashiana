@@ -41,36 +41,36 @@
 
 	<form action="<%=contextPath%>/updateQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
 
-		<input type="hidden" name="qnaNo"
-			value="<%= qna.getQnaNo() %>">
-		<input type="hidden" name="currentPage"
-			value="<%= currentPage %>">
+		<input type="hidden" name="qnaNo" value="<%= qna.getQnaNo() %>">
+		<input type="hidden" name="currentPage" value="<%= currentPage %>">
 
 		<div class="form-group">
 			<label for="usr"> 제목</label> <input type="text" class="form-control"
 				id="usr" name="title" value="<%=qna.getQnaTitle()%>">
 		</div>
+		
 		<div class="form-group">
 			<label for="comment">내용</label>
 			<textarea class="form-control" rows="19" id="comment" placeholder="1000자까지 입력가능합니다."
 				style="resize: none;" name="content"><%=qna.getQnaContent() %></textarea>
 		</div>
+		
 		<div id="counter">(0 / 1000)</div>
+		
 		<div class="form-group">
-			<input type="file" name="qnaFile" value="<%=file.getOriginName()%>">
-			<label><%= (file != null) ? file.getOriginName() : "존재하는 파일이 없습니다." %></label>
+			<input type="file" name="qnaFile" value="<%=(file != null) ? file.getOriginName() : "존재하는 파일이 없습니다."%>">
 		</div>
 	
 		<div align="center" style="margin-top: 40px;">
-			<button type="button" class="btn btn-sm btn-secondary"
-				onclick="history.back();">취소</button>
+			<button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">취소</button>
 			<button type="submit" class="btn btn-sm btn-danger">등록</button>
 		</div>
 
 	</form>
 	
 	<script>
-		$('#comment').keyup(function (e){
+	
+		$('#comment').keyup(function(){
 	    let content = $('#comment').val();
 	    $('#counter').html("("+ content.length +" / 1000)");
 	

@@ -116,7 +116,7 @@
 		   AND P.PLAN_NO = TP.PLAN_NO
 		   AND P.PLAN_NO = SS.PLAN_NO
 		   AND P.PLAN_NO = ?
-		   AND P.STATUS = 'Y'
+		   AND P.STATUS = ?
 		 GROUP
 		    BY P.PLAN_NO, S_DATE, E_DATE, TRANSFER_SUM, SCH_SUM
 		 ORDER
@@ -172,6 +172,10 @@
 		   AND STATUS = ?
 		 ORDER
 		    BY SCHED_NO
+	</entry>
+	
+	<entry key="deletePlanCache">
+		DELETE FROM TB_PLAN WHERE MEM_NO = ? AND STATUS = 'N'
 	</entry>
 	
 	<entry key="insertPlan">

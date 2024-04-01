@@ -14,7 +14,7 @@ import com.kh.semi.community.model.vo.Community;
 public class CommunityServiceImpl {
 
 
-	public ArrayList<Community> selectCommunityList() {
+	public ArrayList<Community> selectCommunityList() {  // 목록조회
 		
 		Connection conn = getConnection();		
 		ArrayList<Community> list =new CommunityDao().selectCommunityList(conn);
@@ -26,7 +26,7 @@ public class CommunityServiceImpl {
 		return list;
 	}
 
-		public Community selectCommunity(int communityNo) {
+		public Community selectCommunity(int communityNo) {  // 상세조회
 		
 		Connection conn = getConnection();		
 		Community community = new CommunityDao().selectCommunity(conn, communityNo);
@@ -38,7 +38,7 @@ public class CommunityServiceImpl {
 		return community;
 	}
 	
-	public int increaseCount(int CommunityNo) {
+	public int increaseCount(int CommunityNo) {  // 조회수 증가
 		
 		Connection conn = getConnection();	
 		
@@ -53,5 +53,13 @@ public class CommunityServiceImpl {
 		return result;
 		
 	}
+	
+	
+	
+	
+	
+		
+	
+	
 
 }

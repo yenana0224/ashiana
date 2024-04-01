@@ -83,6 +83,8 @@
 					<th>No</th>
 					<th>도시들</th>
 					<th>가격</th>
+					<th>여행 일정</th>
+					<th>여행시작일</th>
 					<th>마지막수정일</th>
 					
 				</tr>
@@ -90,7 +92,7 @@
 			<tbody id="myTable">
 				 <% if (list.isEmpty()) { %>
 			        <tr>
-			            <td colspan="4">내 여행기가 없습니다.</td>
+			            <td colspan="6">내 여행기가 없습니다.</td>
 			        </tr>
 			    <% } else { %>
 			        <% int rowNumber = 1; %>
@@ -100,11 +102,15 @@
 			            String planCitys = planMain.getPlanCitys(); 
 			            String totalPrice = planMain.getTotalPrice(); 
 			            String uploadDate = planMain.getUploadDate(); 
+			            String travelDate = planMain.getTravelDate();
+			            String StartDate = planMain.getStartDate();
 			            %>
 			            <tr>
 			                <td><%= rowNumber %></td>
 			                <td><a href="#"><%= planCitys %></a></td>
 			                <td><a href="#"><%= totalPrice %></a></td>
+			                <td><a href="#"><%= travelDate %></a></td>
+			                <td><a href="#"><%= StartDate %></a></td>
 			                <td><a href="#"><%= uploadDate %></a></td>
 			            </tr>
 			            <% rowNumber++; %>
@@ -113,6 +119,9 @@
 			</tbody>
 
 		</table>
+		<div align="center">
+         <button type="button" onclick="location.href='<%=contextPath%>/myTravel'">내 여행기로 가기</button>
+	</div>
 	</div>
 	
 	<br><br><br><br><br><br><br><br><br><br><br><br>

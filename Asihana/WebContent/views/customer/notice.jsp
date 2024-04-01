@@ -151,15 +151,19 @@
 	<div id="noticetext">
         <p>공지사항</p>
     </div>
+    
     <div id="search">
         <form action="<%=contextPath %>/notice.customer" method="get">
+        
             <select name="select" id="select">
 	            <option value="title" selected>제목</option>
 	            <option value="content">내용</option>
             </select>
+            
             <input type="text" id="searchText" name="searchContent">
             <input type="hidden" name="currentPage" value="1">
             <button type="submit">검색</button>
+            
         </form>
     </div>
 
@@ -173,75 +177,100 @@
                 <th class="th date">등록일</th>
             </tr>
         </thead>
+        
         <tbody>
         <% if(noticeList.isEmpty()) { %>
+        
         	<tr>
                <td colspan="3" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
             </tr>
+            
         <% } else { %>
+        
 	        <% for(Notice notice : noticeList){ %>
 	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
 	            	<% if(searchContent == null) {%>
+	            	
 		            	<% if(notice.getNoticeHold().equals("Y")) {%>
 		                		<td class="td noticeNo" style="color:red;"><input type="hidden" class="hiddenNo" value="<%= notice.getNoticeNo()%>">[공지]</td>
 		                <% } else { %>
 		                		<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
 		                <% } %>
+		                
 	                <% } else {%>
 	                		<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
 	                <% } %>	
+	                
 	                <td class="td title"><%= notice.getNoticeTitle() %></td>
 	                <td class="td date"><%= notice.getCreateDate() %></td>
 	            </tr>
-	        <% } %>   
+	        <% } %> 
+	          
         <% } %>
         </tbody>
     </table>
 	
 	<% if(!noticeList.isEmpty()) { %>
-	<% if(searchContent != null) { %>
-		<div id="buttonBox">
-		<% if(pi.getCurrentPage() > 1){ %>
-        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
-        <% } %>
-        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
-        	<% if( pi.getCurrentPage() != i) { %>
-        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
-        	<% } else{ %>
-        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
-        	<% } %>
-        <% } %>
-        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
-       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
-        <% } %>
-    </div>
-	<% } else { %>
+		
+		<% if(searchContent != null) { %>
+			<div id="buttonBox">
+			<% if(pi.getCurrentPage() > 1){ %>
+	        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
+	        <% } %>
+	        
+	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+	        	
+	        	<% if( pi.getCurrentPage() != i) { %>
+	        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
+	        	<% } else{ %>
+	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
+	        	<% } %>
+	        	
+	        <% } %>
+	        
+	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
+	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
+	        <% } %>
+	        
+	    	</div>
+	    	
+		<% } else { %>
 	
 		<div id="buttonBox">
+		
 			<% if(pi.getCurrentPage() > 1){ %>
 	        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
 	        <% } %>
+	        
 	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+	        
 	        	<% if( pi.getCurrentPage() != i) { %>
 	        		<button class="numButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%=i%>'"><%= i %></button>
 	        	<% } else{ %>
 	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
 	        	<% } %>
+	        	
 	        <% } %>
+	        
 	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
 	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/notice.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
 	        <% } %>
+	        
 	    </div>
-	<% } %>
+		<% } %>
+		
 	<% } else {%>
 		<div id="buttonBox">
 		</div>
 	<% } %>
 	
+	
 	<script>
+		
 		function mouseIn(e){
 			e.style.backgroundColor = 'lightgray';
 		}
+		
 		function mouseOut(e){
 			e.style.backgroundColor = 'rgba(247, 240, 233, 0.253)';
 		}

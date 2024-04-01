@@ -96,7 +96,8 @@
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>
+    				planNo : <%= planNo %>,
+    				status : 'Y'
     			},
     			success : function(result){
     				// 상단 출국일시 귀국일시
@@ -140,10 +141,10 @@
 							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
 							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
 							if(result[i].trans == undefined){
-    							rootInfo += '(' + rootHour + '시간';
+    							rootInfo = '(' + rootHour + '시간';
     						}
     						else{
-	    						rootInfo += result[i].trans + '(' + rootHour + '시간';
+	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
     						}
 							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
 							rootInfo += ')';
@@ -168,10 +169,10 @@
     						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
     						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
     						if(result[i].trans == undefined){
-    							rootInfo += '(' + rootHour + '시간';
+    							rootInfo = '(' + rootHour + '시간';
     						}
     						else{
-	    						rootInfo += result[i].trans + '(' + rootHour + '시간';
+	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
     						}
     						if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
     						rootInfo += ')';

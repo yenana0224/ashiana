@@ -7,31 +7,28 @@
 	 </comment>
 	
 	<entry key="selectCommunityList">
-		SELECT
-				COMMUNITY_NO,
-				CITY_NO,
-				MEMBER_NO,
-				COMMUNITY_CONTENT,
-				COUNT,
-				COMMUNITY_DATE, 
-				TB_COMMUNITY.STATUS STATUS
-		    FROM
-			 	TB_COMMUNITY
-			
-			JOIN
-				MEMBER
-			ON
-				(MEMBER.MEM_NO=TB_COMMUNITY.MEMBER_NO)
-		
-	    	WHERE 
-				TB_COMMUNITY.STATUS = 'Y'
-		
-		  
+		    SELECT
+            COM.COMMUNITY_NO,
+            C.CITY_NAME,
+             M.NICKNAME,
+           COM.COMMUNITY_CONTENT,
+            COM.COMMUNITY_DATE,
+            COM.COUNT,
+         COM.STATUS
+            
+        
+           FROM TB_COMMUNITY COM
+            JOIN TB_CITY C ON COM.CITY_NO = C.CITY_NO
+            JOIN MEMBER M ON  COM.MEMBER_NO = M.MEM_NO
+            
+            WHERE
+                COM.STATUS = 'Y'
+
 	</entry>
 	
 	<entry key="increaseCount">
 		UPDATE
-			  COMMUNITY
+			  TB_COMMUNITY
 		   SET
 		  	  COUNT = COUNT + 1
 	  	 WHERE
@@ -48,24 +45,20 @@
 	
 	<entry key="selectCommunity">
 		SELECT
-				COMMUNITY_NO,
-				CITY_NO,
-				MEMBER_NO,
-				COMMUNITY_CONTENT,
-				COUNT,
-				COMMUNITY_DATE, 
-				TB_COMMUNITY.STATUS STATUS
-		    FROM
-			 	TB_COMMUNITY
-			
-			JOIN
-				MEMBER
-			ON
-				(MEMBER.MEM_NO=TB_COMMUNITY.MEMBER_NO)
+		    COM.COMMUNITY_NO,
+		    C.CITY_NAME,
+			 M.NICKNAME,
+		   COM.COMMUNITY_CONTENT,
+		    COM.COMMUNITY_DATE,
+		    COM.COUNT,
+		    COM.STATUS
+		    
 		
-	    	WHERE 
-				TB_COMMUNITY.STATUS = 'Y'
-	
+		   FROM TB_COMMUNITY COM
+		    JOIN TB_CITY C ON COM.CITY_NO = C.CITY_NO
+		    JOIN MEMBER M ON  COM.MEMBER_NO = M.MEM_NO
+		    
+    WHERE  COM.STATUS='Y' AND COM.COMMUNITY_NO=?
 		
 	
 	

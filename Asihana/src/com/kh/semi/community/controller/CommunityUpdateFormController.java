@@ -29,8 +29,8 @@ public class CommunityUpdateFormController extends HttpServlet {
 		
 	
 	
-		request.getRequest
-	
+		
+	request.getRequestDispatcher("views/community/communityUpdateForm.jsp").forward(request, response);		
 	
 	
 	}

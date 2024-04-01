@@ -64,7 +64,6 @@ public class CustomerServlet extends HttpServlet {
 		case "updateQa" : view = customer.updateQa(request, response); flag = false; break;
 		}
 		
-		
 		if(flag == true) {
 			request.getRequestDispatcher(view).forward(request, response);			
 		} else {

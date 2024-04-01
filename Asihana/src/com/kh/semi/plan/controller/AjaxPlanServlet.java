@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.semi.plan.model.vo.PlanDetail;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 
 /**
  * Servlet implementation class AjaxPlanServlet
@@ -48,7 +49,7 @@ public class AjaxPlanServlet extends HttpServlet {
 		case "updateStartDestination" : new Gson().toJson(pc.updateStartDestination(request, response), response.getWriter()); break;
 		case "insertDestination" : new Gson().toJson(pc.insertDestination(request, response), response.getWriter()); break;
 		case "insertSched" : new Gson().toJson(pc.insertSchedule(request, response), response.getWriter()); break;
-		case "insertEndDestination" : break;
+		case "insertEndDestination" : new Gson().toJson(pc.insertEndDestination(request, response), response.getWriter()); break;
 		}
 		
 		

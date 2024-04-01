@@ -21,7 +21,7 @@
 		    display: inline-block;
 		    background-color: white;
 		    box-shadow: 0 0 1px 1px lightgray;
-		    width: 200px;
+		    width: 112px;
 		    border-radius: 10px;
 		    height: 43px;
 		    padding: 6px 3px 3px 5px;
@@ -71,7 +71,7 @@
 			    <button class="btn btn-sm btn-success btn-date-int" id="doUpdate" type="button">수정</button>
 			    <button class="btn btn-sm btn-dark btn-date-int" id="cancelUpdate" type="button">취소</button>
 	            <button class="btn btn-sm btn-dark btn-int" type="button">취소</button>
-	            <button class="btn btn-sm btn-danger btn-int" type="submit">여행 플랜 완료</button>
+	            <button class="btn btn-sm btn-danger btn-int submit-plan" type="button">여행 플랜 완료</button>
 	            <button class="btn btn-sm btn-success btn-int btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
 	        </div>
 	        <div id="planning-area">
@@ -84,7 +84,6 @@
 		               	<img class="des-add-btn" src="resources/icons/plus-square-fill.svg" >
 		               	<div class="planToast">
 		                    <button class="btn btn-sm btn-outline-danger btn-add-des btn-des-disabled" type="button" data-toggle="modal" data-target="#addDesModal" disabled>목적지 추가</button>
-		                    <button class="btn btn-sm btn-outline-success btn-end-plan btn-des-disabled" type="button" disabled>여행 종료</button>
 		            	</div>
 		           	</div>
 		           	
@@ -103,8 +102,8 @@
 		            <span>예약 및 일정 예산 <label class="plan-sum-price" id="sched-sum"></label> = </span>
 		            <label class="plan-sum-total">총 예산 <label></label>원</label>
 	        	</div>
-	            <button type="submit" class="btn btn-danger">여행 플랜 완료</button>
-	            <button class="btn btn-dark">취소</button>
+	            <button type="button" class="btn btn-danger submit-plan">여행 플랜 완료</button>
+	            <button type="button" class="btn btn-dark">취소</button>
 	        </div>
 	    </form>
 	</div> <!-- outer -->
@@ -252,6 +251,18 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
+            $('#add-day-end').change(function(){ // +1일 체크박스
+		        if($('#add-day-end').is(':checked')) {
+		            let $arr = new Date($('#arr-date-end').val());
+		            $arr.setDate($arr.getDate() + 1);
+		            $('#arr-date-end').val(formatDate($arr));
+		        }
+		        else{
+		            let $arr = new Date($('#arr-date-end').val());
+		            $arr.setDate($arr.getDate() - 1);
+		            $('#arr-date-end').val(formatDate($arr));
+		        }
+		    })
 			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
 				let display = '<label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>'
 				            + '<p>'
@@ -329,6 +340,7 @@
     					if(result > 0){
     						$('#dep-date-end').val($('#end-date').val());
     					    $('#dep-time-end').val($('#end-time').val());
+    					    $('#arr-date-end').val($('#end-date').val());
     						selectDestination();
     					}
     				}
@@ -552,8 +564,7 @@
 					                + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
 					                + 	'<div class="planToast">'
 					                +     '<button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>'
-					                +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>'
-					                +		'</div>'
+					                +	'</div>'
 					           	    + '</div>'; 
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
@@ -692,7 +703,7 @@
 	<script>
 	$(function(){
 		// 귀국일 insert 
-		$('#root-area').on('click', '.btn-end-plan', function(){ // 여행 종료 버튼 클릭시
+		$('.submit-plan').on('click', function(){ // 여행 종료 버튼 클릭시
 			if($('.root-card').length == 0){
 				alert('목적지가 최소 한개 이상 등록이 되어야합니다.');				
 			}
@@ -713,7 +724,6 @@
 			$('#transport-end option:first').prop('selected', true);
 			$('#trans-price-end').val('0');
 			$('#add-day-end').prop('checked', false);
-			$('#arr-date-end').val('');
 			$('#arr-time-end').val('');
 			
 			$('#endDesDetailModal').show();
@@ -721,13 +731,14 @@
 		// 귀국 INSERT 등록 안했을 시
 		$('#insertEndDestNull').click(function(){
 			const endDest = {
-					planNo : <% planNo %>,
-					trans : null,
-					transPrice : null,
-					trip : null,
+					planNo : <%= planNo %>,
+					trans : '선택 안함',
+					transPrice : 0,
+					trip : '귀국',
 					arrival : $('#dep-date-end').val() + ' ' + $('#dep-time-end').val()
 			}
 			insertEndDestination(endDest);
+			$('#endDesModal').hide();
 		});
 		// 귀국 INSERT 이동수단 등록 시 
 		$('#insertEndDest').click(function(){
@@ -739,27 +750,30 @@
 					arrival : $('#arr-date-end').val() + ' ' + $('#arr-time-end').val()
 			}
 			insertEndDestination(endDest);
-			
+			$('#endDesDetailModal').hide();
 		})
 	})
 	// 귀국 INSERT AJAX
 	function insertEndDestination(endDest){
 		console.log(endDest);
+		$.ajax({
+			url : 'insertEndDestination.ajaxplan',
+			type : 'post',
+			data : endDest,
+			success : function(result){
+				if(result > 0){
+					console.log(result);
+					//location.href = '<%=contextPath%>/publishPlan.plan?planNo=<%=planNo%>';
+				}
+				else{
+					alert('오류 발생.. 다시 시도해주세요.');
+				}
+			}
+		})
 	}
 	
 	
-	$('#add-day-end').change(function(){ // +1일 체크박스
-        if($('#add-day-end').is(':checked')) {
-            let $arr = new Date($('#arr-date-end').val());
-            $arr.setDate($arr.getDate() + 1);
-            $('#arr-date-end').val(formatDate($arr));
-        }
-        else{
-            let $arr = new Date($('#arr-date-end').val());
-            $arr.setDate($arr.getDate() - 1);
-            $('#arr-date-end').val(formatDate($arr));
-        }
-    })
+	
 	</script>
 	
 	<!-- 여행 종료 Modal -->

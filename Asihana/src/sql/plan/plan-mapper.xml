@@ -246,5 +246,22 @@
 		       )
 	</entry>
 	
+	<entry key="insertEndDestination">
+		INSERT
+			  INTO
+			      TB_DESTINATION
+			VALUES
+			      (
+			      SEQ_DEST.NEXTVAL,
+			      ?,
+			      0,
+			      ?,
+			      ?,
+			      ?,
+			      TO_DATE(?, 'YYYY-MM-DD HH24:MI'),
+			      NULL,
+			      'N'
+			      )
+	</entry>
 	
 </properties>

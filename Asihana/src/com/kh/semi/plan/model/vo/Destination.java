@@ -13,6 +13,19 @@ public class Destination {
 		super();
 	}
 	
+	
+	
+	public Destination(int planNo, String trans, String transPrice, String trip, String arrival) {
+		super();
+		this.planNo = planNo;
+		this.trans = trans;
+		this.transPrice = transPrice;
+		this.trip = trip;
+		this.arrival = arrival;
+	}
+
+
+
 	public Destination(int destNo, int planNo, String returnDate) {
 		super();
 		this.destNo = destNo;

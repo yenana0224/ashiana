@@ -358,7 +358,7 @@
         $('.sched-des-detail-body').on('mouseout', '.sched-tr', function(){ // 추가 수정 삭제 버튼 호버
             $(this).find('.sched-detail-btn').css('visibility','hidden');
         });
-        $('.btn-add-sched').on('click', function(){// 추가 버튼 클릭시
+        $('#sched-box').on('click', '.btn-add-sched', function(){// 추가 버튼 클릭시
             const trAdd = '<tr class="sched-tr-add">' // 예약 및 일정 추가 행 
                         +   '<td>'
                         +       '<select name="sched-category" class="sched-category">'
@@ -376,7 +376,7 @@
                         +       '<img class="sched-detail-btn detail-btn-add" src="resources/icons/check-circle-fill-green.svg">'
                         +       '<img class="sched-detail-btn detail-btn-cancel" src="resources/icons/x-circle-fill-red.svg">'
                         +   '</td>'
-                    	+  '</tr>';
+                    	+ '</tr>';
             const $detail = $(this).parents('.sched-des').next().find('.sched-des-detail-body');
             
             if($detail.find('.sched-tr-add').length == 0){ // 예약/일정 추가 행이 존재하는지 여부
@@ -387,7 +387,7 @@
                 alert('추가 중인 예약 및 일정이 존재합니다.'); // 예약/일정 추가 행이 이미 있을 경우
             }
         });
-        $('.sched-des-detail-body').on('click', '.detail-btn-cancel',function(){ // 예약/일정 추가 행 제거
+        $('#sched-box').on('click', '.detail-btn-cancel',function(){ // 예약/일정 추가 행 제거
             
             let trAdd = $(this).parent().parent('.sched-tr-add');
             if(trAdd.siblings('.sched-tr').length == 0){
@@ -395,6 +395,31 @@
             }
             trAdd.remove();
         });
+        // 예약 및 일정 추가 
+        $('#sched-box').on('click', '.detail-btn-add', function(){
+        	const $sched = $(this).parent().parent();
+        	console.log($sched.siblings('.schedDesNo').val());
+        	console.log($sched.find('.sched-category').val());
+        	console.log($sched.find('.sched-name').val());
+        	console.log($sched.find('.sched-content').val());
+        	console.log($sched.find('.sched-price').val());
+        	
+        	
+        	$.ajax({
+        		url : 'insertSched.ajaxplan',
+        		type : 'post',
+        		data : {
+        			destNo : $sched.siblings('.schedDesNo').val(),
+        			category : $sched.find('.sched-category').val(),
+        			schedName : $sched.find('.sched-name').val(),
+        			schedContent : $sched.find('.sched-content').val(),
+        			schedPrice : $sched.find('.sched-price').val()
+        		},
+        		success : function(result){
+        			console.log(result);
+        		}
+        	})
+        })
     </script>
 	
 	<script> // AJAX 
@@ -631,32 +656,6 @@
     			}
     		})
     	};
-    	
-    	
-    	/*
-		else if(i == result.length - 1) { // 귀국
-			rootArea += '<div class="root-icon">' // 루트 아이콘
-                	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
-            		  + '</div>';
-			arrival = result[i].arrival;
-			rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
-			rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-			rootInfo = result[i].trans + '(' + rootHour + '시간';
-			if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
-			rootInfo += ')';
-			rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
-			departure = result[i].returnDate;
-			rootArea += '<div class="root-line"></div>'; // 루트 라인 
-			rootArea += '<div class="root-icon">' // 루트 아이콘
-                	  +		'<img src="resources/icons/house-door-fill.svg">'
-            		  + '</div>';
-            		  
-            // 귀국 항공편이 있을 시
-            if(result[i].transPrice != 0){
-            	$('<span>(+ 귀국 항공 가격 <label class="plan-sum-price">' + result[i].transPrice + '원</label>)</span>').insertAfter('#trans-sum');  
-            }
-		}
-		*/
     	
     </script>
    	

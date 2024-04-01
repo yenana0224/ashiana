@@ -75,8 +75,6 @@ public class PlanService {
 		
 		Connection conn = getConnection();
 		
-		if(new PlanDao().deleteSchedCache(conn, userNo) > 0) commit(conn);
-		if(new PlanDao().deleteDestCache(conn, userNo) > 0) commit(conn);
 		if(new PlanDao().deletePlanCache(conn, userNo) > 0) commit(conn);
 		
 		close(conn);

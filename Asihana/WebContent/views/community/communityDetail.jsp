@@ -70,14 +70,13 @@
                 로그인여부판단 (하지 않으면 로그인유저가 없을 시 nullpoint) 
                 > loginUser.getUserNo() == 뭐랑 비교하지..? 했을때 새롭게 조회해온 UserNo 컬럼의 값이 있음
             -->
-            <% if(loginUser != null && (loginUser.getUserNo() == c.getMemberNo())){ %>
+            
 
             <a href="<%=contextPath%>/updateForm.community?communityNo=<%=c.getComuNo() %>"
                 class="btn btn-sm btn-warning">수정하기</a>
             <a href="<%=contextPath %>/delete.community?communityNo=<%=c.getComuNo()%>"
             	class="btn btn-sm btn-secondary">삭제하기</a>
-            <% } else {%>
-            <% }%>
+            
         </div>
 	
 	

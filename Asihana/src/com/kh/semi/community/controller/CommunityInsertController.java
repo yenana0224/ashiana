@@ -29,7 +29,7 @@ public class CommunityInsertController extends HttpServlet {
 	
 		
 		// POST
-		request.setCharacterEncoding("UTF-8");
+		
 		
 		
 		
@@ -45,7 +45,7 @@ public class CommunityInsertController extends HttpServlet {
 	
 	
 		// 응답화면 지정
-		request.getRequestDispatcher("views/community/communityEnrollForm.jsp").forward(request, response);
+		request.getRequestDispatcher("views/community/communityListEnrollForm.jsp").forward(request, response);
 	
 	}
 

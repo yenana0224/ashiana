@@ -84,41 +84,60 @@
 			<div id="noticeMark">
                 <p>공지사항</p>
             </div>
+            
             <div id="noticeBox">
 
                 <div id="titleBox">
                     <p><%= noticeDetail.getNoticeTitle() %></p>
                 </div>
+                
                 <div id="dateBox">
                     <label style="font-size: 12px;">작성일</label>
                     <p><%= noticeDetail.getCdate() %></p>
                 </div>
+                
                 <% if(noticeFile != null) { %>
-                <div id="imageBox">
-                    <img src="<%=contextPath + "/" +noticeFile.getFilePath() + "/" + noticeFile.getChangeName()%>" alt="">
-                </div>
-                <div id="noticeText">
-                    <p><%= noticeDetail.getNoticeContent() %></p>
-                </div>
+                
+	                <div id="imageBox">
+	                    <img src="<%=contextPath + "/" +noticeFile.getFilePath() + "/" + noticeFile.getChangeName()%>" alt="">
+	                </div>
+	                
+	                <div id="noticeText">
+	                    <p><%= noticeDetail.getNoticeContent() %></p>
+	                </div>
+	                
                 <% } else{ %>
-                <div id="noticeText">
-                    <p><%= noticeDetail.getNoticeContent() %></p>
-                </div>
-                <div id="imageBox" style="border:none;">
-                </div>
+                
+	                <div id="noticeText">
+	                    <p><%= noticeDetail.getNoticeContent() %></p>
+	                </div>
+	                <div id="imageBox" style="border:none;">
+	                </div>
+	                
                 <% } %>
+                
                 <div id="buttonBox">
-                <% if(loginUser != null) {%>
-                    <% if(loginUser.getUserId().equals("admin")){ %>
-	                    <button class="btn btn-sm btn-danger" onclick="noticeUpdate();">수정</button>
-	                    <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
-                    <% } else { %>
-                    	<button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
-                    <% } %>
-                <% } else { %>
-                	 <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
-                <% } %>    
+	                <% if(loginUser != null) {%>
+	                
+	                    <% if(loginUser.getUserId().equals("admin")){ %>
+	                    
+		                    <button class="btn btn-sm btn-danger" onclick="noticeUpdate();">수정</button>
+		                    <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+		                    
+	                    <% } else { %>
+	                    
+	                    	<button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+	                    	
+	                    <% } %>
+	                    
+	                <% } else { %>
+	                
+	                	 <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+	                	 
+	                <% } %>
+	                    
                 </div>
+                
             </div>
 		
 		<script>

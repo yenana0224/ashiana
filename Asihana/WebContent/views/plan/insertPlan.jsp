@@ -251,6 +251,18 @@
                     $('#arr-date').val(formatDate($arr));
                 }
             })
+            $('#add-day-end').change(function(){ // +1일 체크박스
+		        if($('#add-day-end').is(':checked')) {
+		            let $arr = new Date($('#arr-date-end').val());
+		            $arr.setDate($arr.getDate() + 1);
+		            $('#arr-date-end').val(formatDate($arr));
+		        }
+		        else{
+		            let $arr = new Date($('#arr-date-end').val());
+		            $arr.setDate($arr.getDate() - 1);
+		            $('#arr-date-end').val(formatDate($arr));
+		        }
+		    })
 			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
 				let display = '<label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>'
 				            + '<p>'
@@ -552,8 +564,7 @@
 					                + 	'<img class="des-add-btn" src="resources/icons/plus-square-fill.svg">'
 					                + 	'<div class="planToast">'
 					                +     '<button class="btn btn-sm btn-outline-danger btn-add-des" type="button" data-toggle="modal" data-target="#addDesModal">목적지 추가</button>'
-					                +     '<button class="btn btn-sm btn-outline-success btn-end-plan" type="button">여행 종료</button>'
-					                +		'</div>'
+					                +	'</div>'
 					           	    + '</div>'; 
     				for(let i = 0; i < result.length; i++){
     					if(i == 0){ // 출발
@@ -713,7 +724,6 @@
 			$('#transport-end option:first').prop('selected', true);
 			$('#trans-price-end').val('0');
 			$('#add-day-end').prop('checked', false);
-			$('#arr-date-end').val('');
 			$('#arr-time-end').val('');
 			
 			$('#endDesDetailModal').show();
@@ -722,9 +732,9 @@
 		$('#insertEndDestNull').click(function(){
 			const endDest = {
 					planNo : <%= planNo %>,
-					trans : null,
-					transPrice : null,
-					trip : null,
+					trans : '선택 안함',
+					transPrice : 0,
+					trip : '귀국',
 					arrival : $('#dep-date-end').val() + ' ' + $('#dep-time-end').val()
 			}
 			insertEndDestination(endDest);
@@ -745,6 +755,7 @@
 	})
 	// 귀국 INSERT AJAX
 	function insertEndDestination(endDest){
+		console.log(endDest);
 		$.ajax({
 			url : 'insertEndDestination.ajaxplan',
 			type : 'post',
@@ -762,18 +773,7 @@
 	}
 	
 	
-	$('#add-day-end').change(function(){ // +1일 체크박스
-        if($('#add-day-end').is(':checked')) {
-            let $arr = new Date($('#arr-date-end').val());
-            $arr.setDate($arr.getDate() + 1);
-            $('#arr-date-end').val(formatDate($arr));
-        }
-        else{
-            let $arr = new Date($('#arr-date-end').val());
-            $arr.setDate($arr.getDate() - 1);
-            $('#arr-date-end').val(formatDate($arr));
-        }
-    })
+	
 	</script>
 	
 	<!-- 여행 종료 Modal -->

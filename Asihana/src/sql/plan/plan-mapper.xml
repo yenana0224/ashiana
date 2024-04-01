@@ -253,12 +253,12 @@
 			VALUES
 			      (
 			      SEQ_DEST.NEXTVAL,
-			      SEQ_PLAN.CURRVAL,
+			      ?,
 			      0,
-			      '항공',
-			      100000,
-			      '편도',
-			      '2024-05-06 16:00',
+			      ?,
+			      ?,
+			      ?,
+			      TO_DATE(?, 'YYYY-MM-DD HH24:MI'),
 			      NULL,
 			      'N'
 			      )

@@ -354,9 +354,10 @@ public class PlanDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("insertSchedule");
+		String sql = prop.getProperty("insertEndDestination");
 		
 		try {
+			System.out.println(des);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, des.getPlanNo());
 			pstmt.setString(2, des.getTrans());

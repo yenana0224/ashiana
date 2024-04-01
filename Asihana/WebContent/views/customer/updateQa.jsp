@@ -57,8 +57,7 @@
 		</div>
 		<div id="counter">(0 / 1000)</div>
 		<div class="form-group">
-			<input type="file" name="qnaFile" value="<%=file.getOriginName()%>">
-			<label><%= (file != null) ? file.getOriginName() : "존재하는 파일이 없습니다." %></label>
+			<input type="file" name="qnaFile" value="<%=(file != null) ? file.getOriginName() : "존재하는 파일이 없습니다."%>">
 		</div>
 	
 		<div align="center" style="margin-top: 40px;">
@@ -70,7 +69,7 @@
 	</form>
 	
 	<script>
-		$('#comment').keyup(function (e){
+		$('#comment').keyup(function(){
 	    let content = $('#comment').val();
 	    $('#counter').html("("+ content.length +" / 1000)");
 	

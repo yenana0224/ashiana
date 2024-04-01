@@ -16,43 +16,41 @@
 	</entry>
 	
 	<entry key="storyList">
-SELECT
-     STORY_NO,
-     STORY_TITLE,
-     STORY_DATE,
-     FILE_PATH,
-     CHANGE_NAME
- FROM
-    VW_STORY_LIST
-WHERE
-    RNUM BETWEEN ? AND ?
+	SELECT
+	    STORY_NO,
+	    STORY_TITLE,
+	    STORY_DATE,
+	    FILE_PATH,
+	    CHANGE_NAME
+	FROM
+	    (SELECT
+	         ROWNUM RNUM,
+	         STORY_NO,
+	         STORY_TITLE,
+	         STORY_DATE,
+	         FILE_PATH,
+	         CHANGE_NAME
+	     FROM
+	        VW_STORY_ALL)
+	WHERE
+	    RNUM BETWEEN ? AND ?
 	</entry>
 
 	<entry key="detailStory">
 	
 	SELECT
-	    STORY_NO,
-	    STORY_TITLE,
-	    STORY_CN,
-	    STORY_DATE,
-	    STORY_FROM,
-	    FILE_PATH,
-	    CHANGE_NAME
-	FROM
-	    (SELECT
-	         BOARD_NO,
-	         FILE_PATH,
-	         CHANGE_NAME
-	      FROM
-	         TB_FILE
-	    WHERE
-	         BOARD_TYPE = 7) F
-	JOIN
-	    TB_STORY ON(F.BOARD_NO = TB_STORY.STORY_NO)
-	WHERE
-	     BOARD_NO = ?
-	  AND
-	  	 STATUS = 'Y'
+	     FILE_NO,
+	     STORY_NO,
+	     STORY_TITLE,
+	     STORY_CN,
+	     STORY_DATE,
+	     STORY_FROM,
+	     FILE_PATH,
+	     CHANGE_NAME
+	 FROM     
+	    VW_STORY_ALL
+     WHERE
+     	STORY_NO = ?
 	
 	</entry>
 
@@ -114,6 +112,32 @@ WHERE
 	     ?,
 	     ?
 	     )
+	</entry>
+	
+	<entry key="updateStory">
+	UPDATE
+	     TB_STORY
+	  SET
+	     STORY_TITLE = ?,
+	     STORY_CN = ?,
+	     STORY_DATE = SYSDATE,
+	     STORY_FROM = ?
+	WHERE
+	     STORY_NO = ?
+	
+	</entry>
+	
+	<entry key="updateStoryFile">
+	UPDATE
+	       TB_FILE
+	   SET
+	       FILE_PATH = ?,
+	       ORIGIN_NAME = ?,
+	       CHANGE_NAME = ?
+	WHERE
+	     BOARD_TYPE = ?
+	  AND
+	     BOARD_NO = ?
 	</entry>
 
 	

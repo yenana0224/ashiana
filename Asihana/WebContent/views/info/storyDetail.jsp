@@ -120,7 +120,7 @@
     		    <a href="<%=contextPath%>/story.info?currentPage=<%=pageNo%>">목록으로</a>
     		<% } else {%>
     			<a href="<%=contextPath%>/story.info?currentPage=<%=pageNo%>">목록으로</a>
-    			<a href="#">수정하기</a>
+    			<a href="<%=contextPath%>.storyUpdateForm.admin?storyNo=<%=s.getStoryNo() %>">수정하기</a>
     		<% } %>
             </div>
         </div>

@@ -2,7 +2,8 @@
     pageEncoding="UTF-8" 
     import ="java.util.ArrayList, com.kh.semi.community.model.vo.Community" %>
     
-    <%	Community c = (Community)request.getAttribute("community");%> 
+    <%	Community c = (Community)request.getAttribute("community");
+   %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +54,9 @@
 				<td colspan="3"><%=c.getComuDate() %></td>
 				<td>회원상태</td>
 				<td colspan="1"><%=c.getStatus() %></td>
+				<td>회원넘버</td>
+				<td colspan="1"><%=c.getMemberNo() %></td>
+				
 			</tr>
 
 	</table>
@@ -66,18 +70,13 @@
                 로그인여부판단 (하지 않으면 로그인유저가 없을 시 nullpoint) 
                 > loginUser.getUserNo() == 뭐랑 비교하지..? 했을때 새롭게 조회해온 UserNo 컬럼의 값이 있음
             -->
-            <% if(loginUser != null && (loginUser.getUserNo() == c.getMemNo())){ %>
+            
 
             <a href="<%=contextPath%>/updateForm.community?communityNo=<%=c.getComuNo() %>"
                 class="btn btn-sm btn-warning">수정하기</a>
             <a href="<%=contextPath %>/delete.community?communityNo=<%=c.getComuNo()%>"
             	class="btn btn-sm btn-secondary">삭제하기</a>
-            <% } else {%>
-                   <a href="<%=contextPath%>/updateForm.community?communityNo=<%=c.getComuNo() %>"
-                class="btn btn-sm btn-warning">수정하기9898<%=c.getMemNo() %></a>
-            <a href="<%=contextPath %>/delete.community?communityNo=<%=c.getComuNo()%>"
-            	class="btn btn-sm btn-secondary">삭제88하기</a>
-            <% }%>
+            
         </div>
 	
 	

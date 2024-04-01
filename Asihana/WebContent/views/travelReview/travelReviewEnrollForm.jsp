@@ -150,8 +150,22 @@
         #add-file{
             width: 100%;
             padding-top : 30px;
+
+
+            >div {
+                height : 100%;
+                display : inline-block;
+            }
+        }
+
+        #file-main{
+            width : 20%;
         }
         
+        #file-sub{
+            width: 79%
+        }
+
         /*
         #star-content > input {
             display : none;
@@ -160,6 +174,10 @@
         #test1 :hover{
             width : 200px;
         }
+        .file {
+            display : none;
+        }
+        
 
        
     </style>
@@ -212,7 +230,6 @@
                             <script>
                                 $(function(){
                                     $('#star1').click(function(){
-                                        console.log('ㅎㅎ');
                                     
                                     });
 
@@ -254,10 +271,10 @@
                         
                         <div id="area-partner" ><!--동행 영역--> 
                             <h3>누구와 다녀 오셨나요?</h3>
-                            <input type="radio" name="partner" checked value="a"><label for="a">나홀로</label>
-                            <input type="radio" name="partner" value="fm"><label for="fm">가족</label>
-                            <input type="radio" name="partner" value="f"><label for="f">친구</label>
-                            <input type="radio" name="partner" value="l"><label for="l">사랑하는 사람과 함께</label>
+                            <input type="radio" name="partner" checked value="A"><label for="A">나홀로</label>
+                            <input type="radio" name="partner" value="FM"><label for="FM">가족</label>
+                            <input type="radio" name="partner" value="F"><label for="F">친구</label>
+                            <input type="radio" name="partner" value="L"><label for="L">사랑하는 사람과 함께</label>
                         </div>
                         
                         
@@ -271,39 +288,116 @@
                         </div>
                         
 
-                        <div id="area-file"><!-- 파일 첨부영역-->
+                        <div id="area-file" style="margin-top : 50px;"><!-- 파일 첨부영역-->
 
                             <!--사용자가 추가한 사진이 뜨는 영역-->
                             <div id="thumbnail-file"> <!--대표이미지 뜨는 곳-->
-                                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 200px; height: 200px;" alt="대표이미지"> <br>                           
+                                <img id="title-img" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 200px; height: 200px;" alt="대표이미지"> <br>                           
                                 <label style="padding-left : 60px; display : inline-block;" align="center">대표이미지</label>
                             </div>
 
                             <div class="sub" align="center"> <!-- 사용자가 추가한 서브이미지 뜨는 곳, 최대 4개까지 가능-->
-                                <div style="padding-left : 50px">
-                                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                <div style="padding-left : 50px" id="sub1">
+                                    <img id="sub-img1" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label >이미지1</label>
                                 </div>
                                 
-                                <div>
-                                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                <div id="sub2">
+                                    <img id="sub-img2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지1</label>
                                 </div>
                                 
-                                <div>
-                                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                <div id="sub3">
+                                    <img id="sub-img3" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지1</label>
                                 </div>
   
-                                <div>
-                                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                <div id="sub4">
+                                    <img id="sub-img4" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지1</label>
                                 </div>
                             </div>
 
                             <!-- 파일추가 버튼영역-->
                             <div id="add-file" align="center">
-                                <a href=""><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fd1%2Faa%2F6d%2Fd1aa6d39a3eea6a06e18d182e3f397d1.jpg&type=a340" style="width: 50px; height: 50px;" alt=""></a>
+                                <div id="file-main">
+                                    <input type="file" name="file0" id="file0" class="file" onchange="loadImg(this, 0);" required><label for="file0"></label>
+                                    <a href=""></a>
+                                </div>
+                                <div id="file-sub" align="center">
+                                    <input type="file" name="file1" id="file1" class="file" onchange="loadImg(this, 1);"><label for="file1"></label>
+                                    <input type="file" name="file2" id="file2" class="file" onchange="loadImg(this, 2);"><label for="file2"></label>
+                                    <input type="file" name="file3" id="file3" class="file" onchange="loadImg(this, 3);"><label for="file3"></label>
+                                    <input type="file" name="file4" id="file4" class="file" onchange="loadImg(this, 4);"><label for="file4"></label>
+                                </div>
+                                <!--<a href=""><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fd1%2Faa%2F6d%2Fd1aa6d39a3eea6a06e18d182e3f397d1.jpg&type=a340" style="width: 50px; height: 50px;" alt=""></a>
+                                -->
+
+                                <script>
+                                    function loadImg(inputFile, num){
+                                        console.log(inputFile.files);
+
+                                        if(inputFile.files.length){
+
+                                            const reader = new FileReader();
+
+                                            console.log(inputFile.files[0]);
+
+                                            reader.readAsDataURL(inputFile.files[0]);
+
+                                            reader.onload = function(e){ // FileReader의 속성 result : 파일내용, onload : 파일을 성공적으로 읽어냈을 때마다 발생
+                                                switch(num){
+                                                
+                                                case 0 : $('#title-img').attr('src', e.target.result); break;
+                                                case 1 : $('#sub-img1').attr('src', e.target.result); break;
+                                                case 2 : $('#sub-img2').attr('src', e.target.result); break;
+                                                case 3 : $('#sub-img3').attr('src', e.target.result); break;
+                                                case 4 : $('#sub-img4').attr('src', e.target.result); break;
+                                                }
+                                                
+                                            }
+
+
+                                        }
+                                        else{
+                                        	const str = 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fad%2Fa8%2F23%2Fada823d3ba33a88035e9754ac6b53ac9--london-snow-london-winter.jpg&type=a340';
+                                        	
+                                        	switch(num){
+                                        	case 0 : $('#title-img').attr('src', str); break;
+                                        	case 1 : $('#sub-img1').attr('src', str); break;
+                                        	}
+                                        }
+                                    }
+                                </script>
+
+                                <script>
+                                    $(function(){
+                                        // $('#file-sub').hide(); // 하이드 속성을 부여하면 보이지 않는 것 + 차지하던 공간의 영역에서 아예 사라짐
+                                        
+                                        $('#thumbnail-file').click(function(){
+                                            $('#file0').click();
+                                        })
+                            
+                                        $('#sub1').click(function(){
+                                            $('#file1').click();
+                                        })
+
+                                        $('#sub2').click(function(){
+                                            $('#file2').click();
+                                        })
+
+                                        $('#sub3').click(function(){
+                                            $('#file3').click();
+                                        })
+
+                                        $('#sub4').click(function(){
+                                            $('#file4').click();
+                                        })
+                                    })
+
+                                </script>
+
+
                             </div>
                         </div>
 

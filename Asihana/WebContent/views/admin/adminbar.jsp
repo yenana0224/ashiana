@@ -122,7 +122,7 @@
         </ul>
         <div class="mainbtn">
             <a href="<%=contextPath %>">메인화면</a>
-            <a href="#">로그아웃</a>
+            <a href="">로그아웃</a>
         </div>
     </div>
 

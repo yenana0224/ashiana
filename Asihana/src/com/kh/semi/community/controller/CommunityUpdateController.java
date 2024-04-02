@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.community.model.service.CommunityServiceImpl;
 import com.kh.semi.community.model.vo.Community;
 
 /**
@@ -35,18 +36,21 @@ public class CommunityUpdateController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// 2) 값뽑기!!!
-		String communityCityName=request.getParameter("communityCityName");
-		String communityComuContent=request.getParameter("communityComuContent");
+		String CityName=request.getParameter("CityName");
+		String ComuContent=request.getParameter("ComuContent");
+		int ComuNo=Integer.parseInt(request.getParameter("ComuNo"));
 		
 		// 3) 가공하기 => 두개 이상이니 가공을 해준다!!!
 		Community community = new Community();
-		community.setCityName(communityCityName);
-		community.setComuContent(communityComuContent);
+		community.setCityName(CityName);
+		community.setComuContent(ComuContent);
+		community.setComuNo(ComuNo);
 		
 		// 서비스 호출
 		new CommunityServiceImpl().update(community);
+		// UPDATE COMMUNITY SET CITY_NAME =?, COMU_CONTENT =?
+		// WHERE COMU_NO =?
 		
-	
 	
 	}
 

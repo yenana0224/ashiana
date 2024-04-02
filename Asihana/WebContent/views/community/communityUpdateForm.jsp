@@ -116,22 +116,17 @@
                
        
        <form action="<%=contextPath%> /updateForm.commu" method="post" id="insert-form">
-       <input type="hidden" name ="userNo" >
+       
+       <input type="hidden" name ="ComuNo" value="<%=c.getComuNo() %>" >
        <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
 
 	      
 
-            
-        <form action="<%=contextPath%>/update.notice" method="post" id="insert-form">
         
-        	<input type="hidden" name="communityNo" value="<%=c.getCityNo()%>">
-         
-         
-         
          	<span> 
             	<select id="s2" >
-            		<option><%=c.getCityName()%></option>
+            		<option name="CityName"><%=c.getCityName()%></option>
             		<option>싱가포르</option>
             		<option>치앙마이(태국)</option>
             		<option>방콬(태국)</option>
@@ -149,7 +144,7 @@
             
             <div class="form-group">
                 <label for="comment">내용</label>
-                <textarea class="form-control" rows="20" id="comment" style="resize: none;" name="content"><%=c.getComuContent() %></textarea>
+                <textarea class="form-control" rows="20" id="comment" style="resize: none;" name="ComuContent"><%=c.getComuContent() %></textarea>
             </div>
 
             <div align="center">

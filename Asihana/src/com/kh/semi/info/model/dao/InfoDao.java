@@ -150,5 +150,95 @@ public class InfoDao {
 		
 	}
 
+	public List<Language> langList(Connection conn){
+		List<Language> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("langList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Language e = new Language();
+				e.setLanguageNo(rset.getInt("LANGUAGE_NO"));
+				e.setLanguageName(rset.getString("LANGUAGE_NAME"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<Voltage> volList(Connection conn){
+		List<Voltage> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("volList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Voltage e = new Voltage();
+				e.setVoltageNo(rset.getInt("VOL_NO"));
+				e.setVolName(rset.getString("VOL_NAME"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} 
+		return list;
+	}
+	
+	public List<Currency> curList(Connection conn){
+		List<Currency> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("curList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Currency e = new Currency();
+				e.setCurrencyNo(rset.getInt("CURRENCY_NO"));
+				e.setCurrencyName(rset.getString("CURRENCY_NAME"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int insertLang(Connection conn, String name) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLang");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result; 
+	}
 
 }

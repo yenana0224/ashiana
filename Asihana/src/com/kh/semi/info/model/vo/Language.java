@@ -3,6 +3,7 @@ package com.kh.semi.info.model.vo;
 public class Language {
 	
 	private int nationNo;
+	private int languageNo;
 	private String languageName;
 	
 	public Language() {
@@ -13,6 +14,14 @@ public class Language {
 		super();
 		this.nationNo = nationNo;
 		this.languageName = languageName;
+	}
+
+	public int getLanguageNo() {
+		return languageNo;
+	}
+
+	public void setLanguageNo(int languageNo) {
+		this.languageNo = languageNo;
 	}
 
 	public int getNationNo() {

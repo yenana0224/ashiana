@@ -125,7 +125,7 @@
                         <% } %>
                     </select>
                     <select name="city" id="selectCity">
-                        <option>도시</option>
+                        <option>도시선택</option>
                     </select> 
                     <button type="submit" class="btn btn-sm btn-basic" width="20px"> Go </button>
                 </form>

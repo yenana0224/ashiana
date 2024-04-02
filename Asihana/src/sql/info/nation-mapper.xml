@@ -194,13 +194,31 @@
 	</entry>
 
 	<entry key="searchName">
-	SELECT
-	     NATION_NO,
-	     NATION_NAME
-	 FROM
-	    TB_NATION
-	WHERE
-	     NATION_NAME LIKE '%'||?||'%'
+	  SELECT
+		      NATION_NO,
+		      NATION_NAME
+	    FROM
+	        (SELECT
+	             ROWNUM,
+	             NATION_NO,
+	             NATION_NAME,
+	             NATION_CONTENT
+	        FROM
+	            (SELECT
+	                  NATION_NO,
+	                  NATION_NAME,
+	                  NATION_CONTENT
+	             FROM
+	                 TB_NATION
+	            WHERE
+	                 NOT TB_NATION.NATION_NO = 82
+	            ORDER
+	               BY
+	                 NATION_NO) A )
+	    WHERE
+              NATION_NAME LIKE '%'||?||'%'
+	      AND
+             ROWNUM BETWEEN ? AND ?
 	</entry>
 	
 </properties>

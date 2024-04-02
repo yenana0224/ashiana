@@ -62,7 +62,14 @@ public class CityService {
 	public int countCity() {
 		Connection conn = getConnection();
 		int count = new CityDao().countCity(conn);
-		if(count > 0) commit(conn);
+		close(conn);
+		return count;
+	}
+	
+	// 도시 검색시 도시 숫자
+	public int countSelectCity(String keyword) {
+		Connection conn = getConnection();
+		int count = new CityDao().countSelectCity(conn, keyword);
 		close(conn);
 		return count;
 	}
@@ -106,9 +113,9 @@ public class CityService {
 	}
 	
 	// 도시이름조회
-	public List<City> searchName(String keyword){
+	public List<City> searchName(String keyword, PageInfo pi){
 		Connection conn = getConnection();
-		List<City> list = new CityDao().searchName(conn, keyword);
+		List<City> list = new CityDao().searchName(conn, pi, keyword);
 		close(conn);
 		return list;
 	}

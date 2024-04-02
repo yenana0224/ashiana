@@ -38,7 +38,7 @@
 			display : none;
 		}
 		
-		.modal-content{
+		#modal-content-endDes{
 			width:340px;
 		}
 		#openEndDetail{

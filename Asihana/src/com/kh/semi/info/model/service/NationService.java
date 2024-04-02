@@ -107,9 +107,9 @@ public class NationService {
 	}
 	
 	// 국가이름조회
-	public List<Nation> searchName(String keyword){
+	public List<Nation> searchName(String keyword, PageInfo pi){
 		Connection conn = getConnection();
-		List<Nation> list = new NationDao().searchName(conn, keyword);
+		List<Nation> list = new NationDao().searchName(conn, keyword, pi);
 		close(conn);
 		return list;
 	}

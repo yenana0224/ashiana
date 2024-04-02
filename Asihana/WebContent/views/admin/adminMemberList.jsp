@@ -142,6 +142,7 @@
                     <option value="nickName">닉네임</option>
                 </select>
                 <input type="text" name="keyword">
+                <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
                 <button type="submit">검색</button>
             </form>
         </div>

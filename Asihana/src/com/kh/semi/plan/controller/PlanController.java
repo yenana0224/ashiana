@@ -95,16 +95,13 @@ public class PlanController {
 	}
 	
 	public int insertDestination(HttpServletRequest request, HttpServletResponse response) {
-		
-		int planNo = Integer.parseInt(request.getParameter("planNo"));
-		Destination des = new Destination(planNo,
+		Destination des = new Destination(Integer.parseInt(request.getParameter("planNo")),
 										  Integer.parseInt(request.getParameter("cityNo")),
 										  request.getParameter("trans"),
 										  request.getParameter("transPrice"),
 										  request.getParameter("trip"),
 										  request.getParameter("arrival"),
 										  request.getParameter("returnDate"));
-		
 		return new PlanService().insertDestination(des);
 	}
 
@@ -140,6 +137,19 @@ public class PlanController {
 			view = "views/common/errorPage.jsp";
 		}
 		return view;
+	}
+
+	public int updateDestination(HttpServletRequest request, HttpServletResponse response) {
+		Destination des = new Destination();
+		des.setDestNo(Integer.parseInt(request.getParameter("destNo")));
+		des.setCityNo(Integer.parseInt(request.getParameter("cityNo")));
+		des.setTrans(request.getParameter("trans"));
+		des.setTransPrice(request.getParameter("transPrice"));
+		des.setTrip(request.getParameter("trip"));
+		des.setArrival(request.getParameter("arrival"));
+		des.setReturnDate(request.getParameter("returnDate"));
+		
+		return new PlanService().updateDestination(des);
 	}
 
 

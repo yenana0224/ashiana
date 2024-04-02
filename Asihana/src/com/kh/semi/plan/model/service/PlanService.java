@@ -187,6 +187,17 @@ public class PlanService {
 		return result;
 	}
 
+	public int updateDestination(Destination des) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().updateDestination(conn, des);
+		
+		if(result > 0) commit(conn);
+		
+		return result;
+	}
+
 
 
 

@@ -13,7 +13,7 @@ public class Destination {
 	public Destination() {
 		super();
 	}
-	
+
 	public Destination(int planNo, String trans, String transPrice, String trip, String arrival) {
 		super();
 		this.planNo = planNo;

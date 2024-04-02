@@ -129,8 +129,8 @@
 		       TRANS,
 		       TRIP,
 		       NVL(TO_CHAR(TRANS_PRICE, 'FM999,999,999,999'), '0') AS TRANS_PRICE,
-		       TO_CHAR(ARRIVAL, 'YYYY-MM-DD HH24:MI') AS ARRIVAL,
-		       TO_CHAR(RETURN_DATE, 'YYYY-MM-DD HH24:MI') AS RETURN_DATE,
+		       ARRIVAL,
+		       RETURN_DATE,
 		       CEIL(RETURN_DATE - ARRIVAL) || '박' || (CEIL(RETURN_DATE - ARRIVAL) + 1) || '일' DEST_DATE,
 		       NVL(TO_CHAR(SUM_COST, 'FM999,999,999,999'), '0') AS SCHED_COST_SUM
 		  FROM TB_DESTINATION
@@ -291,5 +291,18 @@
 		      PLAN_NO = ?
 	</entry>
 
+	<entry key="updateDestination">
+		UPDATE
+		      TB_DESTINATION
+		   SET
+		      CITY_NO = ?,
+		      TRANS = ?,
+		      TRANS_PRICE = ?,
+		      TRIP = ?,
+		      ARRIVAL = TO_DATE(?, 'YYYY-MM-DD HH24:MI'),
+		      RETURN_DATE = TO_DATE(?, 'YYYY-MM-DD HH24:MI')
+		 WHERE
+		      DEST_NO = ?
+	</entry>
 	
 </properties>

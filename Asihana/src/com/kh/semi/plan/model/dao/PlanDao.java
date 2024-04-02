@@ -434,6 +434,32 @@ public class PlanDao {
 	}
 
 
+	public int updateDestination(Connection conn, Destination des) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateDestination");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, des.getCityNo());
+			pstmt.setString(2, des.getTrans());
+			pstmt.setInt(3, Integer.parseInt(des.getTransPrice()));
+			pstmt.setString(4, des.getTrip());
+			pstmt.setString(5, des.getArrival().substring(0, des.getArrival().length()-5));
+			pstmt.setString(6, des.getReturnDate().substring(0, des.getReturnDate().length()-5));
+			pstmt.setInt(7, des.getDestNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 
 

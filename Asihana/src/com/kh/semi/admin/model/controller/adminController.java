@@ -24,6 +24,7 @@ import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.info.model.vo.StoryFile;
+import com.kh.semi.info.model.vo.Visa;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.oreilly.servlet.MultipartRequest;
@@ -82,27 +83,39 @@ public class adminController {
 	 * @return
 	 */
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+		
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new StoryService().countStory();
+		if(category != null && category.equals("title")) listCount = new StoryService().countSelectTitle(keyword);
+		else if(category != null && category.equals("content")) listCount = new StoryService().countSelectContent(keyword);
+		
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(maxPage < endPage) endPage = maxPage;
-		
+
+		List<StoryFile> storyList = new ArrayList();
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<StoryFile> storyList = new StoryService().storyList(pi);
-		
-		String view = "";
-		
+		if(category != null && category.equals("title")) {
+			storyList = new StoryService().searchTitle(pi, keyword);
+		} else if (category != null && category.equals("content")) {
+			storyList = new StoryService().searchContent(pi, keyword);
+		} else if(category == null) {
+			storyList = new StoryService().storyList(pi);
+		}
+
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", storyList);
-		
-		view = "views/admin/adminStoryList.jsp";
-		
-		return view;
+		request.setAttribute("count", listCount);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
+
+		return "views/admin/adminStoryList.jsp";
 	}
 	
 	/***
@@ -403,6 +416,8 @@ public class adminController {
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", nationList);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
 		
 		return  "views/admin/adminInfoList.jsp";
 	}
@@ -440,6 +455,8 @@ public class adminController {
 
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", cityList);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
 		
 		return "views/admin/adminCityList.jsp";
 		
@@ -479,28 +496,23 @@ public class adminController {
 		request.setCharacterEncoding("UTF-8");
 		
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		String nationName = request.getParameter("nationName");
-		String nationContent = request.getParameter("nationContent");
-		String voltage = request.getParameter("voltage");
-		String visaName = request.getParameter("visa");
-		String language = request.getParameter("language");
-		String currency = request.getParameter("currency");
 		
 		Nation nation = new Nation();
 		nation.setNationNo(nationNo);
-		nation.setNationName(nationName);
-		nation.setNationContent(nationContent);
-		nation.setVoltage(voltage);
-		nation.setVisaName(visaName);
-		nation.setLanguage(language);
-		nation.setCurrency(currency);
-		
+		nation.setNationName(request.getParameter("nationName"));
+		nation.setNationContent(request.getParameter("nationContent"));
+		nation.setVoltage(request.getParameter("voltage"));
+		nation.setLanguage(request.getParameter("language"));
+		nation.setCurrency(request.getParameter("currency"));
+		nation.setVisaName(request.getParameter("visa"));
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
+		List<Visa> visaList = new InfoService().visaList();
 		
 		request.setAttribute("nation", nation);
 		request.setAttribute("title", title);
 		request.setAttribute("file", file);
+		request.setAttribute("visaList", visaList);
 		
 		return "views/admin/nationUpdateForm.jsp";		
 	}
@@ -522,10 +534,11 @@ public class adminController {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
+			int visaNo = Integer.parseInt(multiRequest.getParameter("visaNo"));
+
 			String nationName = multiRequest.getParameter("nationName");
 			String nationContent = multiRequest.getParameter("nationContent");
 			String voltage = multiRequest.getParameter("voltage");
-			String visaName = multiRequest.getParameter("visa");
 			String language = multiRequest.getParameter("language");
 			String currency = multiRequest.getParameter("currency");
 			
@@ -534,7 +547,6 @@ public class adminController {
 			nation.setNationName(nationName);
 			nation.setNationContent(nationContent);
 			nation.setVoltage(voltage);
-			nation.setVisaName(visaName);
 			nation.setLanguage(language);
 			nation.setCurrency(currency);
 			
@@ -555,8 +567,11 @@ public class adminController {
 				file.setFilePath("/resources/info/nation");
 			}
 			
-			int result = new NationService().updateNation(nation, title, file);
-
+			int visaResult = new InfoService().updateVisa(nationNo, visaNo);
+			int nationResult = new NationService().updateNation(nation, title, file);
+			
+			int result = nationResult + visaResult;
+			
 			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
 		}
 		return view;

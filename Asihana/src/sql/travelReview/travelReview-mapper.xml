@@ -290,7 +290,8 @@
 		       CITY_CONTENT,
 		       CURRENCY_NAME,
 		       VOL_NAME,
-		       FILE_PATH || '/' || CHANGE_NAME PATH
+		       FILE_PATH,
+		       CHANGE_NAME
 		   FROM
 		       TB_NATION
 		   JOIN
@@ -321,7 +322,7 @@
 	</entry>
 	<entry key="selectAttachmentFileList">
 		SELECT
-		      FILE_PATH|| '/' ||CHANGE_NAME PATH,
+		      FILE_PATH || '/' || CHANGE_NAME PATH,
 		      FILE_LEVEL
 		  FROM
 		      TB_FILE

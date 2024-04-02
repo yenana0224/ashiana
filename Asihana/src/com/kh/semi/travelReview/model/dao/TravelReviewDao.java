@@ -472,8 +472,8 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 				city.setCityContent(rset.getString("CITY_CONTENT"));
 				city.setCurrency(rset.getString("CURRENCY_NAME"));
 				city.setVoltage(rset.getString("VOL_NAME"));
-				city.setFilePath(rset.getString("PATH"));
-				
+				city.setFilePath(rset.getString("FILE_PATH"));
+				city.setChangeName(rset.getString("CHANGE_NAME"));
 				list.add(city);
 			}
 		} catch (SQLException e) {

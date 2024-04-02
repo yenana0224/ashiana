@@ -266,9 +266,9 @@
                     
                     <!-- 화면 세팅 구도 보기 위한 것, 추후 없애질 영역-->
                     <div id="nation-thumbnail">
-                    <%System.out.println(cityInfo.get(0).getFilePath() + "도시경로"); %>
-                        <img src="<%=cityInfo.get(0).getFilePath()%>" alt="국가도시">
+                        <img src="<%=contextPath %><%=cityInfo.get(0).getFilePath()%>/<%=cityInfo.get(0).getChangeName() %>" alt="국가도시">
                     </div>
+                    
                     <div id="nation-content">
                         
                         

@@ -14,7 +14,19 @@ public class City {
 	private String currency;
 	private int count;
 	private String filePath;
+	private String changeName;
 	
+	
+	
+	
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 	public String getFilePath() {
 		return filePath;
 	}

@@ -260,7 +260,7 @@
 
             <div id="content-2-2">
                 <div id="content-2-title">
-                    <p style="padding-top: 20px;">일본(도쿄)</p> <!-- p태그에 들어갈 국가(도시)명은 DB에서 조회해올 예정-->
+                    <p style="padding-top: 20px;"><%= cityInfo.get(0).getCityName() %>(<%=cityInfo.get(0).getNationName()%>)</p> <!-- p태그에 들어갈 국가(도시)명은 DB에서 조회해올 예정-->
                 </div>
                 <div id="content-2-boardlist"> <!--추후 list에 띄워질 게시물은 DB에서 조회해온 뒤 반복문을 통해 출력-->
                     

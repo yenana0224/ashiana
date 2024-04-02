@@ -191,7 +191,6 @@
         <!--여기부터 content의 3분할 중 1영역-->
         <div id="content-1wrap">
             <div id="content-1-1" class="content-1wrap">
-                <p><a href="<%=contextPath%>/cityDetail.review">상세</a></p>
             </div>
             <div id="content-1-2" class="content-1wrap" align="center">
                 <div id="content-1-title">

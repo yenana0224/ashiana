@@ -19,15 +19,10 @@ public interface CommunityService {
 	Community selectCoummunity(int comuNo);
 	
 	// 커뮤니티  작성(C)
-	Community insert(int comuNO);
-	
 	
 	// 커뮤니티 수정(U)
-	Community update(int comuNO);
-	
 	
 	// 커뮤니티 삭제(D/U)
-	Community delete(int comuNO);
 	
 	
 

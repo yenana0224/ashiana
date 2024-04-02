@@ -26,9 +26,10 @@ public class CommunityServiceImpl {
 		return list;
 	}
 
-		public Community selectCommunity(int communityNo) {  // 상세조회
+	public Community selectCommunity(int communityNo) {  // 상세조회
 		
 		Connection conn = getConnection();		
+		
 		Community community = new CommunityDao().selectCommunity(conn, communityNo);
 
 		close(conn);

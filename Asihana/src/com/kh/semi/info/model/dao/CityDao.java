@@ -220,6 +220,26 @@ public class CityDao {
 		return count;
 	}
 	
+	public int countSelectCity(Connection conn, String keyword) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countSelectCity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			if(rset.next()) count = rset.getInt("COUNT");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} 
+		return count;
+	}
+	
 	public AttachmentFile selectPhoto(Connection conn, int cityNo) {
 		AttachmentFile file = null;
 		PreparedStatement pstmt = null;
@@ -342,7 +362,7 @@ public class CityDao {
 		return result;
 	}
 	
-	public List<City> searchName(Connection conn, String keyword){
+	public List<City> searchName(Connection conn, PageInfo pi, String keyword){
 		List<City> list = new ArrayList<City>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -350,15 +370,19 @@ public class CityDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
 			pstmt.setString(1, keyword);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				City city = new City();
-				city.setCityNo(rset.getInt("CITY_NO"));
-				city.setCityName(rset.getString("CITY_NAME"));
 				city.setNationNo(rset.getInt("NATION_NO"));
 				city.setNationName(rset.getString("NATION_NAME"));
+				city.setCityNo(rset.getInt("CITY_NO"));
+				city.setCityName(rset.getString("CITY_NAME"));
 				city.setCount(rset.getInt("COUNT"));
 				list.add(city);
 			}

@@ -10,6 +10,8 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	String category = (String)request.getAttribute("category");
+	String keyword = (String)request.getAttribute("keyword");
 %>
 
 <!DOCTYPE html>
@@ -119,7 +121,10 @@
             border : none;
             font-size : 15px;
         }
-
+        
+        .paging-area>button:hover{
+        	cursor : pointer;
+        }
 
     </style>
 </head>
@@ -134,9 +139,8 @@
         </div>
 
         <div class="search">
-            <form action="searchInfo.admin" method="get">
+            <form action="nationCityList.admin" method="get">
                 <select name="category">
-                    <option value="nation">국가</option>
                     <option value="city">도시</option>
                 </select>
                 <input type="text" name="keyword">
@@ -156,7 +160,7 @@
                 <tbody>
                     <% if(list.isEmpty()) { %>
                         <tr>
-                            <td colspan="2"> 게시글이 없습니다</td>
+                            <td colspan="3"> 게시글이 없습니다</td>
                         </tr>
                     <% } else { %>
                         <% for(City c : list) { %>
@@ -183,27 +187,42 @@
         
         </script>
         
-         <div class="paging-area" align="center">
-        
-        	<% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=currentPage -1 %>'">이전</button>
-          	<% } %>   
-        	
-			<% for(int i = startPage; i <= endPage; i++){ %>
-			
-				<% if(currentPage != i){ %>
-				<button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=i%>'"><%= i %></button>
-				<%} else {%>
-					<button disabled><%=i %></button>
+       <div class="paging-area" align="center">
+
+        	<% if(category != null) { %>
+        	    <% if(currentPage > 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/nationCityList.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=currentPage -1 %>'">이전</button>
+          		<% } %>         		
+        		<% for(int i = startPage; i <= endPage; i++){ %>
+					<% if(currentPage != i){ %>
+					<button onclick="location.href='<%=contextPath%>/nationCityList.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=i%>'"><%= i %></button>
+					<%} else {%>
+						<button style="background-color : darkgray" disabled><%=i %></button>
+					<%} %>
 				<%} %>
-			<%} %>
+				<% if(currentPage != maxPage) { %>
+			 	 <button onclick="location.href='<%=contextPath%>/nationCityList.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=currentPage + 1%>'">다음</button>
+				<% } %>	
+							
+        	<% } else { %>
+        	    <% if(currentPage > 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=currentPage -1 %>'">이전</button>
+          		<% } %> 
+				<% for(int i = startPage; i <= endPage; i++){ %>
+					<% if(currentPage != i){ %>
+					<button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=i%>'"><%= i %></button>
+					<%} else {%>
+						<button style="background-color : darkgray" disabled><%=i %></button>
+					<%} %>
+				<%} %>
+				<% if(currentPage != maxPage) { %>
+			 	 <button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=currentPage + 1%>'">다음</button>
+				<% } %>
 			
-			<% if(currentPage != maxPage) { %>
-			  <button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=currentPage + 1%>'">다음</button>
 			<% } %>
+
         </div>
         
-
     </div>
 </body>
 </html>

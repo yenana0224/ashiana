@@ -8,14 +8,14 @@
 	
 	<entry key="selectCommunityList">
 		    SELECT
-            COM.COMMUNITY_NO,
-            C.CITY_NAME,
-             M.NICKNAME,
-           COM.COMMUNITY_CONTENT,
-            COM.COMMUNITY_DATE,
-            COM.COUNT,
-        	 COM.STATUS
-            
+	            COM.COMMUNITY_NO,
+	            C.CITY_NAME,
+	             M.NICKNAME,
+	           COM.COMMUNITY_CONTENT,
+	            COM.COMMUNITY_DATE,
+	            COM.COUNT,
+	        	 COM.STATUS
+	            
         
            FROM TB_COMMUNITY COM
             JOIN TB_CITY C ON COM.CITY_NO = C.CITY_NO

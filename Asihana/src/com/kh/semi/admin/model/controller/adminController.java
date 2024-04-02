@@ -24,12 +24,21 @@ import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
 import com.kh.semi.info.model.vo.StoryFile;
+import com.kh.semi.info.model.vo.Visa;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.oreilly.servlet.MultipartRequest;
 
 public class adminController {
 	
+	/***
+	 * 공지사항 목록 + 검색
+	 * 
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String noticeList(HttpServletRequest request, HttpServletResponse response) {
 
 		String select = request.getParameter("select");
@@ -66,35 +75,66 @@ public class adminController {
 		return "views/admin/adminNoticeList.jsp";
 	}
 	
+	
+	/***
+	 * 스토리 목록 + 검색
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String storyList(HttpServletRequest request, HttpServletResponse response) {
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+		
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new StoryService().countStory();
+		if(category != null && category.equals("title")) listCount = new StoryService().countSelectTitle(keyword);
+		else if(category != null && category.equals("content")) listCount = new StoryService().countSelectContent(keyword);
+		
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		if(maxPage < endPage) endPage = maxPage;
-		
+
+		List<StoryFile> storyList = new ArrayList();
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<StoryFile> storyList = new StoryService().storyList(pi);
-		
-		String view = "";
-		
+		if(category != null && category.equals("title")) {
+			storyList = new StoryService().searchTitle(pi, keyword);
+		} else if (category != null && category.equals("content")) {
+			storyList = new StoryService().searchContent(pi, keyword);
+		} else if(category == null) {
+			storyList = new StoryService().storyList(pi);
+		}
+
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", storyList);
-		
-		view = "views/admin/adminStoryList.jsp";
-		
-		return view;
+		request.setAttribute("count", listCount);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
+
+		return "views/admin/adminStoryList.jsp";
 	}
 	
+	/***
+	 * 공지사항 작성페이지로 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String noticeInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		return "views/admin/noticeInsertForm.jsp";
 	}
 	
+	/***
+	 * 공지사항 상세보기
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String noticeDetail(HttpServletRequest request, HttpServletResponse response) {
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		int boardType = 4;
@@ -107,6 +147,13 @@ public class adminController {
 		return "views/admin/noticeDetail.jsp";
 	}
 	
+	/***
+	 * 공지사항 고정
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public String changeHold(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		String[] holds = request.getParameterValues("hold");
 		int result = new AdminService().changeHolds(holds);
@@ -114,6 +161,13 @@ public class adminController {
 		return "/notice.admin?currentPage=1";
 	}
 	
+	/***
+	 * 공지사항 수정페이지 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public String noticeUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
@@ -127,6 +181,13 @@ public class adminController {
 		return "views/admin/noticeUpdateForm.jsp";		
 	}
 	
+	/***
+	 * 공지사항 수정
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String noticeUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		request.setCharacterEncoding("UTF-8");
@@ -179,7 +240,12 @@ public class adminController {
 		return view;
 	}
 	
-	
+	/***
+	 * 스토리 삭제
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String storyDel(HttpServletRequest request, HttpServletResponse response) {
 		String view = "";
 		String[] storyNos = request.getParameterValues("storyNo");
@@ -189,11 +255,24 @@ public class adminController {
 		return view;
 	}
 	
+	/***
+	 * 스토리 작성페이지 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String storyInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		return "views/admin/storyInsertForm.jsp";
 	}
 	
+	/***
+	 * 스토리 작성
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String storyInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		String view = "";
@@ -231,6 +310,12 @@ public class adminController {
 		return view;
 	}
 	
+	/***
+	 * 스토리 상세페이지
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String storyDetail(HttpServletRequest request, HttpServletResponse response) {
 		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
 		StoryFile file = new StoryService().detailStory(storyNo);
@@ -238,6 +323,12 @@ public class adminController {
 		return "views/admin/storyDetail.jsp";
 	}
 	
+	/***
+	 * 스토리 수정페이지로 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String storyUpdateForm(HttpServletRequest request, HttpServletResponse response) {
 		int storyNo = Integer.parseInt(request.getParameter("storyNo"));
 		StoryFile file = new StoryService().detailStory(storyNo);
@@ -245,6 +336,13 @@ public class adminController {
 		return "views/admin/storyUpdateForm.jsp";
 	}
 	
+	/**
+	 * 스토리 수정
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String storyUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		String view = "";
@@ -284,6 +382,12 @@ public class adminController {
 		return view;
 	}
 	
+	/***
+	 * 국가 목록 + 검색
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String nationList(HttpServletRequest request, HttpServletResponse response) {
 		
 		String category = request.getParameter("category");
@@ -304,24 +408,34 @@ public class adminController {
 		
 		List<Nation> nationList = new ArrayList();
 		
-		if(category != null && category.equals("nation")) {
+		if(category != null) {
 			nationList = new NationService().searchName(keyword, pi);
-			request.setAttribute("list", nationList);
 		} else {
 			nationList = new NationService().nationList(pi);
 		}
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", nationList);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
 		
 		return  "views/admin/adminInfoList.jsp";
 	}
 	
+	/***
+	 * 도시 목록 + 검색
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String allCityList(HttpServletRequest request, HttpServletResponse response) {
 		
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
 		
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new CityService().countCity();
+		if(category != null) listCount = new CityService().countSelectCity(keyword); 
 		int pageLimit = 10;
 		int boardLimit = 15;
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -331,15 +445,29 @@ public class adminController {
 
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-		List<City> cityList = new CityService().allCityList(pi);
+		List<City> cityList = new ArrayList();
 		
+		if(category != null) {
+			cityList = new CityService().searchName(keyword, pi);
+		} else {
+			cityList = new CityService().allCityList(pi);
+		}
+
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", cityList);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
 		
 		return "views/admin/adminCityList.jsp";
 		
 	}
 	
+	/***
+	 * 국가 상세페이지
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		Nation nation = new NationService().searchNation(nationNo);
@@ -357,36 +485,45 @@ public class adminController {
 		return "views/admin/nationInfoDetail.jsp";
 	}
 	
+	/**
+	 * 국가 수정 페이지로 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public String nationUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		String nationName = request.getParameter("nationName");
-		String nationContent = request.getParameter("nationContent");
-		String voltage = request.getParameter("voltage");
-		String visaName = request.getParameter("visa");
-		String language = request.getParameter("language");
-		String currency = request.getParameter("currency");
 		
 		Nation nation = new Nation();
 		nation.setNationNo(nationNo);
-		nation.setNationName(nationName);
-		nation.setNationContent(nationContent);
-		nation.setVoltage(voltage);
-		nation.setVisaName(visaName);
-		nation.setLanguage(language);
-		nation.setCurrency(currency);
-		
+		nation.setNationName(request.getParameter("nationName"));
+		nation.setNationContent(request.getParameter("nationContent"));
+		nation.setVoltage(request.getParameter("voltage"));
+		nation.setLanguage(request.getParameter("language"));
+		nation.setCurrency(request.getParameter("currency"));
+		nation.setVisaName(request.getParameter("visa"));
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
+		List<Visa> visaList = new InfoService().visaList();
 		
 		request.setAttribute("nation", nation);
 		request.setAttribute("title", title);
 		request.setAttribute("file", file);
+		request.setAttribute("visaList", visaList);
 		
 		return "views/admin/nationUpdateForm.jsp";		
 	}
 	
+	/***
+	 * 국가 수정
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String nationUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		String view = "";
@@ -397,10 +534,11 @@ public class adminController {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
+			int visaNo = Integer.parseInt(multiRequest.getParameter("visaNo"));
+
 			String nationName = multiRequest.getParameter("nationName");
 			String nationContent = multiRequest.getParameter("nationContent");
 			String voltage = multiRequest.getParameter("voltage");
-			String visaName = multiRequest.getParameter("visa");
 			String language = multiRequest.getParameter("language");
 			String currency = multiRequest.getParameter("currency");
 			
@@ -409,7 +547,6 @@ public class adminController {
 			nation.setNationName(nationName);
 			nation.setNationContent(nationContent);
 			nation.setVoltage(voltage);
-			nation.setVisaName(visaName);
 			nation.setLanguage(language);
 			nation.setCurrency(currency);
 			
@@ -430,13 +567,22 @@ public class adminController {
 				file.setFilePath("/resources/info/nation");
 			}
 			
-			int result = new NationService().updateNation(nation, title, file);
-
+			int visaResult = new InfoService().updateVisa(nationNo, visaNo);
+			int nationResult = new NationService().updateNation(nation, title, file);
+			
+			int result = nationResult + visaResult;
+			
 			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
 		}
 		return view;
 	}
 	
+	/***
+	 * 도시 상세페이지
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String cityinfo(HttpServletRequest request, HttpServletResponse response) {
 		
 		int cityNo = Integer.parseInt(request.getParameter("cityNo"));
@@ -451,6 +597,13 @@ public class adminController {
 		return "views/admin/cityInfoDetail.jsp";
 	}
 	
+	/***
+	 * 도시 수정 페이지로 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public String cityUpdateForm(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -469,6 +622,13 @@ public class adminController {
 		return "views/admin/cityUpdateForm.jsp";
 	}
 	
+	/***
+	 * 도시 수정
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String cityUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		String view = "";
@@ -509,6 +669,12 @@ public class adminController {
 		return view;
 	}
 	
+	/***
+	 * 회원 목록 + 검색
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String memberList(HttpServletRequest request, HttpServletResponse response){
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new AdminService().countMember();
@@ -530,6 +696,12 @@ public class adminController {
 		return "views/admin/adminMemberList.jsp";
 	}
 	
+	/**
+	 * 회원탈퇴
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String memberDelete(HttpServletRequest request, HttpServletResponse response) {
 		String[] userNos = request.getParameterValues("userNo");
 		int result = 1;
@@ -541,6 +713,12 @@ public class adminController {
 		return "/member.admin?currentPage=1";
 	}
 	
+	/**
+	 * 회원 탈퇴 목록
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String userDeleteList(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new AdminService().countMember();
@@ -562,6 +740,12 @@ public class adminController {
 		return "views/admin/adminUserDeleteList.jsp";
 	}
 	
+	/**
+	 * 회원 복구
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String memberRollback(HttpServletRequest request, HttpServletResponse response) {
 		String[] userNos = request.getParameterValues("userNo");
 		int result = 1;
@@ -579,20 +763,5 @@ public class adminController {
 		return "/notmember.admin?currentPage=1";
 	}
 	
-	public String searchInfo(HttpServletRequest request, HttpServletResponse response) {
 
-		if(category.equals("nation")) {
-			list = new NationService().searchName(keyword, pi);
-			request.setAttribute("list", list);
-			view = "views/admin/InfoList.jsp";
-		} else {
-			list = new CityService().searchName(keyword, pi);
-			request.setAttribute("list", list);
-			view = "views/admin/CityList.jsp";
-		}
-
-		return view;
-		
-	}
-	
 }

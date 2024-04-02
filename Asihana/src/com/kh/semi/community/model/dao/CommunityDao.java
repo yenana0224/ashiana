@@ -152,6 +152,19 @@ public class CommunityDao {
 		
 		
 	}
+	
+	
+	public int update(Connection conn, Community community) {
+		
+		int result =0;
+		PreparedStatement pstmt=null;
+		String sql = prop.getProperty("update");
+		
+		
+		
+		
+		
+	}
 
 	
 	

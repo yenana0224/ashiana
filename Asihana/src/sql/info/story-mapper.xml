@@ -10,10 +10,26 @@
 	SELECT
 	      COUNT(*) COUNT
 	 FROM
-	      TB_STORY
-	WHERE
-	      STATUS = 'Y'
+	      VW_STORY_ALL
 	</entry>
+	
+	<entry key="countSelectTitle">
+	SELECT
+	     COUNT(*) COUNT
+	 FROM
+	    VW_STORY_ALL
+	WHERE
+	    STORY_TITLE LIKE '%'||?||'%'
+    </entry>
+    
+    <entry key="countSelectContent">
+    SELECT
+	     COUNT(*) COUNT
+	 FROM
+	    VW_STORY_ALL
+	WHERE
+	    STORY_CN LIKE '%'||?||'%'
+    </entry>
 	
 	<entry key="storyList">
 	SELECT
@@ -34,6 +50,67 @@
 	        VW_STORY_ALL)
 	WHERE
 	    RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="searhTitle">
+	SELECT
+	    STORY_NO,
+	    STORY_TITLE,
+	    STORY_DATE,
+	    FILE_PATH,
+	    CHANGE_NAME
+	FROM
+	    (SELECT
+	        ROWNUM RNUM,
+	        STORY_NO,
+	        STORY_TITLE,
+	        STORY_DATE,
+	        FILE_PATH,
+	        CHANGE_NAME
+	    FROM
+	        (SELECT
+	            STORY_NO,
+	            STORY_TITLE,
+	            STORY_DATE,
+	            FILE_PATH,
+	            CHANGE_NAME
+	        FROM
+	            VW_STORY_ALL
+	        WHERE
+	            STORY_TITLE LIKE '%'||?||'%'))
+	WHERE
+	    RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="searchContent">
+		SELECT
+	    STORY_NO,
+	    STORY_TITLE,
+	    STORY_DATE,
+	    FILE_PATH,
+	    CHANGE_NAME
+	FROM
+	    (SELECT
+	        ROWNUM RNUM,
+	        STORY_NO,
+	        STORY_TITLE,
+	        STORY_DATE,
+	        FILE_PATH,
+	        CHANGE_NAME
+	    FROM
+	        (SELECT
+	            STORY_NO,
+	            STORY_TITLE,
+	            STORY_DATE,
+	            FILE_PATH,
+	            CHANGE_NAME
+	        FROM
+	            VW_STORY_ALL
+	        WHERE
+	            STORY_CN LIKE '%'||?||'%'))
+	WHERE
+	    RNUM BETWEEN ? AND ?
+	
 	</entry>
 
 	<entry key="detailStory">

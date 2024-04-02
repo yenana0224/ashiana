@@ -33,17 +33,18 @@ public class CommunityUpdateFormController extends HttpServlet {
 	// GET방식
 		
 	// 값뽑기
-	//int communityNo=Integer.parseInt(request.getParameter("communityNo"));
+	int communityNo=Integer.parseInt(request.getParameter("communityNo"));
 	
-	// 가공
+	// 가공 1개라 가공할 것이 없다!!!
 	
 	//서비스호출
-	//Community community = new CommunityServiceImpl(),selectCommunity(communityNo);
+	Community community = new CommunityServiceImpl().selectCommunity(communityNo);
 	
-	//request.setAttribute("community", community);	
+	// 응답 뷰 지정 전에 값을 담아서 출력을 해줘야한다!!! 다른 곳에서 안쓰니까 Attribute에 담든다!!!
+	request.setAttribute("community", community);	
 		
 	
-		
+	// 응답 뷰 지정	
 	request.getRequestDispatcher("views/community/communityUpdateForm.jsp").forward(request, response);		
 	
 	

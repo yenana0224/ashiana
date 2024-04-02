@@ -12,14 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.kh.semi.common.AttachmentFile;
-import com.kh.semi.info.model.vo.City;
 import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
-import com.kh.semi.info.model.vo.Nation;
-import com.kh.semi.info.model.vo.Story;
+import com.kh.semi.info.model.vo.Visa;
 import com.kh.semi.info.model.vo.Voltage;
-import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class InfoDao {
 	
@@ -109,36 +105,50 @@ public class InfoDao {
 			close(pstmt);
 		}
 		return list;
+	};
+
+	public List<Visa> visaList(Connection conn){
+		List<Visa> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("visaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Visa visa = new Visa();
+				visa.setVisaNo(rset.getInt("VISA_NO"));
+				visa.setVisaName(rset.getString("VISA_NAME"));
+				list.add(visa);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int updateVisa(Connection conn, int nationNo, int visaNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateVisa");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, visaNo);
+			pstmt.setInt(2, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
 	}
 
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	
 
 }

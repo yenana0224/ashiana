@@ -144,7 +144,6 @@ public class NationDao {
 			pstmt.setString(2, nation.getNationContent());
 			pstmt.setInt(3, nation.getNationNo());
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

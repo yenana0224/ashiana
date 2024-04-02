@@ -45,6 +45,26 @@
 	 WHERE
 	      TB_NATION.NATION_NO = ?
 	</entry>
+	
+	<entry key="visaList">
+	SELECT
+	     VISA_NO,
+	     VISA_NAME
+	 FROM
+	    TB_VISA
+	ORDER
+	   BY
+	     VISA_NO
+	</entry>
+	
+	<entry key="updateVisa">
+	UPDATE
+	     BRTB_VISA
+	   SET
+	      VISA_NO = ?
+	WHERE
+	     NATION_NO = ?
+	</entry>
 
 	
 </properties>

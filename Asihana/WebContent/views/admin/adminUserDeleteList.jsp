@@ -210,7 +210,7 @@
 				<% if(currentPage != i){ %>
 				<button class="pagebtn" onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=i%>'"><%= i %></button>
 				<%} else {%>
-					<button disabled><%=i %></button>
+				<button style="background-color : darkgray" disabled><%=i %></button>
 				<%} %>
 			<%} %>
 			

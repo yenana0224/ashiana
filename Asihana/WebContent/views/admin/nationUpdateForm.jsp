@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*, java.util.List"%>
 <%
 	Nation nation = (Nation)request.getAttribute("nation");
 	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
 	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
+	List<Visa> visaList = (List<Visa>)request.getAttribute("visaList");
 %>
 <!DOCTYPE html>
 <html>
@@ -138,7 +139,17 @@
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>"></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"><%=nation.getNationContent() %></textarea></div>
             <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
-            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
+            <div class="info-area">
+               <select name="visaNo">
+                    <% for (Visa v : visaList) {%>
+                        <% if (v.getVisaName() != nation.getVisaName() ) {%>
+                            <option value="<%=v.getVisaNo()%>"><%=v.getVisaName() %></option>
+                        <% } else { %>
+                            <option value="<%=v.getVisaNo()%>" selected><%=v.getVisaName() %></option>
+                        <%} %>
+                    <% } %>
+                </select>
+            </div>
             <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
             <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
 			

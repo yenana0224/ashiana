@@ -50,7 +50,46 @@ public class StoryDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int countSelectTitle(Connection conn, String keyword) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countSelectTitle");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			if(rset.next()) count = rset.getInt("COUNT");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}	
+	
+	public int countSelectContent(Connection conn, String keyword) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countSelectContent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			if(rset.next()) count = rset.getInt("COUNT");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 	
 	public List<StoryFile> storyList(Connection conn, PageInfo pi){
@@ -85,6 +124,72 @@ public class StoryDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public List<StoryFile> searchTitle(Connection conn, PageInfo pi, String keyword){
+		List<StoryFile> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searhTitle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				StoryFile file = new StoryFile();
+				file.setStoryNo(rset.getInt("STORY_NO"));
+				file.setStoryTitle(rset.getString("STORY_TITLE"));
+				file.setCreateDate(rset.getString("STORY_DATE"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				list.add(file);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;	
+	}
+	
+	public List<StoryFile> searchContent(Connection conn, PageInfo pi, String keyword){
+		List<StoryFile> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchContent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				StoryFile file = new StoryFile();
+				file.setStoryNo(rset.getInt("STORY_NO"));
+				file.setStoryTitle(rset.getString("STORY_TITLE"));
+				file.setCreateDate(rset.getString("STORY_DATE"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+				file.setChangeName(rset.getString("CHANGE_NAME"));
+				list.add(file);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;	
 	}
 	
 	public StoryFile detailStory(Connection conn, int storyNo) {

@@ -150,5 +150,55 @@ public class InfoDao {
 		
 	}
 
+	public List<Language> langList(Connection conn){
+		List<Language> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("langList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Language e = new Language();
+				e.setLanguageNo(rset.getInt("LANGUAGE_NO"));
+				e.setLanguageName(rset.getString("LANGUAGE_NAME"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<Voltage> volList(Connection conn){
+		List<Voltage> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("volList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Voltage e = new Voltage();
+				e.setVoltageNo(rset.getInt("VOL_NO"));
+				e.setVolName(rset.getString("VOL_NAME"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} 
+		return list;
+		
+	}
 
 }

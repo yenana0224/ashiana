@@ -65,6 +65,22 @@
 	WHERE
 	     NATION_NO = ?
 	</entry>
+	
+	<entry key="langList">
+	SELECT
+	     LANGUAGE_NO,
+	     LANGUAGE_NAME
+	  FROM
+	     TB_LANGUAGE
+	</entry>
+	
+	<entry key="volList">
+	SELECT
+	     VOL_NO,
+	     VOL_NAME
+	 FROM
+	     TB_VOLTAGE
+	</entry>
 
 	
 </properties>

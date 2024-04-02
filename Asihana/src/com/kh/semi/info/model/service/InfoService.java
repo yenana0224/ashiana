@@ -56,6 +56,20 @@ public class InfoService {
 		close(conn);
 		return result;
 	}
+	
+	public List<Language> langList(){
+		Connection conn = getConnection();
+		List<Language> list = new InfoDao().langList(conn);
+		close(conn);
+		return list;
+	}
+	
+	public List<Voltage> volList(){
+		Connection conn = getConnection();
+		List<Voltage> list = new InfoDao().volList(conn);
+		close(conn);
+		return list;
+	}
 
 
 }

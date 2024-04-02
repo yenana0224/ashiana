@@ -217,7 +217,10 @@
 				<% } %>
 			
 			<% } %>
-
+        </div>
+        
+       <div class="btn">
+        	<a href="<%=contextPath %>/nationInsertForm.admin">국가 추가하기</a>
         </div>
 
     </div>

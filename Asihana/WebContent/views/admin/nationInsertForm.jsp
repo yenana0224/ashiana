@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*, java.util.List"%>
 <%
-	Nation nation = (Nation)request.getAttribute("nation");
-	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
-	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 	List<Visa> visaList = (List<Visa>)request.getAttribute("visaList");
 %>
 <!DOCTYPE html>
@@ -119,44 +116,41 @@
 
         <div class="title">
             <h2>국가/도시정보</h2>
-            <h3>국가정보수정</h3>
+            <h3>국가 정보 추가</h3>
         </div>
        
         <div class="titlePicture">
-        	<% if(title != null) { %>
-            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>/<%=title.getChangeName() %>">
-            <% } %>
-        </div>
+            <img id="titlePhoto" src="">
 
+        </div>
         <div class="photo">
-        	<% if(file != null) { %>
-            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
-            <% } %>
+            <img id="nationPhoto" src="">
         </div>
     
-        <form action="nationUpdate.admin" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
-            <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>"></div>
-            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"><%=nation.getNationContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
+        <form action="nationInsert.admin" method="post" enctype="multipart/form-data">
+            <div class="info-area"><input type="text" name="nationName"></div>
+            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"></textarea></div>
+            <div class="info-area">
+            
+            </div>
             <div class="info-area">
                <select name="visaNo">
                     <% for (Visa v : visaList) {%>
-                        <% if (!v.getVisaName().equals(nation.getVisaName())) {%>
-                            <option value="<%=v.getVisaNo()%>"><%=v.getVisaName() %></option>
-                        <% } else { %>
                             <option value="<%=v.getVisaNo()%>" selected><%=v.getVisaName() %></option>
                         <%} %>
-                    <% } %>
                 </select>
             </div>
-            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
-            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
+            <div class="info-area">
+            
+            </div>
+            <div class="info-area">
+            
+            </div>
 			
 			<div class="info-area">
-                <label>도시사진변경</label>
-                <div class="btn"><input type="file" name="newTitleFile" onchange="loadImg(this, 1);"> </div>
-			    <div class="btn"><input type="file" name="newFile" onchange="loadImg(this, 2);"> </div>
+                <label>도시사진</label>
+                <div class="btn"><input type="file" name="TitleFile" onchange="loadImg(this, 1);"> </div>
+			    <div class="btn"><input type="file" name="File" onchange="loadImg(this, 2);"> </div>
             </div>
             
             <div class="btn">

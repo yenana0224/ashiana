@@ -72,9 +72,9 @@
             -->
             
 
-            <a href="<%=contextPath%>/updateForm.community?communityNo=<%=c.getComuNo() %>"
+            <a href="<%=contextPath%>/updateForm.commu?communityNo=<%=c.getComuNo() %>"
                 class="btn btn-sm btn-warning">수정하기</a>
-            <a href="<%=contextPath %>/delete.community?communityNo=<%=c.getComuNo()%>"
+            <a href="<%=contextPath %>/delete.commu?communityNo=<%=c.getComuNo()%>"
             	class="btn btn-sm btn-secondary">삭제하기</a>
             
         </div>

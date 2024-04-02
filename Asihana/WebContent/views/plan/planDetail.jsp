@@ -140,7 +140,7 @@
 							arrival = result[i].arrival;
 							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
 							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-							if(result[i].trans == undefined){
+							if(result[i].trans == undefined || result[i].trans == '등록 안함'){
     							rootInfo = '(' + rootHour + '시간';
     						}
     						else{
@@ -168,7 +168,7 @@
     						arrival = result[i].arrival;
     						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
     						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-    						if(result[i].trans == undefined){
+    						if(result[i].trans == undefined || result[i].trans == '등록 안함'){
     							rootInfo = '(' + rootHour + '시간';
     						}
     						else{

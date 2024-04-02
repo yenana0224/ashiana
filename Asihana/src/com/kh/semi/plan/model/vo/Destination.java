@@ -9,11 +9,10 @@ public class Destination {
 	private String trip;
 	private String arrival;
 	private String returnDate;
+	
 	public Destination() {
 		super();
 	}
-	
-	
 	
 	public Destination(int planNo, String trans, String transPrice, String trip, String arrival) {
 		super();
@@ -23,8 +22,6 @@ public class Destination {
 		this.trip = trip;
 		this.arrival = arrival;
 	}
-
-
 
 	public Destination(int destNo, int planNo, String returnDate) {
 		super();
@@ -105,12 +102,14 @@ public class Destination {
 	public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
 	}
+
 	@Override
 	public String toString() {
-		return "Destination [destNo=" + destNo + ", planNo=" + planNo + ", cityNo=" + cityNo + ", trans=" + trans
-				+ ", transPrice=" + transPrice + ", trip=" + trip + ", arrival=" + arrival + ", returnDate="
-				+ returnDate + "]";
+		return "Destination [destNo=" + destNo + ", planNo=" + planNo + ", cityNo="
+				+ cityNo + ", trans=" + trans + ", transPrice=" + transPrice + ", trip=" + trip + ", arrival=" + arrival
+				+ ", returnDate=" + returnDate + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -125,6 +124,7 @@ public class Destination {
 		result = prime * result + ((trip == null) ? 0 : trip.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -167,4 +167,6 @@ public class Destination {
 			return false;
 		return true;
 	}
+
+	
 }

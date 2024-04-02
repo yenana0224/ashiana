@@ -357,7 +357,6 @@ public class PlanDao {
 		String sql = prop.getProperty("insertEndDestination");
 		
 		try {
-			System.out.println(des);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, des.getPlanNo());
 			pstmt.setString(2, des.getTrans());
@@ -373,6 +372,68 @@ public class PlanDao {
 		}
 		return result;
 	}
+
+	public int publishSched(Connection conn, int planNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("publishSched");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int publishDest(Connection conn, int planNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("publishDest");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int publishPlan(Connection conn, int planNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("publishPlan");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 
 

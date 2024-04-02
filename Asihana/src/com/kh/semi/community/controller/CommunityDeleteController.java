@@ -36,6 +36,8 @@ public class CommunityDeleteController extends HttpServlet {
 	
 	
 	
+
+	
 	}
 
 	/**

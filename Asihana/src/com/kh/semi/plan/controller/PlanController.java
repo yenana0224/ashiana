@@ -127,6 +127,23 @@ public class PlanController {
 		return new PlanService().insertEndDestination(des);
 	}
 
+	public String publishPlan(HttpServletRequest request, HttpServletResponse response) {
+
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
+		int scheds = Integer.parseInt(request.getParameter("scheds"));
+		String view = "";
+		if(new PlanService().publishPlan(planNo, scheds) > 0) {
+			request.setAttribute("planNo", planNo);
+			view = "views/plan/planDetail.jsp";
+		} else {
+			request.setAttribute("errorMsg", "작성하신 플랜이 아닙니다.");
+			view = "views/common/errorPage.jsp";
+		}
+		return view;
+	}
+
+
+
 
 
 

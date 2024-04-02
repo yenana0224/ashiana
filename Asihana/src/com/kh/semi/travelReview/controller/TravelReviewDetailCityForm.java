@@ -44,6 +44,10 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 		// service 호출
 		List<City> cityInformation = new TravelReviewService().selectDetailCity(cityName);
 		System.out.println(cityInformation);
+		
+		
+		
+		
 		// 출력화면 지정
 		if(cityInformation.isEmpty()) {
 			request.setAttribute("errorMsg", "게시글 조회실패");

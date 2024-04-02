@@ -169,6 +169,25 @@ public class PlanService {
 		return result;
 	}
 
+	public int publishPlan(int planNo, int scheds) {
+		
+		Connection conn = getConnection();
+		
+		int sResult = 1;
+		if(scheds != new PlanDao().publishSched(conn, planNo)) sResult = 0;
+		int dResult = new PlanDao().publishDest(conn, planNo);
+		int pResult = new PlanDao().publishPlan(conn, planNo);
+		
+		int result = sResult * dResult * pResult;
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 
 
 

@@ -129,8 +129,8 @@
 		       TRANS,
 		       TRIP,
 		       NVL(TO_CHAR(TRANS_PRICE, 'FM999,999,999,999'), '0') AS TRANS_PRICE,
-		       ARRIVAL,
-		       RETURN_DATE,
+		       TO_CHAR(ARRIVAL, 'YYYY-MM-DD HH24:MI') AS ARRIVAL,
+		       TO_CHAR(RETURN_DATE, 'YYYY-MM-DD HH24:MI') AS RETURN_DATE,
 		       CEIL(RETURN_DATE - ARRIVAL) || '박' || (CEIL(RETURN_DATE - ARRIVAL) + 1) || '일' DEST_DATE,
 		       NVL(TO_CHAR(SUM_COST, 'FM999,999,999,999'), '0') AS SCHED_COST_SUM
 		  FROM TB_DESTINATION
@@ -160,7 +160,7 @@
 		       DEST_NO,
 		       CATEGORY,
 		       SCHED_NAME,
-		       SCHED_CONTENT,
+		       NVL(SCHED_CONTENT, '') AS SCHED_CONTENT,
 		       TO_CHAR(SCHED_COST, 'FM999,999,999,999') AS SCHED_COST
 		  FROM TB_SCHEDULE
 		  JOIN
@@ -263,5 +263,33 @@
 			      'N'
 			      )
 	</entry>
+	
+	<entry key="publishSched">
+		UPDATE
+		      TB_SCHEDULE
+		   SET
+		      STATUS = 'Y'
+		 WHERE
+		      DEST_NO IN (SELECT DEST_NO FROM TB_DESTINATION WHERE PLAN_NO = ?)
+	</entry>
+	
+	<entry key="publishDest">
+		UPDATE
+		      TB_DESTINATION
+		   SET
+		      STATUS = 'Y'
+		 WHERE
+		      PLAN_NO = ?
+	</entry>
+	
+	<entry key="publishPlan">
+		UPDATE
+		      TB_PLAN
+		   SET
+		      STATUS = 'Y'
+		 WHERE
+		      PLAN_NO = ?
+	</entry>
+
 	
 </properties>

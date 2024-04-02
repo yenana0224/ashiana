@@ -37,9 +37,8 @@
 		#updateStartDate, #cancelUpdate, #doUpdate{
 			display : none;
 		}
-		
-		#modal-content-endDes{
-			width:340px;
+		#endDesModal{
+			width: 340px;
 		}
 		#openEndDetail{
 			margin-left: 95px;
@@ -146,6 +145,7 @@
 
                     </div>
                     <div id="modal-form-area">
+                    	<input type="hidden" name="updateDestNo">
                         <select name="country" id="country">
                         	<option value="국가 선택" disabled selected>국가 선택</option>
                             <% for(int i = 0; i < cityList.size(); i++) { %>
@@ -161,7 +161,7 @@
                         	<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>
                         	
                         </select>
-     
+     	
                         <input disabled type="text" name="country-city" id="country-city" value="국가-도시 선택">
                         
                         <select name="transport" id="transport">
@@ -202,6 +202,7 @@
                 <!-- Modal footer -->
                 <div id="modal-footer">
                     <button type="button" id="insertDes" class="btn btn-danger" data-dismiss="modal">추가</button>
+                    <button type="button" id="updateDes" class="btn btn-danger" data-dismiss="modal" style="display: none;">수정</button>
                     <button type="button" class="btn btn-dark" data-dismiss="modal">취소</button>
                 </div>
                 </form>
@@ -222,6 +223,7 @@
     			<% } %>
     		})
     	});
+    	
         // 날짜 포멧 바꾸는 함수
         function formatDate(date) {
             var d = new Date(date),
@@ -263,7 +265,10 @@
 		            $('#arr-date-end').val(formatDate($arr));
 		        }
 		    })
-			$('#addDesModal').on('shown.bs.modal', function(){ // 모달이 열렸을때 
+			$('#outer-plan').on('click', '.btn-des-disabled, .btn-add-des', function(){ // 목적지 추가 버튼 클릭 시  
+				$('#modal-header').find('h4').text('목적지 추가');
+				$('#updateDes').css('display', 'none');
+            	$('#insertDes').css('display', '');
 				let display = '<label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>'
 				            + '<p>'
 				            + '<label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>'
@@ -292,19 +297,31 @@
 				    $('#end-time').val('');
 				}
 				else{
-					//console.log($('.root-card').last().find('input[name=destNo]').val());
-					
-					$('#add-day').prop('checked', false); // 체크 박스 해제
-					$('#dep-date').val($('#end-date').val());
-				    $('#dep-time').val($('#end-time').val());
-				    $('#arr-date').val($('#end-date').val());
-				    $('#dep-date-display').text($('#dep-date').val());
-				    $('#dep-time-display').text($('#dep-time').val());
-				    // 도착일 디스플레이
-				    $('#arr-date-display').text($('#arr-date').val());
-				    $('#arr-time').val('');
-				    $('#end-date').val('');
-				    $('#end-time').val('');
+					console.log('추가');
+					$.ajax({
+	            		url : 'selectDesDetail.ajaxplan',
+	            		type : 'post',
+	            		data : {
+	            			planNo : <%= planNo %>,
+	            			status : 'N'
+	            		},
+	            		success : function(result){
+	            			$('#add-day').prop('checked', false);
+
+			            	$('#dep-date').val(result[result.length - 1].returnDate.substring(0, 10));
+	            			$('#dep-time').val(result[result.length - 1].returnDate.substring(11));
+	            			$('#arr-date').val(result[result.length - 1].returnDate.substring(0, 10));
+							
+	            		} // result function
+	            	})		
+	            	$('#dep-date-display').text($('#dep-date').val());
+					$('#dep-time-display').text($('#dep-time').val());
+					// 도착일 디스플레이
+					$('#arr-date-display').text($('#arr-date').val());
+	            			
+					$('#arr-time').val('');
+					$('#end-date').val('');
+					$('#end-time').val('');
 				}
 			})
             
@@ -317,6 +334,49 @@
                 $('#end-date-display').text($('#end-date').val());
                 $('#end-time-display').text($('#end-time').val());
             });
+            
+            $('#root-area').on('click', '.des-update', function(){ // 목적지 수정 버튼 클릭 시 
+            	$('#modal-header').find('h4').text('목적지 수정');
+            	$('#insertDes').css('display', 'none');
+            	$('#updateDes').css('display', '');
+            	const destNo = $(this).siblings('input[name=destNo]').val();
+            	$.ajax({
+            		url : 'selectDesDetail.ajaxplan',
+            		type : 'post',
+            		data : {
+            			planNo : <%= planNo %>,
+            			status : 'N'
+            		},
+            		success : function(result){
+            			for(let i in result){
+            				if(result[i].destNo == destNo){
+            					$('#add-day').prop('checked', false);
+		            			$('input[name=updateDestNo]').val(result[i].destNo);
+		            			$('#country option:first').prop('selected', true);
+		        				$('#city option:first').prop('selected', true);
+		            			$('#country-city').val(result[i].cityName);
+		            			$('#transport').val(result[i].trans).prop('selected', true);
+		            			$('#trans-price').val(result[i].transPrice);
+		            			$('#dep-date').val(result[i-1].returnDate.substring(0, 10));
+            					$('#dep-time').val(result[i-1].returnDate.substring(11));
+            					$('#arr-date').val(result[i].arrival.substring(0, 10));
+		            			$('#arr-time').val(result[i].arrival.substring(11));
+		            			$('#end-date').val(result[i].returnDate.substring(0, 10));
+		            			$('#end-time').val(result[i].returnDate.substring(11));
+            					if($('#dep-date').val() != $('#arr-date').val()) {
+            						$('#add-day').prop('checked', true);
+            					}
+            				}
+            			} // for 문
+            			$('#dep-time-display').text($('#dep-time').val());
+            	        $('#arr-date-display').text($('#arr-date').val());
+            	        $('#arr-time-display').text($('#arr-time').val());
+            	        $('#country-city-display').text($('#country-city').val());
+            	        $('#end-date-display').text($('#end-date').val());
+            	        $('#end-time-display').text($('#end-time').val());
+            		}
+            	})
+            })
         })
     </script>
     
@@ -346,7 +406,8 @@
     				}
     			});
     		});
-    		
+    		$() // 목적지 수정
+    	
     	})
     </script>
 
@@ -579,7 +640,7 @@
     						arrival = result[i].arrival;
     						rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
     						rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-    						if(result[i].trans == undefined){
+    						if(result[i].trans == undefined || result[i].trans == '등록 안함'){
     							rootInfo = '(' + rootHour + '시간';
     						}
     						else{
@@ -600,7 +661,7 @@
 	    	                    	  + 	'</div>'
 	    	                          + 	'<div class="des-info">'
 	    	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'
-	    	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn" src="resources/icons/pencil-square.svg"><img class="des-info-btn" src="resources/icons/trash.svg"> <br>'
+	    	                          + 		'<span>' + result[i].cityName + '</span><input class="des-info-btn" type="color"><img class="des-info-btn des-update" data-toggle="modal" data-target="#addDesModal" src="resources/icons/pencil-square.svg"><img class="des-info-btn des-delete" src="resources/icons/trash.svg"> <br>'
 	    	                          +  		'<label>' + startDate + '</label> ~ <label>' + endDate + '</label>'
 	    	                    	  + 	'</div>'
 	    	                          + '</div>';
@@ -640,6 +701,7 @@
 						    	selectSchedule(result[i].destNo);
 		    					$('#sched-box').append(schedArea);
     					}
+
     				} // for문
 		  	            rootArea += rootAddIcon;
     					$('#root-area').html(rootArea);
@@ -671,7 +733,7 @@
 			                            +    '<td>' + result[i].schedName + '</td>'
 			                            +    '<td>' + result[i].schedContent + '</td>'
 			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
-			                            +	 '<td class="sched-detail-btn-area"><img class="sched-detail-btn" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn" src="resources/icons/x-circle-fill.svg"></td>'
+			                            +	 '<td class="sched-detail-btn-area"><img class="sched-detail-btn" data-toggle="modal" data-target="#addDesModal" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn" src="resources/icons/x-circle-fill.svg"></td>'
 			                            + '</tr>';
     					}
     				}
@@ -732,10 +794,10 @@
 		$('#insertEndDestNull').click(function(){
 			const endDest = {
 					planNo : <%= planNo %>,
-					trans : '선택 안함',
+					trans : '등록 안함',
 					transPrice : 0,
 					trip : '귀국',
-					arrival : $('#dep-date-end').val() + ' ' + $('#dep-time-end').val()
+					arrival : $('#dep-date-end').val() + ' ' + $('#dep-time-end').val(),
 			}
 			insertEndDestination(endDest);
 			$('#endDesModal').hide();
@@ -747,7 +809,7 @@
 					trans : $('#transport-end').val(),
 					transPrice : $('#trans-price-end').val(),
 					trip : '편도',
-					arrival : $('#arr-date-end').val() + ' ' + $('#arr-time-end').val()
+					arrival : $('#arr-date-end').val() + ' ' + $('#arr-time-end').val(),
 			}
 			insertEndDestination(endDest);
 			$('#endDesDetailModal').hide();
@@ -755,18 +817,19 @@
 	})
 	// 귀국 INSERT AJAX
 	function insertEndDestination(endDest){
-		console.log(endDest);
+		window.removeEventListener('beforeunload', beforeEvent);
+		const $scheds = $('.sched-tr').length;
 		$.ajax({
 			url : 'insertEndDestination.ajaxplan',
 			type : 'post',
 			data : endDest,
 			success : function(result){
 				if(result > 0){
-					console.log(result);
-					//location.href = '<%=contextPath%>/publishPlan.plan?planNo=<%=planNo%>';
+					location.href = '<%=contextPath%>/publishPlan.plan?planNo=<%=planNo%>&scheds=' + $scheds;
 				}
 				else{
 					alert('오류 발생.. 다시 시도해주세요.');
+					window.addEventListener('beforeunload', beforeEvent);
 				}
 			}
 		})
@@ -807,13 +870,24 @@
    	
 
     <script>
-    	window.addEventListener('beforeunload', (event) => {
-	        // Cancel the event as stated by the standard.
-	        event.preventDefault();
-	        // Chrome requires returnValue to be set.
-	        event.returnValue = '';
-      	});
+    	const beforeEvent = function unloadEvent(event){
+    		event.preventDefault();
+    	}
+    	window.addEventListener('beforeunload', beforeEvent);
     </script>
+    
+    <!-- 목적지 수정 -->
+    <script>
+    	$(function(){
+    		
+    	})
+    </script>
+    
+    
+    
+    
+    
+    
 
 </body>
 </html>

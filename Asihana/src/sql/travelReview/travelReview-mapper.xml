@@ -26,11 +26,15 @@
 		      REVIEW_NO,
 		      REVIEW_TITLE,
 		      NICKNAME,
-		      CREATE_DATE
+		      CREATE_DATE,
+		      FILE_PATH|| '/' || CHANGE_NAME TITLE_IMG
    		  FROM
        		  TB_REVIEW
    	      JOIN
-      		   MEMBER ON(REVIEW_WRITER = MEM_NO)
+      		  MEMBER ON(REVIEW_WRITER = MEM_NO)
+      	  JOIN
+      	      
+      		   
 		 ORDER
 		    BY
        		   CREATE_DATE DESC
@@ -300,6 +304,8 @@
 		     BY
 		       NATION_NO DESC
 	</entry>
+
+	
 	
 
 </properties>

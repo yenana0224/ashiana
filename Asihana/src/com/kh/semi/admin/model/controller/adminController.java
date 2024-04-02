@@ -21,6 +21,7 @@ import com.kh.semi.info.model.service.InfoService;
 import com.kh.semi.info.model.service.NationService;
 import com.kh.semi.info.model.service.StoryService;
 import com.kh.semi.info.model.vo.City;
+import com.kh.semi.info.model.vo.Currency;
 import com.kh.semi.info.model.vo.Language;
 import com.kh.semi.info.model.vo.Nation;
 import com.kh.semi.info.model.vo.Story;
@@ -583,12 +584,16 @@ public class adminController {
 	public String nationInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		List<Visa> visaList = new InfoService().visaList();
-		List<Language> langList = new InfoService().languageList();
+		List<Language> langList = new InfoService().langList();
 		List<Voltage> volList = new InfoService().volList();
+		List<Currency> curList = new InfoService().curList();
 		
  		request.setAttribute("visaList", visaList);
+ 		request.setAttribute("langList", langList);
+ 		request.setAttribute("volList", volList);
+ 		request.setAttribute("curList", curList);
 		
-		return "/views/admin/nationInsertForm.jsp";
+		return "views/admin/nationInsertForm.jsp";
 	}
 	
 	/***

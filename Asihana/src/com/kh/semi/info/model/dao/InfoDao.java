@@ -198,7 +198,47 @@ public class InfoDao {
 			close(pstmt);
 		} 
 		return list;
+	}
+	
+	public List<Currency> curList(Connection conn){
+		List<Currency> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("curList");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Currency e = new Currency();
+				e.setCurrencyNo(rset.getInt("CURRENCY_NO"));
+				e.setCurrencyName(rset.getString("CURRENCY_NAME"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int insertLang(Connection conn, String name) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLang");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result; 
 	}
 
 }

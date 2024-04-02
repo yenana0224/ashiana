@@ -82,5 +82,29 @@
 	     TB_VOLTAGE
 	</entry>
 
+	<entry key="curList">
+		SELECT
+	    CURRENCY_NO,
+	    CURRENCY_NAME
+	 FROM
+	    TB_CURRENCY
+	
+	</entry>
+	
+	<entry key="insertLang">
+	INSERT
+	  INTO
+	     TB_LANGUAGE
+	     (
+	     LANGUAGE_NO,
+	     LANGUAGE_NAME
+	     )
+	VALUES
+	    (
+	    SEQ_LAN.NEXTVAL,
+	    ?
+	    )
+	</entry>
+
 	
 </properties>

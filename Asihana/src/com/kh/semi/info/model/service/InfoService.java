@@ -2,6 +2,7 @@ package com.kh.semi.info.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -69,6 +70,21 @@ public class InfoService {
 		List<Voltage> list = new InfoDao().volList(conn);
 		close(conn);
 		return list;
+	}
+	
+	public List<Currency> curList(){
+		Connection conn = getConnection();
+		List<Currency> list = new InfoDao().curList(conn);
+		close(conn);
+		return list;
+	}
+	
+	public int insertLang(String langName) {
+		Connection conn = getConnection();
+		int result = new InfoDao().insertLang(conn, langName);
+		if(result > 0) commit(conn);
+		close(conn);
+		return result;
 	}
 
 

@@ -8,8 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
 import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
@@ -51,19 +51,15 @@ public class TravelReviewDetailController extends HttpServlet {
 		TravelReview review = new TravelReviewService().selectDetailReview(reviewNo);
 		request.setAttribute("review", review);
 		
+		// 3) 게시물의 해시태그
 		List<HashTag> checkedHashTagList = new TravelReviewService().selectReviewHashTagList(reviewNo);
 		request.setAttribute("checkedHashTagList", checkedHashTagList);
 	
 		request.getSession().getAttribute("hashTagList");
 		
-		System.out.println(reviewNo);
-		System.out.println(result);
-		System.out.println(review);
-		System.out.println(checkedHashTagList);
-		
-		
-		
-		
+		// 4) 해당게시물의 첨부파일
+		List<AttachmentFile> fileList = new TravelReviewService().selectAttachmentFileList(reviewNo);
+		request.setAttribute("fileList", fileList);
 		request.getRequestDispatcher("views/travelReview/travelReviewDetail.jsp").forward(request, response);
 	}
 

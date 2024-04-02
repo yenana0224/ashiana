@@ -131,7 +131,9 @@ public class AttachmentFile {
 	@Override
 	public String toString() {
 		return "AttachmentFile [fileNo=" + fileNo + ", boardType=" + boardType + ", boardNo=" + boardNo + ", filePath="
-				+ filePath + ", originName=" + originName + ", changeName=" + changeName + "]";
+				+ filePath + ", originName=" + originName + ", changeName=" + changeName + ", fileLevel=" + fileLevel
+				+ "]";
 	}
 
+	
 }

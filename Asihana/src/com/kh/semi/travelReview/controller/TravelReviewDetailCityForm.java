@@ -39,14 +39,9 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 		
 		int index = searchKeyword.indexOf("(");
 		String cityName = searchKeyword.substring(0, index);
-		System.out.println(cityName);
 		
 		// service 호출
 		List<City> cityInformation = new TravelReviewService().selectDetailCity(cityName);
-		System.out.println(cityInformation);
-		
-		
-		
 		
 		// 출력화면 지정
 		if(cityInformation.isEmpty()) {

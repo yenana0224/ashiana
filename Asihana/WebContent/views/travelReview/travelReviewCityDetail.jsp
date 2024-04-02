@@ -266,7 +266,8 @@
                     
                     <!-- 화면 세팅 구도 보기 위한 것, 추후 없애질 영역-->
                     <div id="nation-thumbnail">
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" alt="국가도시">
+                    <%System.out.println(cityInfo.get(0).getFilePath() + "도시경로"); %>
+                        <img src="<%=cityInfo.get(0).getFilePath()%>" alt="국가도시">
                     </div>
                     <div id="nation-content">
                         

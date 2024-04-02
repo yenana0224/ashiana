@@ -20,8 +20,18 @@ public class TravelReview {
 	private String nationName;
 	private String nickName;
 	private Double starPoint;
+	private String titleImg;
 	
 	
+	
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
 	public Double getStarPoint() {
 		return starPoint;
 	}

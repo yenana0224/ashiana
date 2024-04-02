@@ -13,6 +13,15 @@
 	  	  TB_CITY
 	</entry>
 	
+	<entry key="countSelectCity">
+	SELECT
+	     COUNT(*) COUNT
+	 FROM
+	     TB_CITY
+	WHERE
+	     CITY_NAME LIKE '%'||?||'%'
+	</entry>
+	
 	<entry key="cityList">
 	SELECT
 		NATION_NO,
@@ -300,31 +309,39 @@
 
 	<entry key="searchName">
 	SELECT
-     	  CITY_NO,
-     	  CITY_NAME,
-     	  NATION_NO,
-    	  NATION_NAME,
-    	  COUNT
-	  FROM 
-	  	  (SELECT
-    		  	 CITY_NO,
-   				 CITY_NAME,
-    			 TB_CITY.NATION_NO,
-    			 NATION_NAME,
-    			 COUNT
- 			 FROM
-    			 TB_CITY
- 			 JOIN
-    			 TB_NATION ON(TB_CITY.NATION_NO = TB_NATION.NATION_NO)
-             WHERE
-                 NOT TB_NATION.NATION_NO = 82
-			ORDER 
-			   BY 
-			   	 NATION_NO ASC)
-	  WHERE 
-	  		CITY_NAME LIKE '%'||?||'%'        
-	
+	    NATION_NO,
+	    NATION_NAME,
+	    CITY_NO,
+	    CITY_NAME,
+	    COUNT
+	FROM    
+	    (SELECT
+	        ROWNUM RNUM,
+	        NATION_NO,
+	        NATION_NAME,
+	        CITY_NO,
+	        CITY_NAME,
+	        COUNT    
+	     FROM    
+	        (SELECT
+	             N.NATION_NO,
+	             NATION_NAME,
+	             CITY_NO,
+	             CITY_NAME,
+	             COUNT
+	         FROM
+	             TB_CITY C
+	         JOIN
+	             TB_NATION N ON (C.NATION_NO = N.NATION_NO)
+	        WHERE
+	             CITY_NAME LIKE '%'||?||'%'
+	        ORDER
+	           BY
+	             N.NATION_NO))
+	WHERE
+	    RNUM BETWEEN ? AND ?
+	   	  
 	</entry>
-
-	
+ 
+				
 </properties>

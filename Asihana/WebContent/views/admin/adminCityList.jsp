@@ -134,9 +134,8 @@
         </div>
 
         <div class="search">
-            <form action="searchInfo.admin" method="get">
+            <form action="nationCityList.admin" method="get">
                 <select name="category">
-                    <option value="nation">국가</option>
                     <option value="city">도시</option>
                 </select>
                 <input type="text" name="keyword">
@@ -156,7 +155,7 @@
                 <tbody>
                     <% if(list.isEmpty()) { %>
                         <tr>
-                            <td colspan="2"> 게시글이 없습니다</td>
+                            <td colspan="3"> 게시글이 없습니다</td>
                         </tr>
                     <% } else { %>
                         <% for(City c : list) { %>

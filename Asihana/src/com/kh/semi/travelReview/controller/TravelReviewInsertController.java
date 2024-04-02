@@ -24,7 +24,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class TravelReviewInsertController
  */
-@WebServlet("/insertReview")
+@WebServlet("/insert.Review")
 public class TravelReviewInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -264,5 +264,42 @@
 		       )
 	</entry>
 	
+	<entry key="selectDetailCity">
+		 SELECT
+		 	   CITY_NO,
+		       NATION_NAME,
+		       CITY_NAME,
+		       VISA_NAME,
+		       LANGUAGE_NAME,
+		       CITY_CONTENT,
+		       CURRENCY_NAME,
+		       VOL_NAME
+		   FROM
+		       TB_NATION
+		   JOIN
+		       TB_CITY USING(NATION_NO)
+		   JOIN
+		       BRTB_VISA USING(NATION_NO)
+		   JOIN
+		       TB_VISA USING(VISA_NO)
+		   JOIN
+		       BRTB_LANG USING(NATION_NO)
+		   JOIN
+		       TB_LANGUAGE USING(LANGUAGE_NO)
+		   JOIN
+		       BRTB_CURRENCY USING(NATION_NO)
+		   JOIN
+		       TB_CURRENCY USING(CURRENCY_NO)
+		   JOIN
+		       BRTB_VOL USING(NATION_NO)
+		   JOIN
+		       TB_VOLTAGE USING(VOL_NO)
+		  WHERE
+		       CITY_NAME = ?
+		  ORDER
+		     BY
+		       NATION_NO DESC
+	</entry>
+	
 
 </properties>

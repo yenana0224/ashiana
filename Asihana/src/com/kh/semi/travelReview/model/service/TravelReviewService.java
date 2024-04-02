@@ -179,4 +179,16 @@ public class TravelReviewService {
 		return (insertReview * insertTagList * insertFileList * insertLikePoint);
 	}
 
+	public List<City> selectDetailCity(String cityName) {
+		
+		Connection conn = getConnection();
+		
+		List<City> cityInformation = new TravelReviewDao().selectDetailCity(conn, cityName);
+		
+		close(conn);
+		
+		return cityInformation;
+	}
+	
+	
 }

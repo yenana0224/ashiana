@@ -443,5 +443,42 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		return result;
 	}
 	
+	public List<City> selectDetailCity(Connection conn, String cityName) {
+		
+		List<City> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDetailCity");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cityName);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				City city = new City();
+				
+				city.setCityNo(rset.getInt("CITY_NO"));
+				city.setNationName(rset.getString("NATION_NAME"));
+				city.setCityName(rset.getString("CITY_NAME"));
+				city.setVisaName(rset.getString("VISA_NAME"));
+				city.setLanguage(rset.getString("LANGUAGE_NAME"));
+				city.setCityContent(rset.getString("CITY_CONTENT"));
+				city.setCurrency(rset.getString("CURRENCY_NAME"));
+				city.setVoltage(rset.getString("VOL_NAME"));
+				
+				list.add(city);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;		
+	}
 	
 }

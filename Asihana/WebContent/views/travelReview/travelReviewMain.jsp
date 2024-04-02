@@ -191,14 +191,14 @@
         <!--여기부터 content의 3분할 중 1영역-->
         <div id="content-1wrap">
             <div id="content-1-1" class="content-1wrap">
-                <p></p>
+                <p><a href="<%=contextPath%>/cityDetail.review">상세</a></p>
             </div>
             <div id="content-1-2" class="content-1wrap" align="center">
                 <div id="content-1-title">
                     <h3>여행자들의 생생한 여행기를 확인해보세요</h3>
                 </div>
                 <div id="content-1-2form">
-                    <form action="#" method="get" name="search-form">
+                    <form action="<%=contextPath %>/cityDetail.review" method="get" name="search-form">
                         
                         <div id="nation-list-wrap">
                             <input id="search-botton" type="search" style="display : inline-block; width: 80%; height: 55px; " placeholder="국가, 도시, 키워드로 검색" name="search">
@@ -232,7 +232,8 @@
                            
                             $('ol').on('click', 'li', function(){
                             // input의 value 요소 값을 변경 시켜야함
-                                    $('#search-botton').val($(this).text());
+                                $('#search-botton').val($(this).text());
+                            	// 이거 안됨$('#city-num').attr('value', $(this).text());
                             })
                     
                          // .filter('선택자') : 기준 중에서 해당 조건에 만족하는 요소만 선택 *
@@ -247,7 +248,7 @@
                 
                 <%if(loginUser != null) {%>
                 <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
-                <p><a href="<%=contextPath%>/review.EnrollForm">여행기 쓰기</a></p>
+                <p><a href="<%=contextPath%>/EnrollForm.review">여행기 쓰기</a></p>
                 <%} %>
             </div>
         </div>

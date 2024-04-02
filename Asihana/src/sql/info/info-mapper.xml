@@ -65,6 +65,46 @@
 	WHERE
 	     NATION_NO = ?
 	</entry>
+	
+	<entry key="langList">
+	SELECT
+	     LANGUAGE_NO,
+	     LANGUAGE_NAME
+	  FROM
+	     TB_LANGUAGE
+	</entry>
+	
+	<entry key="volList">
+	SELECT
+	     VOL_NO,
+	     VOL_NAME
+	 FROM
+	     TB_VOLTAGE
+	</entry>
+
+	<entry key="curList">
+		SELECT
+	    CURRENCY_NO,
+	    CURRENCY_NAME
+	 FROM
+	    TB_CURRENCY
+	
+	</entry>
+	
+	<entry key="insertLang">
+	INSERT
+	  INTO
+	     TB_LANGUAGE
+	     (
+	     LANGUAGE_NO,
+	     LANGUAGE_NAME
+	     )
+	VALUES
+	    (
+	    SEQ_LAN.NEXTVAL,
+	    ?
+	    )
+	</entry>
 
 	
 </properties>

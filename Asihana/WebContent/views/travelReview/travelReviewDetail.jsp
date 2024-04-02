@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.travelReview.model.vo.TravelReview" %>
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.travelReview.model.vo.TravelReview
+,com.kh.semi.common.AttachmentFile" 
+%>
 <%
 	TravelReview review = (TravelReview)request.getAttribute("review");
 	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
 	List<HashTag> checkedHashTagList = (List<HashTag>)request.getAttribute("checkedHashTagList");
+	List<AttachmentFile> fileList = (List<AttachmentFile>)request.getAttribute("fileList");
 %>
 <%@ include file="../common/headerbar.jsp" %>
 <!DOCTYPE html>
@@ -302,7 +305,6 @@
                                 <!--DB에서 조회된 결과가 내용에 들어감-->
                                 <label>작성자 : </label><span><%= review.getReviewWriter() %></span> <br>
                                 <label>작성일 : </label><span><%= review.getCreateDate() %></span> <br>
-                                <%System.out.println(review.getCount() + ""); %>
                                 <label>조회수 : </label><span><%= review.getCount() %></span> <br>
                                 <label>좋아요 : </label><span id="likePoint"><%= review.getLikes() %></span> <br>
                             </p>
@@ -341,11 +343,10 @@
                                 <!-- Slides -->
 
                                 <!-- 이미지의 src 속성값은 DB에서 조회해온 결과를 바탕으로 띄워줘야 함-->
-                                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/04/11/15/55/animals-2222007__480.jpg"></div>
-                                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/12/06/09/15/maple-1079235__480.jpg"></div>
-                                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/09/01/19/53/pocket-watch-1637396__480.jpg"></div>
-                                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/05/27/08/51/mobile-phone-1419275__480.jpg"></div>
-                                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/09/01/09/32/alphabet-916673__480.jpg"></div>
+                                <%for(int i = 0; i < fileList.size(); i++){ %>
+                                <%System.out.println(fileList.get(i).getFilePath()); %>
+                                <div class="swiper-slide"><img src="<%=fileList.get(i).getFilePath()%>"></div>
+                                <%} %>
                             </div>
                         
                             <!-- If we need pagination -->

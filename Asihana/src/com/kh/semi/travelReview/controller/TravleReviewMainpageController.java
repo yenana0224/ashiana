@@ -55,15 +55,10 @@ public class TravleReviewMainpageController extends HttpServlet {
 				
 		// 3_1)여행기가 게시물 리스트를 가져와야 함
 		List<TravelReview> reviewList =  new TravelReviewService().selectReviewList();
-
 		
 		// 3_2)추천수가 담긴 여행기 리스트를 가져와야 함
 		List<TravelReview> likeList = new TravelReviewService().selectLikeList();
 				
-		// 3_3)해시태그가 담긴 여행기 리스트를 가져와야 함
-		
-	
-		
 		request.setAttribute("reviewList", reviewList);
 		//System.out.println(reviewList);
 		

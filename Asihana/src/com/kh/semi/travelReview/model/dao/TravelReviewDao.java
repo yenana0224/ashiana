@@ -77,7 +77,9 @@ public class TravelReviewDao {
 				review.setReviewTitle(rset.getString("REVIEW_TITLE"));
 				review.setReviewWriter(rset.getString("NICKNAME"));
 				review.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
+				review.setTitleImg(rset.getString("TITLE_IMG"));
 				list.add(review);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,6 +110,7 @@ public class TravelReviewDao {
 				t.setReviewWriter(rset.getString("NICKNAME"));
 				t.setCreateDate(String.valueOf(rset.getDate("CREATE_DATE")));
 				t.setLikes(rset.getInt("LIKES"));
+				t.setTitleImg(rset.getString("TITLE_IMG"));
 				list.add(t);
 			}
 		} catch (SQLException e) {
@@ -409,7 +412,7 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 				pstmt.setString(2, fileList.get(i).getOriginName());
 				pstmt.setString(3, fileList.get(i).getChangeName());
 				pstmt.setInt(4, 6);
-				
+				pstmt.setInt(5, fileList.get(i).getFileLevel());
 				result += pstmt.executeUpdate();
 			}
 			
@@ -469,7 +472,8 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 				city.setCityContent(rset.getString("CITY_CONTENT"));
 				city.setCurrency(rset.getString("CURRENCY_NAME"));
 				city.setVoltage(rset.getString("VOL_NAME"));
-				
+				city.setFilePath(rset.getString("FILE_PATH"));
+				city.setChangeName(rset.getString("CHANGE_NAME"));
 				list.add(city);
 			}
 		} catch (SQLException e) {
@@ -479,6 +483,34 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			close(pstmt);
 		}
 		return list;		
+	}
+	
+	public List<AttachmentFile> selectAttachmentFileList(Connection conn, int boardNo){
+		
+		List<AttachmentFile> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachmentFileList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				AttachmentFile a = new AttachmentFile();
+				a.setFilePath(rset.getString("PATH"));
+				a.setFileLevel(rset.getInt("FILE_LEVEL"));
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 }

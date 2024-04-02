@@ -190,5 +190,15 @@ public class TravelReviewService {
 		return cityInformation;
 	}
 	
+	public List<AttachmentFile> selectAttachmentFileList(int boardNo){
+		
+		Connection conn = getConnection();
+		
+		List<AttachmentFile> fileList = new TravelReviewDao().selectAttachmentFileList(conn, boardNo);
+		
+		close(conn);
+		
+		return fileList;
+	}
 	
 }

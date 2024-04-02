@@ -7,7 +7,18 @@ public class AttachmentFile {
 	private String filePath;
 	private String originName;
 	private String changeName;
+	private int fileLevel;
 	
+	
+	
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+
 	public AttachmentFile() {
 		super();
 	}
@@ -120,7 +131,9 @@ public class AttachmentFile {
 	@Override
 	public String toString() {
 		return "AttachmentFile [fileNo=" + fileNo + ", boardType=" + boardType + ", boardNo=" + boardNo + ", filePath="
-				+ filePath + ", originName=" + originName + ", changeName=" + changeName + "]";
+				+ filePath + ", originName=" + originName + ", changeName=" + changeName + ", fileLevel=" + fileLevel
+				+ "]";
 	}
 
+	
 }

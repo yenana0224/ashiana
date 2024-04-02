@@ -121,6 +121,13 @@ public class TravelReviewInsertController extends HttpServlet {
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("resources/travelReview");
+					
+					if(i == 0) {
+						// 대표이미지의 경우 파일레벨1 설정
+						at.setFileLevel(1);
+					} else {
+						at.setFileLevel(2);
+					}
 					fileList.add(at);
 				}
 			}

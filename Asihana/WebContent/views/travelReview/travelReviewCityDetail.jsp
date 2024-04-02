@@ -10,6 +10,8 @@
 	String voltage = cityInfo.get(0).getVoltage();
 
 	String newLanguage = cityInfo.get(0).getLanguage();
+	String newCurrency = cityInfo.get(0).getCurrency();
+	String newVoltage = cityInfo.get(0).getVoltage();
 	
 	for(int i = 1; i < cityInfo.size(); i++){
 		if(!language.equals(cityInfo.get(i).getLanguage())){
@@ -17,8 +19,17 @@
 		}
 	}
 	
+	for(int j = 1; j < cityInfo.size(); j++){
+		if(!currency.equals(cityInfo.get(j).getCurrency())){
+			newCurrency += ", " + cityInfo.get(j).getCurrency(); 
+		}
+	}
 	
-	
+	for(int k = 0; k < cityInfo.size(); k++){
+		if(!voltage.equals(cityInfo.get(k).getVoltage())){
+			newVoltage += ", " + cityInfo.get(k).getVoltage();
+		}
+	}
 %>
 
 
@@ -249,14 +260,15 @@
 
             <div id="content-2-2">
                 <div id="content-2-title">
-                    <p style="padding-top: 20px;">일본(도쿄)</p> <!-- p태그에 들어갈 국가(도시)명은 DB에서 조회해올 예정-->
+                    <p style="padding-top: 20px;"><%= cityInfo.get(0).getCityName() %>(<%=cityInfo.get(0).getNationName()%>)</p> <!-- p태그에 들어갈 국가(도시)명은 DB에서 조회해올 예정-->
                 </div>
                 <div id="content-2-boardlist"> <!--추후 list에 띄워질 게시물은 DB에서 조회해온 뒤 반복문을 통해 출력-->
                     
                     <!-- 화면 세팅 구도 보기 위한 것, 추후 없애질 영역-->
                     <div id="nation-thumbnail">
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" alt="국가도시">
+                        <img src="<%=contextPath %><%=cityInfo.get(0).getFilePath()%>/<%=cityInfo.get(0).getChangeName() %>" alt="국가도시">
                     </div>
+                    
                     <div id="nation-content">
                         
                         
@@ -264,9 +276,9 @@
                             <p>
                                 <!-- span요소에 출력될 값은 DB에서 국가/도시 테이블의 값을 넣을 예정-->
                                 <lable>도시 : </lable><span><%= cityInfo.get(0).getCityName() %></span> <br> 
-                                <lable>언어 : </lable> <span><%= language %></span> <br>
-                                <lable>화폐단위 : </lable> <span><%= currency %></span> <br>
-                                <lable>전압 : </lable> <span><%= voltage %></span> <br>
+                                <lable>언어 : </lable> <span><%= newLanguage %></span> <br>
+                                <lable>화폐단위 : </lable> <span><%= newCurrency %></span> <br>
+                                <lable>전압 : </lable> <span><%= newVoltage %></span> <br>
                                 <lable>비자 : </lable> <span><%= cityInfo.get(0).getVisaName() %></span> <br>                       
                             </p>
                         </div>

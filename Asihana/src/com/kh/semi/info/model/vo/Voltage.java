@@ -3,6 +3,7 @@ package com.kh.semi.info.model.vo;
 public class Voltage {
 
 	private int nationNo;
+	private int voltageNo;
 	private String volName;
 	
 	
@@ -15,6 +16,17 @@ public class Voltage {
 		super();
 		this.nationNo = nationNo;
 		this.volName = volName;
+	}
+
+	
+
+	public int getVoltageNo() {
+		return voltageNo;
+	}
+
+
+	public void setVoltageNo(int voltageNo) {
+		this.voltageNo = voltageNo;
 	}
 
 

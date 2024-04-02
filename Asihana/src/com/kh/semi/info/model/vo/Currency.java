@@ -2,6 +2,7 @@ package com.kh.semi.info.model.vo;
 
 public class Currency {
 	private int NationNo;
+	private int currencyNo;
 	private String currencyName;
 	
 	public Currency() {
@@ -12,6 +13,16 @@ public class Currency {
 		super();
 		NationNo = nationNo;
 		this.currencyName = currencyName;
+	}
+	
+	
+	
+	public int getCurrencyNo() {
+		return currencyNo;
+	}
+
+	public void setCurrencyNo(int currencyNo) {
+		this.currencyNo = currencyNo;
 	}
 
 	public int getNationNo() {

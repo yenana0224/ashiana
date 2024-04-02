@@ -13,7 +13,28 @@ public class City {
 	private String voltage;
 	private String currency;
 	private int count;
+	private String filePath;
+	private String changeName;
 	
+	
+	
+	
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 	public City() {
 		super();
 	}

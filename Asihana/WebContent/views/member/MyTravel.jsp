@@ -115,35 +115,6 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 		</table>
 			
-			<!--
-			<tbody id="myTable">
-				<tr>
-					<td>1</td>
-					<td>핀란드여행기</td>
-					<td>2023.11.15</td>
-					<td>30</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>중국여행기</td>
-					<td>2024.1.15</td>
-					<td>32</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>태국여행기</td>
-					<td>2023.11.05</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>미국여행기</td>
-					<td>2023.11.25</td>
-					<td>10</td>
-				</tr>
-			</tbody>
-		</table>
-		-->
 	<div align="center">
          <button type="button" onclick="location.href='<%=contextPath%>/myPlan'">내 플랜으로 가기</button>
 	</div>

@@ -120,11 +120,16 @@ public class City {
 		this.count = count;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "City [cityNo=" + cityNo + ", cityName=" + cityName + ", cityContent=" + cityContent + ", nationNo="
-				+ nationNo + ", nationName=" + nationName + ", flyingTime=" + flyingTime + ", count=" + count + "]";
+				+ nationNo + ", nationName=" + nationName + ", flyingTime=" + flyingTime + ", visaName=" + visaName
+				+ ", language=" + language + ", voltage=" + voltage + ", currency=" + currency + ", count=" + count
+				+ "]";
 	}
+
+	
 	
 	
 

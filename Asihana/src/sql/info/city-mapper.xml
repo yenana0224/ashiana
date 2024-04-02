@@ -15,29 +15,16 @@
 	
 	<entry key="cityList">
 	SELECT
-     	  CITY_NO,
-     	  CITY_NAME,
-     	  NATION_NO,
-    	  NATION_NAME,
-    	  COUNT
-	  FROM 
-	  	  (SELECT
-    		  	 CITY_NO,
-   				 CITY_NAME,
-    			 TB_CITY.NATION_NO,
-    			 NATION_NAME,
-    			 COUNT
- 			 FROM
-    			 TB_CITY
- 			 JOIN
-    			 TB_NATION ON(TB_CITY.NATION_NO = TB_NATION.NATION_NO)
-             WHERE
-                 NOT TB_NATION.NATION_NO = 82
-			ORDER 
-			   BY 
-			   	 COUNT DESC)
-	  WHERE 
-	  		ROWNUM BETWEEN 1 AND 8
+		NATION_NO,
+		NATION_NAME,
+		CITY_NO,
+		CITY_NAME,
+		FILE_PATH,
+		CHANGE_NAME
+	FROM
+		VW_CITY_COUNT
+	WHERE
+		RNUM BETWEEN 1 AND 8
 	  		
 	</entry>
 	

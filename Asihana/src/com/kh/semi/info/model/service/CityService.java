@@ -106,7 +106,7 @@ public class CityService {
 	}
 	
 	// 도시이름조회
-	public List<City> searchName(String keyword){
+	public List<City> searchName(String keyword, PageInfo pi){
 		Connection conn = getConnection();
 		List<City> list = new CityDao().searchName(conn, keyword);
 		close(conn);

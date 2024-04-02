@@ -289,7 +289,7 @@ public class NationDao {
 		return result;
 	}
 	
-	public List<Nation> searchName(Connection conn, String keyword){
+	public List<Nation> searchName(Connection conn, String keyword, PageInfo pi){
 		List<Nation> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -297,7 +297,11 @@ public class NationDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int end = start + pi.getBoardLimit() - 1;
 			pstmt.setString(1, keyword);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

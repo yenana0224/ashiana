@@ -285,6 +285,10 @@ public class adminController {
 	}
 	
 	public String nationList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int listCount = new NationService().countNation();
 		int pageLimit = 10;
@@ -298,7 +302,14 @@ public class adminController {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Nation> nationList = new NationService().nationList(pi);
+		List<Nation> nationList = new ArrayList();
+		
+		if(category != null && category.equals("nation")) {
+			nationList = new NationService().searchName(keyword, pi);
+			request.setAttribute("list", nationList);
+		} else {
+			nationList = new NationService().nationList(pi);
+		}
 		
 		request.setAttribute("pageInfo", pi);
 		request.setAttribute("list", nationList);
@@ -569,19 +580,15 @@ public class adminController {
 	}
 	
 	public String searchInfo(HttpServletRequest request, HttpServletResponse response) {
-		String view = "";
-		String category = request.getParameter("category");
-		String keyword = request.getParameter("keyword");
-		List list = new ArrayList();
-		
+
 		if(category.equals("nation")) {
-			list = new NationService().searchName(keyword);
+			list = new NationService().searchName(keyword, pi);
 			request.setAttribute("list", list);
-			view = "/info.admin?category="+category+"&keyword="+keyword;
+			view = "views/admin/InfoList.jsp";
 		} else {
-			list = new CityService().searchName(keyword);
+			list = new CityService().searchName(keyword, pi);
 			request.setAttribute("list", list);
-			view = "/";
+			view = "views/admin/CityList.jsp";
 		}
 
 		return view;

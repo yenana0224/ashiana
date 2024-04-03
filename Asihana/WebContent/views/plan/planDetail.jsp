@@ -134,23 +134,26 @@
     						departure = result[i].returnDate;
     					}
     					else if(i == result.length - 1) { // 귀국
-    						rootArea += '<div class="root-icon">' // 루트 아이콘
-			                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
-			                		  + '</div>';
-							arrival = result[i].arrival;
-							rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
-							rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
-							if(result[i].trans == undefined || result[i].trans == '등록 안함'){
-    							rootInfo = '(' + rootHour + '시간';
+    						// 귀국 이동수단 등록 안했을 시 처리 
+    						if(result[i].trans != '등록 안함'){
+	    						rootArea += '<div class="root-icon">' // 루트 아이콘
+				                    	  +		'<img src="resources/icons/arrow-down-square-fill.svg">'
+				                		  + '</div>';
+								arrival = result[i].arrival;
+								rootHour = Math.floor((new Date(arrival) - new Date(departure)) / 1000 / 60 / 60); // 시간
+								rootMin = (new Date(arrival) - new Date(departure)) / 1000 / 60 % 60; // 분
+								if(result[i].trans == undefined || result[i].trans == '등록 안함'){
+	    							rootInfo = '(' + rootHour + '시간';
+	    						}
+	    						else{
+		    						rootInfo = result[i].trans + '(' + rootHour + '시간';
+	    						}
+								if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
+								rootInfo += ')';
+								rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
+								departure = result[i].returnDate;
+								rootArea += '<div class="root-line"></div>'; // 루트 라인 
     						}
-    						else{
-	    						rootInfo = result[i].trans + '(' + rootHour + '시간';
-    						}
-							if(rootMin > 0) {rootInfo += '' + rootMin + '분';};
-							rootInfo += ')';
-							rootArea += '<div class="root-info"><label>' + rootInfo + '</label></div>'; // 루트 인포
-							departure = result[i].returnDate;
-							rootArea += '<div class="root-line"></div>'; // 루트 라인 
 							rootArea += '<div class="root-icon">' // 루트 아이콘
 			                    	  +		'<img src="resources/icons/house-door-fill.svg">'
 			                		  + '</div>';
@@ -185,7 +188,7 @@
     						
     						rootArea += '<div class="root-card">' // 루트 카드
 	    	                    	  +	'<div class="des-img">'
-	    	                          +		'<img src="resources/대련.jpg">'
+	    	                          +		'<img src="'+ result[i].filePath +'">'
 	    	                    	  + 	'</div>'
 	    	                          + 	'<div class="des-info">'
 	    	                          + 		'<span>' + result[i].cityName + '</span> <br>'

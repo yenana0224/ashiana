@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class PlanController
  */
@@ -36,6 +38,7 @@ public class PlanServlet extends HttpServlet {
 		case "planMain" : view = pc.selectPlanList(request, response); break;
 		case "planDetail" : view = pc.userPlanCheck(request, response); break;
 		case "insert" : pc.deletePlanCache(request, response); view = pc.insertPlan(request, response); break; // 새 플랜 작성 화면 입장 시 작성중 취소했던 플랜을 삭제함
+		case "delete" : view = pc.deletePlan(request, response); break;
 		case "publishPlan" : view = pc.publishPlan(request, response); break;
 		}
 		

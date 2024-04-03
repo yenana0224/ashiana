@@ -157,7 +157,8 @@ public class PlanDao {
 						                       rset.getString("ARRIVAL"),
 						                       rset.getString("RETURN_DATE"),
 						                       rset.getString("DEST_DATE"),
-						                       rset.getString("SCHED_COST_SUM")));
+						                       rset.getString("SCHED_COST_SUM"),
+						                       rset.getString("FILE_PATH")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -459,6 +460,46 @@ public class PlanDao {
 		return result;
 	}
 
+	public int deleteDestCache(Connection conn, int destNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteDestCache");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, destNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteSchedCache(Connection conn, int destNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteSchedCache");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, destNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int updateSched(Connection conn, Schedule sched) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -481,6 +522,66 @@ public class PlanDao {
 		}
 		return result;
 	}
+
+	
+
+	public void deleteSched(Connection conn, int planNo) {
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteSched");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+	}
+
+	public int deleteDest(Connection conn, int planNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteDest");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deletePlan(Connection conn, int planNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deletePlan");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
 
 
 

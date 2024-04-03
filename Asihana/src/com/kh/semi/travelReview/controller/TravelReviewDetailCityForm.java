@@ -34,14 +34,19 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		// 사용자가 검색한 도시(국가) 키워드에서 도시 정보만 뽑아서 가공
+		// 사용자가 검색한 도시(국가) 키워드에서 도시 정보만 뽑아서 cityName으로 가공
 		String searchKeyword = request.getParameter("search");
 		
 		int index = searchKeyword.indexOf("(");
 		String cityName = searchKeyword.substring(0, index);
 		
 		// service 호출
-		List<City> cityInformation = new TravelReviewService().selectDetailCity(cityName);
+		
+		// cityName으로 cityNo 조회하기
+		int cityNo = new TravelReviewService().selectCityNo(cityName);
+		
+		
+		List<City> cityInformation = new TravelReviewService().selectDetailCity(cityNo);
 		
 		// 출력화면 지정
 		if(cityInformation.isEmpty()) {

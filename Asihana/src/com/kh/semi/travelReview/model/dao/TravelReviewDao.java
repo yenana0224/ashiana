@@ -446,7 +446,7 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		return result;
 	}
 	
-	public List<City> selectDetailCity(Connection conn, String cityName) {
+	public List<City> selectDetailCity(Connection conn, int cityNo) {
 		
 		List<City> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -457,24 +457,26 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, cityName);
+			pstmt.setInt(1, 2);
+			pstmt.setInt(2, cityNo);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				City city = new City();
 				
-				city.setCityNo(rset.getInt("CITY_NO"));
 				city.setNationName(rset.getString("NATION_NAME"));
+				city.setCityNo(rset.getInt("CITY_NO"));
 				city.setCityName(rset.getString("CITY_NAME"));
-				city.setVisaName(rset.getString("VISA_NAME"));
-				city.setLanguage(rset.getString("LANGUAGE_NAME"));
 				city.setCityContent(rset.getString("CITY_CONTENT"));
 				city.setCurrency(rset.getString("CURRENCY_NAME"));
+				city.setLanguage(rset.getString("LANGUAGE_NAME"));
 				city.setVoltage(rset.getString("VOL_NAME"));
+				city.setVisaName(rset.getString("VISA_NAME"));
 				city.setFilePath(rset.getString("FILE_PATH"));
 				city.setChangeName(rset.getString("CHANGE_NAME"));
-				list.add(city);
+				list.add(city);	
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -511,6 +513,33 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int selectCityNo(Connection conn, String cityName) {
+		
+		int cityNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCityNo");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cityName);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			rset.next();
+			
+			cityNo = (rset.getInt("CITY_NO"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cityNo;
 	}
 	
 }

@@ -105,6 +105,21 @@
 	    ?
 	    )
 	</entry>
+	
+	<entry key="insertCur">
+	INSERT
+	  INTO
+	      TB_CURRENCY
+	      (
+	      CURRENCY_NO,
+	      CURRENCY_NAME
+	      )
+	VALUES
+	      (
+	      SEQ_CUR.NEXTVAL,
+	      ?
+	      )
+	</entry>
 
 	
 </properties>

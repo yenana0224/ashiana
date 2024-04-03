@@ -41,7 +41,7 @@ public class CityService {
 		return list;
 	}
 	
-	// 국가번호에 해당하는 도시 전체 조회 : 도시사진, 도시번호, 도시이름 
+	// 국가번호에 해당하는 도시 전체 조회 : 국가번호, 국가이름, 도시번호, 도시이름, FILENO, FILEPATH, ORIGINGNAME, CHANGENAME 
 	public List<CityFile> nationCity(int nationNo){
 		Connection conn = getConnection();
 		List<CityFile> list = new CityDao().nationCity(conn, nationNo);

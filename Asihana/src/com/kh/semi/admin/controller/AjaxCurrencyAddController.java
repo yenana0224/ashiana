@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.semi.info.model.service.InfoService;
-import com.kh.semi.info.model.vo.Language;
+import com.kh.semi.info.model.vo.Currency;
 
 /**
- * Servlet implementation class AjaxLanguageAddController
+ * Servlet implementation class AjaxCurrencyAddController
  */
-@WebServlet("/addLang.do")
-public class AjaxLanguageAddController extends HttpServlet {
+@WebServlet("/addCur.do")
+public class AjaxCurrencyAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxLanguageAddController() {
+    public AjaxCurrencyAddController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +32,14 @@ public class AjaxLanguageAddController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("languageName");
-		//System.out.println(name);
+		String name = request.getParameter("currencyName");
+		int result = new InfoService().insertCur(name);
+		List<Currency> list = new InfoService().curList();
 		
-		int result = new InfoService().insertLang(name);
-		List<Language> list = new InfoService().langList();
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
+		
+	
 	}
 
 	/**

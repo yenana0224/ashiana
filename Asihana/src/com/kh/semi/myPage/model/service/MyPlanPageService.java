@@ -61,7 +61,7 @@ public class MyPlanPageService {
 	 * @param userNo
 	 * @return
 	 */
-	public int selectPlanListCount(String select, String searchContent, int userNo) {
+	public int selectCount(String select, String searchContent, int userNo) {
 		
 			Connection conn = getConnection();
 			

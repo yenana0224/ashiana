@@ -58,7 +58,7 @@ public class MyPlanPageController extends HttpServlet {
 		boardLimit = 5;
 		
 		//조건에 따른 리스트 값 가져오기
-		listCount = new MyPlanPageService().selectPlanListCount(select, searchContent,userNo);
+		listCount = new MyPlanPageService().selectCount(select, searchContent,userNo);
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		

@@ -67,16 +67,6 @@
 	
 	
 	<entry key="update">
-		UPDATE
-				TB_COMMUNITY
-			SET
-				C.CITY_NAME=?,
-				COM.COMMUNITY_CONTENT=?
-			WHERE
-				COM.COMMUNITY_NO=?
-			AND
-				COM.STATUS='Y'	
-						
 	
 	
 	

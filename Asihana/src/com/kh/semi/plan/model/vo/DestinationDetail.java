@@ -11,12 +11,14 @@ public class DestinationDetail {
 	private String returnDate;
 	private String destDate;
 	private String schedCostSum;
+	private String filePath;
 	
 	public DestinationDetail() {
 		super();
 	}
+
 	public DestinationDetail(int destNo, String cityName, String trans, String trip, String transPrice, String arrival,
-			String returnDate, String destDate, String schedCostSum) {
+			String returnDate, String destDate, String schedCostSum, String filePath) {
 		super();
 		this.destNo = destNo;
 		this.cityName = cityName;
@@ -27,8 +29,9 @@ public class DestinationDetail {
 		this.returnDate = returnDate;
 		this.destDate = destDate;
 		this.schedCostSum = schedCostSum;
+		this.filePath = filePath;
 	}
-	
+
 	public int getDestNo() {
 		return destNo;
 	}
@@ -83,13 +86,20 @@ public class DestinationDetail {
 	public void setSchedCostSum(String schedCostSum) {
 		this.schedCostSum = schedCostSum;
 	}
-	
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 	@Override
 	public String toString() {
 		return "DestinationDetail [destNo=" + destNo + ", cityName=" + cityName + ", trans=" + trans + ", trip=" + trip
 				+ ", transPrice=" + transPrice + ", arrival=" + arrival + ", returnDate=" + returnDate + ", destDate="
-				+ destDate + ", schedCostSum=" + schedCostSum + "]";
+				+ destDate + ", schedCostSum=" + schedCostSum + ", filePath=" + filePath + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -98,6 +108,7 @@ public class DestinationDetail {
 		result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
 		result = prime * result + ((destDate == null) ? 0 : destDate.hashCode());
 		result = prime * result + destNo;
+		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
 		result = prime * result + ((returnDate == null) ? 0 : returnDate.hashCode());
 		result = prime * result + ((schedCostSum == null) ? 0 : schedCostSum.hashCode());
 		result = prime * result + ((trans == null) ? 0 : trans.hashCode());
@@ -105,6 +116,7 @@ public class DestinationDetail {
 		result = prime * result + ((trip == null) ? 0 : trip.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -130,6 +142,11 @@ public class DestinationDetail {
 		} else if (!destDate.equals(other.destDate))
 			return false;
 		if (destNo != other.destNo)
+			return false;
+		if (filePath == null) {
+			if (other.filePath != null)
+				return false;
+		} else if (!filePath.equals(other.filePath))
 			return false;
 		if (returnDate == null) {
 			if (other.returnDate != null)
@@ -158,6 +175,7 @@ public class DestinationDetail {
 			return false;
 		return true;
 	}
+
 	
 	
 }

@@ -1,25 +1,30 @@
-package com.kh.semi.plan.controller;
+package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import com.kh.semi.common.AttachmentFile;
+import com.kh.semi.travelReview.model.service.TravelReviewService;
+import com.kh.semi.travelReview.model.vo.HashTag;
+import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
- * Servlet implementation class PlanController
+ * Servlet implementation class TravelReviewUpdateController
  */
-@WebServlet("*.plan")
-public class PlanServlet extends HttpServlet {
+@WebServlet("/update.tralvelReview")
+public class TravelReviewUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlanServlet() {
+    public TravelReviewUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,21 +33,12 @@ public class PlanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = request.getRequestURI();
-		String mapping = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+
+		// get방식 + 기존 게시물의 데이터 가져오기
 		
-		PlanController pc = new PlanController();
-		String view = "";
 		
-		switch(mapping) {
-		case "planMain" : view = pc.selectPlanList(request, response); break;
-		case "planDetail" : view = pc.userPlanCheck(request, response); break;
-		case "insert" : pc.deletePlanCache(request, response); view = pc.insertPlan(request, response); break; // 새 플랜 작성 화면 입장 시 작성중 취소했던 플랜을 삭제함
-		case "delete" : view = pc.deletePlan(request, response); break;
-		case "publishPlan" : view = pc.publishPlan(request, response); break;
-		}
 		
-		request.getRequestDispatcher(view).forward(request, response);
+	
 	}
 
 	/**

@@ -47,10 +47,26 @@ public class CommunityUpdateController extends HttpServlet {
 		community.setComuNo(ComuNo);
 		
 		// 서비스 호출
-		new CommunityServiceImpl().update(community);
+		int result =new CommunityServiceImpl().update(community);
 		// UPDATE COMMUNITY SET CITY_NAME =?, COMU_CONTENT =?
 		// WHERE COMU_NO =?
 		
+		
+		// 5) 응답화면 지정
+		if(result >0) { // 성공했을 때 => 해당 글 상세보기 페이지로 이동
+			
+			// 1.forwarding
+			
+			// 2. redirect =>이미 만들어져있는 서블릿으로 요청을 보내게끔 
+			// http://localhost:7776/Asihana/detail.commu
+			
+			response.sendRedirect(request.getContextPath()+"/detail.commu?communityNo="+ComuNo);
+			
+		} else { // 실패했을 때
+			request.setAttribute("errorMsg", "커뮤니티 글 수정 실패~");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
+			
+		}
 	
 	}
 

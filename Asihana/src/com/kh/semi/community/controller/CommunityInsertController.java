@@ -1,6 +1,8 @@
 package com.kh.semi.community.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +31,12 @@ public class CommunityInsertController extends HttpServlet {
 	
 		
 		// POST
+		request.setCharacterEncoding("UTF-8");
+		
+		// 값뽑기
+		String cityname=request.getParameter("cityname");
+		String context  =request.getParameter("context");
+		String userNo=request.getParameter("userNo");
 		
 		
 		

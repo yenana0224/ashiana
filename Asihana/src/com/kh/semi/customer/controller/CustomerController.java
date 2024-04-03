@@ -298,9 +298,10 @@ public class CustomerController {
 		String view = "";
 		
 		if(result > 0) {
-			
-			new File(savePath + file.getChangeName()).delete();
-			request.getSession().setAttribute("alertMsg", "삭제 성공");
+			if(file != null) {
+				new File(savePath + file.getChangeName()).delete();
+				request.getSession().setAttribute("alertMsg", "삭제 성공");
+			}
 			view = "qa.customer?currentPage=1";
 			
 		} else {

@@ -28,7 +28,13 @@ public class MyPlanPageDao {
 		}
 	}
 	
-	public int selectCount(Connection conn) {
+	/**
+	 * 전체 조회 카운트
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public int selectCount(Connection conn, int userNo) {
 			
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -38,6 +44,7 @@ public class MyPlanPageDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
 				
 				rset = pstmt.executeQuery();
 				if(rset.next()) {

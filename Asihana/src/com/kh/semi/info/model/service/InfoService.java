@@ -18,6 +18,7 @@ public class InfoService {
 	public String nationLang(int nationNo) {
 		Connection conn = getConnection();
 		List<Language> langList = new InfoDao().searchLang(conn, nationNo);
+
 		String arr1 = langList.toString();
 		String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
 		close(conn);

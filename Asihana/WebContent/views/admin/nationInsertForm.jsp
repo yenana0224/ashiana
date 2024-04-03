@@ -195,13 +195,12 @@
             <label>언어 선택 : </label> 
  
             	<% for(Language l : langList) { %>
-            	<div class="ck-area" > 
+            	<div class="ck-area" id="lang-area" > 
             		<input type="checkbox" name="langNo" value="<%=l.getLanguageNo() %>"> <%=l.getLanguageName() %>
 				</div>
 				<% } %>
-				<div class="ck-area" id="lang-area"></div>
-
-				<div class="newAdd">
+				
+			<div class="newAdd">
 					<button id="newLang">새로등록</button>
 				</div>
             </div>
@@ -223,8 +222,12 @@
         
         <script>
         
+        
+        
         $('#newLang').click(function(){
-        	const a = prompt('언어 이름을 입력해주세요');	
+        	const a = prompt('언어 이름을 입력해주세요');
+        	
+			$('#lang-area').empty();
         	
         	$.ajax({
         		url : 'addLang.do',

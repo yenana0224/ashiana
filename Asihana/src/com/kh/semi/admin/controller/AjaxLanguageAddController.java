@@ -1,4 +1,4 @@
-package com.kh.semi.info.controller;
+package com.kh.semi.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +37,7 @@ public class AjaxLanguageAddController extends HttpServlet {
 		
 		int result = new InfoService().insertLang(name);
 		List<Language> list = new InfoService().langList();
-		
+		System.out.println(list);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
 	}

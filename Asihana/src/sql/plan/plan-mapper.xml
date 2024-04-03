@@ -305,4 +305,12 @@
 		      DEST_NO = ?
 	</entry>
 	
+	<entry key="updateSched">
+		UPDATE
+		      TB_SCHEDULE
+		   SET
+		      CATEGORY = ?,
+		      SCHED_NAME = ?
+	</entry>
+	
 </properties>

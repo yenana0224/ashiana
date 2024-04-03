@@ -583,7 +583,7 @@
         			category : $sched.find('.sched-category').val(),
         			schedName : $sched.find('.sched-name').val(),
         			schedContent : $sched.find('.sched-content').val(),
-        			schedCost : $sched.find('.sched-price').val()
+        			schedCost : $sched.find('.sched-price').val().split(',').join('')
         		},
         		success : function(result){
         			selectDestination();

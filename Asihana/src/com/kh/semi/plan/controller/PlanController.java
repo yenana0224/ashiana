@@ -152,6 +152,18 @@ public class PlanController {
 		return new PlanService().updateDestination(des);
 	}
 
+	public int updateSched(HttpServletRequest request, HttpServletResponse response) {
+		Schedule sched = new Schedule();
+		sched.setSchedNo(Integer.parseInt(request.getParameter("schedNo")));
+		sched.setCategory(request.getParameter("category"));
+		sched.setSchedName(request.getParameter("schedName"));
+		sched.setSchedContent(request.getParameter("schedContent"));
+		sched.setSchedCost(request.getParameter("schedCost"));
+		
+		System.out.println(sched);
+		return new PlanService().updateSched(sched);
+	}
+
 
 
 

@@ -957,15 +957,7 @@
     	}
     	window.addEventListener('beforeunload', beforeEvent);
     </script>
-    
-    <!-- 목적지 수정 -->
-    <script>
-    	$(function(){
-    		
-    	})
-    </script>
-    
-    
+
     
     
     

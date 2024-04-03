@@ -583,7 +583,7 @@
         			category : $sched.find('.sched-category').val(),
         			schedName : $sched.find('.sched-name').val(),
         			schedContent : $sched.find('.sched-content').val(),
-        			schedCost : $sched.find('.sched-price').val()
+        			schedCost : $sched.find('.sched-price').val().split(',').join('')
         		},
         		success : function(result){
         			selectDestination();
@@ -957,15 +957,7 @@
     	}
     	window.addEventListener('beforeunload', beforeEvent);
     </script>
-    
-    <!-- 목적지 수정 -->
-    <script>
-    	$(function(){
-    		
-    	})
-    </script>
-    
-    
+
     
     
     

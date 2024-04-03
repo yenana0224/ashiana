@@ -344,7 +344,6 @@
 
                                 <!-- 이미지의 src 속성값은 DB에서 조회해온 결과를 바탕으로 띄워줘야 함-->
                                 <%for(int i = 0; i < fileList.size(); i++){ %>
-                                <%System.out.println(fileList.get(i).getFilePath()); %>
                                 <div class="swiper-slide"><img src="<%=fileList.get(i).getFilePath()%>"></div>
                                 <%} %>
                             </div>
@@ -455,8 +454,22 @@
                     </div>
 
                     <div id="content-wrap-4-2-2" align="right">
-                        <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px; margin-right : 40px;" onclick="history.back();">목록</button>
+                        <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px;" onclick="history.back();">목록</button>
+                    	<%if(loginUser != null && loginUser.getNickName().equals(review.getReviewWriter())) {%>
+                    	<button id="update-review" type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px;">수정</button>
+                    	<%} %>
                     </div>
+                    
+                    <script>
+                    	$(function(){
+                    		$('#update-review').click(function(){
+                    			location.href = '<%=contextPath%>/updateForm.review?reviewNo='+<%=review.getReviewNo()%>;
+                    		})	
+                    		
+                    	})
+                    
+                    </script>
+                    
                 </div>
 
                 <script>

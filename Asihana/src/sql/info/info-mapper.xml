@@ -182,6 +182,67 @@
 	    ?
 	    )
 	</entry>
+	
+	<entry key="countCurrency">
+	SELECT
+	     COUNT(*) COUNT
+	FROM
+	     BRTB_CURRENCY
+	WHERE    
+	     NATION_NO = ?
+	</entry>
+	
+	<entry key="countLanguage">
+	SELECT
+		COUNT(*) COUNT
+	FROM
+		BRTB_LANG
+	WHERE
+		NATION_NO = ?
+	</entry>
+	
+	<entry key="countVoltage">
+	SELECT
+		COUNT(*) COUNT
+	FROM
+		BRTB_VOL
+	WHERE
+		NATION_NO = ?
+	</entry>
+	
+	<entry key="deleteCurrency">
+	DELETE
+	  FROM
+	     BRTB_CURRENCY
+	WHERE
+	     NATION_NO = ?
+	</entry>
+	
+	
+	<entry key="deleteLanguage">
+	DELETE
+	  FROM
+	     BRTB_LANG
+	WHERE
+	     NATION_NO = ?
+	</entry>
+	
+	<entry key="deleteVoltage">
+	DELETE
+	  FROM
+	     BRTB_VOL
+	WHERE
+	     NATION_NO = ?
+	</entry>
+	
+	<entry key="deleteVisa">
+	DELETE
+	  FROM
+	     BRTB_VISA
+	WHERE
+	     NATION_NO = ?
+	</entry>
+	
 
 	
 </properties>

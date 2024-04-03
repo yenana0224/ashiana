@@ -188,7 +188,7 @@
     						
     						rootArea += '<div class="root-card">' // 루트 카드
 	    	                    	  +	'<div class="des-img">'
-	    	                          +		'<img src="'+ result[i].filePath +'">'
+	    	                          +		'<img src="'+ result[i].filePath.substring(1) +'">'
 	    	                    	  + 	'</div>'
 	    	                          + 	'<div class="des-info">'
 	    	                          + 		'<span>' + result[i].cityName + '</span> <br>'

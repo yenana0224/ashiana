@@ -21,6 +21,11 @@ public class PlanController {
 		List<PlanMain> list = new ArrayList();
 		if(loginUser != null) {
 			list = new PlanService().selectPlanList(loginUser.getUserNo());
+			if(!list.isEmpty()) {
+				for(int i = 0; i < list.size(); i++) {
+					list.get(i).setFilePath(new PlanService().selectMainFilePath(list.get(i).getPlanCitys().substring(0, list.get(i).getPlanCitys().indexOf("-"))));
+				}
+			}
 		}
 		request.setAttribute("list", list);
 		

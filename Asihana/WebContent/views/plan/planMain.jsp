@@ -27,7 +27,7 @@
             	<% for(PlanMain p: list) { %>
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div class="to-card-detail">
-		                    <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
+		                    <img src="<%= p.getFilePath().substring(1) %>" width="200" height="200">
 		                    <h5><%= p.getPlanCitys() %></h5>
 		                    <div class="card-content">
 		                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>

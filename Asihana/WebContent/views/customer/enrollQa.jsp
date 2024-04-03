@@ -62,6 +62,28 @@
 	</form>
 	
 	<script>
+		$('#usr').on('keyup', function(e){
+			let str = $(this).val();
+			let regExp = /[<>+_\-@#$%&*|\\;]/ig;
+			
+			if(regExp.test(str)){
+				alert('사용할 수 없는 특수 문자입니다.');
+				str = str.replace(regExp, '');
+				$(this).val(str);
+			}
+		})
+		
+		$('#usr').on('keydown', function(e){
+			let str = $(this).val();
+			let regExp = /[<>+_\-@#$%&*|\\;]/ig;
+			
+			if(regExp.test(str)){
+				alert('사용할 수 없는 특수 문자입니다.');
+				str = str.replace(regExp, '');
+				$(this).val(str);
+			}
+		})
+	
 		$('#comment').keyup(function (e){
 	    let content = $('#comment').val();
 	    $('#counter').html("("+ content.length +" / 1000)");

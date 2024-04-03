@@ -1,4 +1,4 @@
-package com.kh.semi.admin.model.controller;
+package com.kh.semi.admin.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

@@ -198,6 +198,17 @@ public class PlanService {
 		return result;
 	}
 
+	public int updateSched(Schedule sched) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().updateSched(conn, sched);
+		
+		if(result > 0) commit(conn);
+		
+		return result;
+	}
+
 
 
 

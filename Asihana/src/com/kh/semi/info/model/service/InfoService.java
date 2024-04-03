@@ -18,6 +18,7 @@ public class InfoService {
 	public String nationLang(int nationNo) {
 		Connection conn = getConnection();
 		List<Language> langList = new InfoDao().searchLang(conn, nationNo);
+
 		String arr1 = langList.toString();
 		String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
 		close(conn);
@@ -82,6 +83,14 @@ public class InfoService {
 	public int insertLang(String langName) {
 		Connection conn = getConnection();
 		int result = new InfoDao().insertLang(conn, langName);
+		if(result > 0) commit(conn);
+		close(conn);
+		return result;
+	}
+	
+	public int insertCur(String curName) {
+		Connection conn = getConnection();
+		int result = new InfoDao().insertCur(conn, curName);
 		if(result > 0) commit(conn);
 		close(conn);
 		return result;

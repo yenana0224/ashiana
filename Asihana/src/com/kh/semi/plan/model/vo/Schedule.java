@@ -8,6 +8,7 @@ public class Schedule {
 	private String schedName;
 	private String schedContent;
 	private String schedCost;
+	
 	public Schedule() {
 		super();
 	}

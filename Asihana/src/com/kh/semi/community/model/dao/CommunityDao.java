@@ -160,6 +160,23 @@ public class CommunityDao {
 		PreparedStatement pstmt=null;
 		String sql = prop.getProperty("update");
 		
+		try {
+			pstmt=conn.prepareStatement("sql");
+			pstmt.setString(1, community.getCityName());
+			pstmt.setString(2, community.getComuContent());
+			pstmt.setInt(3, community.getComuNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			
+		}
+		return result;
+		
+	
 		
 		
 		

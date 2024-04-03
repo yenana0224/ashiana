@@ -194,10 +194,10 @@ pageEncoding="UTF-8"%>
 
             <div class="tag">
                 <div class="tagbtn">#아이와함께</div>
-                <div class="tagbtn">#태그2</div>
-                <div class="tagbtn">#태그3</div>
-                <div class="tagbtn">#태그4</div>
-                <div class="tagbtn">#태그5</div>
+                <div class="tagbtn">#가족여행</div>
+                <div class="tagbtn">#일본여행</div>
+                <div class="tagbtn">#중국여행</div>
+                <div class="tagbtn">#커플여행</div>
             </div>
 
             <div class="storyBoardView">
@@ -206,6 +206,13 @@ pageEncoding="UTF-8"%>
                 <img src="https://content.skyscnr.com/m/64f1189bc1e2bf0e/original/UK-ST3-165-TRAVELTRENDS-Q323-Article2-1-2.jpg?crop=1224px:647px&position=attention" alt="">
                 <div id="detail"><a href="#" id="storypage">상세보기 ></a></div>
             </div>
+            <script>
+            	$('.tagbtn').on('click', function(){
+            		let tagbtn = $(this).text().substring(1);
+            		$('#searchtext').val(tagbtn);
+            	})
+
+            </script>
 
             <br><br><br>
             <div>

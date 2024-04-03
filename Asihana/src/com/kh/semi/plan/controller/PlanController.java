@@ -21,6 +21,11 @@ public class PlanController {
 		List<PlanMain> list = new ArrayList();
 		if(loginUser != null) {
 			list = new PlanService().selectPlanList(loginUser.getUserNo());
+			if(!list.isEmpty()) {
+				for(int i = 0; i < list.size(); i++) {
+					list.get(i).setFilePath(new PlanService().selectMainFilePath(list.get(i).getPlanCitys().substring(0, list.get(i).getPlanCitys().indexOf("-"))));
+				}
+			}
 		}
 		request.setAttribute("list", list);
 		
@@ -151,7 +156,17 @@ public class PlanController {
 		
 		return new PlanService().updateDestination(des);
 	}
+	
+	public int deleteDestCache(HttpServletRequest request, HttpServletResponse response) {
+		
+		return new PlanService().deleteDestCache(Integer.parseInt(request.getParameter("destNo")));
+	}
 
+	public void deleteSchedCache(HttpServletRequest request, HttpServletResponse response) {
+
+		new PlanService().deleteSchedCache(Integer.parseInt(request.getParameter("destNo")));
+	}
+	
 	public int updateSched(HttpServletRequest request, HttpServletResponse response) {
 		Schedule sched = new Schedule();
 		sched.setSchedNo(Integer.parseInt(request.getParameter("schedNo")));
@@ -159,10 +174,20 @@ public class PlanController {
 		sched.setSchedName(request.getParameter("schedName"));
 		sched.setSchedContent(request.getParameter("schedContent"));
 		sched.setSchedCost(request.getParameter("schedCost"));
-		
-		System.out.println(sched);
+
 		return new PlanService().updateSched(sched);
 	}
+
+	public String deletePlan(HttpServletRequest request, HttpServletResponse response) {
+
+		if(new PlanService().deletePlan(Integer.parseInt(request.getParameter("planNo"))) > 0) {
+			request.getSession().setAttribute("alertMsg", "플랜 삭제 성공");
+		} else {
+			request.getSession().setAttribute("alertMsg", "플랜 삭제 실패");
+		}
+		return selectPlanList(request, response);
+	}
+
 
 
 

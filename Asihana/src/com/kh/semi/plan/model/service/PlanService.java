@@ -26,6 +26,17 @@ public class PlanService {
 		return list;
 	}
 
+	public String selectMainFilePath(String cityName) {
+		
+		Connection conn = getConnection();
+		
+		String filePath = new PlanDao().selectMainFilePath(conn, cityName);
+		
+		close(conn);
+		
+		return filePath;
+	}
+	
 	public int userPlanCheck(int userNo, int planNo) {
 		
 		Connection conn = getConnection();
@@ -195,9 +206,36 @@ public class PlanService {
 		
 		if(result > 0) commit(conn);
 		
+		close(conn);
+		
 		return result;
 	}
 
+	public int deleteDestCache(int destNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().deleteDestCache(conn, destNo);
+		
+		if(result > 0) commit(conn);
+
+		close(conn);
+		
+		return result;
+	}
+	
+	public void deleteSchedCache(int destNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PlanDao().deleteSchedCache(conn, destNo);
+		
+		if(result > 0) commit(conn);
+
+		close(conn);
+		
+	}
+	
 	public int updateSched(Schedule sched) {
 		
 		Connection conn = getConnection();
@@ -206,8 +244,26 @@ public class PlanService {
 		
 		if(result > 0) commit(conn);
 		
+		close(conn);
+		
 		return result;
 	}
+
+	public int deletePlan(int planNo) {
+		
+		Connection conn = getConnection();
+
+		new PlanDao().deleteSched(conn, planNo);
+		int resultD = new PlanDao().deleteDest(conn, planNo);
+		int resultP = new PlanDao().deletePlan(conn, planNo);
+
+		if(resultD * resultP > 0) commit(conn);
+		else rollback(conn);
+		
+		return resultD * resultP;
+	}
+
+
 
 
 

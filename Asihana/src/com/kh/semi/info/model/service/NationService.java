@@ -1,20 +1,17 @@
 package com.kh.semi.info.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.info.model.dao.InfoDao;
 import com.kh.semi.info.model.dao.NationDao;
-import com.kh.semi.info.model.vo.Currency;
-import com.kh.semi.info.model.vo.Language;
 import com.kh.semi.info.model.vo.Nation;
-import com.kh.semi.info.model.vo.Voltage;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 
 public class NationService {
@@ -112,6 +109,63 @@ public class NationService {
 		List<Nation> list = new NationDao().searchName(conn, keyword, pi);
 		close(conn);
 		return list;
+	}
+	
+	// 국가 추가
+	public int insertNation(Nation nation, int visaNo, String[] volNo, String[] curNo, String[] langNo, AttachmentFile title, AttachmentFile file) {
+		Connection conn = getConnection();
+		int nationNo = nation.getNationNo();
+		int result = 0;
+		
+		
+		int nationResult = new NationDao().insertNation(conn, nation);
+		
+		if(nationResult > 0 ) {
+				
+			int visaResult = new InfoDao().nationVisa(conn, visaNo, nationNo);
+			int volResult = 1;
+			if(volNo != null) {
+				for(int i = 0; i < volNo.length; i++) {
+					int voltageNo = Integer.parseInt(volNo[i]);
+					volResult = volResult * new InfoDao().nationVol(conn, voltageNo, nationNo);
+				}
+			}
+			
+			int curResult = 1;
+			if(curNo != null) {
+				for(int i = 0; i < curNo.length; i++) {
+					int currencyNo = Integer.parseInt(curNo[i]);
+					curResult = curResult * new InfoDao().nationCur(conn, currencyNo, nationNo);
+				}
+			}
+			
+			int langResult = 1;
+			if(langNo != null) {
+				for(int i = 0; i < langNo.length; i++) {
+					int languageNo = Integer.parseInt(langNo[i]);
+					langResult = langResult * new InfoDao().nationLang(conn, languageNo, nationNo);
+				}
+			}
+			
+			int titleResult = 1;
+			if(title != null) {
+				titleResult = new NationDao().insertTitlePhoto(conn, nationNo, title);
+			}
+			
+			int photoResult = 1;
+			if(file != null) {
+				photoResult = new NationDao().insertPhoto(conn, nationNo, file);
+			}
+			
+			result = nationResult * visaResult * volResult * curResult * langResult * titleResult * photoResult;
+		}
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	}
 	
 	

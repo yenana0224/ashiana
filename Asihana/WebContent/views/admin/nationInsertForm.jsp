@@ -171,6 +171,7 @@
         </div>
     
         <form action="nationInsert.admin" method="post" enctype="multipart/form-data">
+            <div class="info-area"><input type="text" name="nationNo" pattern="[0-9]+" placeholder="국가번호(국제전화번호)를 입력해주세요" required></div>
             <div class="info-area"><input type="text" name="nationName" placeholder="국가이름" required></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" placeholder="국가설명" required></textarea></div>
             
@@ -189,9 +190,6 @@
 						<input type="checkbox" name="volNo" value="<%=v.getVoltageNo() %>"> <%=v.getVolName() %>
 					</div>
 				<% } %>
-				<div class="newAdd">
-
-				</div>
             </div>
             <div class="info-area">
             <label>화폐 선택 : </label> 
@@ -213,7 +211,7 @@
             	<div id="lang-area">
                 <% for(Language l : langList) { %>
             		<div class="ck-area">
-            		<input type="checkbox" name="curNo" value="<%=l.getLanguageNo()%>"> <%=l.getLanguageName() %>
+            		<input type="checkbox" name="langNo" value="<%=l.getLanguageNo()%>"> <%=l.getLanguageName() %>
 					</div>
 				<% } %>
 				</div>
@@ -224,8 +222,8 @@
 			
 			<div class="info-area">
                 <label>도시사진</label>
-                <div class="btn"><input type="file" name="TitleFile" onchange="loadImg(this, 1);"> </div>
-			    <div class="btn"><input type="file" name="File" onchange="loadImg(this, 2);"> </div>
+                <div class="btn"><input type="file" name="titleFile" onchange="loadImg(this, 1);"> </div>
+			    <div class="btn"><input type="file" name="file" onchange="loadImg(this, 2);"> </div>
             </div>
             
             <div class="btn">

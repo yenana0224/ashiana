@@ -318,5 +318,24 @@ public class NationDao {
 		return list;
 	}
 	
+	public int insertNation(Connection conn, Nation nation) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nation.getNationNo());
+			pstmt.setString(2, nation.getNationName());
+			pstmt.setString(3, nation.getNationContent());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 
 }

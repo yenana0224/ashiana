@@ -221,4 +221,21 @@
              ROWNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="insertNation">
+	INSERT
+	  INTO
+	     TB_NATION
+	     (
+	     NATION_NO,
+	     NATION_NAME,
+	     NATION_CONTENT
+	     )
+	VALUES
+	    (
+	    ?,
+	    ?,
+	    ?
+	    )
+	</entry>
+	
 </properties>

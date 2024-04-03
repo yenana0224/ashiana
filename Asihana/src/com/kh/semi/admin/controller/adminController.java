@@ -579,8 +579,13 @@ public class adminController {
 		}
 		return view;
 	}
-	
 
+	/***
+	 * 국가 추가 페이지로 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String nationInsertForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		List<Visa> visaList = new InfoService().visaList();
@@ -594,6 +599,58 @@ public class adminController {
  		request.setAttribute("curList", curList);
 		
 		return "views/admin/nationInsertForm.jsp";
+	}
+	
+	public String nationInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		int result = 0;
+		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String savePath = request.getServletContext().getRealPath("/resources/info/nation");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
+			String nationName = multiRequest.getParameter("nationName");
+			String nationContent = multiRequest.getParameter("nationContent");
+			
+			Nation nation = new Nation();
+			nation.setNationNo(nationNo);
+			nation.setNationName(nationName);
+			nation.setNationContent(nationContent);
+
+			int visaNo = Integer.parseInt(multiRequest.getParameter("visaNo"));
+			String[] volNo = multiRequest.getParameterValues("volNo");
+			String[] curNo = multiRequest.getParameterValues("curNo");
+			String[] langNo = multiRequest.getParameterValues("langNo");
+			
+			AttachmentFile title = null;
+			AttachmentFile file = null;
+			
+			if(multiRequest.getOriginalFileName("titleFile") != null) {
+				title = new AttachmentFile();
+				title.setOriginName(multiRequest.getOriginalFileName("titleFile"));
+				title.setChangeName(multiRequest.getFilesystemName("titleFile"));
+				title.setFilePath("/resources/info/nation");
+			}
+			
+			if(multiRequest.getOriginalFileName("file") != null) {
+				file = new AttachmentFile();
+				file.setOriginName(multiRequest.getOriginalFileName("file"));
+				file.setChangeName(multiRequest.getFilesystemName("file"));
+				file.setFilePath("/resources/info/nation");
+			}
+			
+			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
+		}
+		
+		if(result > 0) {
+			System.out.println("성공");
+		} else {
+			System.out.println("실패");
+		}
+		
+		return "/info.admin?currentPage=1";
 	}
 	
 	/***

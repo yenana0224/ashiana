@@ -136,17 +136,6 @@
         	width : 10px;
         }
         
-        .newAdd{
-        	margin-top : 20px;
-        	width : 100%;
-        }
-        
-        .newAdd>input[type="text"]{
-        	text-align : left;
-        	border : 1px solid darkgray;
-        	width : 200px;
-        }
-        
 
     </style>
 </head>
@@ -239,59 +228,58 @@
         
         $('#newCur').click(function(){
         	const a = prompt('화폐를 입력해주세요');
-        	
-        	$.ajax({
-        		url : 'addCur.do',
-        		data : {
-        			currencyName : a
-        		},
-        		type : 'get',
-        		success : function(result){
-        			let resultStr = '';
-        			for(let i in result){
-        				resultStr += '<div class="ck-area">'
-        						   + '<input type="checkbox" name="curNo" value="'
-        						   + result[i].currencyNo
-        						   + '">'
-        						   + result[i].currencyName
-        						   + '</div>'
-        			};
-        			
-        			$('#cur-area').empty();
-        			$('#cur-area').html(resultStr);
-        		}
-        		
-        	})
-        	
-        })
+        	if(a != null) {
+        		$.ajax({
+            		url : 'addCur.do',
+            		data : {
+            			currencyName : a
+            		},
+            		type : 'get',
+            		success : function(result){
+            			let resultStr = '';
+            			for(let i in result){
+            				resultStr += '<div class="ck-area">'
+            						   + '<input type="checkbox" name="curNo" value="'
+            						   + result[i].currencyNo
+            						   + '">'
+            						   + result[i].currencyName
+            						   + '</div>'
+            			};
+            			
+            			$('#cur-area').empty();
+            			$('#cur-area').html(resultStr);
+            		}
+            	})
+        	}
+        });
        
         
         $('#newLang').click(function(){
 			const a = prompt('언어 이름을 입력해주세요');
-
-        	$.ajax({
-        		url : 'addLang.do',
-        		data : {
-        			languageName : a
-        		},
-        		type : 'get',
-        		success : function(result){
-        			let resultStr = '';
-        			for(let i in result){
-        				resultStr += '<div class="ck-area">'
-        						   + '<input type="checkbox" name="langNo" value="'
-        						   + result[i].languageNo
-        						   + '">'
-        						   + result[i].languageName
-        						   + '</div>'
-        			};
-        			
-		        	$('#lang-area').empty();
-        			$('#lang-area').html(resultStr);
-        		}
-        	})
-        	
-        })
+			if(a != null) {
+				$.ajax({
+	        		url : 'addLang.do',
+	        		data : {
+	        			languageName : a
+	        		},
+	        		type : 'get',
+	        		success : function(result){
+	        			let resultStr = '';
+	        			for(let i in result){
+	        				resultStr += '<div class="ck-area">'
+	        						   + '<input type="checkbox" name="langNo" value="'
+	        						   + result[i].languageNo
+	        						   + '">'
+	        						   + result[i].languageName
+	        						   + '</div>'
+	        			};
+	        			
+			        	$('#lang-area').empty();
+	        			$('#lang-area').html(resultStr);
+	        		}
+	        	})
+			}
+        });
 
         
         $('#backBtn').click(function(){

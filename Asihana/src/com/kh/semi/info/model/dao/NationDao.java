@@ -133,16 +133,17 @@ public class NationDao {
 		return nation;
 	}
 	
-	public int updateNation(Connection conn, Nation nation) {
+	public int updateNation(Connection conn, int nationNo, Nation nation) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateNation");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, nation.getNationName());
-			pstmt.setString(2, nation.getNationContent());
-			pstmt.setInt(3, nation.getNationNo());
+			pstmt.setInt(1, nation.getNationNo());
+			pstmt.setString(2, nation.getNationName());
+			pstmt.setString(3, nation.getNationContent());
+			pstmt.setInt(4, nationNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -337,5 +338,38 @@ public class NationDao {
 		return result;
 	}
 	
+	public int deleteTitlePhoto(Connection conn, int nationNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTitlePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deletePhoto(Connection conn, int nationNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deletePhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

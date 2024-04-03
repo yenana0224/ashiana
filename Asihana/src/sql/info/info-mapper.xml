@@ -120,6 +120,68 @@
 	      ?
 	      )
 	</entry>
+	
+	<entry key="nationVisa">
+	INSERT
+	  INTO
+	     BRTB_VISA
+	     (
+	     VISA_NO,
+	     NATION_NO
+	     )
+	VALUES
+	    (
+	    ?,
+	    ?
+	    )
+	</entry>
+	
+	<entry key="nationVol">
+		INSERT
+	  INTO
+	     BRTB_VOL
+	     (
+	     VOL_NO,
+	     NATION_NO
+	     )
+	VALUES
+	    (
+	    ?,
+	    ?
+	    )
+	</entry>
+	
+	
+	<entry key="nationCur">
+	INSERT
+	  INTO
+	     BRTB_CURRENCY
+	     (
+	     CURRENCY_NO,
+	     NATION_NO
+	     )
+	VALUES
+	    (
+	    ?,
+	    ?
+	    )
+	
+	</entry>
+	
+	<entry key="nationLang">
+	INSERT
+	  INTO
+	     BRTB_LANG
+	     (
+	     LANGUAGE_NO,
+	     NATION_NO
+	     )
+	VALUES
+	    (
+	    ?,
+	    ?
+	    )
+	</entry>
 
 	
 </properties>

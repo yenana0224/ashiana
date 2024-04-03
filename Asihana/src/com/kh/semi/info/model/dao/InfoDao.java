@@ -258,5 +258,78 @@ public class InfoDao {
 		}
 		return result;
 	}
+	
+	public int nationVisa(Connection conn, int visaNo, int nationNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("nationVisa");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, visaNo);
+			pstmt.setInt(2, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int nationVol(Connection conn, int voltageNo, int nationNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("nationVol");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, voltageNo);
+			pstmt.setInt(2, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int nationCur(Connection conn, int currencyNo, int nationNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("nationCur");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, currencyNo);
+			pstmt.setInt(2, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int nationLang(Connection conn, int languageNo, int nationNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("nationLang");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, languageNo);
+			pstmt.setInt(2, nationNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+			
 
 }

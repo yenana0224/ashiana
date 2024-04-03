@@ -112,7 +112,7 @@
 
        
         <div class="form-group" id="s1">
-            <label for="comment">
+            <label for="comment" name="cityname">
             <span> 
             	<select id="s2" >
             		<option>도시이름</option>
@@ -133,7 +133,7 @@
             
             
             </label>
-            <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100"></textarea>
+            <textarea class="form-control"  style="resize:none;" rows="10" id="comment" placeholder="내용을 입력해주세요" maxlength="100" name="context"></textarea>
             <button class="input-group-text"  id="b3" onclick="history.back();">취소</button>
               <button class="input-group-text"  id="b3" >등록</button>
             <span class="limit">0/100</span>

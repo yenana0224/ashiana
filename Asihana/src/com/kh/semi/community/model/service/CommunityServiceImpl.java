@@ -61,6 +61,12 @@ public class CommunityServiceImpl {
 		
 		int result = new CommunityDao().update(conn, community);
 	
+		if(result>0)commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	
 	}
 	

@@ -84,14 +84,18 @@
             text-align: center;
         }
         
-        #newLang{
+        #newLang, #newCur{
         	text-decoration: none;
             color : white;
             background-color: #ff595e;
             border : none;
             border-radius: 10px;
             padding : 5px 10px 5px 10px;
-            width : auto;
+            width : 100px;
+        }
+        
+        #newLang, #newCur:hover{
+        	cursor : pointer;
         }
 
         button {
@@ -167,6 +171,7 @@
         </div>
     
         <form action="nationInsert.admin" method="post" enctype="multipart/form-data">
+            <div class="info-area"><input type="text" name="nationNo" pattern="[0-9]+" placeholder="국가번호(국제전화번호)를 입력해주세요" required></div>
             <div class="info-area"><input type="text" name="nationName" placeholder="국가이름" required></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" placeholder="국가설명" required></textarea></div>
             
@@ -185,41 +190,40 @@
 						<input type="checkbox" name="volNo" value="<%=v.getVoltageNo() %>"> <%=v.getVolName() %>
 					</div>
 				<% } %>
-				<div class="newAdd">
-
-				</div>
             </div>
             <div class="info-area">
             <label>화폐 선택 : </label> 
+            	<div id="cur-area">
             	<% for(Currency c : curList) { %>
             		<div class="ck-area">
             		<input type="checkbox" name="curNo" value="<%=c.getCurrencyNo()%>"> <%=c.getCurrencyName() %>
 					</div>
 				<% } %>
-				
-				<div class="newAdd">
-
+				</div>
+				<div class="btn">
+					<div id="newCur">새로등록</div>
 				</div>
 
             </div>
+            
             <div class="info-area">
             <label id="select-lang">언어 선택 : </label> 
             	<div id="lang-area">
                 <% for(Language l : langList) { %>
             		<div class="ck-area">
-            		<input type="checkbox" name="curNo" value="<%=l.getLanguageNo()%>"> <%=l.getLanguageName() %>
+            		<input type="checkbox" name="langNo" value="<%=l.getLanguageNo()%>"> <%=l.getLanguageName() %>
 					</div>
 				<% } %>
 				</div>
-			<div class="btn" width="auto">
+				<div class="btn">
 					<div id="newLang">새로등록</div>
 				</div>
 			</div>
 			
 			<div class="info-area">
                 <label>도시사진</label>
-                <div class="btn"><input type="file" name="TitleFile" onchange="loadImg(this, 1);"> </div>
-			    <div class="btn"><input type="file" name="File" onchange="loadImg(this, 2);"> </div>
+                <div class="btn"><input type="file" name="titleFile" onchange="loadImg(this, 1);"> </div>
+			    <div class="btn"><input type="file" name="file" onchange="loadImg(this, 2);"> </div>
             </div>
             
             <div class="btn">
@@ -232,12 +236,37 @@
         </div>
         
         <script>
+        
+        $('#newCur').click(function(){
+        	const a = prompt('화폐를 입력해주세요');
+        	
+        	$.ajax({
+        		url : 'addCur.do',
+        		data : {
+        			currencyName : a
+        		},
+        		type : 'get',
+        		success : function(result){
+        			let resultStr = '';
+        			for(let i in result){
+        				resultStr += '<div class="ck-area">'
+        						   + '<input type="checkbox" name="curNo" value="'
+        						   + result[i].currencyNo
+        						   + '">'
+        						   + result[i].currencyName
+        						   + '</div>'
+        			};
+        			
+        			$('#cur-area').empty();
+        			$('#cur-area').html(resultStr);
+        		}
+        		
+        	})
+        	
+        })
        
         
         $('#newLang').click(function(){
-        	
-        	$('#lang-area').empty();
-        	
 			const a = prompt('언어 이름을 입력해주세요');
 
         	$.ajax({
@@ -247,9 +276,6 @@
         		},
         		type : 'get',
         		success : function(result){
-        			//console.log(result[0].languageNo);
-        			//console.log(result[0].languageName);
-        			
         			let resultStr = '';
         			for(let i in result){
         				resultStr += '<div class="ck-area">'
@@ -260,6 +286,7 @@
         						   + '</div>'
         			};
         			
+		        	$('#lang-area').empty();
         			$('#lang-area').html(resultStr);
         		}
         	})

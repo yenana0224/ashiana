@@ -87,6 +87,14 @@ public class InfoService {
 		close(conn);
 		return result;
 	}
+	
+	public int insertCur(String curName) {
+		Connection conn = getConnection();
+		int result = new InfoDao().insertCur(conn, curName);
+		if(result > 0) commit(conn);
+		close(conn);
+		return result;
+	}
 
 
 }

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
 	Nation nation = (Nation)request.getAttribute("nation");
-	
 	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
 	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>

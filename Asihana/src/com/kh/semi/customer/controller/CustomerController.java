@@ -398,21 +398,6 @@ public class CustomerController {
 		return view;
 	}
 	
-	public String noticeDelete(HttpServletRequest request, HttpServletResponse response) {
-		
-		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

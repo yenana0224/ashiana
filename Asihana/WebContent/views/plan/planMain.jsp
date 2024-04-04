@@ -21,10 +21,8 @@
     <div id="outer-main">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
-            
+			<!-- 로그인 상태면서 여행 플랜이 존재할때 -->
             <c:if test="${ !empty sessionScope.loginUser and !empty list }">
-            
-				<!-- 로그인 상태면서 여행 플랜이 존재할때 -->
             	<c:forEach var="p" items="${ list }"> 
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div class="to-card-detail">
@@ -110,14 +108,13 @@
 	    		location.href = '${ path }/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
 	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
-				
-	    		<% if( loginUser != null) { %>
-		    		location.href = '${ path }/insert.plan?userNo=' + <%= loginUser.getUserNo() %>;
-	    		<% } else { %>
+	    		if(${ !empty loginUser }){
+		    		location.href = '${ path }/insert.plan?userNo=' + ${ loginUser.userNo };
+	    		}
+	    		else{
 	    			alert("로그인 후 이용해주세요..");
 	    			location.href = '${ path }/views/member/memberLoginForm.jsp';
-	    		<% } %>
-
+	    		}
 	    	})
     	})	
     </script>

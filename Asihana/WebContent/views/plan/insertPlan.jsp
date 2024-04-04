@@ -120,7 +120,6 @@
 	        $('.cancel-plan').click(function(){
 	        	location.href = '<%=contextPath%>/planMain.plan';
 	        })
-	        
 		})
 	</script>
         

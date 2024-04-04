@@ -188,6 +188,22 @@ public class PlanController {
 		return selectPlanList(request, response);
 	}
 
+	public String updatePlan(HttpServletRequest request, HttpServletResponse response) {
+		
+		String view = "views/common/errorPage.jsp";
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
+		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) { // 로그인 유저 넘버와 Parameter의 유저 넘버가 같은지 비교 
+			request.setAttribute("cityList", new TravelReviewService().selectCityList()); //도시 리스트
+			// 플랜넘버 가져가야함
+			view = "views/plan/updatePlan.jsp";
+		} else {
+			request.setAttribute("errorMsg", "로그인 확인 후 다시 시도해주세요.");
+		}
+		return view;
+	}
+
 
 
 

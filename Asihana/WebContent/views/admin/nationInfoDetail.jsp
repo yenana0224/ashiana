@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
 <%
 	Nation nation = (Nation)request.getAttribute("nation");
-	
 	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
 	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
 %>
@@ -99,7 +98,7 @@
             cursor : pointer;
         }
         
-        #backBtn{
+        #backBtn, #delBtn{
         	margin-bottom : 50px;
         }
         
@@ -129,7 +128,7 @@
             <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
             <% } %>
         </div>
-    
+        
         <form action="nationUpdateForm.admin" method="post">
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>" readonly></div>
@@ -143,14 +142,22 @@
             	<button type="submit" id="updateBtn"> 수정하기 </button>
             </div>
         </form>
-        
+
 		<div class="btn">
         	<button id="backBtn"> 목록으로 </button>
+        </div>
+        
+        <div class="btn">
+        	<button id="delBtn"> 삭제하기 </button>
         </div>
         
         <script>
         $('#backBtn').click(function(){
         	location.href="<%=contextPath %>/info.admin?currentPage=1";
+        })
+        
+        $('#delBtn').click(function(){
+        	location.href="<%=contextPath %>/deleteNation.admin?nationNo=<%=nation.getNationNo()%>";
         })
         </script>
 

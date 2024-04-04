@@ -508,7 +508,6 @@ public class adminController {
 		request.setCharacterEncoding("UTF-8");
 		
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		
 		Nation nation = new Nation();
 		nation.setNationNo(nationNo);
 		nation.setNationName(request.getParameter("nationName"));
@@ -517,6 +516,7 @@ public class adminController {
 		nation.setLanguage(request.getParameter("language"));
 		nation.setCurrency(request.getParameter("currency"));
 		nation.setVisaName(request.getParameter("visa"));
+		
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
 		
@@ -533,7 +533,6 @@ public class adminController {
 		request.setAttribute("nation", nation);
 		request.setAttribute("title", title);
 		request.setAttribute("file", file);
-
 		
 		return "views/admin/nationUpdateForm.jsp";		
 	}
@@ -553,7 +552,6 @@ public class adminController {
 			int maxSize = 1024 * 1024 * 10;
 			String savePath = request.getServletContext().getRealPath("/resources/info/nation");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
 			
 			int oldNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
 			int newNationNo = Integer.parseInt(multiRequest.getParameter("newNationNo"));
@@ -590,7 +588,7 @@ public class adminController {
 
 			int result = new NationService().updateNation(oldNo, visaNo, nation, volNo, curNo, langNo, title, file);
 		
-			if(result > 0) System.out.println("성공");
+			if(result > 0) view = "/info.admin?currentPage=1";
 		}
 		
 		return view;
@@ -672,6 +670,16 @@ public class adminController {
 		} else {
 			System.out.println("실패");
 		}
+		
+		return "/info.admin?currentPage=1";
+	}
+	
+	public String nationDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		int result = new NationService().deleteNation(nationNo);
+		
+		if(result > 0) System.out.println("성공");
 		
 		return "/info.admin?currentPage=1";
 	}

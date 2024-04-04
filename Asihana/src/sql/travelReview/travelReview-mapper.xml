@@ -204,11 +204,13 @@
 		      PARTNER,
 		      STAR_POINT,
 		      CITY_NO,
-		      PLAN_CHECK
+		      PLAN_CHECK,
+		      STATUS
 		      )
 		VALUES
 			  (
 			  SEQ_REVIEW.NEXTVAL,
+			  ?,
 			  ?,
 			  ?,
 			  ?,

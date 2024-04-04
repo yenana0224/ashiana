@@ -363,6 +363,7 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			pstmt.setDouble(7, t.getStarPoint());
 			pstmt.setInt(8, t.getCityNo());
 			pstmt.setString(9, t.getPlanCheck());
+			pstmt.setString(10, t.getStatus());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

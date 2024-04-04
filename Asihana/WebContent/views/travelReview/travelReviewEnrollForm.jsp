@@ -235,11 +235,11 @@
                             </div>
                             <div id="star-content"> <!--별점의 content영역-->
                            		<div class ="star-area">
-							        <span id="1point" class="star-point" value="1"></span>
-							        <span id="2point" class="star-point" value="2"></span>
-							        <span id="3point" class="star-point" value="3"></span>
-							        <span id="4point" class="star-point" value="4"></span>
-							        <span id="5point" class="star-point" value="5"></span>
+							        <span id="1point" class="star-point"></span>
+							        <span id="2point" class="star-point"></span>
+							        <span id="3point" class="star-point"></span>
+							        <span id="4point" class="star-point"></span>
+							        <span id="5point" class="star-point"></span>
 					      	 	</div>
 								
 						   	 	<input id="star" type="hidden" name="star">

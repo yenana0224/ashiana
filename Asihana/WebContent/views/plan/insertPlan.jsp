@@ -867,12 +867,12 @@
 			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
 			                            +	 '<td class="sched-detail-btn-area"><img class="sched-detail-btn update-sched" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn delete-sched" src="resources/icons/x-circle-fill.svg"></td>'
 			                            + '</tr>';
-			                schedCostSum += result[i].schedCost;
+			                schedCostSum += parseInt(result[i].schedCost);
     					}
     				}
     				$('.schedDestNo[value=' + destNo + ']').nextAll().remove();
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
-                    $('.schedDestNo[value=' + destNo + ']').parent().parent().prev('.sched-des').find('.schedCostSum').text(schedCostSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum').text(schedCostSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
                     
     			}
     		})

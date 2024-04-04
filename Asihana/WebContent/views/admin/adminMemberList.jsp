@@ -164,6 +164,7 @@
                         </tr>
                     <% } else { %>
                         <% for(Member m : list) { %>
+                        	<% if(!m.getUserId().equals("admin")){ %>
                             <tr>
                                 <td>
                                 	<input class="ckOne" type="checkbox" name="userNo" value="<%=m.getUserNo() %>"> 
@@ -172,6 +173,15 @@
                                 <td class="memberTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
                                 <td><%=m.geteDate() %></td>
                             </tr>
+                            <% } else {%>
+                            <tr>
+                                <td>
+                                </td>
+                                <td><%=m.getUserId() %></td>
+                                <td class="memberTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
+                                <td><%=m.geteDate() %></td>
+                            </tr>
+                            <%} %>
                         <% } %>
                     <% } %>
                     

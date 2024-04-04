@@ -168,7 +168,7 @@
     
         <form action="nationUpdate.admin" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
-            <div class="info-area"><input type="text" name="newNationNo" pattern="[0-9]+" value="<%=nation.getNationNo() %>" required></div>
+            <div class="info-area"><input type="text" id="numCk" name="newNationNo" pattern="[0-9]+" value="<%=nation.getNationNo() %>" required></div>
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>"></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"><%=nation.getNationContent() %></textarea></div>
             <div class="info-area">
@@ -236,7 +236,7 @@
         </div>
         
         <script>
-        
+
         $('#newCur').click(function(){
         	const a = prompt('화폐를 입력해주세요');
         	

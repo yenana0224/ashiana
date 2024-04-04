@@ -665,12 +665,6 @@ public class adminController {
 			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
 		}
 		
-		if(result > 0) {
-			System.out.println("성공");
-		} else {
-			System.out.println("실패");
-		}
-		
 		return "/info.admin?currentPage=1";
 	}
 	

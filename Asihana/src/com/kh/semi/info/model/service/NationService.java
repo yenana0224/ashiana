@@ -207,6 +207,9 @@ public class NationService {
 		new InfoDao().deleteVisa(conn, nationNo);
 		new NationDao().deleteNation(conn, nationNo);
 		
+		if(result > 0) commit(conn);
+		close(conn);
+		
 		return result;
 	}
 	

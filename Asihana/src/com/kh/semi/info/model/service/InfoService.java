@@ -19,16 +19,12 @@ public class InfoService {
 	public String nationLang(int nationNo) {
 		Connection conn = getConnection();
 		List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-		System.out.println(langList);
-		
 		List langArr = new ArrayList();
 		for(Language l : langList) {
 			langArr.add(l.getLanguageName());
 		}
 		String arr = String.join(",", langArr);
-		
-		System.out.println(langArr);
-		
+
 		close(conn);
 		return arr;
 	}

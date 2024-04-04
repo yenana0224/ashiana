@@ -554,7 +554,6 @@ public class adminController {
 			String savePath = request.getServletContext().getRealPath("/resources/info/nation");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			
 			int oldNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
 			int newNationNo = Integer.parseInt(multiRequest.getParameter("newNationNo"));
 			int visaNo = Integer.parseInt(multiRequest.getParameter("visaNo"));
@@ -590,7 +589,7 @@ public class adminController {
 
 			int result = new NationService().updateNation(oldNo, visaNo, nation, volNo, curNo, langNo, title, file);
 		
-			if(result > 0) System.out.println("성공");
+			if(result > 0) view = "/info.admin?currentPage=1";
 		}
 		
 		return view;

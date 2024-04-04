@@ -59,7 +59,6 @@
             padding : 0px;
             font-size : 18px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            white-space: pre-wrap;
 
         }
 
@@ -100,7 +99,7 @@
             </div>
 
             <div class="photo">
-                <img src="<%=contextPath %><%=s.getFilePath() %>/<%=s.getChangeName() %>">
+                <img src="<%=contextPath %>/<%=s.getFilePath() %>/<%=s.getChangeName() %>">
             </div>
 
             <div class="content-area">

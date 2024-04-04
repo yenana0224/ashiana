@@ -133,10 +133,10 @@
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>" readonly></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly><%=nation.getNationContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
             <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
-            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
+            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
             <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
+            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
 
             <div class="btn">
             	<button type="submit" id="updateBtn"> 수정하기 </button>

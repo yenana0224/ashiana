@@ -203,17 +203,17 @@
 							
         	<% } else { %>
         	    <% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/info.admin??currentPage=<%=currentPage -1 %>'">이전</button>
+        		<button onclick="location.href='<%=contextPath%>/info.admin?currentPage=<%=currentPage -1 %>'">이전</button>
           		<% } %> 
 				<% for(int i = startPage; i <= endPage; i++){ %>
 					<% if(currentPage != i){ %>
-					<button onclick="location.href='<%=contextPath%>/info.admin??currentPage=<%=i%>'"><%= i %></button>
+					<button onclick="location.href='<%=contextPath%>/info.admin?currentPage=<%=i%>'"><%= i %></button>
 					<%} else {%>
 						<button style="background-color : darkgray" disabled><%=i %></button>
 					<%} %>
 				<%} %>
 				<% if(currentPage != maxPage) { %>
-			 	 <button onclick="location.href='<%=contextPath%>/info.admin??currentPage=<%=currentPage + 1%>'">다음</button>
+			 	 <button onclick="location.href='<%=contextPath%>/info.admin?currentPage=<%=currentPage + 1%>'">다음</button>
 				<% } %>
 			
 			<% } %>

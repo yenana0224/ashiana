@@ -83,10 +83,10 @@
             <form action="<%=contextPath %>/noticeInsert.customer" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
                 <div class="title-area">
-                    <input type="text" placeholder="제목을 입력해주세요" name="title"> 
+                    <input class="input-area" type="text" placeholder="제목을 입력해주세요" name="title"> 
                 </div>
                 <div class="content-area" >
-                    <textarea name="content" cols="30" rows="20" style="resize: none;"></textarea>
+                    <textarea class="input-area" name="content" cols="30" rows="20" style="resize: none;"></textarea>
                 </div>
 
                 <div class="fileAt">
@@ -101,6 +101,8 @@
                     <button type="submit"> 등록 </button>
                     <button>취소</button>
                 </div>
+                
+               
             </form>
         </div>
     </div>

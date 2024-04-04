@@ -5,7 +5,7 @@
 	List<Language> langList = (List<Language>)request.getAttribute("langList");
 	List<Voltage> volList = (List<Voltage>)request.getAttribute("volList");
 	List<Currency> curList = (List<Currency>)request.getAttribute("curList");
-	Nation nation = (Nation)request.getAttribute("nation");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -174,7 +174,7 @@
                 </select>
             </div>
             <div class="info-area">
-            <label>전압 선택 : 기존 전압 </label> 
+            <label>전압 선택 : </label>
 				<% for(Voltage v : volList) { %>
 					<div class="ck-area">
 						<input type="checkbox" name="volNo" value="<%=v.getVoltageNo() %>"> <%=v.getVolName() %>
@@ -182,7 +182,7 @@
 				<% } %>
             </div>
             <div class="info-area">
-            <label>화폐 선택 : 기존 화폐 </label> 
+            <label>화폐 선택 :</label> 
             	<div id="cur-area">
             	<% for(Currency c : curList) { %>
             		<div class="ck-area">
@@ -197,7 +197,7 @@
             </div>
             
             <div class="info-area">
-            <label id="select-lang">언어 선택 : 기존언어 </label> 
+            <label id="select-lang">언어 선택 : </label> 
             	<div id="lang-area">
                 <% for(Language l : langList) { %>
             		<div class="ck-area">

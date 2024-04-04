@@ -190,7 +190,16 @@
             line-height: 30px;
             text-align: center;
             font-weight: 800;
-            margin-top : 5px;
+            margin-top : 10px;
+            font-size : 20px;
+        }
+        
+        .cityName>h6{
+            line-height: 40px;
+            text-align: center;
+            font-weight: 800;
+            color : white;
+            font-size : 8px;
         }
     </style>
 
@@ -284,13 +293,24 @@
                 <div class="city">
                     <div class="cityPhoto"><img src="<%=contextPath%><%=c.getFilePath() %>/<%=c.getChangeName()%>"></div>
                     <div class="cityName">
-	                    <h5><%=c.getCityName() %></h5>
+	                    <h5 class="namecity" id="<%=c.getCityNo() %>"><%=c.getCityName() %></h5>
+	                    <h6 class="namenation" id="<%=c.getNationNo() %>"><%=c.getNationName() %></h6>
                 	</div>
                	</div>
 
             <% } %>
             </div>   
         </div>
+        
+           <script>
+	            $(function(){
+	            	$('.city').click(function(){
+	            		const cityNo = $(this).find('.namecity').attr('id');
+	            		const nationNo = $(this).find('.namenation').attr('id')
+	            		location.href="<%=contextPath%>/search.info?nation=" + nationNo + "&city=" + cityNo;
+	            	})
+	            })
+            </script>
 
     </div>
  

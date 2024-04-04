@@ -26,9 +26,7 @@ public class InfoService {
 			langArr.add(l.getLanguageName());
 		}
 		String arr = String.join(",", langArr);
-		
-		System.out.println(langArr);
-		
+
 		close(conn);
 		return arr;
 	}

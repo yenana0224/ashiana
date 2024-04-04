@@ -590,7 +590,7 @@ public class adminController {
 
 			int result = new NationService().updateNation(oldNo, visaNo, nation, volNo, curNo, langNo, title, file);
 		
-			if(result > 0) System.out.println("성공");
+			if(result > 0) view = "/info.admin?currentPage=1";
 		}
 		
 		return view;

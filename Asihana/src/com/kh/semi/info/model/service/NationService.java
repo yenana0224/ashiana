@@ -53,7 +53,7 @@ public class NationService {
 	public int updateNation(int oldNo, int visaNo, Nation nation, String[] volNo, String[] curNo, String[] langNo, AttachmentFile title, AttachmentFile file) {
 
 		Connection conn = getConnection();
-		
+
 		// 기존 번호에 있는 정보가 있다면 전부 삭제
 		if(new InfoDao().countCurrency(conn, oldNo) > 0) new InfoDao().deleteCurrency(conn, oldNo);
 		if(new InfoDao().countLanguage(conn, oldNo) > 0) new InfoDao().deleteLanguage(conn, oldNo);
@@ -61,13 +61,15 @@ public class NationService {
 		if(new NationDao().selectTitlePhoto(conn, oldNo) != null) new NationDao().deleteTitlePhoto(conn, oldNo);
 		if(new NationDao().selectPhoto(conn, oldNo) != null) new NationDao().deletePhoto(conn, oldNo);
 		new InfoDao().deleteVisa(conn, oldNo);
+		new NationDao().deleteNation(conn, oldNo);
 		
 		int result = 0;
 		int nationNo = nation.getNationNo();
+
 		int nationResult = new NationDao().insertNation(conn, nation);
-		
+
 		if(nationResult > 0 ) {
-				
+			
 			int visaResult = new InfoDao().nationVisa(conn, visaNo, nationNo);
 			int volResult = 1;
 			if(volNo != null) {

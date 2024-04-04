@@ -258,4 +258,12 @@
 	  AND
 	     BOARD_NO = ?
 	</entry>
+	
+	<entry key="deleteNation">
+	DELETE
+	  FROM
+	  	  TB_NATION
+  	 WHERE
+  	 	  NATION_NO = ?
+	</entry>
 </properties>

@@ -474,9 +474,18 @@ public class adminController {
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		Nation nation = new NationService().searchNation(nationNo);
-		nation.setLanguage(new InfoService().nationLang(nationNo));
-		nation.setCurrency(new InfoService().nationCur(nationNo));
-		nation.setVoltage(new InfoService().nationVol(nationNo));
+		
+		if(new InfoService().nationLang(nationNo) != null) {
+			nation.setLanguage(new InfoService().nationLang(nationNo));
+		}
+		
+		if(new InfoService().nationCur(nationNo) != null) {
+			nation.setCurrency(new InfoService().nationCur(nationNo));
+		}
+
+		if(new InfoService().nationVol(nationNo) != null) {
+			nation.setVoltage(new InfoService().nationVol(nationNo));
+		}
 
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);

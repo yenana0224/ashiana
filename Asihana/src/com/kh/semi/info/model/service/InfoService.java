@@ -1,10 +1,11 @@
 package com.kh.semi.info.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.info.model.dao.InfoDao;
@@ -18,31 +19,40 @@ public class InfoService {
 	public String nationLang(int nationNo) {
 		Connection conn = getConnection();
 		List<Language> langList = new InfoDao().searchLang(conn, nationNo);
-
-		String arr1 = langList.toString();
-		String lang = arr1.substring(arr1.lastIndexOf("[")+1, arr1.lastIndexOf("]"));
-		close(conn);
+		System.out.println(langList);
 		
-		return lang;
+		List langArr = new ArrayList();
+		for(Language l : langList) {
+			langArr.add(l.getLanguageName());
+		}
+		String arr = String.join(",", langArr);
+		
+		System.out.println(langArr);
+		
+		close(conn);
+		return arr;
 	}
-	
 	public String nationVol(int nationNo) {
 		Connection conn = getConnection();
 		List<Voltage> volList = new InfoDao().searchVol(conn, nationNo);
-		String arr2 = volList.toString();
-		String vol = arr2.substring(arr2.lastIndexOf("[")+1, arr2.lastIndexOf("]"));
+		List volArr = new ArrayList();
+		for(Voltage v : volList) {
+			volArr.add(v.getVolName());
+		}
+		String arr = String.join(",", volArr);
 		close(conn);
-		return vol;
+		return arr;
 	}
-	
 	public String nationCur(int nationNo) {
 		Connection conn = getConnection();
 		List<Currency> curList = new InfoDao().searchCur(conn, nationNo);
-		String arr3 = curList.toString();
-		String cur = arr3.substring(arr3.lastIndexOf("[")+1, arr3.lastIndexOf("]"));
+		List curArr = new ArrayList();
+		for(Currency c : curList) {
+			curArr.add(c.getCurrencyName());
+		}
+		String arr = String.join(",", curArr);
 		close(conn);
-		
-		return cur;
+		return arr;
 	}
 	
 	public List<Visa> visaList(){

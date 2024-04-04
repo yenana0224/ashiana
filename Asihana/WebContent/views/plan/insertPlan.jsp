@@ -568,7 +568,6 @@
         		success : function(result){
         			if(result > 0){
         				selectSchedule($schedDestNo);
-        				selectPlan();
         			}
         			else{
         				alert("예약 및 일정 추가를 다시 시도해주세요..")
@@ -630,7 +629,6 @@
         		},
         		success : function(result){
         			selectSchedule($schedDestNo);
-        			selectPlan();
         		}
         	})
         	$sched.remove();
@@ -809,7 +807,7 @@
 					    	           +     '<div class="sched-btn-area">'
 					    	           +         '<button type="button" class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
 					    	           +     '</div>'
-					    	           +     '<span class="sched-des-price">예약 및 일정 예산 <label class="schedCostSum">' + result[i].schedCostSum + '원</label></span>'
+					    	           +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
 					    	           +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
 					    	           + '</div>'
 					    	           + '<div class="sched-des sched-des-detail">' // 아코디언 내부
@@ -851,7 +849,6 @@
     			},
     			success : function(result){
     				let schedTable = '';
-    				let = schedCostSum = 0;
     				if(result.length == 0){
     					schedTable += '<tr class="sched-tr-empty">'
                         			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
@@ -867,13 +864,11 @@
 			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
 			                            +	 '<td class="sched-detail-btn-area"><img class="sched-detail-btn update-sched" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn delete-sched" src="resources/icons/x-circle-fill.svg"></td>'
 			                            + '</tr>';
-			                schedCostSum += parseInt(result[i].schedCost.split(',').join(''));
-			            
     					}
     				}
     				$('.schedDestNo[value=' + destNo + ']').nextAll().remove();
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
-                    $('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum').text(schedCostSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
+                    
     			}
     		})
     	};

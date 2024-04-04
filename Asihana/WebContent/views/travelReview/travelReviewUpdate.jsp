@@ -10,8 +10,6 @@
 	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
 	TravelReview review = (TravelReview)request.getAttribute("review");
 	List<AttachmentFile> fileList = (List<AttachmentFile>)request.getAttribute("fileList");
-	List<HashTag> checkedTagList = (List<HashTag>)request.getAttribute("checkedTagList");
-
 %>
     
 <!DOCTYPE html>
@@ -289,18 +287,15 @@
                             </div>
                             <div id="place-content"> <!-- 장소의 content영역-->
                                 <select name="city">
+                           			
                                 	<%for(int i = 0; i < cityList.size(); i++) {%>
-                                		<option class="<%= cityList.get(i).getCityName() %> %>" value="<%=cityList.get(i).getCityNo()%>" selected><%=cityList.get(i).getCityName() %></option>
-                                		<option class="<%=cityList.get(i).getCityName() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
-									<%} %>  
-									
-									
-									                              		
+                                	<option class="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
+                                	<%} %>
                                 </select>
                                 
                                 <script>
                                 	$(function(){
-                        				$('.<%=review.getCityName()%>').attr('selected', true);
+                        				$('.<%=review.getCityNo()%>').attr('selected', true);
                                 	})
                                 </script>
                             </div>
@@ -309,15 +304,12 @@
                         <div id="area-partner" ><!--동행 영역--> 
                             <h3>누구와 다녀 오셨나요?</h3>
                             
-                            <input id="A" class="partner" type="radio" name="partner" value="A"><label for="A">나홀로</label>
-                            <input id="FM" class="partner" type="radio" name="partner" value="FM"><label for="FM">가족</label>
-                            <input id="F" class="partner" type="radio" name="partner" value="F"><label for="F">친구</label>
-                            <input id="L" class="partner" type="radio" name="partner" value="L"><label for="L">사랑하는 사람과 함께</label>
+                            <input class="partner" type="radio" name="partner" value="A"><label for="A">나홀로</label>
+                            <input class="partner" type="radio" name="partner" value="FM"><label for="FM">가족</label>
+                            <input class="partner" type="radio" name="partner" value="F"><label for="F">친구</label>
+                            <input class="partner" type="radio" name="partner" value="L"><label for="L">사랑하는 사람과 함께</label>
                             
                             <script>
-                            	$(function(){
-                            		$('#<%=review.getPartner()%>').attr('checked', true);
-                            	})
                             </script>
                         </div>
                         
@@ -343,27 +335,47 @@
 
                             <div class="sub" align="center"> <!-- 사용자가 추가한 서브이미지 뜨는 곳, 최대 4개까지 가능-->
                                 <div style="padding-left : 50px" id="sub1">
-                                    <img id="img1" src=""
+                                    <img id="img1" src="
+                                    <%if(fileList.size() > 1 && fileList.get(1).getFilePath() != null) {%>
+                                    <%=fileList.get(1).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    "
                                     style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label >
-                                    <%if(fileList.size() > 1){%>
-                                     	첨부파일 있음
-                                    <%} %>
-                                    </label>
+                                    <label >이미지1</label>
                                 </div>
                                 
                                 <div id="sub2">
-                                    <img id="img2" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img2" src="
+                                    <%if(fileList.size() > 2 && fileList.get(2).getFilePath() != null) {%>
+                                    <%=fileList.get(2).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지2</label>
                                 </div>
                                 
                                 <div id="sub3">
-                                    <img id="img4" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img4" src="
+                                    <%if(fileList.size() > 3 && fileList.get(3).getFilePath() != null) {%>
+                                    <%=fileList.get(3).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지3</label>
                                 </div>
   
                                 <div id="sub4">
-                                    <img id="img5" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img5" src="
+                                    <%if(fileList.size() > 4 && fileList.get(4).getFilePath() != null) {%>
+                                    <%=fileList.get(4).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지4</label>
                                 </div>
                             </div>
@@ -479,18 +491,19 @@
                                 <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                     2) 보여지는checkbox의 checked 속성을 조작해야함-->
                                 
-                            
                                 <%for(int i = 0; i < hashTagList.size(); i++) {%>
                                 <input type="checkbox" name="hashTag" id="tag<%=i%>" value="<%=hashTagList.get(i).getTagNo()%>"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(i).getTagName() %></label>
                                 <%} %>
-                                <%for(int i = 0; i < checkedTagList.size(); i++) {%>
-                                	<%= checkedTagList.get(i).getTagNo() %>
-                                <%} %>
-                                
+                                <!--  
                                 <script>
-                                	
+                                	$(fucntion(){
+                                		$('.hashtag').click(function(){
+                                			$(':checkbox').attr('checked', true);
+                                		})
+                                	})
                                 </script>
-                              
+                                -->
+                                
                         </div>
                         
 

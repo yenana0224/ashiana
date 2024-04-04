@@ -192,7 +192,7 @@
 				<%} %>
 			<%} %>
 			
-			<% if(currentPage != maxPage) { %>
+			<% if(currentPage != 1 && currentPage != maxPage) { %>
 			  <button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage + 1%>'">다음</button>
 			<% } %>
         </div>   

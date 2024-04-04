@@ -513,15 +513,12 @@
           <button id="g4"> 검색</button>
           
       
-           <button id="g5" > 글 작성하기</button>
+          
+           		<a href="<%=contextPath%>/insert.commu"> <button id="g5" > 글 작성하기</button></a>
           <!--글 작성하기를  누르면 글 작성폼으로 연결 -->
           
-          <script>
-          	$('#g5').click(function(){
-          		location.href='<%=contextPath%>()/insert.commu';
           		
-          		
-          	});
+
           
           
           </script>
@@ -537,7 +534,7 @@
 		    	    <tr>
 		          		<th>글 번호</th>
 			    		<th>도시</th>
-			      		<th>회원 번호</th>
+			      		<th>회원 닉네임</th>
 			      		<th>글 내용</th>
 			      		<th>조회수</th>
 			      		<th>작성일</th>

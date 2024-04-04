@@ -68,9 +68,11 @@ public class TravelReviewInsertController extends HttpServlet {
 			String departureDate = multiRequest.getParameter("departure");
 			int cityNo = Integer.parseInt(multiRequest.getParameter("city"));
 			String partner = multiRequest.getParameter("partner");
-			Double starPoint = Double.parseDouble(multiRequest.getParameter("star"));
+			int starPoint = Integer.parseInt(multiRequest.getParameter("star"));
 			String planCheck = multiRequest.getParameter("planCheck");
 			String[] hashTagList = multiRequest.getParameterValues("hashTag");
+			String status = multiRequest.getParameter("status");
+			
 			/*
 			System.out.println(reviewWriter + "작성자");
 			System.out.println(reviewTitle + "제목");
@@ -79,10 +81,9 @@ public class TravelReviewInsertController extends HttpServlet {
 			System.out.println(city + "도시");
 			System.out.println(partner + "파트너");
 			System.out.println(departureDate + "복구날");
-			System.out.println(starPoint + "별점");
 			System.out.println(Arrays.toString(hashTagList));
 			*/
-			
+			System.out.println(starPoint + "별점");
 			
 			// 여행기 값 VO에 담기
 			
@@ -97,6 +98,7 @@ public class TravelReviewInsertController extends HttpServlet {
 			t.setPartner(partner);
 			t.setStarPoint(starPoint);
 			t.setPlanCheck(planCheck);
+			t.setStatus(status);
 			
 			//해시태그 값 VO에 담기
 			List<HashTag> tagList = new ArrayList();

@@ -233,6 +233,29 @@
         padding-top : 0; 
         width : 495px;
     }
+    
+    .star-area {
+         width: 100%; 
+         box-sizing: border-box; 
+         display: inline-block; 
+    
+    }
+    
+    .star-area .star-point {
+        width: 40px; 
+        height: 40px; 
+        display: inline-block; 
+        background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png'); 
+        background-size: 100%; 
+    }
+    
+    .star-area .star-point.on {
+        width: 40px; 
+        height: 40px;
+        display: inline-block; 
+        background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png');
+        background-size: 100%; 
+    }
 
     </style>
 
@@ -290,8 +313,20 @@
                                 <h3 style="margin : 0;"><%=review.getReviewTitle() %></h3>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <!--별점 구현 해야함 + 마진으로 위치 조정 해야 함-->
-                                <label>별점</label><input type="radio"><input type="radio"><input type="radio"><input type="radio"><input type="radio">  <br>
+                                <!-- 별점 구현 영역 -->
+                                <div class ="star-area">
+							        <span id="1point" class="star-point"></span>
+							        <span id="2point" class="star-point"></span>
+							        <span id="3point" class="star-point"></span>
+							        <span id="4point" class="star-point"></span>
+							        <span id="5point" class="star-point"></span>
+					      	 	</div>
+					      	 	<script>
+					      	 		$(function(){
+					      	 			$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
+					      	 		})
+					      	 	
+					      	 	</script>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <input type="date" value="<%=review.getDepartureDate()%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>
@@ -344,7 +379,6 @@
 
                                 <!-- 이미지의 src 속성값은 DB에서 조회해온 결과를 바탕으로 띄워줘야 함-->
                                 <%for(int i = 0; i < fileList.size(); i++){ %>
-                                <%System.out.println(fileList.get(i).getFilePath()); %>
                                 <div class="swiper-slide"><img src="<%=fileList.get(i).getFilePath()%>"></div>
                                 <%} %>
                             </div>
@@ -434,6 +468,7 @@
 
                     <div id="plan-check">
                     	<%if(review.getPlanCheck().equals("Y")){%>
+                        <%System.out.println("플랜체크" + review.getPlanCheck()); %>
                         <div>
                             <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
                             <a href="#" style="text-decoration: none; color : black;">
@@ -455,8 +490,22 @@
                     </div>
 
                     <div id="content-wrap-4-2-2" align="right">
-                        <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px; margin-right : 40px;" onclick="history.back();">목록</button>
+                        <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px;" onclick="history.back();">목록</button>
+                    	<%if(loginUser != null && loginUser.getNickName().equals(review.getReviewWriter())) {%>
+                    	<button id="update-review" type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px;">수정</button>
+                    	<%} %>
                     </div>
+                    
+                    <script>
+                    	$(function(){
+                    		$('#update-review').click(function(){
+                    			location.href = '<%=contextPath%>/updateForm.review?reviewNo='+<%=review.getReviewNo()%>;
+                    		})	
+                    		
+                    	})
+                    
+                    </script>
+                    
                 </div>
 
                 <script>

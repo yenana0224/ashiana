@@ -26,8 +26,8 @@
             <% if(loginUser != null && !list.isEmpty()) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
             	<% for(PlanMain p: list) { %>
 		            <div class="my-plan-card my-plan-card-hover">
-		                <div>
-		                    <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
+		                <div class="to-card-detail">
+		                    <img src="<%= p.getFilePath().substring(1) %>" width="200" height="200">
 		                    <h5><%= p.getPlanCitys() %></h5>
 		                    <div class="card-content">
 		                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
@@ -44,8 +44,8 @@
 		                        </div>
 		                    </div>
 		                </div>
-		                <button id="card-delete" class="btn button btn-danger btn-card" style="right: 5px;">삭제</button>
-		                <button id="card-edit" class="btn button btn-success btn-card" style="right: 37px;">수정</button>
+		                <button class="btn button btn-danger btn-card card-delete" style="right: 5px;">삭제</button>
+		                <button class="btn button btn-success btn-card card-edit" style="right: 37px;">수정</button>
 		            </div>
             	<% } %>            	
             <% } %>
@@ -110,7 +110,7 @@
     
     <script>
     	$(function(){
-	    	$('#my-plans-area').on('click', '.my-plan-card-hover', function(){ // 카드 클릭 시 상세 조회 =>
+	    	$('#my-plans-area').on('click', '.to-card-detail', function(){ // 카드 클릭 시 상세 조회 =>
 	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
 	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
@@ -123,6 +123,18 @@
 	    	})
     	})	
     </script>
+    
+    <script>
+    	$(function(){
+			$('#my-plans-area').on('click', '.card-delete', function(){ 
+				if(confirm('여행플랜을 삭제 하시겠습니까?')){
+					const $planNo = $(this).parent().find('.plan-no').text()
+					location.href = '<%=contextPath%>/delete.plan?planNo=' + $planNo;
+				}
+			});
+    	})
+    </script>
+    
     
 </body>
 </html>

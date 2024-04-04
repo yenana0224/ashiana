@@ -13,7 +13,7 @@
 		      NATION_CONTENT
 	    FROM
 	        (SELECT
-	             ROWNUM,
+	             ROWNUM RNUM,
 	             NATION_NO,
 	             NATION_NAME,
 	             NATION_CONTENT
@@ -30,7 +30,7 @@
 	               BY
 	                 NATION_NO) A )
 	    WHERE
-	         ROWNUM BETWEEN ? AND ?
+	         RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="allNationList">
@@ -85,6 +85,7 @@
 	UPDATE
 	     TB_NATION
 	  SET
+	  	 NATION_NO = ?,
 	     NATION_NAME = ?,
 	     NATION_CONTENT = ?
 	WHERE
@@ -221,4 +222,48 @@
              ROWNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="insertNation">
+	INSERT
+	  INTO
+	     TB_NATION
+	     (
+	     NATION_NO,
+	     NATION_NAME,
+	     NATION_CONTENT
+	     )
+	VALUES
+	    (
+	    ?,
+	    ?,
+	    ?
+	    )
+	</entry>
+	
+	<entry key="deleteTitlePhoto">
+	DELETE
+	  FROM
+	     TB_FILE
+	WHERE
+	     BOARD_TYPE = 9
+	  AND
+	     BOARD_NO = ?
+	</entry>
+	
+		<entry key="deletePhoto">
+	DELETE
+	  FROM
+	     TB_FILE
+	WHERE
+	     BOARD_TYPE = 2
+	  AND
+	     BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteNation">
+	DELETE
+	  FROM
+	  	  TB_NATION
+  	 WHERE
+  	 	  NATION_NO = ?
+	</entry>
 </properties>

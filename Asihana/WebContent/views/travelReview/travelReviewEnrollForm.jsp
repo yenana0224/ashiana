@@ -178,6 +178,26 @@
             display : none;
         }
         
+        .star-area {
+            width: 100%; 
+            box-sizing: border-box; 
+            display: inline-block; 
+       
+        }
+        .star-area .star-point {
+            width: 40px; 
+            height: 40px; 
+            display: inline-block; 
+            background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png'); 
+            background-size: 100%; 
+        }
+        .star-area .star-point.on {
+            width: 40px; 
+            height: 40px;
+            display: inline-block; 
+            background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png');
+            background-size: 100%; 
+        }
 
        
     </style>
@@ -214,29 +234,30 @@
                                 <h3 style="margin : 0;">여행은 어떠셨나요?</h3>
                             </div>
                             <div id="star-content"> <!--별점의 content영역-->
-                                <!--radio 버튼으로 구현, radio button은 display : none으로 안보이게 해두고 연결된 label로 별점 조정 가능하게 구현-->
-                                
-                                <input type="radio" name="star" id="star1" value="1" checked> <label for="star1" style="font-size : 30px;">1</label>
-                                <input type="radio" name="star" id="star2" value="1.5"> <label for="star2">2</label>
-                                <input type="radio" name="star" id="star3" value="2"> <label for="star3">3</label>
-                                <input type="radio" name="star" id="star4" value="2.5"> <label for="star4">4</label>
-                                <input type="radio" name="star" id="star5" value="3"> <label for="star5">5</label>
-                                <input type="radio" name="star" id="star6" value="3.5"> <label for="star6">6</label>
-                                <input type="radio" name="star" id="star7" value="4"> <label for="star7">7</label>
-                                <input type="radio" name="star" id="star8" value="4.5"> <label for="star8">8</label>
-                                <input type="radio" name="star" id="star9" value="5"> <label for="star9">9</label>
+                           		<div class ="star-area">
+							        <span id="1point" class="star-point"></span>
+							        <span id="2point" class="star-point"></span>
+							        <span id="3point" class="star-point"></span>
+							        <span id="4point" class="star-point"></span>
+							        <span id="5point" class="star-point"></span>
+					      	 	</div>
+								
+						   	 	<input id="star" type="hidden" name="star">
+						
+							    <script>
+							        $(function(){
+							            // 별을 누르면 이벤트 발생
+							            $('.star-point').click(function() {
+							            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
+							            $(this).parent().children('span').removeClass('on');
+							            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
+							            $(this).addClass('on').prevAll('span').addClass('on');
+							            //선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
+							            $('#star').val($(this).attr('id').substring(0, 1))
+							            })
+							        })
+							    </script>  
                             </div>
-
-                            <script>
-                                $(function(){
-                                    $('#star1').click(function(){
-                                    
-                                    });
-
-                                })
-
-
-                            </script>
 
                         </div>
 
@@ -468,9 +489,9 @@
                         </div>
 
                         <div align="right"> <!--여행기 작성/ 취소 버튼 영역--> <!--제목, 내용을 입력하기 전에는 버튼이 disabled 상태여야 함-->
-                            <select name="display-select" id="">
-                                <option value="public">공개</option>
-                                <option value="private">비공개</option>
+                            <select name="status">
+                                <option value="Y">공개</option>
+                                <option value="N">비공개</option>
                             </select>
                             <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>

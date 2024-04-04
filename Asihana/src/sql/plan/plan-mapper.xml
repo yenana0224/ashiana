@@ -14,7 +14,7 @@
 		      FLOOR(E_DATE - S_DATE) || '박' || CEIL(E_DATE - S_DATE) || '일' AS TRAVEL_DATE,
 		      'D-' || FLOOR(S_DATE - SYSDATE) AS D_DAY,
 		      SUBSTR(SUBSTR(CITYS, 1, INSTR(CITYS, '-', -1) -1), INSTR(CITYS, '-') + 1) PLAN_CITYS,
-		      REPLACE(TO_CHAR(SUM_PRICE), SUBSTR(TO_CHAR(SUM_PRICE), -4), '만') TOTAL_PRICE, 
+		      NVL(REPLACE(TO_CHAR(SUM_PRICE), SUBSTR(TO_CHAR(SUM_PRICE), -4), '만'), '예산 없음') TOTAL_PRICE, 
 		      TO_CHAR(P.UPLOAD_DATE, 'YYYY"년" MM"월" DD"일" "작성/수정"') AS UPLOAD_DATE
 		 FROM
 		      TB_DESTINATION D,
@@ -60,6 +60,19 @@
 		    BY D.PLAN_NO, S_DATE, E_DATE, CITYS, UPLOAD_DATE, SUM_PRICE
 		 ORDER
 		    BY D.PLAN_NO     
+	</entry>
+	
+	<entry key="selectMainFilePath">
+		SELECT
+		      FILE_PATH || '/' || CHANGE_NAME AS FILE_PATH
+		  FROM
+		      TB_FILE
+		  JOIN
+		      TB_CITY ON(CITY_NO = BOARD_NO)
+		 WHERE
+		      CITY_NAME = ?
+		   AND
+		      BOARD_TYPE = 2
 	</entry>
 	
 	<entry key="userPlanCheck">
@@ -125,21 +138,27 @@
 	
 	<entry key="selectDesDetail">
 		SELECT DEST_NO,
-		       CITY_NAME || '-' || NATION_NAME AS CITY_NAME,
+		       NATION_NAME || '-' || CITY_NAME AS CITY_NAME,
 		       TRANS,
 		       TRIP,
 		       NVL(TO_CHAR(TRANS_PRICE, 'FM999,999,999,999'), '0') AS TRANS_PRICE,
 		       ARRIVAL,
 		       RETURN_DATE,
 		       CEIL(RETURN_DATE - ARRIVAL) || '박' || (CEIL(RETURN_DATE - ARRIVAL) + 1) || '일' DEST_DATE,
-		       NVL(TO_CHAR(SUM_COST, 'FM999,999,999,999'), '0') AS SCHED_COST_SUM
+		       NVL(TO_CHAR(SUM_COST, 'FM999,999,999,999'), '0') AS SCHED_COST_SUM,
+               FILE_PATH
 		  FROM TB_DESTINATION
 		  LEFT
 		  JOIN (SELECT CITY_NO,
 		               CITY_NAME,
-		               NATION_NAME
+		               NATION_NAME,
+                       FILE_PATH
 		          FROM TB_CITY
-		          JOIN TB_NATION USING(NATION_NO)) USING(CITY_NO)
+		          JOIN TB_NATION USING(NATION_NO)
+                  JOIN (SELECT BOARD_NO,
+                               FILE_PATH || '/' || CHANGE_NAME AS FILE_PATH
+                          FROM TB_FILE
+                         WHERE BOARD_TYPE = 2) ON(CITY_NO = BOARD_NO)) USING(CITY_NO)
 		  LEFT
 		  JOIN (SELECT
 		              DEST_NO,
@@ -290,7 +309,7 @@
 		 WHERE
 		      PLAN_NO = ?
 	</entry>
-
+	
 	<entry key="updateDestination">
 		UPDATE
 		      TB_DESTINATION
@@ -305,12 +324,51 @@
 		      DEST_NO = ?
 	</entry>
 	
+	<entry key="deleteDestCache">
+		DELETE FROM TB_DESTINATION WHERE DEST_NO = ? AND STATUS = 'N'
+	</entry>
+	
+	<entry key="deleteSchedCache">
+		DELETE FROM TB_SCHEDULE WHERE DEST_NO = ? AND STATUS = 'N'
+	</entry>
+	
 	<entry key="updateSched">
 		UPDATE
 		      TB_SCHEDULE
 		   SET
 		      CATEGORY = ?,
-		      SCHED_NAME = ?
+		      SCHED_NAME = ?,
+		      SCHED_CONTENT = ?,
+		      SCHED_COST = ?
+		 WHERE
+		      SCHED_NO = ?
+	</entry>
+	
+	<entry key="deleteSched">
+		UPDATE
+		      TB_SCHEDULE
+		   SET
+		      STATUS = 'D'
+		 WHERE
+		      DEST_NO IN (SELECT DEST_NO FROM TB_DESTINATION WHERE PLAN_NO = ?)
+	</entry>
+	
+	<entry key="deleteDest">
+		UPDATE
+		      TB_DESTINATION
+		   SET
+		      STATUS = 'D'
+		 WHERE
+		      PLAN_NO = ?
+	</entry>
+	
+	<entry key="deletePlan">
+		UPDATE
+		      TB_PLAN
+		   SET
+		      STATUS = 'D'
+		 WHERE
+		      PLAN_NO = ?
 	</entry>
 	
 </properties>

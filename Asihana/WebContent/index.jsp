@@ -186,7 +186,7 @@ pageEncoding="UTF-8"%>
         <div class="main">
 
             <div class="searchbar">
-                <form action="#" name="search" id="searchform">
+                <form action="<%=contextPath%>/allSearch.customer" name="search" id="searchform">
                     <input type="text" name="query" id="searchtext" placeholder="검색어를 입력하세요">
                     <button type="submit" id="searchbtn"></button>
                 </form>

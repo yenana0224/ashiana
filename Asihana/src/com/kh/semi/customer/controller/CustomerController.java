@@ -387,6 +387,35 @@ public class CustomerController {
 		return view;
 	}
 	
+	public String noticeDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String allSerach(HttpServletRequest request, HttpServletResponse response) {
+		
+		String searchText = request.getParameter("query");
+		
+		request.setAttribute("query", searchText);
+		
+		String view = "views/common/searchPage.jsp";
+		
+		return view;
+	}
 	
 	
 	

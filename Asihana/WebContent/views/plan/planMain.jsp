@@ -126,7 +126,7 @@
     
     <script>
     	$(function(){
-			$('#my-plans-area').on('click', '.card-delete', function(){
+			$('#my-plans-area').on('click', '.card-delete', function(){ 
 				if(confirm('여행플랜을 삭제 하시겠습니까?')){
 					const $planNo = $(this).parent().find('.plan-no').text()
 					location.href = '<%=contextPath%>/delete.plan?planNo=' + $planNo;

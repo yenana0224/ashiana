@@ -120,7 +120,6 @@
 	        $('.cancel-plan').click(function(){
 	        	location.href = '<%=contextPath%>/planMain.plan';
 	        })
-	        
 		})
 	</script>
         
@@ -791,7 +790,7 @@
     						
     						rootArea += '<div class="root-card">' // 루트 카드
 	    	                    	  +	'<div class="des-img">'
-	    	                          +		'<img src="resources/대련.jpg">'
+	    	                          +		'<img src="'+ result[i].filePath.substring(1) +'">'
 	    	                    	  + 	'</div>'
 	    	                          + 	'<div class="des-info">'
 	    	                          +     	'<input type="hidden" name="destNo" value="' + result[i].destNo + '">'

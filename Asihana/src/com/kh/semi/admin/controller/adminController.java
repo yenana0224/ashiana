@@ -474,9 +474,18 @@ public class adminController {
 	public String nationInfo(HttpServletRequest request, HttpServletResponse response) {
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
 		Nation nation = new NationService().searchNation(nationNo);
-		nation.setLanguage(new InfoService().nationLang(nationNo));
-		nation.setCurrency(new InfoService().nationCur(nationNo));
-		nation.setVoltage(new InfoService().nationVol(nationNo));
+		
+		if(new InfoService().nationLang(nationNo) != null) {
+			nation.setLanguage(new InfoService().nationLang(nationNo));
+		}
+		
+		if(new InfoService().nationCur(nationNo) != null) {
+			nation.setCurrency(new InfoService().nationCur(nationNo));
+		}
+
+		if(new InfoService().nationVol(nationNo) != null) {
+			nation.setVoltage(new InfoService().nationVol(nationNo));
+		}
 
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
@@ -510,12 +519,21 @@ public class adminController {
 		nation.setVisaName(request.getParameter("visa"));
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
+		
 		List<Visa> visaList = new InfoService().visaList();
+		List<Language> langList = new InfoService().langList();
+		List<Voltage> volList = new InfoService().volList();
+		List<Currency> curList = new InfoService().curList();
+		
+ 		request.setAttribute("visaList", visaList);
+ 		request.setAttribute("langList", langList);
+ 		request.setAttribute("volList", volList);
+ 		request.setAttribute("curList", curList);
 		
 		request.setAttribute("nation", nation);
 		request.setAttribute("title", title);
 		request.setAttribute("file", file);
-		request.setAttribute("visaList", visaList);
+
 		
 		return "views/admin/nationUpdateForm.jsp";		
 	}
@@ -536,23 +554,23 @@ public class adminController {
 			String savePath = request.getServletContext().getRealPath("/resources/info/nation");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			int nationNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
+			
+			int oldNo = Integer.parseInt(multiRequest.getParameter("nationNo"));
+			int newNationNo = Integer.parseInt(multiRequest.getParameter("newNationNo"));
 			int visaNo = Integer.parseInt(multiRequest.getParameter("visaNo"));
 
 			String nationName = multiRequest.getParameter("nationName");
 			String nationContent = multiRequest.getParameter("nationContent");
-			String voltage = multiRequest.getParameter("voltage");
-			String language = multiRequest.getParameter("language");
-			String currency = multiRequest.getParameter("currency");
 			
 			Nation nation = new Nation();
-			nation.setNationNo(nationNo);
+			nation.setNationNo(newNationNo);
 			nation.setNationName(nationName);
 			nation.setNationContent(nationContent);
-			nation.setVoltage(voltage);
-			nation.setLanguage(language);
-			nation.setCurrency(currency);
 			
+			String[] volNo = multiRequest.getParameterValues("volNo");
+			String[] curNo = multiRequest.getParameterValues("curNo");
+			String[] langNo = multiRequest.getParameterValues("langNo");
+
 			AttachmentFile title = null;
 			AttachmentFile file = null;
 			
@@ -569,14 +587,12 @@ public class adminController {
 				file.setChangeName(multiRequest.getFilesystemName("newFile"));
 				file.setFilePath("/resources/info/nation");
 			}
-			
-			int visaResult = new InfoService().updateVisa(nationNo, visaNo);
-			int nationResult = new NationService().updateNation(nation, title, file);
-			
-			int result = nationResult + visaResult;
-			
-			if(result > 0) view = "/nationInfo.admin?nationNo=" + nationNo;
+
+			int result = new NationService().updateNation(oldNo, visaNo, nation, volNo, curNo, langNo, title, file);
+		
+			if(result > 0) System.out.println("성공");
 		}
+		
 		return view;
 	}
 
@@ -601,6 +617,13 @@ public class adminController {
 		return "views/admin/nationInsertForm.jsp";
 	}
 	
+	/***
+	 * 국가 추가 (국가번호, 국가이름, 국가설명, 전압, 비자, 언어, 화폐)
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String nationInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		int result = 0;

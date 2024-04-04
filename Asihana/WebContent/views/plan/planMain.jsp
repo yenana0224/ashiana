@@ -27,7 +27,7 @@
             	<% for(PlanMain p: list) { %>
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div class="to-card-detail">
-		                    <img src="https://i.pinimg.com/564x/cc/3a/d0/cc3ad03320fb0b7ac2407f535e605bc3.jpg" width="200" height="200">
+		                    <img src="<%= p.getFilePath().substring(1) %>" width="200" height="200">
 		                    <h5><%= p.getPlanCitys() %></h5>
 		                    <div class="card-content">
 		                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
@@ -126,7 +126,7 @@
     
     <script>
     	$(function(){
-			$('#my-plans-area').on('click', '.card-delete', function(){
+			$('#my-plans-area').on('click', '.card-delete', function(){ 
 				if(confirm('여행플랜을 삭제 하시겠습니까?')){
 					const $planNo = $(this).parent().find('.plan-no').text()
 					location.href = '<%=contextPath%>/delete.plan?planNo=' + $planNo;

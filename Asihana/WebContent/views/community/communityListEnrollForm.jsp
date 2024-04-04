@@ -105,7 +105,7 @@
                
        
        <form action="<%=contextPath%>/insert.commu" method="post" id="insert-form">
-       <input type="hidden" name ="userNo" >
+       <input type="hidden" name ="userNo"  >
        <%--무조건 로그인이된  상태로 댓글 등록을 할 수 있게하기!!!!! --%>
      
       

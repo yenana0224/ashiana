@@ -9,6 +9,7 @@ public class PlanMain {
 	private String planCitys;
 	private String totalPrice;
 	private String uploadDate;
+	private String filePath;
 	
 	public PlanMain() {
 		super();
@@ -25,7 +26,14 @@ public class PlanMain {
 		this.totalPrice = totalPrice;
 		this.uploadDate = uploadDate;
 	}
-
+	
+	
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 	public int getPlanNo() {
 		return planNo;
 	}

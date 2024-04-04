@@ -26,6 +26,17 @@ public class PlanService {
 		return list;
 	}
 
+	public String selectMainFilePath(String cityName) {
+		
+		Connection conn = getConnection();
+		
+		String filePath = new PlanDao().selectMainFilePath(conn, cityName);
+		
+		close(conn);
+		
+		return filePath;
+	}
+	
 	public int userPlanCheck(int userNo, int planNo) {
 		
 		Connection conn = getConnection();

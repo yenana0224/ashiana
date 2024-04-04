@@ -39,6 +39,7 @@ public class PlanServlet extends HttpServlet {
 		case "planDetail" : view = pc.userPlanCheck(request, response); break;
 		case "insert" : pc.deletePlanCache(request, response); view = pc.insertPlan(request, response); break; // 새 플랜 작성 화면 입장 시 작성중 취소했던 플랜을 삭제함
 		case "delete" : view = pc.deletePlan(request, response); break;
+		case "update" : pc.deletePlanCache(request, response); view = pc.updatePlan(request, response);
 		case "publishPlan" : view = pc.publishPlan(request, response); break;
 		}
 		

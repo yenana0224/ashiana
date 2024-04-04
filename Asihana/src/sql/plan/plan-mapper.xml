@@ -62,6 +62,19 @@
 		    BY D.PLAN_NO     
 	</entry>
 	
+	<entry key="selectMainFilePath">
+		SELECT
+		      FILE_PATH || '/' || CHANGE_NAME AS FILE_PATH
+		  FROM
+		      TB_FILE
+		  JOIN
+		      TB_CITY ON(CITY_NO = BOARD_NO)
+		 WHERE
+		      CITY_NAME = ?
+		   AND
+		      BOARD_TYPE = 2
+	</entry>
+	
 	<entry key="userPlanCheck">
 		SELECT
 		      COUNT(*)

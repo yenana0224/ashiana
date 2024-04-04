@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.info.model.vo.City
-				"
+				,com.kh.semi.travelReview.model.vo.TravelReview, com.kh.semi.common.AttachmentFile"
 				
 %>   
 <%@ include file="../common/headerbar.jsp" %>   
 <%
 	List<City> cityList = (List<City>)session.getAttribute("cityList");
 	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
+	TravelReview review = (TravelReview)request.getAttribute("review");
+	List<AttachmentFile> fileList = (List<AttachmentFile>)request.getAttribute("fileList");
 %>
     
 <!DOCTYPE html>
@@ -198,8 +200,6 @@
             background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png');
             background-size: 100%; 
         }
-
-       
     </style>
 
 </head>
@@ -223,42 +223,50 @@
 
 
         <div id="wrap-insert-form" align="left"> <!-- 전체를 감싸는 div-->
-            <form action="<%=contextPath%>/insert.Review" method="post" id="form"
+            <form action="<%=contextPath%>/update.review" method="post" id="form"
             	enctype="multipart/form-data">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
-                	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> 
                     <div id="insert-1"><!--content영역1 (별점, 여행시기, 장소, 동행)-->
                         <div id="area-star"><!--별점 영역-->
                             <div id="star-title">  <!--별점의 title영역-->
                                 <h3 style="margin : 0;">여행은 어떠셨나요?</h3>
                             </div>
                             <div id="star-content"> <!--별점의 content영역-->
-                           		<div class ="star-area">
-							        <span id="1point" class="star-point" value="1"></span>
-							        <span id="2point" class="star-point" value="2"></span>
-							        <span id="3point" class="star-point" value="3"></span>
-							        <span id="4point" class="star-point" value="4"></span>
-							        <span id="5point" class="star-point" value="5"></span>
-					      	 	</div>
-								
-						   	 	<input id="star" type="hidden" name="star">
+                                
+                              <div class ="star-area">
+						        <span id="1point" class="star-point" value="1"></span>
+						        <span id="2point" class="star-point" value="2"></span>
+						        <span id="3point" class="star-point" value="3"></span>
+						        <span id="4point" class="star-point" value="4"></span>
+						        <span id="5point" class="star-point" value="5"></span>
+						      </div>
+						      
+						      <input id="star" type="hidden" name="star">
 						
-							    <script>
-							        $(function(){
-							            // 별을 누르면 이벤트 발생
-							            $('.star-point').click(function() {
-							            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
-							            $(this).parent().children('span').removeClass('on');
-							            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
-							            $(this).addClass('on').prevAll('span').addClass('on');
-							            //선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
-							            $('#star').val($(this).attr('id').substring(0, 1))
-							            })
-							        })
-							    </script>  
+							
+							
+					      	 		
+					      	
+						    <script>
+						    
+						        $(function(){
+						        	
+						        	// 기존 작성자가 평가한 별점을 표시하게 함
+						        	$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
+						        	
+						            // 별을 누르면 이벤트 발생
+						            $('.star-point').click(function() {
+						            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
+						            $(this).parent().children('span').removeClass('on');
+						            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
+						            $(this).addClass('on').prevAll('span').addClass('on');
+						            //선택한 별점의 아이디를 통해 점수를 알아내서 input의 value 값으로 전달
+						            $('#star').val($(this).attr('id').substring(0, 1))
+						            })
+						        })
+						    </script>  
                             </div>
-
                         </div>
 
                         <div id="area-calendar"><!--여행시기 영역-->
@@ -267,8 +275,8 @@
                             </div>
 
                             <div id="calendar-content"> <!--제목의 content영역-->
-                            	출발일<input type="date" name="departure" required> <br>
-                            	도착일<input type="date" name="arrival" required>
+                            	출발일<input type="date" name="departure" required value="<%=review.getDepartureDate()%>"> <br>
+                            	도착일<input type="date" name="arrival" required value="<%=review.getArrivalDate()%>">
                                 <!--  <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>-->
                             </div>
                         </div>
@@ -281,21 +289,28 @@
                                 <select name="city">
                            			
                                 	<%for(int i = 0; i < cityList.size(); i++) {%>
-                                	<option id="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
+                                	<option class="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
                                 	<%} %>
-                                	
-                                	
                                 </select>
                                 
+                                <script>
+                                	$(function(){
+                        				$('.<%=review.getCityNo()%>').attr('selected', true);
+                                	})
+                                </script>
                             </div>
                         </div>
                         
                         <div id="area-partner" ><!--동행 영역--> 
                             <h3>누구와 다녀 오셨나요?</h3>
-                            <input type="radio" name="partner" checked value="A"><label for="A">나홀로</label>
-                            <input type="radio" name="partner" value="FM"><label for="FM">가족</label>
-                            <input type="radio" name="partner" value="F"><label for="F">친구</label>
-                            <input type="radio" name="partner" value="L"><label for="L">사랑하는 사람과 함께</label>
+                            
+                            <input class="partner" type="radio" name="partner" value="A"><label for="A">나홀로</label>
+                            <input class="partner" type="radio" name="partner" value="FM"><label for="FM">가족</label>
+                            <input class="partner" type="radio" name="partner" value="F"><label for="F">친구</label>
+                            <input class="partner" type="radio" name="partner" value="L"><label for="L">사랑하는 사람과 함께</label>
+                            
+                            <script>
+                            </script>
                         </div>
                         
                         
@@ -305,39 +320,67 @@
                             <h3 style="margin-bottom : 5px;">제목</h3>
                         </div>
                         <div id="title"> <!--제목의 content영역-->
-                            <input type="text" name="title" style="width:950px; height: 30px" placeholder="제목" required><label for="title"></label>
+                            <input type="text" name="title" style="width:950px; height: 30px" placeholder="제목"  value="<%=review.getReviewTitle() %>" required><label for="title"></label>
                         </div>
                         
 
                         <div id="area-file" style="margin-top : 50px;"><!-- 파일 첨부영역-->
 
                             <!--사용자가 추가한 사진이 뜨는 영역-->
+                            
                             <div id="thumbnail-file"> <!--대표이미지 뜨는 곳-->
-                                <img id="title-img" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 200px; height: 200px;" alt="대표이미지"> <br>                           
+                                <img id="img0" src="<%=fileList.get(0).getFilePath() %>" style="width : 200px; height: 200px;" alt="대표이미지"> <br>                           
                                 <label style="padding-left : 60px; display : inline-block;" align="center">대표이미지</label>
                             </div>
 
                             <div class="sub" align="center"> <!-- 사용자가 추가한 서브이미지 뜨는 곳, 최대 4개까지 가능-->
                                 <div style="padding-left : 50px" id="sub1">
-                                    <img id="sub-img1" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img1" src="
+                                    <%if(fileList.size() > 1 && fileList.get(1).getFilePath() != null) {%>
+                                    <%=fileList.get(1).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    "
+                                    style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label >이미지1</label>
                                 </div>
                                 
                                 <div id="sub2">
-                                    <img id="sub-img2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label>이미지1</label>
+                                    <img id="img2" src="
+                                    <%if(fileList.size() > 2 && fileList.get(2).getFilePath() != null) {%>
+                                    <%=fileList.get(2).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <label>이미지2</label>
                                 </div>
                                 
                                 <div id="sub3">
-                                    <img id="sub-img3" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label>이미지1</label>
+                                    <img id="img4" src="
+                                    <%if(fileList.size() > 3 && fileList.get(3).getFilePath() != null) {%>
+                                    <%=fileList.get(3).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <label>이미지3</label>
                                 </div>
   
                                 <div id="sub4">
-                                    <img id="sub-img4" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label>이미지1</label>
+                                    <img id="img5" src="
+                                    <%if(fileList.size() > 4 && fileList.get(4).getFilePath() != null) {%>
+                                    <%=fileList.get(4).getFilePath() %>
+                                    <%} else {%>
+                                    	https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %> 
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <label>이미지4</label>
                                 </div>
                             </div>
+                            <script>
+                            </script>
 
                             <!-- 파일추가 버튼영역-->
                             <div id="add-file" align="center">
@@ -351,8 +394,6 @@
                                     <input type="file" name="file3" id="file3" class="file" onchange="loadImg(this, 3);"><label for="file3"></label>
                                     <input type="file" name="file4" id="file4" class="file" onchange="loadImg(this, 4);"><label for="file4"></label>
                                 </div>
-                                <!--<a href=""><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fd1%2Faa%2F6d%2Fd1aa6d39a3eea6a06e18d182e3f397d1.jpg&type=a340" style="width: 50px; height: 50px;" alt=""></a>
-                                -->
 
                                 <script>
                                     function loadImg(inputFile, num){
@@ -427,7 +468,7 @@
                                 <h3>여행기 쓰기</h3>
                             </div>
                             <div>
-                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();" required></textarea>
+                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();" required><%=review.getReviewContent() %></textarea>
                             </div>
                             <script>
                            		function lengthCheck(e){
@@ -489,9 +530,9 @@
                         </div>
 
                         <div align="right"> <!--여행기 작성/ 취소 버튼 영역--> <!--제목, 내용을 입력하기 전에는 버튼이 disabled 상태여야 함-->
-                            <select name="status">
-                                <option value="Y">공개</option>
-                                <option value="N">비공개</option>
+                            <select name="display-select" id="">
+                                <option value="public">공개</option>
+                                <option value="private">비공개</option>
                             </select>
                             <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>

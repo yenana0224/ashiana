@@ -71,7 +71,31 @@ public class PlanDao {
 		
 		return list;
 	}
+	
+	public String selectMainFilePath(Connection conn, String cityName) {
+		String filePath = "";
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectMainFilePath");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cityName);
 
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				filePath = rset.getString("FILE_PATH");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return filePath;
+	}
 
 	public int userPlanCheck(Connection conn, int userNo, int planNo) {
 		int result = 0;
@@ -579,6 +603,7 @@ public class PlanDao {
 		}
 		return result;
 	}
+
 
 
 

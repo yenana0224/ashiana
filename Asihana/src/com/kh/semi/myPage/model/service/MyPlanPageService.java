@@ -4,9 +4,10 @@ import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.kh.semi.customer.model.dao.CustomerDao;
+import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.myPage.model.dao.MyPlanPageDao;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
 import com.kh.semi.plan.model.vo.PlanMain;
@@ -24,11 +25,12 @@ public class MyPlanPageService {
 	public List<PlanMain> planSearch(String select, String searchContent, int userNo, PageInfo pi) {
 			
 		Connection conn = getConnection();
+		List<PlanMain> list = new ArrayList<PlanMain>();
 		
 		if(select.equals("title")) {
-			List<PlanMain> list = new MyPlanPageDao().planTitleSearch(conn, searchContent, pi);
+			 list = new MyPlanPageDao().selectTitleSearch(conn, searchContent, pi);
 		} else {
-			List<PlanMain> list = new MyPlanPageDao().planContentSearch(conn, searchContent, pi);
+			 list = new MyPlanPageDao().selectContentSearch(conn, searchContent, pi);
 		}
 		
 		
@@ -47,7 +49,7 @@ public class MyPlanPageService {
 		
 		Connection conn = getConnection();
 		
-		List<PlanMain> list = new MyPlanPageDao().selectList(conn, pi, userNo);
+		List<PlanMain> list = new MyPlanPageDao().selectList(conn, userNo, pi);
 		
 		close(conn);
 		
@@ -81,5 +83,6 @@ public class MyPlanPageService {
 			
 			return result;
 		}
+	
 	
 }

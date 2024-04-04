@@ -85,21 +85,15 @@
                        	아시하나의 추천 여행지로 떠나보세요!
                     </p>
                     <div id="card-area">
-                        <div class="city-card">
-                            <img src="https://i.namu.wiki/i/K7KMU0ZBa3wUxSmr8X-lA4DVqII6QMKJ5vBWiD3FTtYEZUIiUBn8vmZk1pCT44Q9-YXnWNigKDZCBLeMb_1RjEXAsz-U1kbVr2lafvxVh7WF9FIcg2B9vwHsUQhDm9CXrvbbk8VREzYUTV2g1gKaog.webp">
-                            <h5>다낭</h5>
-                            <label>베트남</label>
-                        </div>
-                        <div class="city-card">
-                            <img src="https://i.namu.wiki/i/LBKzQOIRatNfnoBY1FoPnfTJJwfHEdDvYVsyJhFWXkaq0J1kc3ozcMDKzF_6XtVB4OmPmPW10WRDpSeRVwITf6bfy70-OSWmWDCM2CjUCGcdm8uJtkMGGhVQmGzfX2pOrM24M4lmFSxm7lAR0lHDGQ.webp">
-                            <h5>삿포로</h5>
-                            <label>일본</label>
-                        </div>
-                        <div class="city-card">
-                            <img src="https://i.namu.wiki/i/KNlOyYgTdOVD9_0MW7v0wYo6Ygmrbma0tnSbR3NRUMJgprhaiELU-AbJYKjzu-apVfBGCwK34XtCBae44uE0rdgf812AGqXfTwKQkUOthbaA_Cy54De6oJ7PIVt1gcQp0BqynZWN9EEA2YT5tWa29w.webp">
-                            <h5>로마</h5>
-                            <label>이탈리아</label>
-                        </div>
+                    	<c:forEach var="c" items="${ requestScope.cityList }" end="2">
+	                        <div class="city-card">
+	                            <img src="<%= contextPath %>${ c.filePath }/${ c.changeName }">
+	                            <h5>${ c.cityName }</h5>
+	                            <label>${ c.nationName }</label>
+	                            <input type="hidden" class="nation-no" value="${ c.nationNo }">
+	                            <input type="hidden" class="city-no" value="${ c.cityNo }">
+	                        </div>
+                        </c:forEach>
                     </div>
                 </div> <!-- #city-area -->
             </div> <!-- #start-plan-msg -->
@@ -135,6 +129,9 @@
 			});
 			$('.btn-travelReview').click(function(){
 				location.href = '<%=contextPath%>/travelReviewMain';
+			});
+			$('#city-area').on('click', '.city-card', function(){
+				location.href="<%=contextPath%>/search.info?nation=" + $(this).find('.nation-no').val() + "&city=" + $(this).find('.city-no').val();
 			});
     	})
     </script>

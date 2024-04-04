@@ -271,6 +271,14 @@
 		INSERT
 		  INTO
 		      TB_FILE
+		  	 (
+			 FILE_NO,
+			 BOARD_NO,
+			 FILE_PATH,
+			 ORIGIN_NAME,
+			 CHANGE_NAME,
+			 BOARD_TYPE
+		  	 )
 		VALUES
 		      (
 		      SEQ_FILE.NEXTVAL,
@@ -598,6 +606,14 @@
 		INSERT
 		  INTO
 		      TB_FILE
+		      (
+				 FILE_NO,
+				 BOARD_NO,
+				 FILE_PATH,
+				 ORIGIN_NAME,
+				 CHANGE_NAME,
+				 BOARD_TYPE
+		  	 )
 		VALUES
 		      (
 		      SEQ_FILE.NEXTVAL,
@@ -607,7 +623,14 @@
 		      ?,
 		      8
 		      )     
+	</entry>
 	
+	<entry key="noticeDelete">
+		DELETE
+		  FROM
+		      TB_NOTICE
+		 WHERE
+		      NOTICE_NO = ? 
 	</entry>
 	
 </properties>

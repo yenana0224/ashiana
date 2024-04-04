@@ -150,7 +150,7 @@
 	         <% for(StoryFile s : list) { %>
 	            <div class="story" id="<%=s.getStoryNo() %>">
 	                <div class="storyphoto">
-	                    <img src="<%=contextPath%>/<%=s.getFilePath()%>/<%=s.getChangeName()%>">
+	                    <img src="<%=contextPath%><%=s.getFilePath()%>/<%=s.getChangeName()%>">
 	                </div>
 	                <div class="content">
 	                	<div class="createDate"><p><%=s.getCreateDate() %></p></div>

@@ -17,7 +17,7 @@ import com.kh.semi.travelReview.model.vo.TravelReview;
 /**
  * Servlet implementation class TravelReviewUpdateController
  */
-@WebServlet("/update.tralvelReview")
+@WebServlet("/update.review")
 public class TravelReviewUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,11 +34,7 @@ public class TravelReviewUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// get방식 + 기존 게시물의 데이터 가져오기
 		
-		
-		
-	
 	}
 
 	/**

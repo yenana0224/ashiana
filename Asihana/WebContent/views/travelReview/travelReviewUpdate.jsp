@@ -267,13 +267,6 @@
 						        })
 						    </script>  
                             </div>
-
-                            <script>
-                               
-
-
-                            </script>
-
                         </div>
 
                         <div id="area-calendar"><!--여행시기 영역-->
@@ -296,17 +289,14 @@
                                 <select name="city">
                            			
                                 	<%for(int i = 0; i < cityList.size(); i++) {%>
-                                	<option id="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
+                                	<option class="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
                                 	<%} %>
-                                	
-                                	
                                 </select>
                                 
                                 <script>
                                 	$(function(){
-                        				$('#<%=review.getCityNo()%>').attr('selected', true);
+                        				$('.<%=review.getCityNo()%>').attr('selected', true);
                                 	})
-                                
                                 </script>
                             </div>
                         </div>
@@ -404,8 +394,6 @@
                                     <input type="file" name="file3" id="file3" class="file" onchange="loadImg(this, 3);"><label for="file3"></label>
                                     <input type="file" name="file4" id="file4" class="file" onchange="loadImg(this, 4);"><label for="file4"></label>
                                 </div>
-                                <!--<a href=""><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fd1%2Faa%2F6d%2Fd1aa6d39a3eea6a06e18d182e3f397d1.jpg&type=a340" style="width: 50px; height: 50px;" alt=""></a>
-                                -->
 
                                 <script>
                                     function loadImg(inputFile, num){

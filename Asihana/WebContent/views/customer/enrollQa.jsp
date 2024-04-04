@@ -56,7 +56,7 @@
 		<div align="center" style="margin-top: 40px;">
 			<button type="button" class="btn btn-sm btn-secondary"
 				onclick="history.back();">취소</button>
-			<button type="submit" class="btn btn-sm btn-danger">등록</button>
+			<button type="submit" class="btn btn-sm btn-danger" >등록</button>
 		</div>
 
 	</form>
@@ -82,6 +82,7 @@
 				str = str.replace(regExp, '');
 				$(this).val(str);
 			}
+			
 		})
 	
 		$('#comment').keyup(function (e){

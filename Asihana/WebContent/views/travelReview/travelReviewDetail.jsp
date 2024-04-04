@@ -315,11 +315,11 @@
                             <div class="content-wrap-1-1-1">
                                 <!-- 별점 구현 영역 -->
                                 <div class ="star-area">
-							        <span id="1point" class="star-point" value="1"></span>
-							        <span id="2point" class="star-point" value="2"></span>
-							        <span id="3point" class="star-point" value="3"></span>
-							        <span id="4point" class="star-point" value="4"></span>
-							        <span id="5point" class="star-point" value="5"></span>
+							        <span id="1point" class="star-point"></span>
+							        <span id="2point" class="star-point"></span>
+							        <span id="3point" class="star-point"></span>
+							        <span id="4point" class="star-point"></span>
+							        <span id="5point" class="star-point"></span>
 					      	 	</div>
 					      	 	<script>
 					      	 		$(function(){
@@ -468,6 +468,7 @@
 
                     <div id="plan-check">
                     	<%if(review.getPlanCheck().equals("Y")){%>
+                        <%System.out.println("플랜체크" + review.getPlanCheck()); %>
                         <div>
                             <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
                             <a href="#" style="text-decoration: none; color : black;">

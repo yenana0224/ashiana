@@ -235,11 +235,11 @@
                             <div id="star-content"> <!--별점의 content영역-->
                                 
                               <div class ="star-area">
-						        <span id="1point" class="star-point" value="1"></span>
-						        <span id="2point" class="star-point" value="2"></span>
-						        <span id="3point" class="star-point" value="3"></span>
-						        <span id="4point" class="star-point" value="4"></span>
-						        <span id="5point" class="star-point" value="5"></span>
+						        <span id="1point" class="star-point"></span>
+						        <span id="2point" class="star-point"></span>
+						        <span id="3point" class="star-point"></span>
+						        <span id="4point" class="star-point"></span>
+						        <span id="5point" class="star-point"></span>
 						      </div>
 						      
 						      <input id="star" type="hidden" name="star">
@@ -530,13 +530,13 @@
                         </div>
 
                         <div align="right"> <!--여행기 작성/ 취소 버튼 영역--> <!--제목, 내용을 입력하기 전에는 버튼이 disabled 상태여야 함-->
-                            <select name="display-select" id="">
-                                <option value="public">공개</option>
-                                <option value="private">비공개</option>
+                            <select name="status" id="">
+                                <option value="Y">공개</option>
+                                <option value="N">비공개</option>
                             </select>
-                            <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
-                            <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>
-                     
+                            <button type="sumbit" style="background-color : rgb(46, 204, 113); color : white; border: 0; width:50px; height: 30px;">작성</button>
+                            <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button> <br>
+                     		<button type="button" id="23" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">삭제</button>
                         </div>
                         
                         

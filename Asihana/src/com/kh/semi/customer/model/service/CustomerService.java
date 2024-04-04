@@ -15,6 +15,7 @@ import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
 import com.kh.semi.customer.model.vo.QNA;
 import com.kh.semi.pageInfo.model.vo.PageInfo;
+import com.kh.semi.travelReview.model.vo.TravelReview;
 
 public class CustomerService {
 	

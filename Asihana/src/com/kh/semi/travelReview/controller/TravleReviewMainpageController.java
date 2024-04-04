@@ -66,7 +66,6 @@ public class TravleReviewMainpageController extends HttpServlet {
 		//System.out.println(likeList + "1");
 		
 		
-		int reviewNo = reviewList.get(0).getReviewNo();
 		
 		// 해시태그 목록 리스트
 		List<HashTag> hashTagList = new TravelReviewService().selectHashTagList();		

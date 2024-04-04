@@ -233,6 +233,29 @@
         padding-top : 0; 
         width : 495px;
     }
+    
+    .star-area {
+         width: 100%; 
+         box-sizing: border-box; 
+         display: inline-block; 
+    
+    }
+    
+    .star-area .star-point {
+        width: 40px; 
+        height: 40px; 
+        display: inline-block; 
+        background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png'); 
+        background-size: 100%; 
+    }
+    
+    .star-area .star-point.on {
+        width: 40px; 
+        height: 40px;
+        display: inline-block; 
+        background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png');
+        background-size: 100%; 
+    }
 
     </style>
 
@@ -290,8 +313,20 @@
                                 <h3 style="margin : 0;"><%=review.getReviewTitle() %></h3>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <!--별점 구현 해야함 + 마진으로 위치 조정 해야 함-->
-                                <label>별점</label><input type="radio"><input type="radio"><input type="radio"><input type="radio"><input type="radio">  <br>
+                                <!-- 별점 구현 영역 -->
+                                <div class ="star-area">
+							        <span id="1point" class="star-point" value="1"></span>
+							        <span id="2point" class="star-point" value="2"></span>
+							        <span id="3point" class="star-point" value="3"></span>
+							        <span id="4point" class="star-point" value="4"></span>
+							        <span id="5point" class="star-point" value="5"></span>
+					      	 	</div>
+					      	 	<script>
+					      	 		$(function(){
+					      	 			$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
+					      	 		})
+					      	 	
+					      	 	</script>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <input type="date" value="<%=review.getDepartureDate()%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>

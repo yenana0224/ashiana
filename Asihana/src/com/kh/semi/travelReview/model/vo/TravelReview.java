@@ -19,7 +19,7 @@ public class TravelReview {
 	private String cityName;
 	private String nationName;
 	private String nickName;
-	private Double starPoint;
+	private int starPoint;
 	private String titleImg;
 	
 	
@@ -32,11 +32,11 @@ public class TravelReview {
 		this.titleImg = titleImg;
 	}
 
-	public Double getStarPoint() {
+	public int getStarPoint() {
 		return starPoint;
 	}
 
-	public void setStarPoint(Double starPoint) {
+	public void setStarPoint(int starPoint) {
 		this.starPoint = starPoint;
 	}
 

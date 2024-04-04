@@ -79,9 +79,9 @@ public class TravelReviewInsertController extends HttpServlet {
 			System.out.println(city + "도시");
 			System.out.println(partner + "파트너");
 			System.out.println(departureDate + "복구날");
-			System.out.println(starPoint + "별점");
 			System.out.println(Arrays.toString(hashTagList));
 			*/
+			System.out.println(starPoint + "별점");
 			
 			// 여행기 값 VO에 담기
 			

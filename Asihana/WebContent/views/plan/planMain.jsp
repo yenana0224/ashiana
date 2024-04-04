@@ -53,7 +53,7 @@
                 <div class="planning-card">   
                     <h5>나의 여행 플랜</h5>
                     <p>
-                                                       목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
+                                                       목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label><%= loginUser.getNickName() %></label>님의 여행 계획을 자세히<br>기록해보세요!
                     </p>
                     <button class="btn btn-sm btn-success btn-insert">여행 플랜 추가</button>
                 </div>

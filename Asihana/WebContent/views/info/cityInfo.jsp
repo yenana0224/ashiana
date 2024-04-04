@@ -135,6 +135,7 @@
 
 </head>
 
+
 <body>
 
 	<%@ include file="../common/headerbar.jsp"%>
@@ -145,12 +146,13 @@
                 <h5>다른 여행지 보기</h5>
                 <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange()">
+                        <option> 국가 선택 </option>
                          <% for(Nation n : nationList) {%>
                         <option class="nationList" value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
                         <% } %>
                     </select>
                     <select name="city" id="selectCity">
-                        <option>도시선택</option>
+                        <option>도시</option>
                     </select> 
                     <button type="submit" class="btn btn-sm btn-basic" width="20px"> Go </button>
                 </form>
@@ -181,22 +183,26 @@
             				"<option value='"+result[i].cityNo+"'>"+result[i].cityName+"</option>" 		
             				)
             			};
+     					
             		}
             	})
             }
  			</script>
+
         </div>
         
        <div class="currentPage">
             <a href="<%=contextPath%>/main.info">홈</a> 
             <span> > </span>
             <a href="<%=contextPath%>/search.info?nation=<%=nation.getNationNo() %>&city=도시선택"><%= nation.getNationName() %></a>
-            	<% if(nation.getNationNo() != 853 && nation.getNationNo() != 852 && nation.getNationNo() != 65) {%>
+            <% if(nation.getNationNo() != 853 && nation.getNationNo() != 852 && nation.getNationNo() != 65) {%>
             	<span> > </span>
 	           		 <a href="#"><%= city.getCityName() %></a>
-    	     	<% } %>
+    	     		 <% } %>
         </div>
-
+    
+    
+    
         <div class="photo">
             <img src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>" >
         </div>
@@ -231,7 +237,10 @@
         </div>
     </div>
 
+        
     <%@ include file="../common/footer.jsp" %>
 
+
+  
 </body>
 </html>

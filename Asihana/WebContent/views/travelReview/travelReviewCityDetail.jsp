@@ -5,6 +5,10 @@
 	List<City> cityInfo = (List<City>)request.getAttribute("cityInformation");
 %>
 <%
+	System.out.println(cityInfo);
+%>
+
+<%
 	String language = cityInfo.get(0).getLanguage();
 	String currency = cityInfo.get(0).getCurrency();
 	String voltage = cityInfo.get(0).getVoltage();

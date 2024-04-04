@@ -321,6 +321,13 @@
 							        <span id="4point" class="star-point" value="4"></span>
 							        <span id="5point" class="star-point" value="5"></span>
 					      	 	</div>
+					      	 	
+					      	 	<script>
+					      	 		$(function(){
+					      	 			$('#<%=review.getStarPoint()%>point')addClass('on').prevAll('span').addClass('on');
+					      	 		})
+					      	 	
+					      	 	</script>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <input type="date" value="<%=review.getDepartureDate()%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>

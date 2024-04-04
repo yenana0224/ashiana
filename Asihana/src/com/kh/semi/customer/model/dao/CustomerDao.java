@@ -930,31 +930,5 @@ public class CustomerDao {
 		return result;
 	}
 	
-	public int noticeDelete(Connection conn, int noticeNo) {
-		
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String sql = prop.getProperty("noticeDelete");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, noticeNo);
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		
-		return result;
-	}
-	
-	
-	
 	
 }

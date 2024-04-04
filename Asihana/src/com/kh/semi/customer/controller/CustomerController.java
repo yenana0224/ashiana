@@ -377,7 +377,7 @@ public class CustomerController {
 				if(files.get("originFile") != null) {
 					new File(savePath + files.get("originFile").getChangeName()).delete();
 				}
-				request.getSession().setAttribute("alertMsg", "수정 성공");
+				request.getSession().setAttribute("alertMsg", "수정 성공");;
 				view = "/qnaDetail.customer?qnaNo="+ qnaNo +"&currentPage=" + currentPage;
 			} else {
 				request.setAttribute("errorMsg", "수정 실패");
@@ -386,6 +386,21 @@ public class CustomerController {
 		}
 		return view;
 	}
+	
+	public String noticeDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

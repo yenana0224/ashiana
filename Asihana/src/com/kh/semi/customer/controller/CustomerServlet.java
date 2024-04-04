@@ -63,6 +63,7 @@ public class CustomerServlet extends HttpServlet {
 		case "updateQaView" : view = customer.updateQaView(request, response); break;
 		case "updateQa" : view = customer.updateQa(request, response); flag = false; break;
 		case "allSearch" : view = customer.allSerach(request, response); break;
+		case "noticeDelete" : view = customer.noticeDelete(request,response);
 		}
 		
 		if(flag == true) {

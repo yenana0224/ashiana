@@ -489,9 +489,9 @@
                         </div>
 
                         <div align="right"> <!--여행기 작성/ 취소 버튼 영역--> <!--제목, 내용을 입력하기 전에는 버튼이 disabled 상태여야 함-->
-                            <select name="display-select" id="">
-                                <option value="public">공개</option>
-                                <option value="private">비공개</option>
+                            <select name="status">
+                                <option value="Y">공개</option>
+                                <option value="N">비공개</option>
                             </select>
                             <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>

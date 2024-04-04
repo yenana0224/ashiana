@@ -321,10 +321,9 @@
 							        <span id="4point" class="star-point" value="4"></span>
 							        <span id="5point" class="star-point" value="5"></span>
 					      	 	</div>
-					      	 	
 					      	 	<script>
 					      	 		$(function(){
-					      	 			$('#<%=review.getStarPoint()%>point')addClass('on').prevAll('span').addClass('on');
+					      	 			$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
 					      	 		})
 					      	 	
 					      	 	</script>

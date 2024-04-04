@@ -68,7 +68,7 @@ public class TravelReviewInsertController extends HttpServlet {
 			String departureDate = multiRequest.getParameter("departure");
 			int cityNo = Integer.parseInt(multiRequest.getParameter("city"));
 			String partner = multiRequest.getParameter("partner");
-			Double starPoint = Double.parseDouble(multiRequest.getParameter("star"));
+			int starPoint = Integer.parseInt(multiRequest.getParameter("star"));
 			String planCheck = multiRequest.getParameter("planCheck");
 			String[] hashTagList = multiRequest.getParameterValues("hashTag");
 			/*

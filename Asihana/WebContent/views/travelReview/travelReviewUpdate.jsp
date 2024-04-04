@@ -244,8 +244,17 @@
 						      
 						      <input id="star" type="hidden" name="star">
 						
+							
+							
+					      	 		
+					      	
 						    <script>
+						    
 						        $(function(){
+						        	
+						        	// 기존 작성자가 평가한 별점을 표시하게 함
+						        	$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
+						        	
 						            // 별을 누르면 이벤트 발생
 						            $('.star-point').click(function() {
 						            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
@@ -260,12 +269,7 @@
                             </div>
 
                             <script>
-                                $(function(){
-                                    $('#star1').click(function(){
-                                    
-                                    });
-
-                                })
+                               
 
 
                             </script>

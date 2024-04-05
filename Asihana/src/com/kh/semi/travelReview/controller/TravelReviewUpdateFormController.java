@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.common.AttachmentFile;
 import com.kh.semi.travelReview.model.service.TravelReviewService;
-import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
@@ -48,11 +47,7 @@ public class TravelReviewUpdateFormController extends HttpServlet {
 		// 첨부파일 가져오기 
 		List<AttachmentFile> fileList = new TravelReviewService().selectAttachmentFileList(reviewNo);
 		request.setAttribute("fileList", fileList);
-		
-		// 유저가 체크한 체크리스트 목록 가져오기		
-		List<HashTag> checkedTagList = new TravelReviewService().selectCheckedTagList();
-		request.setAttribute("checkedTagList", checkedTagList);
-		
+			
 		request.getRequestDispatcher("views/travelReview/travelReviewUpdate.jsp").forward(request, response);
 	}
 

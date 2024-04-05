@@ -181,6 +181,7 @@ public class TravelReviewDao {
 			close(pstmt);
 		}
 		
+		System.out.println(review + "리뷰체크");
 		return review;
 	
 	}
@@ -239,6 +240,7 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(list);
 		return list;
 		
 	}
@@ -307,6 +309,8 @@ public ArrayList<TravelReview> selectOthersList(Connection conn, int userNo) {
 			close(rset);
 			close(pstmt);
 		}
+		
+		//System.out.println(list);
 		return list;
 	}
 	

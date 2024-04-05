@@ -98,7 +98,7 @@
             cursor : pointer;
         }
         
-        #backBtn{
+        #backBtn, #delBtn{
         	margin-bottom : 50px;
         }
         
@@ -128,28 +128,36 @@
             <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
             <% } %>
         </div>
-    
+        
         <form action="nationUpdateForm.admin" method="post">
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>" readonly></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly><%=nation.getNationContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
             <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
-            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
+            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
             <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
+            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
 
             <div class="btn">
             	<button type="submit" id="updateBtn"> 수정하기 </button>
             </div>
         </form>
-        
+
 		<div class="btn">
         	<button id="backBtn"> 목록으로 </button>
+        </div>
+        
+        <div class="btn">
+        	<button id="delBtn"> 삭제하기 </button>
         </div>
         
         <script>
         $('#backBtn').click(function(){
         	location.href="<%=contextPath %>/info.admin?currentPage=1";
+        })
+        
+        $('#delBtn').click(function(){
+        	location.href="<%=contextPath %>/deleteNation.admin?nationNo=<%=nation.getNationNo()%>";
         })
         </script>
 

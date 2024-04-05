@@ -30,10 +30,11 @@
         .mainTitle{
         	width : 100%;
         	height : 40px;
-        	margin : 20px 0px 20px 0px;
+        	margin : 50px 0px 60px 0px;
         	text-align : center;
-        	font-size : 30px;
+        	font-size : 40px;
         	font-weight : bold;
+        	
         }
 
         .story .storyEmpty {
@@ -125,6 +126,10 @@
             border : none;
             font-size : 15px;
         }
+        
+        .paging-area>button:hover{
+        	cursor : pointer;
+        }
 
 </style>
 </head>
@@ -150,7 +155,7 @@
 	         <% for(StoryFile s : list) { %>
 	            <div class="story" id="<%=s.getStoryNo() %>">
 	                <div class="storyphoto">
-	                    <img src="<%=contextPath%>/<%=s.getFilePath()%>/<%=s.getChangeName()%>">
+	                    <img src="<%=contextPath%><%=s.getFilePath()%>/<%=s.getChangeName()%>">
 	                </div>
 	                <div class="content">
 	                	<div class="createDate"><p><%=s.getCreateDate() %></p></div>
@@ -183,11 +188,11 @@
 				<% if(currentPage != i){ %>
 				<button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=i%>'"><%= i %></button>
 				<%} else {%>
-					<button disabled><%=i %></button>
+					<button style="background-color : darkgray" disabled><%=i %></button>
 				<%} %>
 			<%} %>
 			
-			<% if(currentPage != maxPage) { %>
+			<% if(currentPage != 1 && currentPage != maxPage) { %>
 			  <button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage + 1%>'">다음</button>
 			<% } %>
         </div>   

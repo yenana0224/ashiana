@@ -1,176 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.QNA , com.kh.semi.pageInfo.model.vo.PageInfo
-				 , java.util.List" %>
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<QNA> qnaList = (ArrayList<QNA>)request.getAttribute("qnaList");
-	String select = (String)request.getAttribute("select");
-	String searchContent = (String)request.getAttribute("searchContent");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-
-
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	   #qaText{
-            margin: auto;
-            width: 1000px;
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            margin-top: 50px;
-            border-bottom: 1px solid rgba(75, 70, 70, 0.692);
-        }
-        #qaText>p{
-            margin: 0;
-            margin-bottom: 40px;
-        }
-
-
-        #search{
-            margin: auto;
-            width: 800px;
-            height: 100px;
-            text-align: center;
-            margin-top: 15px;
-            background-color: rgb(247, 240, 233);
-            border-radius: 15px;
-        }
-        #search>form{
-            position: relative;
-            top: 33%;
-            height: 32px;
-        }
-        #select{
-            height: 100%;
-            width: 60px;
-            text-align: center;
-            border: 1px solid rgb(180, 108, 108);
-            border-radius: 5px;
-        }
-        #select:focus{outline: none;}
-        #searchText{
-            height: 100%;
-            width: 300px;
-            border: 1px solid rgb(180, 108, 108);
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        #searchText:focus{outline: none;}
-        #search button{
-            position: relative;
-            top: 2px;
-            right: 5px;
-            height: 100%;
-            width: 50px;
-            border-radius: 5px;
-            border: none;
-            background-color: red;
-            color: white;
-            font-weight: bold;
-        }
-        #search button:active{
-            box-shadow: 3px 3px 3px rgba(204, 96, 96, 0.5);
-            position: relative;
-            top:2px
-        }
-
-        
-        .table{
-            width: 1000px;
-            margin: auto;
-            text-align: center;
-        }
-        .noticeNo{
-            width: 30%;
-            border-left: none;
-            border-right: none;
-        }
-        .title{
-            width: 50%;
-            border-left: none;
-            border-right: none;
-            padding-right: 120px;
-        }
-        .date{
-            width: 20%;
-            border-left: none;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th{
-            border-bottom: 1px solid #b182827a;
-            padding: 20px;
-            background-color: rgb(247, 240, 233);
-            border-radius: 5px;
-            font-size: 15px;
-        }
-        td{
-            border-bottom: 1px solid #b18282c4;
-            padding: 15px;
-            background-color: rgba(247, 240, 233, 0.253);
-            font-size: 15px;
-        }
-        #insertQa{
-            margin: auto;
-            margin-top: 30px;
-            width: 1000px;
-            height: 40px;
-            text-align: right;
-        }
-        #insertQa>button{
-            border: none;
-            background-color: red;
-            width: 45px;
-            height: 30px;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-        }
-        #buttonBox{
-            width: 1000px;
-            text-align: center;
-            margin: auto;
-            margin-top: 30px;
-        }
-        #backButton, #nextButton{
-            width: 45px;
-            height: 30px;
-            background-color: red;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-        }
-        .numButton{
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 15px;
-        }
-        tbody:hover{
-            background-color:rgb(247, 240, 233); ;
-        }
-
-</style>
-
+<link rel="stylesheet" href="$../../resources/css/customer/qna.css">
 </head>
 <body>
-	<%@ include file="../common/headerbar.jsp" %>
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
+	
 	<div id="qaText">
         <p>Q & A</p>
     </div>
     
     <div id="search">
-        <form action="<%=contextPath %>/qa.customer" method="get">
+        <form action="${ path }/qa.customer" method="get">
             <select name="select" id="select">
             <option value="title">제목</option>
             <option value="content">내용</option>
@@ -193,90 +40,111 @@
             </tr>
         </thead>
         <tbody>
-        <% if(qnaList.isEmpty()) { %>
-        	<tr>
-               <td colspan="4" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
-            </tr>
-        <% } else { %>
-        
-        	<% for(QNA qna : qnaList){ %>
-	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
-	                <td class="td qaNo"><%=qna.getQnaNo() %></td>
-	                
-	                <% if(qna.getQnaStatus().equals("Y")) {%>
-	                	<td class="td status" style="color:red;font-weight:bold;">답변완료</td>
-	                <% } else { %>
-	                	<td class="td status"></td>
-	                <% } %>
-	                
-	                <td class="td title"><%=qna.getQnaTitle() %></td>
-	                <td class="td date"><%=qna.getCreateDate() %></td>
-	                
-	            </tr>
-         	<% } %>
-         	
-        <% } %> 	
+	        <c:choose>
+	        	<c:when test="${ (empty qnaList ) or ( pi.currentPage > pi.endPage )}">
+		        	<tr>
+		               <td colspan="4" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
+		            </tr>
+	        	</c:when>
+	        	<c:when test="${ !empty qnaList }">
+		            <c:forEach var="qna" items="${ qnaList }">
+			            <c:choose>
+			            	<c:when test="${ qna.qnaStatus eq 'Y' }">
+					            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
+					                <td class="td qaNo">${ qna.qnaNo }</td>
+					                <td class="td status" style="color:red;font-weight:bold;">답변완료</td>
+					                <td class="td title">${ qna.qnaTitle }</td>
+					                <td class="td date">${ qna.createDate }</td>
+					            </tr>
+			            	</c:when>
+			            	
+			            	<c:otherwise>
+			            		 <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
+					                <td class="td qaNo">${ qna.qnaNo }</td>
+					                <td class="td status"></td>
+					                <td class="td title">${ qna.qnaTitle }</td>
+					                <td class="td date">${ qna.createDate }</td>
+					            </tr>
+			            	</c:otherwise>
+			            </c:choose>
+		            </c:forEach>
+	        	</c:when>
+	        </c:choose>
         </tbody>
-        
     </table>
-    <% if(loginUser != null) { %>
-    <div id="insertQa">
-        <button>작성</button>
-    </div>
-	<% } %>
-	
-	<% if(!qnaList.isEmpty()) {%>
-		<% if(searchContent != null) { %>
-			<div id="buttonBox">
-			<% if(pi.getCurrentPage() > 1){ %>
-	        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
-	        <% } %>
-	        
-	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
-	        
-	        	<% if( pi.getCurrentPage() != i) { %>
-	        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%=i%>'"><%= i %></button>
-	        	<% } else{ %>
-	        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
-	        	<% } %>
-	        	
-	        <% } %>
-	        
-	        <% if(pi.getCurrentPage() != pi.getMaxPage()) {%>
-	       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
-	        <% } %>
-	    	</div>
-		<% } else { %>
+    
+    <c:if test="${ sessionScope.loginUser ne null }">
+	    <div id="insertQa">
+	        <button>작성</button>
+	    </div>
+    </c:if>
+    
+    <c:choose>
+		<c:when test="${ searchContent eq null }">
+			<c:choose>
+				<c:when test="${ pi.currentPage > pi.endPage }">
+					<div id="buttonBox">
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div id="buttonBox">
+						<c:if test="${ pi.currentPage > 1 }">
+							<button id="backButton" onclick="location.href='${ path }/qa.customer?currentPage=${ pi.currentPage - 1 }'">이전</button>
+						</c:if>
+						<c:forEach var="i" begin="${pi.startPage}" end="${ pi.endPage}" step="1" >
+							<c:choose>
+								<c:when test="${ pi.currentPage eq i }">
+									<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke">${ i }</button>
+								</c:when>
+								<c:otherwise>
+									<button class="numButton" onclick="location.href='${ path }/qa.customer?currentPage=${ i }'">${ i }</button>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${ pi.currentPage ne pi.getMaxPage()}">
+							<button id="nextButton" onclick="location.href='${ path }/qa.customer?currentPage=${ pi.currentPage + 1 }'">다음</button>				
+						</c:if>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</c:when>
 		
-			<div id="buttonBox">
-				<% if(pi.getCurrentPage() > 1){ %>
-		        	<button id="backButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
-		        <% } %>
-		        
-		        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
-		        	<% if( pi.getCurrentPage() != i) { %>
-		        		<button class="numButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%=i%>'"><%= i %></button>
-		        	<% } else{ %>
-		        		<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke"><%= i %></button>
-		        	<% } %>
-		        <% } %>
-		        
-		        <% if(pi.getCurrentPage() < pi.getMaxPage()) {%>
-		       	 	<button id="nextButton" onclick="location.href='<%=contextPath%>/qa.customer?currentPage=<%= pi.getCurrentPage() + 1%>'">다음</button>
-		        <% } %>
-		        
-		    </div>
-		<% } %>
 		
-	<% } else { %>
-		<div id="buttonBox">
-		</div>
-	<% } %>
-	
+		<c:otherwise>
+			<c:choose>
+				<c:when test="${ pi.currentPage > pi.endPage }">
+					<div id="buttonBox">
+					</div>
+				</c:when>
+				
+				<c:otherwise>
+					<div id="buttonBox">
+						<c:if test="${ pi.currentPage > 1 }">
+							<button id="backButton" onclick="location.href='${ path }/qa.customer?select=${ select }&searchContent=${ searchContent }&currentPage=${ pi.currentPage - 1 }'">이전</button>
+						</c:if>
+						<c:forEach var="i" begin="${pi.startPage}" end="${ pi.endPage}" step="1" >
+							<c:choose>
+								<c:when test="${ pi.currentPage eq i }">
+									<button class="numButton" style="background-color: rgba(243, 101, 91, 0.877); color:whitesmoke">${ i }</button>
+								</c:when>
+								<c:otherwise>
+									<button class="numButton" onclick="location.href='${ path }/qa.customer?currentPage=${ i }'">${ i }</button>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${ pi.currentPage ne pi.getMaxPage()}">
+							<button id="nextButton" onclick="location.href='${ path }/qa.customer?select=${ select }&searchContent=${ searchContent }&currentPage=${ pi.currentPage + 1 }'">다음</button>				
+						</c:if>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</c:otherwise>
+	</c:choose>
+    
 	
 	<script>
 		$('#insertQa>button').click(function(){
-			location.href='<%=contextPath%>/enrollQa.customer';
+			location.href='${ path }/enrollQa.customer';
 		})
 		function mouseIn(e){
 			e.style.backgroundColor = 'lightgray';
@@ -296,7 +164,7 @@
 				qaNo = $(this).siblings().eq(0).text();
 			}
 			
-			location.href='<%=contextPath%>/qnaDetail.customer?qnaNo=' + qaNo + '&currentPage=' + <%=pi.getCurrentPage()%>;
+			location.href='${ path }/qnaDetail.customer?qnaNo=' + qaNo + '&currentPage=' + ${ pi.currentPage };
 		})
 	
 	</script>

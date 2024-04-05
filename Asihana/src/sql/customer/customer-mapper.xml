@@ -70,7 +70,7 @@
 	</entry>
 	
 	<entry key="noticeList">
-		SELECT
+        SELECT
 		      NOTICE_NO,
 		      NOTICE_TITLE,
 		      CREATE_DATE,
@@ -89,23 +89,18 @@
 		  WHERE
 			   NOTICE_HOLD = 'Y'
 		  UNION ALL
-		  SELECT
-                NOTICE_NO,
-		        NOTICE_TITLE,
-		        CREATE_DATE,
-		        NOTICE_HOLD,
-                RNUM
-           FROM(SELECT
+              SELECT
                     NOTICE_NO,
                     NOTICE_TITLE,
                     CREATE_DATE,
                     NOTICE_HOLD,
-                    ROWNUM RNUM
+                    RNUM
                FROM(SELECT
                           NOTICE_NO,
                           NOTICE_TITLE,
                           CREATE_DATE,
-                          NOTICE_HOLD
+                          NOTICE_HOLD,
+                          ROWNUM RNUM
                      FROM
                          TB_NOTICE
                     WHERE
@@ -114,7 +109,7 @@
                          NOTICE_HOLD = 'N'
                     ORDER
                        BY
-                         NOTICE_NO DESC))
+                         NOTICE_NO DESC)
 			WHERE
 		         RNUM BETWEEN ? AND (SELECT
 							     		  (? - COUNT(*)) COUNT
@@ -123,7 +118,7 @@
 							 		 WHERE
 							      		  NOTICE_HOLD = 'Y'
 							      	   AND
-							      	      STATUS = 'Y' )      
+							      	      STATUS = 'Y' )    
 	</entry>
 	
 	<entry key="noticeTitleSearch">
@@ -151,7 +146,7 @@
 				          STATUS = 'Y'
 				     ORDER
 				        BY 
-				          CREATE_DATE DESC))
+				          NOTICE_NO DESC))
 		 WHERE
 		      RNUM BETWEEN ? AND ?
 	</entry>
@@ -181,7 +176,7 @@
 				          STATUS = 'Y'
 				     ORDER
 				        BY 
-				          CREATE_DATE DESC))
+				          NOTICE_NO DESC))
 		 WHERE
 		      RNUM BETWEEN ? AND ?
 	
@@ -271,6 +266,14 @@
 		INSERT
 		  INTO
 		      TB_FILE
+		      (
+			 FILE_NO,
+			 BOARD_NO,
+			 FILE_PATH,
+			 ORIGIN_NAME,
+			 CHANGE_NAME,
+			 BOARD_TYPE
+		  	 )
 		VALUES
 		      (
 		      SEQ_FILE.NEXTVAL,
@@ -598,6 +601,14 @@
 		INSERT
 		  INTO
 		      TB_FILE
+		      (
+			 FILE_NO,
+			 BOARD_NO,
+			 FILE_PATH,
+			 ORIGIN_NAME,
+			 CHANGE_NAME,
+			 BOARD_TYPE
+		  	 )
 		VALUES
 		      (
 		      SEQ_FILE.NEXTVAL,

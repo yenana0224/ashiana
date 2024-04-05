@@ -23,15 +23,9 @@
     <div id="outer-main">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
-
             
             <% if(loginUser != null && !list.isEmpty()) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
             	<% for(PlanMain p: list) { %>
-
-			<!-- 로그인 상태면서 여행 플랜이 존재할때 -->
-            <c:if test="${ !empty sessionScope.loginUser and !empty list }">
-            	<c:forEach var="p" items="${ list }"> 
-
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div class="to-card-detail">
 		                    <img src="<%= p.getFilePath().substring(1) %>" width="200" height="200">
@@ -121,21 +115,12 @@
 	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
 	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
-
 	    		<% if( loginUser != null) { %>
 		    		location.href = '<%= contextPath %>/insert.plan?userNo=' + <%= loginUser.getUserNo() %>;
 	    		<% } else { %>
 	    			alert("로그인 후 이용해주세요..");
 	    			location.href = '<%= contextPath %>/views/member/memberLoginForm.jsp';
 	    		<% } %>
-	    		if(${ !empty loginUser }){
-		    		location.href = '${ path }/insert.plan?userNo=' + ${ loginUser.userNo };
-	    		}
-	    		else{
-	    			alert("로그인 후 이용해주세요..");
-	    			location.href = '${ path }/views/member/memberLoginForm.jsp';
-	    		}
-
 	    	})
     	})	
     </script>

@@ -70,7 +70,7 @@
 	</entry>
 	
 	<entry key="noticeList">
-        SELECT
+		SELECT
 		      NOTICE_NO,
 		      NOTICE_TITLE,
 		      CREATE_DATE,
@@ -89,18 +89,23 @@
 		  WHERE
 			   NOTICE_HOLD = 'Y'
 		  UNION ALL
-              SELECT
+		  SELECT
+                NOTICE_NO,
+		        NOTICE_TITLE,
+		        CREATE_DATE,
+		        NOTICE_HOLD,
+                RNUM
+           FROM(SELECT
                     NOTICE_NO,
                     NOTICE_TITLE,
                     CREATE_DATE,
                     NOTICE_HOLD,
-                    RNUM
+                    ROWNUM RNUM
                FROM(SELECT
                           NOTICE_NO,
                           NOTICE_TITLE,
                           CREATE_DATE,
-                          NOTICE_HOLD,
-                          ROWNUM RNUM
+                          NOTICE_HOLD
                      FROM
                          TB_NOTICE
                     WHERE
@@ -109,7 +114,7 @@
                          NOTICE_HOLD = 'N'
                     ORDER
                        BY
-                         NOTICE_NO DESC)
+                         NOTICE_NO DESC))
 			WHERE
 		         RNUM BETWEEN ? AND (SELECT
 							     		  (? - COUNT(*)) COUNT
@@ -118,7 +123,7 @@
 							 		 WHERE
 							      		  NOTICE_HOLD = 'Y'
 							      	   AND
-							      	      STATUS = 'Y' )    
+							      	      STATUS = 'Y' )      
 	</entry>
 	
 	<entry key="noticeTitleSearch">
@@ -266,14 +271,6 @@
 		INSERT
 		  INTO
 		      TB_FILE
-		      (
-			 FILE_NO,
-			 BOARD_NO,
-			 FILE_PATH,
-			 ORIGIN_NAME,
-			 CHANGE_NAME,
-			 BOARD_TYPE
-		  	 )
 		VALUES
 		      (
 		      SEQ_FILE.NEXTVAL,
@@ -601,14 +598,6 @@
 		INSERT
 		  INTO
 		      TB_FILE
-		      (
-			 FILE_NO,
-			 BOARD_NO,
-			 FILE_PATH,
-			 ORIGIN_NAME,
-			 CHANGE_NAME,
-			 BOARD_TYPE
-		  	 )
 		VALUES
 		      (
 		      SEQ_FILE.NEXTVAL,

@@ -179,7 +179,7 @@
         </thead>
         
         <tbody>
-        <% if(noticeList.isEmpty() || pi.getCurrentPage() > pi.getEndPage()) { %>
+        <% if(noticeList.isEmpty()) { %>
         
         	<tr>
                <td colspan="3" style="color: #ff52a0;">조회된 게시글이 없습니다.</td>
@@ -189,13 +189,18 @@
         
 	        <% for(Notice notice : noticeList){ %>
 	            <tr onmouseover="mouseIn(this);" onmouseout="mouseOut(this);">
+	            	<% if(searchContent == null) {%>
 	            	
-		            <% if(notice.getNoticeHold().equals("Y")) {%>
-		                	<td class="td noticeNo" style="color:red;"><input type="hidden" class="hiddenNo" value="<%= notice.getNoticeNo()%>">[공지]</td>
-		            <% } else { %>
-		                	<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
-		            <% } %>
+		            	<% if(notice.getNoticeHold().equals("Y")) {%>
+		                		<td class="td noticeNo" style="color:red;"><input type="hidden" class="hiddenNo" value="<%= notice.getNoticeNo()%>">[공지]</td>
+		                <% } else { %>
+		                		<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
+		                <% } %>
 		                
+	                <% } else {%>
+	                		<td class="td noticeNo"><%= notice.getNoticeNo() %></td>
+	                <% } %>	
+	                
 	                <td class="td title"><%= notice.getNoticeTitle() %></td>
 	                <td class="td date"><%= notice.getCreateDate() %></td>
 	            </tr>
@@ -207,16 +212,11 @@
 	
 	<% if(!noticeList.isEmpty()) { %>
 		
-		<% if(searchContent != null ) { %>
-		
+		<% if(searchContent != null) { %>
 			<div id="buttonBox">
-			
 			<% if(pi.getCurrentPage() > 1){ %>
-			
 	        	<button id="backButton" onclick="location.href='<%=contextPath%>/notice.customer?select=<%=select%>&searchContent=<%= searchContent %>&currentPage=<%= pi.getCurrentPage() - 1%>'">이전</button>
-	      
 	        <% } %>
-	        
 	        
 	        <% for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
 	        	

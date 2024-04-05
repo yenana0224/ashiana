@@ -849,6 +849,8 @@
     			},
     			success : function(result){
     				let schedTable = '';
+    				let schedCostSum = 0;
+
     				if(result.length == 0){
     					schedTable += '<tr class="sched-tr-empty">'
                         			+	 '<td colspan="4">등록된 예약 및 일정이 없습니다.</td>'
@@ -864,10 +866,16 @@
 			                            +    '<td class="td-price">' + result[i].schedCost + '원</td>'
 			                            +	 '<td class="sched-detail-btn-area"><img class="sched-detail-btn update-sched" src="resources/icons/pencil-square.svg"><img class="sched-detail-btn delete-sched" src="resources/icons/x-circle-fill.svg"></td>'
 			                            + '</tr>';
+
+			                schedCostSum += parseInt(result[i].schedCost.split(',').join(''));
+
     					}
     				}
     				$('.schedDestNo[value=' + destNo + ']').nextAll().remove();
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
+
+                    $('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum').text(schedCostSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
+
                     
     			}
     		})

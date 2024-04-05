@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="com.kh.semi.customer.model.vo.*" %>
+<%
+	Notice noticeDetail = (Notice)request.getAttribute("noticeDetail");
+	NoticeFile noticeFile = (NoticeFile)request.getAttribute("noticeFile");
+	String currentPage = (String)request.getAttribute("currentPage");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,9 +79,8 @@
 </head>
 <body>
 	
-		<jsp:include page="../common/headerbar.jsp"/>
-		<c:set var="path" value="${ pageContext.request.contextPath }"/>
-		
+	<%@ include file="../common/headerbar.jsp" %>
+	
 			<div id="noticeMark">
                 <p>공지사항</p>
             </div>
@@ -85,50 +88,67 @@
             <div id="noticeBox">
 
                 <div id="titleBox">
-                    <p>${ noticeDetail.noticeTitle }</p>
+                    <p><%= noticeDetail.getNoticeTitle() %></p>
                 </div>
                 
                 <div id="dateBox">
                     <label style="font-size: 12px;">작성일</label>
-                    <p>${ noticeDetail.cdate }</p>
+                    <p><%= noticeDetail.getCdate() %></p>
                 </div>
-                <c:choose>
-                	<c:when test="${ noticeFile ne null }">
-	                	<div id="imageBox">
-		                    <img src="${ path + '/' + noticeFile.filePath + '/' + noticeFile.changeName }" alt="공지사항 이미지">
-		                </div>
-		                
-		                <div id="noticeText">
-		                    <p>${ noticeDetail.noticeContent }</p>
-		                </div>
-                	</c:when>
-                	<c:otherwise>
-                		 <div id="noticeText">
-			                    <p>${ noticeDetail.noticeContent }</p>
-			             </div>
-			             <div id="imageBox" style="border:none;">
-			             </div>
-                	</c:otherwise>
-                </c:choose>
+                
+                <% if(noticeFile != null) { %>
+                
+	                <div id="imageBox">
+	                    <img src="<%=contextPath + "/" +noticeFile.getFilePath() + "/" + noticeFile.getChangeName()%>" alt="">
+	                </div>
+	                
+	                <div id="noticeText">
+	                    <p><%= noticeDetail.getNoticeContent() %></p>
+	                </div>
+	                
+                <% } else{ %>
+                
+	                <div id="noticeText">
+	                    <p><%= noticeDetail.getNoticeContent() %></p>
+	                </div>
+	                <div id="imageBox" style="border:none;">
+	                </div>
+	                
+                <% } %>
                 
                 <div id="buttonBox">
+<<<<<<< HEAD
+=======
+	                <% if(loginUser != null) {%>
+	                
+	                    <% if(loginUser.getUserId().equals("admin")){ %>
+	                    
+		                    <button class="btn btn-sm btn-danger" onclick="noticeUpdate();">수정</button>
+>>>>>>> parent of 74c1f0a (.)
 		                    <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
-	                	</c:when>
-	                	<c:otherwise>
-	                		<button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
-	                	</c:otherwise>
-	                </c:choose>
+		                    
+	                    <% } else { %>
+	                    
+	                    	<button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+	                    	
+	                    <% } %>
+	                    
+	                <% } else { %>
+	                
+	                	 <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
+	                	 
+	                <% } %>
+	                    
                 </div>
+                
             </div>
-		
-		
 		
 		<script>
 			function noticeBack(){
-				location.href='${ path }/notice.customer?currentPage=${ currentPage }';
+				location.href='<%=contextPath%>/notice.customer?currentPage=<%=currentPage%>'
 			}
 			function noticeUpdate(){
-				location.href='${ path }/noticeUpdateForm.admin?noticeNo=${ noticeDetail.noticeNo }'
+				location.href='<%=contextPath%>/noticeUpdateForm.admin?noticeNo=<%=noticeDetail.getNoticeNo()%>'
 			}
 			function noticeDelete(){
 				location.href='<%=contextPath%>/noticeDelete.customer?noticeNo=<%=noticeDetail.getNoticeNo()%>&file=<%= (noticeFile != null) ? noticeFile : null %>'

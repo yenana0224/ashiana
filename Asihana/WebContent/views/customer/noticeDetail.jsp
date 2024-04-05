@@ -58,8 +58,7 @@
 	                
 	                    <% if(loginUser.getUserId().equals("admin")){ %>
 	                    
-		                    <button class="btn btn-sm btn-danger" onclick="noticeDelete();">삭제</button>
-		                    <button class="btn btn-sm btn-warning" onclick="noticeUpdate();">수정</button>
+		                    <button class="btn btn-sm btn-danger" onclick="noticeUpdate();">수정</button>
 		                    <button class="btn btn-sm btn-secondary" onclick="noticeBack();">목록</button>
 		                    
 	                    <% } else { %>
@@ -84,9 +83,6 @@
 			}
 			function noticeUpdate(){
 				location.href='<%=contextPath%>/noticeUpdateForm.admin?noticeNo=<%=noticeDetail.getNoticeNo()%>'
-			}
-			function noticeDelete(){
-				location.href='<%=contextPath%>/noticeDelete.customer?noticeNo=<%=noticeDetail.getNoticeNo()%>&file=<%= (noticeFile != null) ? noticeFile : null %>'
 			}
 			
 		

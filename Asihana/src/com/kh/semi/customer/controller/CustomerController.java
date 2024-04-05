@@ -77,8 +77,9 @@ public class CustomerController {
 		} else {
 			noticeList = new CustomerService().noticeList(pi);
 		}
+		
 		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("pi", pi);
+		request.setAttribute("pageInfo", pi);
 		request.setAttribute("searchContent", searchContent);
 		request.setAttribute("select", select);
 		
@@ -192,7 +193,7 @@ public class CustomerController {
 			qnaList = new CustomerService().qnaList(pi);
 		}
 		
-		request.setAttribute("pi", pi);
+		request.setAttribute("pageInfo", pi);
 		request.setAttribute("qnaList", qnaList);
 		request.setAttribute("select", select);
 		request.setAttribute("searchContent", searchContent);
@@ -304,8 +305,10 @@ public class CustomerController {
 			view = "qa.customer?currentPage=1";
 			
 		} else {
+			
 			request.setAttribute("errorMsg", "삭제 실패");
 			view = "views/common/errorPage.jsp";
+			
 		}
 		return view;
 	}
@@ -383,6 +386,21 @@ public class CustomerController {
 		}
 		return view;
 	}
+	
+	public String noticeDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

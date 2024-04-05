@@ -508,6 +508,7 @@ public class adminController {
 		request.setCharacterEncoding("UTF-8");
 		
 		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		
 		Nation nation = new Nation();
 		nation.setNationNo(nationNo);
 		nation.setNationName(request.getParameter("nationName"));
@@ -516,7 +517,6 @@ public class adminController {
 		nation.setLanguage(request.getParameter("language"));
 		nation.setCurrency(request.getParameter("currency"));
 		nation.setVisaName(request.getParameter("visa"));
-		
 		AttachmentFile title = new NationService().selectTitlePhoto(nationNo);
 		AttachmentFile file = new NationService().selectPhoto(nationNo);
 		
@@ -533,6 +533,7 @@ public class adminController {
 		request.setAttribute("nation", nation);
 		request.setAttribute("title", title);
 		request.setAttribute("file", file);
+
 		
 		return "views/admin/nationUpdateForm.jsp";		
 	}
@@ -665,15 +666,11 @@ public class adminController {
 			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
 		}
 		
-		return "/info.admin?currentPage=1";
-	}
-	
-	public String nationDelete(HttpServletRequest request, HttpServletResponse response) {
-		
-		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
-		int result = new NationService().deleteNation(nationNo);
-		
-		if(result > 0) System.out.println("성공");
+		if(result > 0) {
+			System.out.println("성공");
+		} else {
+			System.out.println("실패");
+		}
 		
 		return "/info.admin?currentPage=1";
 	}

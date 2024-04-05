@@ -128,13 +128,7 @@
     	<input type="hidden" name="storyNo" value="<%=file.getStoryNo() %>" readonly>
         <div class="info-area"><input type="text" name="title" value="<%=file.getStoryTitle() %>" readonly></div>
         <div class="info-area"><textarea name="storyContent" cols="30" rows="10" style="resize: none;" readonly><%=file.getStoryContent() %></textarea></div>
-        <div class="info-area">
-        <% if(file.getStoryFrom() != null) { %>
-        <input type="text" name="from" value="<%=file.getStoryFrom() %>" readonly>
-        <%} else { %>
-        <input type="text" name="from" value="" readonly>
-        <%} %>
-        </div>
+        <div class="info-area"><input type="text" name="from" value="<%=file.getStoryFrom() %>" readonly></div>
         <div class="btn">
         	<button id="updateBtn"> 수정하기 </button>
         </div>

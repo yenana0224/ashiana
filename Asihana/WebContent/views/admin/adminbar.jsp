@@ -3,6 +3,7 @@
 <% 	
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	String alertMsg = (String) session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <style>
 
        *{
@@ -107,21 +107,6 @@
     </style>
 </head>
 <body>
-	<% if(loginUser == null ) { %>
-		
-		<script>
-				alert('접근권한이 없습니다');
-				location.href="<%=contextPath %>";
-		</script>
-		
-	<%} else if(!loginUser.getUserId().equals("admin")){ %>
-	
-		<script>
-				alert('접근권한이 없습니다');
-				location.href="<%=contextPath %>";
-		</script>
-		
-	<%} else { %>
     <div class="sidebar">
         <h2>관리자페이지</h2>
         <ul class="adminMenu">
@@ -141,13 +126,19 @@
         </ul>
         <div class="mainbtn">
             <a href="<%=contextPath %>">메인화면</a>
-            <a href="<%=contextPath%>/logout">로그아웃</a>
+            <a href="">로그아웃</a>
         </div>
     </div>
     
-	<%} %>
-
-
+    <script>
+	const msg = '<%= alertMsg %>';
+	
+	if(msg != 'null'){
+		alert(msg);
+		session.removeAttribute("alertMsg");
+	};
+    
+    </script>
 
 </body>
 </html>

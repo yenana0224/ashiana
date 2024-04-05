@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -19,10 +21,6 @@ import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
 import com.oreilly.servlet.MultipartRequest;
-import com.kh.semi.common.AttachmentFile;
-import com.kh.semi.travelReview.model.service.TravelReviewService;
-import com.kh.semi.travelReview.model.vo.HashTag;
-import com.kh.semi.travelReview.model.vo.TravelReview;
 
 /**
  * Servlet implementation class TravelReviewUpdateController
@@ -105,11 +103,8 @@ public class TravelReviewUpdateController extends HttpServlet {
 					tagList.add(h);
 				}
 			}
-			
 			// case 1. 첨부파일이 존재, 기존 첨부파일도 존재 => UPDATE
 			// case 2. 첨부파일이 존재, 기존 첨부파일이 없는 경우 UPDATE + INSERT
-			
-			
 			// 첨부파일 
 			List<AttachmentFile> fileList = new ArrayList();
 			
@@ -132,9 +127,6 @@ public class TravelReviewUpdateController extends HttpServlet {
 					fileList.add(at);
 				}
 			}
-			
-			
-			
 			
 		}	
 		

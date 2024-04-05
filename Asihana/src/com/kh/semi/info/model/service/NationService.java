@@ -193,6 +193,29 @@ public class NationService {
 		return result;
 	}
 	
+<<<<<<< HEAD
 	
+=======
+	public int deleteNation(int nationNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = 1;
+		
+		if(new InfoDao().countCurrency(conn, nationNo) > 0) new InfoDao().deleteCurrency(conn, nationNo); 
+		if(new InfoDao().countLanguage(conn, nationNo) > 0) new InfoDao().deleteLanguage(conn, nationNo);
+		if(new InfoDao().countVoltage(conn, nationNo) > 0) new InfoDao().deleteVoltage(conn, nationNo);
+		if(new NationDao().selectTitlePhoto(conn, nationNo) != null) new NationDao().deleteTitlePhoto(conn, nationNo);
+		if(new NationDao().selectPhoto(conn, nationNo) != null) new NationDao().deletePhoto(conn, nationNo);
+		new InfoDao().deleteVisa(conn, nationNo);
+		new NationDao().deleteNation(conn, nationNo);
+		
+		if(result > 0) commit(conn);
+		close(conn);
+		
+		return result;
+	}
+
+>>>>>>> parent of ac48cfa (Merge branch 'main' of https://github.com/NohYeongO/ashiana)
 
 }

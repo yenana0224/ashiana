@@ -184,7 +184,7 @@
                 </select>
             </div>
             <div class="info-area">
-            <label>전압 선택 : </label> 
+            <label>전압 선택 : 기존전압 (<%=nation.getVoltage() %>) </label> 
 				<% for(Voltage v : volList) { %>
 					<div class="ck-area">
 						<input type="checkbox" name="volNo" value="<%=v.getVoltageNo() %>"> <%=v.getVolName() %>
@@ -192,7 +192,7 @@
 				<% } %>
             </div>
             <div class="info-area">
-            <label>화폐 선택 : </label> 
+            <label>화폐 선택 : 기존 화폐 (<%=nation.getCurrency() %>)</label> 
             	<div id="cur-area">
             	<% for(Currency c : curList) { %>
             		<div class="ck-area">
@@ -207,7 +207,7 @@
             </div>
             
             <div class="info-area">
-            <label id="select-lang">언어 선택 : </label> 
+            <label id="select-lang">언어 선택 : 기존언어 ( <%=nation.getLanguage() %>) </label> 
             	<div id="lang-area">
                 <% for(Language l : langList) { %>
             		<div class="ck-area">

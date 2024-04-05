@@ -99,17 +99,12 @@ public class CustomerController {
 		Notice noticeDetail = new CustomerService().noticeDetail(noticeNo);
 		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
-		String view = "";
-		if(noticeDetail != null) {
-			
-			request.setAttribute("noticeDetail", noticeDetail);
-			request.setAttribute("noticeFile", noticeFile);
-			request.setAttribute("currentPage", currentPage);
-			
-			view = "/views/customer/noticeDetail.jsp";
-		}else {
-			view = "/views/customer/nonePage.jsp";
-		}
+		
+		request.setAttribute("noticeDetail", noticeDetail);
+		request.setAttribute("noticeFile", noticeFile);
+		request.setAttribute("currentPage", currentPage);
+		
+		String view = "/views/customer/noticeDetail.jsp";
 		
 		return view;
 	}
@@ -273,19 +268,13 @@ public class CustomerController {
 		List<Answer> answer = new CustomerService().selectAnswer(qnaNo);
 		
 		QNA qna = new CustomerService().selectQna(qnaNo); 
-		String view = "";
 		
-		if(qna != null) {
-			request.setAttribute("qnaFile", qnaFile);
-			request.setAttribute("answer", answer);
-			request.setAttribute("qna", qna);
-			request.setAttribute("currentPage", currentPage);
-			
-			view = "views/customer/qnaDetail.jsp";
-			
-		}else {
-			view = "views/customer/nonePage.jsp";
-		}
+		request.setAttribute("qnaFile", qnaFile);
+		request.setAttribute("answer", answer);
+		request.setAttribute("qna", qna);
+		request.setAttribute("currentPage", currentPage);
+		
+		String view = "views/customer/qnaDetail.jsp";
 		
 		return view;
 		

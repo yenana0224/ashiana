@@ -51,16 +51,18 @@
         }
 
         .content-area{
-            width: 100%;
+            width: 1000px;
             height: auto;
+            margin : auto;
         }
 
-        .content-area>pre{
+        pre{
+        	width : 1000px;
             padding : 0px;
             font-size : 18px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            white-space: pre-wrap;
-
+			white-space: pre-wrap;
+			overflow: auto;
         }
 
         .from-area{
@@ -100,13 +102,13 @@
             </div>
 
             <div class="photo">
-                <img src="<%=contextPath %><%=s.getFilePath() %>/<%=s.getChangeName() %>">
+                <img src="<%=contextPath %>/<%=s.getFilePath() %>/<%=s.getChangeName() %>">
             </div>
 
             <div class="content-area">
                 <pre>
     <%= s.getStoryContent() %> 
-                </pre>
+                </p>
             </div>
 
             <div class="from-area">

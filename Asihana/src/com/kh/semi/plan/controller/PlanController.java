@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonElement;
-import com.kh.semi.info.model.service.CityService;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.plan.model.service.PlanService;
 import com.kh.semi.plan.model.vo.*;
@@ -32,7 +31,6 @@ public class PlanController {
 				}
 			}
 		}
-		request.setAttribute("cityList", new CityService().fileList());
 		request.setAttribute("list", list);
 		
 		return "views/plan/planMain.jsp";

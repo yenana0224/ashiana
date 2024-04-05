@@ -5,7 +5,7 @@
 	List<Language> langList = (List<Language>)request.getAttribute("langList");
 	List<Voltage> volList = (List<Voltage>)request.getAttribute("volList");
 	List<Currency> curList = (List<Currency>)request.getAttribute("curList");
-	Nation nation = (Nation)request.getAttribute("nation");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -136,7 +136,6 @@
         	display : inline-block;
         	width : 10px;
         }
-        
 
     </style>
 </head>
@@ -161,7 +160,33 @@
         </div>
     
         <form action="nationInsert.admin" method="post" enctype="multipart/form-data">
-            <div class="info-area"><input type="text" name="nationNo" pattern="[0-9]+" placeholder="국가번호(국제전화번호)를 입력해주세요" required></div>
+            <div class="info-area">
+            <input id="nationNum" type="text" name="nationNo" pattern="[0-9]+" placeholder="국가번호(국제전화번호)를 입력해주세요" required>
+            </div>
+            
+	            <script>
+	            $('#nationNum').change(function() {
+	            	const a = $('#nationNum').val();
+	            	
+	            	$.ajax({
+	            		url : 'nationCk.do',
+	            		data : {
+	            			nationNo : a
+	            		},
+	            		type : 'get',
+	            		success : function(result){
+	            			if(result == 'NNNN'){
+	            				alert('이미 존재하는 국가입니다');
+	            				$('#nationNum').val('');
+	            			} else{
+	            				alert('사용가능합니다');
+	            				$('#updateBtn').removeAttr('disabled');
+	            			}
+	            		}
+	            	})
+	            });
+	            </script>
+	            
             <div class="info-area"><input type="text" name="nationName" placeholder="국가이름" required></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" placeholder="국가설명" required></textarea></div>
             
@@ -174,7 +199,7 @@
                 </select>
             </div>
             <div class="info-area">
-            <label>전압 선택 : 기존 전압 </label> 
+            <label>전압 선택 : </label>
 				<% for(Voltage v : volList) { %>
 					<div class="ck-area">
 						<input type="checkbox" name="volNo" value="<%=v.getVoltageNo() %>"> <%=v.getVolName() %>
@@ -182,7 +207,7 @@
 				<% } %>
             </div>
             <div class="info-area">
-            <label>화폐 선택 : 기존 화폐 </label> 
+            <label>화폐 선택 :</label> 
             	<div id="cur-area">
             	<% for(Currency c : curList) { %>
             		<div class="ck-area">
@@ -197,7 +222,7 @@
             </div>
             
             <div class="info-area">
-            <label id="select-lang">언어 선택 : 기존언어 </label> 
+            <label id="select-lang">언어 선택 : </label> 
             	<div id="lang-area">
                 <% for(Language l : langList) { %>
             		<div class="ck-area">
@@ -226,7 +251,7 @@
         </div>
         
         <script>
-        
+ 
         $('#newCur').click(function(){
         	const a = prompt('화폐를 입력해주세요');
         	if(a != null) {

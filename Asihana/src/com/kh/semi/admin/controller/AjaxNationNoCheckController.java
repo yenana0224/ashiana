@@ -1,7 +1,6 @@
-package com.kh.semi.travelReview.controller;
+package com.kh.semi.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.common.AttachmentFile;
-import com.kh.semi.travelReview.model.service.TravelReviewService;
-import com.kh.semi.travelReview.model.vo.HashTag;
-import com.kh.semi.travelReview.model.vo.TravelReview;
+import com.google.gson.Gson;
+import com.kh.semi.info.model.service.NationService;
+import com.kh.semi.info.model.vo.Nation;
 
 /**
- * Servlet implementation class TravelReviewUpdateController
+ * Servlet implementation class AjaxNationNoCheckController
  */
-@WebServlet("/update.review")
-public class TravelReviewUpdateController extends HttpServlet {
+@WebServlet("/nationCk.do")
+public class AjaxNationNoCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TravelReviewUpdateController() {
+    public AjaxNationNoCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +31,16 @@ public class TravelReviewUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		Nation nation = new NationService().searchNation(nationNo);
+		String result = "";
+		if(nation == null) result = "YYYY";
+		else result = "NNNN";
 		
+		System.out.println(result);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(result, response.getWriter());
 	}
 
 	/**

@@ -38,8 +38,6 @@ public class AjaxCurrencyAddController extends HttpServlet {
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
-		
-	
 	}
 
 	/**

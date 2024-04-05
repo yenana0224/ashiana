@@ -157,7 +157,6 @@
             				"<option value='"+result[i].cityNo+"'>"+result[i].cityName+"</option>" 		
             				)
             			};
-     					
             		}
             	})
             }

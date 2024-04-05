@@ -1,7 +1,6 @@
 package com.kh.semi.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.semi.info.model.service.InfoService;
-import com.kh.semi.info.model.vo.Currency;
+import com.kh.semi.info.model.service.NationService;
+import com.kh.semi.info.model.vo.Nation;
 
 /**
- * Servlet implementation class AjaxCurrencyAddController
+ * Servlet implementation class AjaxNationNoCheckController
  */
-@WebServlet("/addCur.do")
-public class AjaxCurrencyAddController extends HttpServlet {
+@WebServlet("/nationCk.do")
+public class AjaxNationNoCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCurrencyAddController() {
+    public AjaxNationNoCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +31,16 @@ public class AjaxCurrencyAddController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("currencyName");
-		int result = new InfoService().insertCur(name);
-		List<Currency> list = new InfoService().curList();
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		Nation nation = new NationService().searchNation(nationNo);
+		String result = "";
+		if(nation == null) result = "YYYY";
+		else result = "NNNN";
+		
+		System.out.println(result);
 		
 		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(result, response.getWriter());
 	}
 
 	/**

@@ -188,6 +188,7 @@ public class NationService {
 		
 		return result;
 	}
+	
 
 	public int deleteNation(int nationNo) {
 		

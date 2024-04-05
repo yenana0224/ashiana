@@ -259,7 +259,7 @@
         </div>
 
         <!--여기부터 content의 3분할 중 2영역-->
-        <div id="content-2wrap"> 
+        <div id="content-2wrap" style="overflow: auto; border-bottom:1px solid lightgrey;"> 
             
             <div id="content-2-1">
 
@@ -343,7 +343,7 @@
 
 
         <!--여기부터 content의 3분할 중 3영역-->
-        <div id="content-3wrap"> 
+        <div id="content-3wrap" style="overflow: auto;"> 
             
             
             <div id="content-3-1">

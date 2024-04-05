@@ -306,7 +306,7 @@
 		      TB_PLAN
 		   SET
 		      STATUS = 'Y',
-		      UPLOAD_DATE = SYSDATE;
+		      UPLOAD_DATE = SYSDATE
 		 WHERE
 		      PLAN_NO = ?
 	</entry>

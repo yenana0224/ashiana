@@ -223,15 +223,13 @@
                         
                         <script>
                            $('#search-botton').keydown(function(){
-                        	
-                            
-                           	// 국가 ,도시 리스트 중에서 input 요소에 적히는 글씨와 일치하는 리스트만 보고싶다.
-                           	$('ol').css('display', 'block');
-                           		
+         
+	                           	// 국가 ,도시 리스트 중에서 input 요소에 적히는 글씨와 일치하는 리스트만 보고싶다.
+	                           	$('ol').css('display', 'block');
+	                           		
                            });		
                             
                             $('*').not('#content-1-2 *').not('html, body, #content-wrap, #content-1wrap, #content-1-2, #content-1-3').click(function(e){
-                                console.log(e);
                                 $('ol').css('display', 'none');
                             });
                            
@@ -242,7 +240,6 @@
                             })
                     
                          // .filter('선택자') : 기준 중에서 해당 조건에 만족하는 요소만 선택 *
-                            
                         </script>
 
                     </form>

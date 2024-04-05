@@ -244,27 +244,21 @@
 						        <span id="5point" class="star-point"></span>
 						      </div>
 						      
-						      <input id="star" type="hidden" name="star">
+						      <input id="star" type="hidden" name="star" value="<%=review.getReviewPoint()%>">
 						
-							
-							
-					      	 		
-					      	
 						    <script>
-						    
 						        $(function(){
-						        	
 						        	// 기존 작성자가 평가한 별점을 표시하게 함
 						        	$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
 						        	
 						            // 별을 누르면 이벤트 발생
 						            $('.star-point').click(function() {
-						            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
-						            $(this).parent().children('span').removeClass('on');
-						            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
-						            $(this).addClass('on').prevAll('span').addClass('on');
-						            //선택한 별점의 아이디를 통해 점수를 알아내서 input의 value 값으로 전달
-						            $('#star').val($(this).attr('id').substring(0, 1))
+							            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
+							            $(this).parent().children('span').removeClass('on');
+							            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
+							            $(this).addClass('on').prevAll('span').addClass('on');
+							            //선택한 별점의 아이디를 통해 점수를 알아내서 input의 value 값으로 전달
+							            $('#star').val($(this).attr('id').substring(0, 1))
 						            })
 						        })
 						    </script>  
@@ -277,8 +271,8 @@
                             </div>
 
                             <div id="calendar-content"> <!--제목의 content영역-->
-                            	출발일<input type="date" name="departure" required value="<%=review.getDepartureDate()%>"> <br>
-                            	도착일<input type="date" name="arrival" required value="<%=review.getArrivalDate()%>">
+                            	출발일<input type="date" name="departure" value="<%=review.getDepartureDate()%>"> <br>
+                            	도착일<input type="date" name="arrival" value="<%=review.getArrivalDate()%>">
                                 <!--  <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>-->
                             </div>
                         </div>
@@ -327,7 +321,7 @@
                         <div id="title"> <!--제목의 title영역-->
                             <h3 style="margin-bottom : 5px;">제목</h3>
                         </div>
-                        <div id="title"> <!--제목의 content영역-->
+                        <div id="title2"> <!--제목의 content영역-->
                             <input type="text" name="title" style="width:950px; height: 30px" placeholder="제목"  value="<%=review.getReviewTitle() %>" required><label for="title"></label>
                         </div>
                         
@@ -343,27 +337,47 @@
 
                             <div class="sub" align="center"> <!-- 사용자가 추가한 서브이미지 뜨는 곳, 최대 4개까지 가능-->
                                 <div style="padding-left : 50px" id="sub1">
-                                    <img id="img1" src=""
-                                    style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label >
-                                    <%if(fileList.size() > 1){%>
-                                     	첨부파일 있음
+                                    <img id="img1" src="
+                                    <%if(fileList.size() > 1){ %>
+                                    <%=fileList.get(1).getFilePath() %>
+                                    <%} else { %>
+                                    https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
                                     <%} %>
-                                    </label>
+                                    "
+                                    style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <label>이미지1</label>
                                 </div>
                                 
                                 <div id="sub2">
-                                    <img id="img2" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img2" src="
+                                    <%if(fileList.size() > 2){ %>
+                                    <%=fileList.get(2).getFilePath() %>
+                                    <%} else { %>
+                                    https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %>
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지2</label>
                                 </div>
                                 
                                 <div id="sub3">
-                                    <img id="img4" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img4" src="
+                                    <%if(fileList.size() > 3){ %>
+                                    <%=fileList.get(3).getFilePath() %>
+                                    <%} else { %>
+                                    https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %>
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지3</label>
                                 </div>
   
                                 <div id="sub4">
-                                    <img id="img5" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <img id="img5" src="
+                                    <%if(fileList.size() > 4){ %>
+                                    <%=fileList.get(4).getFilePath() %>
+                                    <%} else { %>
+                                    https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
+                                    <%} %>
+                                    " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
                                     <label>이미지4</label>
                                 </div>
                             </div>
@@ -373,7 +387,7 @@
                             <!-- 파일추가 버튼영역-->
                             <div id="add-file" align="center">
                                 <div id="file-main">
-                                    <input type="file" name="file0" id="file0" class="file" onchange="loadImg(this, 0);" required><label for="file0"></label>
+                                    <input type="file" name="file0" id="file0" class="file" onchange="loadImg(this, 0);"><label for="file0"></label>
                                     <a href=""></a>
                                 </div>
                                 <div id="file-sub" align="center">
@@ -398,11 +412,11 @@
                                             reader.onload = function(e){ // FileReader의 속성 result : 파일내용, onload : 파일을 성공적으로 읽어냈을 때마다 발생
                                                 switch(num){
                                                 
-                                                case 0 : $('#title-img').attr('src', e.target.result); break;
-                                                case 1 : $('#sub-img1').attr('src', e.target.result); break;
-                                                case 2 : $('#sub-img2').attr('src', e.target.result); break;
-                                                case 3 : $('#sub-img3').attr('src', e.target.result); break;
-                                                case 4 : $('#sub-img4').attr('src', e.target.result); break;
+                                                case 0 : $('#img0').attr('src', e.target.result); break;
+                                                case 1 : $('#img1').attr('src', e.target.result); break;
+                                                case 2 : $('#img2').attr('src', e.target.result); break;
+                                                case 3 : $('#img3').attr('src', e.target.result); break;
+                                                case 4 : $('#img4').attr('src', e.target.result); break;
                                                 }
                                                 
                                             }
@@ -483,14 +497,6 @@
                                 <%for(int i = 0; i < hashTagList.size(); i++) {%>
                                 <input type="checkbox" name="hashTag" id="tag<%=i%>" value="<%=hashTagList.get(i).getTagNo()%>"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(i).getTagName() %></label>
                                 <%} %>
-                                <%for(int i = 0; i < checkedTagList.size(); i++) {%>
-                                	<%= checkedTagList.get(i).getTagNo() %>
-                                <%} %>
-                                
-                                <script>
-                                	
-                                </script>
-                              
                         </div>
                         
 
@@ -522,8 +528,8 @@
                                 <option value="N">비공개</option>
                             </select>
                             <button type="sumbit" style="background-color : rgb(46, 204, 113); color : white; border: 0; width:50px; height: 30px;">작성</button>
-                            <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button> <br>
-                     		<button type="button" id="23" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">삭제</button>
+                            <button type="button" id="pageBack" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button> <br>
+                     		<button type="button" id="delete" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">삭제</button>
                         </div>
                         
                         

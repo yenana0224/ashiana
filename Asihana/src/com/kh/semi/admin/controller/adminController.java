@@ -662,12 +662,8 @@ public class adminController {
 				file.setChangeName(multiRequest.getFilesystemName("file"));
 				file.setFilePath("/resources/info/nation");
 			}
-			
 			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
 		}
-		
-		
-
 	}
 	
 	/***

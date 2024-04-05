@@ -188,10 +188,7 @@ public class NationService {
 		
 		return result;
 	}
-	
-<<<<<<< HEAD
-	
-=======
+
 	public int deleteNation(int nationNo) {
 		
 		Connection conn = getConnection();
@@ -203,7 +200,5 @@ public class NationService {
 		
 		return result;
 	}
-
->>>>>>> parent of ac48cfa (Merge branch 'main' of https://github.com/NohYeongO/ashiana)
 
 }

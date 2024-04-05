@@ -146,7 +146,7 @@
 				          STATUS = 'Y'
 				     ORDER
 				        BY 
-				          CREATE_DATE DESC))
+				          NOTICE_NO DESC))
 		 WHERE
 		      RNUM BETWEEN ? AND ?
 	</entry>
@@ -176,7 +176,7 @@
 				          STATUS = 'Y'
 				     ORDER
 				        BY 
-				          CREATE_DATE DESC))
+				          NOTICE_NO DESC))
 		 WHERE
 		      RNUM BETWEEN ? AND ?
 	

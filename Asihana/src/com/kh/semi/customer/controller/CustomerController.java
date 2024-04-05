@@ -77,9 +77,8 @@ public class CustomerController {
 		} else {
 			noticeList = new CustomerService().noticeList(pi);
 		}
-		
 		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("pageInfo", pi);
+		request.setAttribute("pi", pi);
 		request.setAttribute("searchContent", searchContent);
 		request.setAttribute("select", select);
 		
@@ -198,7 +197,7 @@ public class CustomerController {
 			qnaList = new CustomerService().qnaList(pi);
 		}
 		
-		request.setAttribute("pageInfo", pi);
+		request.setAttribute("pi", pi);
 		request.setAttribute("qnaList", qnaList);
 		request.setAttribute("select", select);
 		request.setAttribute("searchContent", searchContent);

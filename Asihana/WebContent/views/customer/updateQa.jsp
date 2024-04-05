@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page
-	import="com.kh.semi.customer.model.vo.*"
-%>   
+<%@ page import="com.kh.semi.customer.model.vo.*" %>   
  
 <%
 	NoticeFile file = (NoticeFile) request.getAttribute("file");
@@ -16,8 +14,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <style>
-
-	
     #insert-form{
         width:  700px;
         margin:  auto;

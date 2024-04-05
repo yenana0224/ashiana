@@ -129,7 +129,6 @@
             width: 100%;
             background-color: rgba(0, 0, 0, 0);
             padding-top : 20px;
-            resize : none;
         }
 
         textarea:focus{

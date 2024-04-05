@@ -129,7 +129,6 @@
             width: 100%;
             background-color: rgba(0, 0, 0, 0);
             padding-top : 20px;
-            resize : none;
         }
 
         textarea:focus{
@@ -216,12 +215,13 @@
                 <h5>다른 여행지 보기</h5>
                 <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange()">
+                        <option> 국가 선택 </option>
                          <% for(Nation n : nationList) {%>
                         <option class="nationList" value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
                         <% } %>
                     </select>
                     <select name="city" id="selectCity">
-                        <option>도시선택</option>
+                        <option>도시</option>
                     </select> 
                     <button type="submit" class="btn btn-sm btn-basic" width="20px"> Go </button>
                 </form>

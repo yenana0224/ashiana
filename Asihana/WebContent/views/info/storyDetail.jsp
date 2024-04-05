@@ -51,18 +51,15 @@
         }
 
         .content-area{
-            width: 1000px;
+            width: 100%;
             height: auto;
-            margin : auto;
         }
 
-        pre{
-        	width : 1000px;
+        .content-area>pre{
             padding : 0px;
             font-size : 18px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-			white-space: pre-wrap;
-			overflow: auto;
+
         }
 
         .from-area{
@@ -108,7 +105,7 @@
             <div class="content-area">
                 <pre>
     <%= s.getStoryContent() %> 
-                </p>
+                </pre>
             </div>
 
             <div class="from-area">

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
 <%
@@ -23,15 +22,9 @@
     <div id="outer-main">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
-
             
             <% if(loginUser != null && !list.isEmpty()) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
             	<% for(PlanMain p: list) { %>
-
-			<!-- 로그인 상태면서 여행 플랜이 존재할때 -->
-            <c:if test="${ !empty sessionScope.loginUser and !empty list }">
-            	<c:forEach var="p" items="${ list }"> 
-
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div class="to-card-detail">
 		                    <img src="<%= p.getFilePath().substring(1) %>" width="200" height="200">
@@ -60,7 +53,7 @@
                 <div class="planning-card">   
                     <h5>나의 여행 플랜</h5>
                     <p>
-                                                       목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label><c:out value="${ sessionScope.loginUser.nickName }" default="회원" /></label>님의 여행 계획을 자세히<br>기록해보세요!
+                                                       목적지 설정부터 숙소 및 각종<br>여행 상품 예약 내용까지!<br><br><label>***</label>님의 여행 계획을 자세히<br>기록해보세요!
                     </p>
                     <button class="btn btn-sm btn-success btn-insert">여행 플랜 추가</button>
                 </div>
@@ -84,7 +77,7 @@
 			                        어디로 떠나야할지 고민되신다면<br>
 			                        다른 여행자들의 여행기를 둘러보세요!
                     </p>
-                    <button class="btn btn-outline-success btn-travelReview">여행기 탐방하기</button>
+                    <button class="btn btn-outline-success">여행기 탐방하기</button>
                 </div>
                 <div id="city-area">
                     <p>
@@ -121,21 +114,12 @@
 	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
 	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
-
 	    		<% if( loginUser != null) { %>
 		    		location.href = '<%= contextPath %>/insert.plan?userNo=' + <%= loginUser.getUserNo() %>;
 	    		<% } else { %>
 	    			alert("로그인 후 이용해주세요..");
 	    			location.href = '<%= contextPath %>/views/member/memberLoginForm.jsp';
 	    		<% } %>
-	    		if(${ !empty loginUser }){
-		    		location.href = '${ path }/insert.plan?userNo=' + ${ loginUser.userNo };
-	    		}
-	    		else{
-	    			alert("로그인 후 이용해주세요..");
-	    			location.href = '${ path }/views/member/memberLoginForm.jsp';
-	    		}
-
 	    	})
     	})	
     </script>
@@ -147,9 +131,6 @@
 					const $planNo = $(this).parent().find('.plan-no').text()
 					location.href = '<%=contextPath%>/delete.plan?planNo=' + $planNo;
 				}
-			});
-			$('.btn-travelReview').click(function(){
-				location.href = '<%=contextPath%>/travelReviewMain';
 			});
     	})
     </script>

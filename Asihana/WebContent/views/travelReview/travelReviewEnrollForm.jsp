@@ -235,8 +235,8 @@
                             </div>
                             <div id="star-content"> <!--별점의 content영역-->
                            		<div class ="star-area">
-							        <span id="1point" class="star-point"></span>
-							        <span id="2point" class="star-point"></span>
+							        <span id="1point" class="star-point on"></span>
+							        <span id="2point" class="star-point on"></span>
 							        <span id="3point" class="star-point"></span>
 							        <span id="4point" class="star-point"></span>
 							        <span id="5point" class="star-point"></span>

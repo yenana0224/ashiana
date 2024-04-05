@@ -5,7 +5,7 @@
 	<comment>
 		Plan Mapper
 	</comment>
-
+	<!-- 플랜 번호, 여행 시작일, 여행 종료일, 몇박 몇일인지, 여행까지 남은 D-Day, 여행할 도시-도시-도시... , 총예산(**만) , 작성 수정일 -->
 	<entry key="selectPlanList">
 		SELECT
 		      D.PLAN_NO,
@@ -305,7 +305,8 @@
 		UPDATE
 		      TB_PLAN
 		   SET
-		      STATUS = 'Y'
+		      STATUS = 'Y',
+		      UPLOAD_DATE = SYSDATE;
 		 WHERE
 		      PLAN_NO = ?
 	</entry>

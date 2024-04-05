@@ -235,8 +235,8 @@
                             </div>
                             <div id="star-content"> <!--별점의 content영역-->
                            		<div class ="star-area">
-							        <span id="1point" class="star-point"></span>
-							        <span id="2point" class="star-point"></span>
+							        <span id="1point" class="star-point on"></span>
+							        <span id="2point" class="star-point on"></span>
 							        <span id="3point" class="star-point"></span>
 							        <span id="4point" class="star-point"></span>
 							        <span id="5point" class="star-point"></span>
@@ -248,12 +248,12 @@
 							        $(function(){
 							            // 별을 누르면 이벤트 발생
 							            $('.star-point').click(function() {
-							            //부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
-							            $(this).parent().children('span').removeClass('on');
-							            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
-							            $(this).addClass('on').prevAll('span').addClass('on');
-							            //선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
-							            $('#star').val($(this).attr('id').substring(0, 1))
+							            	//부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
+								            $(this).parent().children('span').removeClass('on');
+								            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
+								            $(this).addClass('on').prevAll('span').addClass('on');
+								            //선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
+								            $('#star').val($(this).attr('id').substring(0, 1))
 							            })
 							        })
 							    </script>  

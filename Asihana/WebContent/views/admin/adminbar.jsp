@@ -27,7 +27,7 @@
             z-index: 10;
             float : top;
             width : 22%;
-            height: 1500px;
+            height: 1000px;
             background-color: white;
             border : 1px solid #ff595e;
         }

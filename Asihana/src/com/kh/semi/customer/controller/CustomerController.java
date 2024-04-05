@@ -316,10 +316,8 @@ public class CustomerController {
 			view = "qa.customer?currentPage=1";
 			
 		} else {
-			
 			request.setAttribute("errorMsg", "삭제 실패");
 			view = "views/common/errorPage.jsp";
-			
 		}
 		return view;
 	}

@@ -179,7 +179,7 @@
                     <% } else { %>
                         <% for(Story s : list) { %>
                             <tr>
-                                <td><input type="checkbox" name="storyNo" value="<%=s.getStoryNo() %>"></td>
+                            <td><input class="ckOne" type="checkbox" name="storyNo" value="<%=s.getStoryNo() %>"></td>
                                 <td><%=s.getStoryNo() %></td>
                                 <td class="storyTitle" id="<%=s.getStoryNo() %>"><%=s.getStoryTitle() %></td>
                                 <td><%=s.getCreateDate() %></td>
@@ -187,6 +187,23 @@
                         <% } %>
                     <% } %>
                 </tbody>
+                        <script>
+                    	$(function(){
+                    		$('#checkAll').click(function(){
+                    			if($('#checkAll').prop('checked')){
+	                    			$('.ckOne').prop('checked', true);
+                    			} else {
+                    				$('.ckOne').prop('checked', false);
+                    			}
+                    		});
+                    		
+                    		$('#checkAll').on('change', function(){
+	                    		if($(this).prop('checked') == false){
+	                    			$('#checkAll').prop('checked', false);
+	                    		}
+                    		});
+                    	})
+                    </script>
             </table>
             <div class="btn">
                 선택 게시물 

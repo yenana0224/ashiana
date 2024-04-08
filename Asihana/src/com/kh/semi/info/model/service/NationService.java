@@ -195,7 +195,7 @@ public class NationService {
 		Connection conn = getConnection();
 		
 		int result = new NationDao().deleteNation(conn, nationNo);
-		
+
 		if(result > 0) commit(conn);
 		close(conn);
 		

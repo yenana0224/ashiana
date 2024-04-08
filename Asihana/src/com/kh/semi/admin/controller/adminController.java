@@ -664,7 +664,16 @@ public class adminController {
 			}
 			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
 		}
+		return "/info.admin?currentPage=1";
 	}
+	
+	public String nationDelete(HttpServletRequest request, HttpServletResponse response) {
+
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		int result = new NationService().deleteNation(nationNo);
+		
+		return "/info.admin?currentPage=1";
+		}
 	
 	/***
 	 * 도시 상세페이지

@@ -136,7 +136,6 @@
             	
             	$('#selectCity').empty();
             	
-            	// console.log($('#selectNation').val());
             	const nationNo = $('#selectNation').val();
             	
             	if(nationNo != 65 && nationNo != 852 && nationNo != 853){

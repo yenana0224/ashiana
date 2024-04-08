@@ -664,6 +664,7 @@ public class adminController {
 			}
 			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
 		}
+		return "/info.admin?currentPage=1";
 	}
 	
 	/***

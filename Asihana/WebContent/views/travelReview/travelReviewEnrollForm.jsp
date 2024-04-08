@@ -177,13 +177,15 @@
             </div>
         </div>
 
-
+		<c:set var="path" value="${ pageContext.request.contextPath }"/>
+		<c:set var="loginUser" value="${sessionScope.loginUser }"/>
+		
         <div id="wrap-insert-form" align="left"> <!-- 전체를 감싸는 div-->
-            <form action="<%=contextPath%>/insert.Review" method="post" id="form"
+            <form action="${ path }<%--  <%=contextPath%> --%>/insert.Review" method="post" id="form"
             	enctype="multipart/form-data">
             
                 <div id="insert-form"> <!--content 영역을 감싸는 div-->
-                	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> 
+                	<input type="hidden" name="userNo" value="${ loginUser.userNo }<%--  <%=loginUser.getUserNo() %> --%>"> 
                     <div id="insert-1"><!--content영역1 (별점, 여행시기, 장소, 동행)-->
                         <div id="area-star"><!--별점 영역-->
                             <div id="star-title">  <!--별점의 title영역-->
@@ -199,7 +201,6 @@
 					      	 	</div>
 								
 						   	 	<input id="star" type="hidden" name="star">
-						
 							    <script>
 							        $(function(){
 							            // 별을 누르면 이벤트 발생
@@ -216,7 +217,6 @@
 							        })
 							    </script>  
                             </div>
-
                         </div>
 
                         <div id="area-calendar"><!--여행시기 영역-->
@@ -227,7 +227,6 @@
                             <div id="calendar-content"> <!--제목의 content영역-->
                             	출발일<input type="date" name="departure" required> <br>
                             	도착일<input type="date" name="arrival" required>
-                                <!--  <a href="#"><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fw7.pngwing.com%2Fpngs%2F711%2F598%2Fpng-transparent-computer-icons-month-calendrier-angle-text-rectangle.png&type=sc960_832" style="width: 100px; height : 70px;" alt="달력사진"></a>-->
                             </div>
                         </div>
 
@@ -237,11 +236,14 @@
                             </div>
                             <div id="place-content"> <!-- 장소의 content영역-->
                                 <select name="city">
-                           			
-                                	<%for(int i = 0; i < cityList.size(); i++) {%>
-                                	<option id="<%=cityList.get(i).getCityNo() %>" value="<%=cityList.get(i).getCityNo()%>"><%=cityList.get(i).getCityName() %></option>
-                                	<%} %>
+                           			<c:forEach var="cityList" items="${sessionScope.cityList }">
+                                	<%-- <%for(int i = 0; i < cityList.size(); i++) {%> --%>
+                                	<option id="${ cityList.cityNo }<%--   <%=cityList.get(i).getCityNo() %>--%>" value="${ cityList.cityNo }<%--  <%=cityList.get(i).getCityNo()%>--%>">${ cityList.cityName } <%-- <%=cityList.get(i).getCityName() %> --%></option>
                                 	
+                                	
+                                	<%--  <%} %> --%>
+                                	
+                                	</c:forEach>
                                 	
                                 </select>
                                 
@@ -309,38 +311,25 @@
                                     <input type="file" name="file3" id="file3" class="file" onchange="loadImg(this, 3);"><label for="file3"></label>
                                     <input type="file" name="file4" id="file4" class="file" onchange="loadImg(this, 4);"><label for="file4"></label>
                                 </div>
-                                <!--<a href=""><img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fd1%2Faa%2F6d%2Fd1aa6d39a3eea6a06e18d182e3f397d1.jpg&type=a340" style="width: 50px; height: 50px;" alt=""></a>
-                                -->
 
                                 <script>
                                     function loadImg(inputFile, num){
-                                        console.log(inputFile.files);
 
                                         if(inputFile.files.length){
-
                                             const reader = new FileReader();
-
-                                            console.log(inputFile.files[0]);
-
                                             reader.readAsDataURL(inputFile.files[0]);
-
                                             reader.onload = function(e){ // FileReader의 속성 result : 파일내용, onload : 파일을 성공적으로 읽어냈을 때마다 발생
                                                 switch(num){
-                                                
                                                 case 0 : $('#title-img').attr('src', e.target.result); break;
                                                 case 1 : $('#sub-img1').attr('src', e.target.result); break;
                                                 case 2 : $('#sub-img2').attr('src', e.target.result); break;
                                                 case 3 : $('#sub-img3').attr('src', e.target.result); break;
                                                 case 4 : $('#sub-img4').attr('src', e.target.result); break;
                                                 }
-                                                
                                             }
-
-
                                         }
                                         else{
                                         	const str = 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fad%2Fa8%2F23%2Fada823d3ba33a88035e9754ac6b53ac9--london-snow-london-winter.jpg&type=a340';
-                                        	
                                         	switch(num){
                                         	case 0 : $('#title-img').attr('src', str); break;
                                         	case 1 : $('#sub-img1').attr('src', str); break;
@@ -351,32 +340,23 @@
 
                                 <script>
                                     $(function(){
-                                        // $('#file-sub').hide(); // 하이드 속성을 부여하면 보이지 않는 것 + 차지하던 공간의 영역에서 아예 사라짐
-                                        
                                         $('#thumbnail-file').click(function(){
                                             $('#file0').click();
                                         })
-                            
                                         $('#sub1').click(function(){
                                             $('#file1').click();
                                         })
-
                                         $('#sub2').click(function(){
                                             $('#file2').click();
                                         })
-
                                         $('#sub3').click(function(){
                                             $('#file3').click();
                                         })
-
                                         $('#sub4').click(function(){
                                             $('#file4').click();
                                         })
                                     })
-
                                 </script>
-
-
                             </div>
                         </div>
 
@@ -394,13 +374,8 @@
                                		}
                                	}
                             </script>
-                            
                         </div>
-
                     </div>
-                    
-                    
-                    
 
                     <div align="left"><!--해시태그, 여행플랜 / 공개여부, 작성버튼-->
                         <!--해시태그 영역-->
@@ -408,9 +383,11 @@
                                 <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                     2) 보여지는checkbox의 checked 속성을 조작해야함-->
                                 
-                                <%for(int i = 0; i < hashTagList.size(); i++) {%>
-                                <input type="checkbox" name="hashTag" id="tag<%=i%>" value="<%=hashTagList.get(i).getTagNo()%>"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(i).getTagName() %></label>
-                                <%} %>
+                                <%-- <%for(int i = 0; i < hashTagList.size(); i++) {%> --%>
+								<c:forEach var="checkbox" items="${ sessionScope.hashTagList }" varStatus="s">
+                                	<input type="checkbox" name="hashTag" id="tag${ s.index }<%--  <%=i%>--%>" value="${ checkbox.tagNo }<%-- <%=hashTagList.get(i).getTagNo()%> --%>"><label class="hashtag" for="tag1" style="background-color: white;">${checkbox.tagName } <%-- <%=hashTagList.get(i).getTagName()%> --%></label>
+                                <%--  <%} %> --%>
+                                </c:forEach>
                                 <!--  
                                 <script>
                                 	$(fucntion(){
@@ -420,15 +397,12 @@
                                 	})
                                 </script>
                                 -->
-                                
                         </div>
-                        
 
                         <div> <!--여행 플랜 영역-->
                             <div id="plan">
                                 <h3>여행 플랜 여부</h3>
                             </div>
-        
                             <div id="plan-add">
                                 <div>
                                     <!-- 여행기 첨부하기, 버튼을 누르면 DB에서 작성자와 정보가 동일한 여행플랜이 있을 경우 결과 조회, 조회된 결과 첨부 가능-->
@@ -436,14 +410,8 @@
                                     	<option value="N">없음</option>
                                     	<option value="Y">있음</option>
                                     </select>
-                                    
-                                    <!--<a href="#" style="background-color : rgb(46, 204, 113); text-decoration: none; text-decoration : none; color : black;">여행기 첨부하기</a>-->
                                 </div>
                             </div>
-                        </div>
-
-                        <div> <!--공개 여부 선택 영역-->
-
                         </div>
 
                         <div align="right"> <!--여행기 작성/ 취소 버튼 영역--> <!--제목, 내용을 입력하기 전에는 버튼이 disabled 상태여야 함-->
@@ -453,19 +421,12 @@
                             </select>
                             <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>
-                     
                         </div>
-                        
-                        
-                        
                     </div>
-
                 </div>
             </form>
         </div>
     </div>        
     <jsp:include page="../common/footer.jsp"/>
-	
-	
 </body>
 </html>

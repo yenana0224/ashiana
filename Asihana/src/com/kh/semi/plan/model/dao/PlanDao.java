@@ -174,6 +174,7 @@ public class PlanDao {
 			
 			while(rset.next()) {
 				list.add(new DestinationDetail(rset.getInt("DEST_NO"),
+											   rset.getInt("CITY_NO"),
 						                       rset.getString("CITY_NAME"),
 						                       rset.getString("TRANS"),
 						                       rset.getString("TRIP"),

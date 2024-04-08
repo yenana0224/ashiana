@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-	int planNo = (int)request.getAttribute("planNo");
-%>
-<%@ include file="../common/headerbar.jsp" %>
-<%@ include file="planCss.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/headerbar.jsp"/>
+<jsp:include page="planCss.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +22,7 @@
     <div id="outer-plan">
 	    <form method="post">
 	        <div id="planning-interface">
-	            <input type="hidden" name="planNo" id="planNo" value="<%= planNo %>">
+	            <input type="hidden" name="planNo" id="planNo" value="${ planNo }">
 	                            출국일시 : <input type="date" name="start-date" id="start-date" required disabled>
 	            <input type="time" name="start-time" id="start-time"  class="timepicker" disabled>
 	           	 &nbsp;
@@ -88,7 +86,7 @@
         });
     </script>
 	
-	<%@ include file="../common/footer.jsp" %>
+	<jsp:include page="../common/footer.jsp" />
     
     <script> // AJAX 
     	function selectPlan(){
@@ -96,7 +94,7 @@
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>,
+    				planNo : ${ planNo },
     				status : 'Y'
     			},
     			success : function(result){
@@ -119,7 +117,7 @@
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>,
+    				planNo : ${ planNo },
     				status : 'Y'
     			},
     			success : function(result){    				

@@ -87,7 +87,7 @@
 	                 STATUS NOT IN 'N'
 	            ORDER
 	               BY
-	                 ENROLL_DATE DESC))
+	                 MEM_NO DESC))
 	WHERE
 	    RNUM BETWEEN ? AND ?
   	

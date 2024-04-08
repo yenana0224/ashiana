@@ -168,32 +168,29 @@
     
         <form action="nationUpdate.admin" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
-            <div class="info-area">
-                <input id="nationNum" type="text" name="nationNo" pattern="[0-9]+" placeholder="국가번호(국제전화번호)를 입력해주세요" value="<%=nation.getNationNo() %>" required>
-                </div>
-    
-                    <script>
-                    $('#nationNum').change(function() {
-                        const a = $('#nationNum').val();
-                        
-                        $.ajax({
-                            url : 'nationCk.do',
-                            data : {
-                                nationNo : a
-                            },
-                            type : 'get',
-                            success : function(result){
-                                if(result == 'NNNN'){
-                                    alert('이미 존재하는 국가입니다');
-                                    $('#nationNum').val('');
-                                } else{
-                                    alert('사용가능합니다');
-                                    $('#updateBtn').removeAttr('disabled');
-                                }
-                            }
-                        })
-                    });
-                    </script>
+            <div class="info-area"><input type="text" id="numCk" name="newNationNo" pattern="[0-9]+" value="<%=nation.getNationNo() %>" required></div>
+	            <script>
+	            $('#nationNum').change(function() {
+	            	const a = $('#nationNum').val();
+	            	
+	            	$.ajax({
+	            		url : 'nationCk.do',
+	            		data : {
+	            			nationNo : a
+	            		},
+	            		type : 'get',
+	            		success : function(result){
+	            			if(result == 'NNNN'){
+	            				alert('이미 존재하는 국가입니다');
+	            				$('#nationNum').val('');
+	            			} else{
+	            				alert('사용가능합니다');
+	            				$('#updateBtn').removeAttr('disabled');
+	            			}
+	            		}
+	            	})
+	            });
+	            </script>
     
             <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>"></div>
             <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;"><%=nation.getNationContent() %></textarea></div>

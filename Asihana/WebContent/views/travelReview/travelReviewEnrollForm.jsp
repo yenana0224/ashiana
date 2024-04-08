@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.info.model.vo.City
-				"
-				
-%>   
-<%@ include file="../common/headerbar.jsp" %>   
+<%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.info.model.vo.City"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+
+<jsp:include page="../common/headerbar.jsp"/>
 <%
 	List<City> cityList = (List<City>)session.getAttribute("cityList");
 	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
@@ -17,67 +16,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여행기 작성 화면</title>
 
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <style>
-
         #content-wrap{
             width: 1200px;
             height : auto;
             margin : auto;
             background-color : rgb(250, 243, 221);
         }
-
         #content-1wrap{
             height : 250px;
             background-color: rgb(46, 204, 113);
-            
             > div{
                 height : 100%;
                float :left;
             }
         }
-
         #content-1-1{
             width: 30%;
         }
-
         #content-1-2{
             width: 40%;
-
             >h3 {
                 margin-top : 50px;
             }
         }
-
         #content-1-3{
             width: 30%;
         }
-
         #wrap-insert-form{
             width: 1200px;
             height : auto;
         }
-
         #insert-form{
             width : 80%;
             height : auto;
             margin-left : 150px;
-
             >div{
                 width: 100%;
             }
         }
-
         #insert-1{
             height : 500px;
             >div {
                 width : 100%;
             }
         }
-
         #area-star{
             height : 20%;
             display : inline-block;
@@ -86,16 +72,13 @@
                 width: 100%;
             }
         }
-
         #star-title{
             height : 45%;
         }
-
         #star-content{
             height : 55%;
             padding-top :0;
         }
-        
         #area-calendar{
             height : 20%;
             display : iline-block;
@@ -106,85 +89,63 @@
         #calendar-title{
             height : 30%;
         }   
-
         #calendar-content{
             height : 70%;
         }
-
         #area-place{
             height : 20%;            
             >div{
                 width: 100%;
             }
         }
-
         #place-title{
             height: 30%;
         }
-
         #place-content{
             height: 80%;
         }
-
         #insert-2{
             height : 50%;
-
         }
         #area-file{
             >div{
                 display : inline-block;
             }
         }
-
         .sub{
             display : inline-block;
             height : 100%;
             width: 78%;
-
             >div{
                 display : inline-block;
                 width: 22%;
             }
         }
-
         #add-file{
             width: 100%;
             padding-top : 30px;
-
-
             >div {
                 height : 100%;
                 display : inline-block;
             }
         }
-
         #file-main{
             width : 20%;
         }
-        
         #file-sub{
             width: 79%
         }
-
-        /*
-        #star-content > input {
-            display : none;
-        }
-        */
         #test1 :hover{
             width : 200px;
         }
         .file {
             display : none;
         }
-        
         .star-area {
             width: 100%; 
             box-sizing: border-box; 
             display: inline-block; 
-       
         }
-        
         .star-area .star-point {
             width: 40px; 
             height: 40px; 
@@ -199,10 +160,7 @@
             background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png');
             background-size: 100%; 
         }
-
-       
     </style>
-
 </head>
 <body>   
     <div id="content-wrap">
@@ -215,11 +173,8 @@
                     <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 500px; height: 150px;" alt="여행이미지">
                 </div>
             </div>
-
             <div id="content-1-3">
             </div>
-
-
         </div>
 
 
@@ -478,8 +433,8 @@
                                 <div>
                                     <!-- 여행기 첨부하기, 버튼을 누르면 DB에서 작성자와 정보가 동일한 여행플랜이 있을 경우 결과 조회, 조회된 결과 첨부 가능-->
                                     <select name="planCheck">
-                                    	<option value="Y">있음</option>
                                     	<option value="N">없음</option>
+                                    	<option value="Y">있음</option>
                                     </select>
                                     
                                     <!--<a href="#" style="background-color : rgb(46, 204, 113); text-decoration: none; text-decoration : none; color : black;">여행기 첨부하기</a>-->
@@ -509,8 +464,7 @@
             </form>
         </div>
     </div>        
-    
-    <%@ include file="../common/footer.jsp" %>
+    <jsp:include page="../common/footer.jsp"/>
 	
 	
 </body>

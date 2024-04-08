@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.travelReview.model.vo.HashTag, com.kh.semi.travelReview.model.vo.TravelReview
-,com.kh.semi.common.AttachmentFile" 
-%>
-<%
-	TravelReview review = (TravelReview)request.getAttribute("review");
-	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
-	List<HashTag> checkedHashTagList = (List<HashTag>)request.getAttribute("checkedHashTagList");
-	List<AttachmentFile> fileList = (List<AttachmentFile>)request.getAttribute("fileList");
-%>
-<%@ include file="../common/headerbar.jsp" %>
+,com.kh.semi.common.AttachmentFile" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<jsp:include page="../common/headerbar.jsp"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,26 +16,22 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-
     <style>
     /* 이미지 영역 사이즈 조절 */
     .swiper {
         width: 440px;
         height: 280px;
     }
-
     /* 이미지 사이즈 조절 */
     .swiper-slide>img {
         width : 100%;
         height : 100%;
     }
-
     /* 화살표 버튼색 변경 (기본색은 파란색) */
     div[class^=swiper-button] {
         color : grey;
         /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
     }
-
     #content-wrap{
         width: 1200px;
         height : auto;
@@ -55,31 +46,25 @@
             float : left;
         }
     }
-
     .content-1wrap{
         width : 300px;
         height : 100%;
     }
-
     #content-1-2{
         width: 594px;
     }
-
     #content-1-title{
         margin-top : 50px;
     }
-
     #area2{
         margin-left : 100px;
         height : 742px;
         background-color : rgb(250, 243, 221);
     }
-
     #content-2wrap{
         width : 90%;
         height : 280px;
         display : inline-block;
-
         >div {
             height : 100%;
             float : left;
@@ -89,16 +74,13 @@
         width : 100%;
         height : 75%;
         display : inline-block;
-
         >div {
             height: 100%;
             float : left;
         }
     }
-
     #content-warp-1-1-1{
         width: 70%;
-
         >div {
             width : 100%;
             height : 20%;
@@ -106,7 +88,6 @@
             padding-top : 10px;
         }
     }
-
     #content-warp-1-1-2{
         width : 30%;
         >p {
@@ -114,85 +95,66 @@
             line-height: 30px;
         }     
     }
-
     #content-wrap-1-2{
         width: 100%;
         height : 25%;
     }   
-
     #content-wrap-1-2-1{
         width: 100%;
         height : 30%;
     }
-
     #content-wrap-1-2-2{
         width: 100%;
         height: 70%;
     }
-
-
     #content-wrap-1{
         width : 55%;
         >div{
             width: 100%;
         }
     }
-
     #content-wrap-2{
         width : 44.7%;
     }
-
-
     #content-3wrap{
         width : 90%;
         height : 250px;
     }
-
     #content-wrap-3-1{
         margin-top : 10px;
         height : 80%;
     }
-
     #content-wrap-3-2{
         height : 20%;
         >div {
             float : left;
         }
     }
-
-   
-
     #content-wrap-3-2-2{
         width: 65%;
         height : 100%;
     }
-
     #content-4wrap{
         width: 100%;
         height : 200px;
         float : left;
-
         >div{
             height : 100%;
             float : left;
         }
     }
-
     #content-wrap-4-1{
         width: 40%;
         > div{
             width : 100%;
         }
     }
-
     #plan{
         height : 30%;
-        
         >h3{
             margin-top : 20px;
         }
     }
-
     #plan-check{
         height : 70%;
         >div{
@@ -200,14 +162,11 @@
             display : inline-block;
         }
     }
-
     #content-wrap-4-2{
         width: 59%;
     }
-    
     #content-wrap-4-2-1{
         height : 80%;
-
         >div{
             width: 100%;
             display : inline-block;
@@ -219,11 +178,9 @@
     #like-area2{
         height : 35%;
     }
-
     #content-wrap-4-2-2{
         height : 20%;
     }
-
     ol{
         list-style: none;  
         background-color : white; 
@@ -233,14 +190,11 @@
         padding-top : 0; 
         width : 495px;
     }
-    
     .star-area {
          width: 100%; 
          box-sizing: border-box; 
          display: inline-block; 
-    
     }
-    
     .star-area .star-point {
         width: 40px; 
         height: 40px; 
@@ -248,7 +202,6 @@
         background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png'); 
         background-size: 100%; 
     }
-    
     .star-area .star-point.on {
         width: 40px; 
         height: 40px;
@@ -256,7 +209,6 @@
         background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png');
         background-size: 100%; 
     }
-
     </style>
 
 </head>
@@ -292,10 +244,7 @@
             <div id="content-1-3" class="content-1wrap" >
                 <p></p>
             </div>
-
-
         </div>
-
 
         <div id="area2">
             <div id="content-2wrap">
@@ -306,7 +255,8 @@
 
                             <!--DB에서 조회된 결과가 내용에 들어감 -->
                             <div class="content-wrap-1-1-1" >
-                                <h3 style="margin : 0;"><%=review.getReviewTitle() %></h3>
+                            <c:set var="review" value="${requestScope.review }"/>
+                                <h3 style="margin : 0;">${review.reviewTitle }  <%-- <%=review.getReviewTitle() --%></h3>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <!-- 별점 구현 영역 -->
@@ -319,25 +269,24 @@
 					      	 	</div>
 					      	 	<script>
 					      	 		$(function(){
-					      	 			$('#<%=review.getReviewPoint()%>point').addClass('on').prevAll('span').addClass('on');
+					      	 			$('#${review.reviewPoint}point').addClass('on').prevAll('span').addClass('on');
 					      	 		})
-					      	 	
 					      	 	</script>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <input type="date" value="<%=review.getDepartureDate()%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>
+                                <input type="date" value="${review.departureDate}<%-- <%=review.getDepartureDate()%>--%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <label>여행지 : </label><span><%=review.getCityName() %></span>
+                                <label>여행지 : </label><span>${review.cityName}<%-- <%=review.getCityName()%> --%></span>
                             </div>
                         </div>
                         <div id="content-warp-1-1-2">
                             <p>
                                 <!--DB에서 조회된 결과가 내용에 들어감-->
-                                <label>작성자 : </label><span><%= review.getReviewWriter() %></span> <br>
-                                <label>작성일 : </label><span><%= review.getCreateDate() %></span> <br>
-                                <label>조회수 : </label><span><%= review.getCount() %></span> <br>
-                                <label>좋아요 : </label><span id="likePoint"><%= review.getLikes() %></span> <br>
+                                <label>작성자 : </label><span>${ review.reviewWriter }<%-- <%= review.getReviewWriter() %>--%></span> <br>
+                                <label>작성일 : </label><span>${ review.createDate}<%-- <%= review.getCreateDate() %>--%></span> <br>
+                                <label>조회수 : </label><span>${ review.count}<%-- <%= review.getCount() %>--%></span> <br>
+                                <label>좋아요 : </label><span id="likePoint">${ review.likes }<%-- <%= review.getLikes() --%></span> <br>
                             </p>
                         </div>
                     </div>
@@ -353,14 +302,6 @@
                             <input type="radio" name="partner" value="FM" disabled><label>가족</label>
                             <input type="radio" name="partner" value="F" disabled><label>친구</label>
                             <input type="radio" name="partner" value="L" disabled><label>사랑하는 사람과 함께</label>
-                            
-                            <script>
-                            	$(function(){
-                            		
-                            	})
-                            
-                            </script>
-                            
                         </div>
                     </div>
                 </div>
@@ -372,11 +313,12 @@
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
                                 <!-- Slides -->
-
                                 <!-- 이미지의 src 속성값은 DB에서 조회해온 결과를 바탕으로 띄워줘야 함-->
-                                <%for(int i = 0; i < fileList.size(); i++){ %>
-                                <div class="swiper-slide"><img src="<%=fileList.get(i).getFilePath()%>"></div>
-                                <%} %>
+                                <c:forEach var="file" items="${ requestScope.fileList }">
+                                <%-- <%for(int i = 0; i < fileList.size(); i++){ --%>
+                                <div class="swiper-slide"><img src="${ file.filePath }<%--  <%=fileList.get(i).getFilePath()%>--%>"></div>
+                                <%-- <%} %> --%>
+                                </c:forEach>
                             </div>
                         
                             <!-- If we need pagination -->
@@ -409,52 +351,33 @@
                             }
                         }); 
                     </script>
-
-
-
-
                 </div>
-
             </div>
-    
-    
     
             <div id="content-3wrap">
                 <div id="content-wrap-3-1">
                     <div id="board-content" >
 
                         <!--내용 영역을 DB에 조회해올때 replaceAll()를 통해 개행문자 => <br> 태그로 변환시켜야 함-->
-                        <p style="margin : 0; margin-top : 5px;"><%=review.getReviewContent() %></p>
+                        <p style="margin : 0; margin-top : 5px;">${ review.reviewContent }<%--  <%=review.getReviewContent() %>--%></p>
                     </div>
                 </div>
-
                 <div id="content-wrap-3-2">
-
                     <div id="content-wrap-3-2-1">
                     </div>
-
                     <div id="content-wrap-3-2-2" align="left">
                         <div id="hash-tag">                        	
                             <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
                                 2) 보여지는checkbox의 checked 속성을 조작해야함-->
-                            <%for(int i = 0; i < checkedHashTagList.size(); i++) {%>
-                            <input type="checkbox" name="hash-tag" value="tag<%=i%>" disabled><label for="tag<%=i%>"><%=checkedHashTagList.get(i).getTagName() %></label>
-							<%} %>
-								                               
-                            <!--      
-                            <input type="checkbox" name="hashtag" value="tag1" checked disabled><label for="tag1" style="background-color: white;">#맛집탐방</label>
-                            <input type="checkbox" name="hashtag" value="tag2" checked disabled><label for="tag2" style="background-color: white;">#힐링여행</label>
-                            <input type="checkbox" name="hashtag" value="tag3" checked disabled><label for="tag3" style="background-color: white;">#자연경관</label>
-                            <input type="checkbox" name="hashtag" value="tag4" checked disabled><label for="tag4" style="background-color: white;">#랜드마크</label>
-                            <input type="checkbox" name="hashtag" value="tag5" checked disabled><label for="tag5" style="background-color: white;">#쇼핑</label>
-                            -->
+                            <%--  <%for(int i = 0; i < checkedHashTagList.size(); i++) {%> --%>
+                            
+                            <c:forEach var="t" begin="0" end="50" varStatus="s" items="${ requestScope.checkedHashTagList }">
+                           		<input type="checkbox" name="hash-tag" value="tag${ s. index }" disabled><label for="tag${ s. index }"> ${t.tagName} <%--  <%=checkedHashTagList.get(i).getTagName()%> --%></label>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-    
     
             <div id="content-4wrap">
                 <div id="content-wrap-4-1">
@@ -463,17 +386,22 @@
                     </div>
 
                     <div id="plan-check">
-                    	<%if(review.getPlanCheck().equals("Y")){%>
-                        
-                        <div>
-                            <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
-                            <a href="#" style="text-decoration: none; color : black;">
-                            	등록된 플랜이 있습니다.
-                            </a>
-                         <%} else {%>
-                         	등록된 여행플랜이 없습니다.
-                         <%} %>   
-                        </div>
+                    	<c:choose>
+                    	<c:when test="${review.planCheck eq 'Y'}">
+                    	<%--  %> <%if(review.getPlanCheck().equals("Y")){%> --%>
+	                        <div>
+	                            <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
+	                            <a href="#" style="text-decoration: none; color : black;">
+	                            	등록된 플랜이 있습니다.
+	                            </a>
+	                         <%-- <%} else {%> --%>
+	                        </div>
+                         </c:when>
+                         <c:otherwise>
+                         	<div>등록된 여행플랜이 없습니다.</div>
+						</c:otherwise>	                        
+                         <%-- <%} %> --%>   
+                         </c:choose>
                     </div>
                 </div>
                 <div id="content-wrap-4-2">
@@ -487,46 +415,26 @@
 
                     <div id="content-wrap-4-2-2" align="right">
                         <button type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px; margin-top : 5px;" onclick="history.back();">목록</button>
-                    	<%if(loginUser != null && loginUser.getNickName().equals(review.getReviewWriter())) {%>
+                    	
+                    	<c:set var="path" value="${pageContext.request.contextPath }"/>
+                    	<c:set var="loginUser" value="${sessionScope.loginUser }"/>
+                    	
+                    	<c:if test="${ not empty loginUser and loginUser.nickName == review.reviewWriter}">
                     	<button id="update-review" type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px;">수정</button>
-                    	<%} %>
+                    	</c:if>
                     </div>
                     
                     <script>
                     	$(function(){
                     		$('#update-review').click(function(){
-                    			location.href = '<%=contextPath%>/updateForm.review?reviewNo='+<%=review.getReviewNo()%>;
+                    			location.href = '${ path }/updateForm.review?reviewNo='+${review.reviewNo};
                     		})	
-                    		
                     	})
-                    
                     </script>
-                    
                 </div>
-
-                <script>
-                	/* 다음에 다시
-                	$('#likeUp').click(function(){
-                		$.ajax({
-                			url : 'likeUp.do',
-                			data : {span : $('#likePoint').text()},
-                			type : 'get',
-                			success : function(result){}
-                			
-                			console.log('성공');
-                		});
-                	})
-                	*/
-                
-                
-                </script>
-                
-
             </div>
         </div>
     </div>
-    <%@ include file="../common/footer.jsp" %>
-
-
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

@@ -568,6 +568,7 @@
         		success : function(result){
         			if(result > 0){
         				selectSchedule($schedDestNo);
+        				selectPlan();
         			}
         			else{
         				alert("예약 및 일정 추가를 다시 시도해주세요..")
@@ -629,6 +630,7 @@
         		},
         		success : function(result){
         			selectSchedule($schedDestNo);
+        			selectPlan();
         		}
         	})
         	$sched.remove();
@@ -807,7 +809,7 @@
 					    	           +     '<div class="sched-btn-area">'
 					    	           +         '<button type="button" class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
 					    	           +     '</div>'
-					    	           +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+					    	           +     '<span class="sched-des-price">예약 및 일정 예산 <label class="schedCostSum">' + result[i].schedCostSum + '원</label></span>'
 					    	           +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
 					    	           + '</div>'
 					    	           + '<div class="sched-des sched-des-detail">' // 아코디언 내부
@@ -826,11 +828,9 @@
 					    	           +         '</tbody>'
 					    	           +       '</table>'
 					    	           + '</div>';
-	    	                
 		    				$('#sched-box').append(schedArea);
 						    selectSchedule(result[i].destNo);
     					}
-
     				} // for문
 		  	            rootArea += rootAddIcon;
     					$('#root-area').html(rootArea);
@@ -875,7 +875,7 @@
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
 
                     $('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum').text(schedCostSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
-
+					console.log($('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum'));
                     
     			}
     		})

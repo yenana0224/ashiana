@@ -61,7 +61,7 @@
 	  FROM
 	        VW_CITY_COUNT
 	 WHERE
-	      NATION_NO = ?
+	      	NATION_NO = ?
 	</entry>
 	
 	

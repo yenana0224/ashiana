@@ -80,16 +80,16 @@ public class TravelReviewUpdateController extends HttpServlet {
 
 			String status = multiRequest.getParameter("status");
 			
-			System.out.println(reviewWriter + "작성자");
-			System.out.println(reviewTitle + "제목");
-			System.out.println(reviewContent + "내용");
-			System.out.println(arrivalDate + "떠나날");
-			System.out.println(cityNo + "도시");
-			System.out.println(partner + "파트너");
-			System.out.println(departureDate + "복구날");
-			System.out.println(Arrays.toString(hashTagList));
-
-		
+//			System.out.println(reviewWriter + "작성자");
+//			System.out.println(reviewTitle + "제목");
+//			System.out.println(reviewContent + "내용");
+//			System.out.println(arrivalDate + "떠나날");
+//			System.out.println(cityNo + "도시");
+//			System.out.println(partner + "파트너");
+//			System.out.println(departureDate + "복구날");
+//			System.out.println(Arrays.toString(hashTagList));
+//
+//		
 			TravelReview t = new TravelReview();
 			
 			t.setReviewWriter(reviewWriter);

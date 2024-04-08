@@ -95,7 +95,7 @@
             height : 55%;
             padding-top :0;
         }
-
+        
         #area-calendar{
             height : 20%;
             display : iline-block;
@@ -184,6 +184,7 @@
             display: inline-block; 
        
         }
+        
         .star-area .star-point {
             width: 40px; 
             height: 40px; 
@@ -248,10 +249,10 @@
 							        $(function(){
 							            // 별을 누르면 이벤트 발생
 							            $('.star-point').click(function() {
+							            	// 상위별점 -> 하위별점을 고를 수 있기 때문에 먼저 평가한 별점을 다 없앰
 							            	// 부모의 자식요소의 클래스를 속성값 on을 제거하여 빈별로 만든다
-							            	// 
 								            $(this).parent().children('span').removeClass('on');
-								            // 선택한 요소 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
+								            // 선택한 요소 + 이전 모든 형제 요소 선택, 클래스 속성값 on을 추가하여 불들어온 별을 만든다
 								            $(this).addClass('on').prevAll('span').addClass('on');
 								            // 선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
 								            $('#star').val($(this).attr('id').substring(0, 1))
@@ -327,17 +328,17 @@
                                 
                                 <div id="sub2">
                                     <img id="sub-img2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label>이미지1</label>
+                                    <label>이미지2</label>
                                 </div>
                                 
                                 <div id="sub3">
                                     <img id="sub-img3" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label>이미지1</label>
+                                    <label>이미지3</label>
                                 </div>
   
                                 <div id="sub4">
                                     <img id="sub-img4" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
-                                    <label>이미지1</label>
+                                    <label>이미지4</label>
                                 </div>
                             </div>
 

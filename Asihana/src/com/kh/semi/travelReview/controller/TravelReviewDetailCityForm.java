@@ -45,10 +45,9 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 		// cityName으로 cityNo 조회하기
 		int cityNo = new TravelReviewService().selectCityNo(cityName);
 		
-
+		
 		List<City> cityInformation = new TravelReviewService().selectDetailCity(cityNo);
 		
-		request.getSession().getAttribute("cityList");
 		// 출력화면 지정
 		if(cityInformation.isEmpty()) {
 			request.setAttribute("errorMsg", "게시글 조회실패");

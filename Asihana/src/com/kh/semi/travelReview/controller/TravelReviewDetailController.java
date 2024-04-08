@@ -56,7 +56,6 @@ public class TravelReviewDetailController extends HttpServlet {
 		request.setAttribute("checkedHashTagList", checkedHashTagList);
 	
 		request.getSession().getAttribute("hashTagList");
-		request.getSession().getAttribute("cityList");
 		
 		// 4) 해당게시물의 첨부파일
 		List<AttachmentFile> fileList = new TravelReviewService().selectAttachmentFileList(reviewNo);

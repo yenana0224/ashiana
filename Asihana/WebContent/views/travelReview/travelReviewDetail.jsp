@@ -283,11 +283,7 @@
                             <!--1)DB에서 조회된 국가/도시 정보를 바탕으로 반복문을 통해서 li요소 추가, 
                                 2)해당 li요소를 클랙했을 때 해당 국가 여행기 게시판으로 이동
                                 -->
-                            <li>일본</li>
-                            <li>중국</li>
-                            <li>태국</li>
-                            <li>말레이시아</li>
-                            <li>도쿄(일본)</li>
+                          
                         </ol>
 
                     </form>
@@ -468,7 +464,7 @@
 
                     <div id="plan-check">
                     	<%if(review.getPlanCheck().equals("Y")){%>
-                        <%System.out.println("플랜체크" + review.getPlanCheck()); %>
+                        
                         <div>
                             <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
                             <a href="#" style="text-decoration: none; color : black;">

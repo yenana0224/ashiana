@@ -4,9 +4,7 @@
 <%
 	List<City> cityInfo = (List<City>)request.getAttribute("cityInformation");
 %>
-<%
-	System.out.println(cityInfo);
-%>
+
 
 <%
 	String language = cityInfo.get(0).getLanguage();

@@ -27,7 +27,6 @@ public class PlanMain {
 		this.uploadDate = uploadDate;
 	}
 	
-	
 	public String getFilePath() {
 		return filePath;
 	}

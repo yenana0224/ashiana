@@ -337,6 +337,7 @@
 
                             <div class="sub" align="center"> <!-- 사용자가 추가한 서브이미지 뜨는 곳, 최대 4개까지 가능-->
                                 <div style="padding-left : 50px" id="sub1">
+
                                     <img id="img1" src="
                                     <%if(fileList.size() > 1){ %>
                                     <%=fileList.get(1).getFilePath() %>
@@ -356,10 +357,24 @@
                                     https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
                                     <%} %>
                                     " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+
+                                    <img id="img1" src=""
+                                    style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+                                    <label >
+                                    <%if(fileList.size() > 1){%>
+                                     	첨부파일 있음
+                                    <%} %>
+                                    </label>
+                                </div>
+                                
+                                <div id="sub2">
+                                    <img id="img2" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+
                                     <label>이미지2</label>
                                 </div>
                                 
                                 <div id="sub3">
+
                                     <img id="img4" src="
                                     <%if(fileList.size() > 3){ %>
                                     <%=fileList.get(3).getFilePath() %>
@@ -367,10 +382,14 @@
                                     https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
                                     <%} %>
                                     " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+
+                                    <img id="img4" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+
                                     <label>이미지3</label>
                                 </div>
   
                                 <div id="sub4">
+
                                     <img id="img5" src="
                                     <%if(fileList.size() > 4){ %>
                                     <%=fileList.get(4).getFilePath() %>
@@ -378,6 +397,9 @@
                                     https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340
                                     <%} %>
                                     " style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+
+                                    <img id="img5" src="" style="width : 150px; height: 200px;" alt="서브이미지"> <br>
+
                                     <label>이미지4</label>
                                 </div>
                             </div>
@@ -497,6 +519,16 @@
                                 <%for(int i = 0; i < hashTagList.size(); i++) {%>
                                 <input type="checkbox" name="hashTag" id="tag<%=i%>" value="<%=hashTagList.get(i).getTagNo()%>"><label class="hashtag" for="tag1" style="background-color: white;"><%=hashTagList.get(i).getTagName() %></label>
                                 <%} %>
+
+                                <%for(int i = 0; i < checkedTagList.size(); i++) {%>
+                                	<%= checkedTagList.get(i).getTagNo() %>
+                                <%} %>
+                                
+                                <script>
+                                	
+                                </script>
+                              
+
                         </div>
                         
 

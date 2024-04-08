@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
-<%
-	List<PlanMain> list = (List<PlanMain>)request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,36 +17,40 @@
     </style>
 </head>
 <body>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
     <div id="outer-main">
         <div id="my-plans-area">
             <h3>나의 여행 플랜</h3>
-            
-            <% if(loginUser != null && !list.isEmpty()) { %> <!-- 로그인 상태면서 여행 플랜이 존재할때 -->
-            	<% for(PlanMain p: list) { %>
+
+			<!-- 로그인 상태면서 여행 플랜이 존재할때 -->
+            <c:if test="${ !empty sessionScope.loginUser and !empty list }">
+            	<c:forEach var="p" items="${ list }"> 
+
 		            <div class="my-plan-card my-plan-card-hover">
 		                <div class="to-card-detail">
-		                    <img src="<%= p.getFilePath().substring(1) %>" width="200" height="200">
-		                    <h5><%= p.getPlanCitys() %></h5>
+		                
+		                    <img src="${ p.filePath.substring(1) }" width="200" height="200">
+		                    <h5>${ p.planCitys }</h5>
 		                    <div class="card-content">
-		                    	<label class='plan-no' style='display:none;'><%= p.getPlanNo() %></label>
+		                    	<label class='plan-no' style='display:none;'>${ p.planNo }</label>
 		                        <div class="card-content-1">
-		                            <label><%= p.getStartDate() %></label> <br>
-		                            <label><%= p.getdDay() %></label>
+		                            <label>${ p.startDate }</label> <br>
+		                            <label>${ p.dDay }</label>
 		                        </div>
 		                        <div class="card-content-2">
-		                            <label><%= p.getTravelDate() %></label> <br>
-		                            <label><%= p.getTotalPrice() %></label>
+		                            <label>${ p.travelDate }</label> <br>
+		                            <label>${ p.totalPrice }</label>
 		                        </div>
 		                        <div class="card-content-3">
-		                            <label><%= p.getUploadDate() %></label>
+		                            <label>${ p.uploadDate }</label>
 		                        </div>
 		                    </div>
 		                </div>
 		                <button class="btn button btn-danger btn-card card-delete" style="right: 5px;">삭제</button>
 		                <button class="btn button btn-success btn-card card-edit" style="right: 37px;">수정</button>
 		            </div>
-            	<% } %>            	
-            <% } %>
+            	</c:forEach>      	
+            </c:if>
             <div class="my-plan-card">
                 <div class="planning-card">   
                     <h5>나의 여행 플랜</h5>
@@ -84,21 +86,15 @@
                        	아시하나의 추천 여행지로 떠나보세요!
                     </p>
                     <div id="card-area">
-                        <div class="city-card">
-                            <img src="https://i.namu.wiki/i/K7KMU0ZBa3wUxSmr8X-lA4DVqII6QMKJ5vBWiD3FTtYEZUIiUBn8vmZk1pCT44Q9-YXnWNigKDZCBLeMb_1RjEXAsz-U1kbVr2lafvxVh7WF9FIcg2B9vwHsUQhDm9CXrvbbk8VREzYUTV2g1gKaog.webp">
-                            <h5>다낭</h5>
-                            <label>베트남</label>
-                        </div>
-                        <div class="city-card">
-                            <img src="https://i.namu.wiki/i/LBKzQOIRatNfnoBY1FoPnfTJJwfHEdDvYVsyJhFWXkaq0J1kc3ozcMDKzF_6XtVB4OmPmPW10WRDpSeRVwITf6bfy70-OSWmWDCM2CjUCGcdm8uJtkMGGhVQmGzfX2pOrM24M4lmFSxm7lAR0lHDGQ.webp">
-                            <h5>삿포로</h5>
-                            <label>일본</label>
-                        </div>
-                        <div class="city-card">
-                            <img src="https://i.namu.wiki/i/KNlOyYgTdOVD9_0MW7v0wYo6Ygmrbma0tnSbR3NRUMJgprhaiELU-AbJYKjzu-apVfBGCwK34XtCBae44uE0rdgf812AGqXfTwKQkUOthbaA_Cy54De6oJ7PIVt1gcQp0BqynZWN9EEA2YT5tWa29w.webp">
-                            <h5>로마</h5>
-                            <label>이탈리아</label>
-                        </div>
+                    	<c:forEach var="c" items="${ requestScope.cityList }" end="2">
+	                        <div class="city-card">
+	                            <img src="${ path }${ c.filePath }/${ c.changeName }">
+	                            <h5>${ c.cityName }</h5>
+	                            <label>${ c.nationName }</label>
+	                            <input type="hidden" class="nation-no" value="${ c.nationNo }">
+	                            <input type="hidden" class="city-no" value="${ c.cityNo }">
+	                        </div>
+                        </c:forEach>
                     </div>
                 </div> <!-- #city-area -->
             </div> <!-- #start-plan-msg -->
@@ -111,15 +107,18 @@
     <script>
     	$(function(){
 	    	$('#my-plans-area').on('click', '.to-card-detail', function(){ // 카드 클릭 시 상세 조회 =>
-	    		location.href = '<%= contextPath %>/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
+	    		location.href = '${ path }/planDetail.plan?planNo=' + $(this).find('.plan-no').text();
 	    	});
 	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
-	    		<% if( loginUser != null) { %>
-		    		location.href = '<%= contextPath %>/insert.plan?userNo=' + <%= loginUser.getUserNo() %>;
-	    		<% } else { %>
+
+	    		if(${ !empty loginUser }){
+		    		location.href = '${ path }/insert.plan?userNo=' + '${ loginUser.userNo }';
+	    		}
+	    		else{
 	    			alert("로그인 후 이용해주세요..");
-	    			location.href = '<%= contextPath %>/views/member/memberLoginForm.jsp';
-	    		<% } %>
+	    			location.href = '${ path }/views/member/memberLoginForm.jsp';
+	    		}
+
 	    	})
     	})	
     </script>
@@ -129,9 +128,17 @@
 			$('#my-plans-area').on('click', '.card-delete', function(){ 
 				if(confirm('여행플랜을 삭제 하시겠습니까?')){
 					const $planNo = $(this).parent().find('.plan-no').text()
-					location.href = '<%=contextPath%>/delete.plan?planNo=' + $planNo;
+					location.href = '${ path }/delete.plan?planNo=' + $planNo;
 				}
 			});
+
+			$('.btn-travelReview').click(function(){
+				location.href = '${ path }/travelReviewMain';
+			});
+			$('#city-area').on('click', '.city-card', function(){
+				location.href="${ path }/search.info?nation=" + $(this).find('.nation-no').val() + "&city=" + $(this).find('.city-no').val();
+			});
+
     	})
     </script>
     

@@ -662,18 +662,18 @@ public class adminController {
 				file.setChangeName(multiRequest.getFilesystemName("file"));
 				file.setFilePath("/resources/info/nation");
 			}
-			
 			result = new NationService().insertNation(nation, visaNo, volNo, curNo, langNo, title, file);
 		}
-		
-		if(result > 0) {
-			System.out.println("성공");
-		} else {
-			System.out.println("실패");
-		}
-		
 		return "/info.admin?currentPage=1";
 	}
+	
+	public String nationDelete(HttpServletRequest request, HttpServletResponse response) {
+
+		int nationNo = Integer.parseInt(request.getParameter("nationNo"));
+		int result = new NationService().deleteNation(nationNo);
+		
+		return "/info.admin?currentPage=1";
+		}
 	
 	/***
 	 * 도시 상세페이지

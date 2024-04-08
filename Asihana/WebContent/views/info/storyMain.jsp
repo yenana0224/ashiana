@@ -183,7 +183,7 @@
 				<% if(currentPage != i){ %>
 				<button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=i%>'"><%= i %></button>
 				<%} else {%>
-					<button disabled><%=i %></button>
+					<button style="background-color : darkgray" disabled><%=i %></button>
 				<%} %>
 			<%} %>
 			

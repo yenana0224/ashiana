@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.info.model.vo.City" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	List<City> cityInfo = (List<City>)request.getAttribute("cityInformation");
 %>
-<%
-	System.out.println(cityInfo);
-%>
+
 
 <%
 	String language = cityInfo.get(0).getLanguage();
@@ -230,23 +230,10 @@
                 <div id="content-1-title">
                     <h3>여행자들의 생생한 여행기를 확인해보세요</h3>
                 </div>
-                <div id="content-1-2form">
-                    <!-- 수업 때 더 배워서 보완해야 하는 영역 폼태그-->
-                    <form action="#" method="get" name="search-form">
-                        <input type="search" style="display : inline-block; width: 80%; height: 55px; " placeholder="국가, 도시, 키워드로 검색" name="search">
-                        <input type="submit" style="display : inline-block; width: 50px; height: 55px;" value="검색">
-                        <ol align="left" >
-                            
-                            <!--1)DB에서 조회된 국가/도시 정보를 바탕으로 반복문을 통해서 li요소 추가, 
-                                2)해당 li요소를 클랙했을 때 해당 국가 여행기 게시판으로 이동-->
-                            <li>일본</li>
-                            <li>중국</li>
-                            <li>태국</li>
-                            <li>말레이시아</li>
-                            <li>도쿄(일본)</li>
-                        </ol>
-                    </form>
-                </div>
+             
+                
+                
+               
             </div>
             <div id="content-1-3" class="content-1wrap" >
                 <p></p>
@@ -275,7 +262,6 @@
                     
                     <div id="nation-content">
                         
-                        
                         <div id="nation-contentlist">
                             <p>
                                 <!-- span요소에 출력될 값은 DB에서 국가/도시 테이블의 값을 넣을 예정-->
@@ -285,8 +271,6 @@
                                 <lable>전압 : </lable> <span><%= newVoltage %></span> <br>
                                 <lable>비자 : </lable> <span><%= cityInfo.get(0).getVisaName() %></span> <br>                       
                             </p>
-                        </div>
-                        <div>
                         </div>
                     </div>
                     <!-- 여기까지 없어질 영역-->
@@ -315,32 +299,32 @@
                 </div>
                 <div id="content-3-boardlist" align="center">
                     <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20130401_290%2Fan_explorer_1364743851073cUc35_PNG%2Ftumblr_mihv5tJFVP1qes1wto1_500.png&type=sc960_832">
                         <p align="center">
-                            <lable>닉네임 : </lable><span>닉네임</span> <br>
+                            <lable>닉네임 : </lable><span>이소룡</span> <br>
                             <!-- -->
-                            <span>해시태그</span> <span>해시태그2</span>
+                            <span>사랑하는 사람과 함께</span> <span>힐링여행</span>
                         </p>  
                     </div>
                     <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20130401_290%2Fan_explorer_1364743851073cUc35_PNG%2Ftumblr_mihv5tJFVP1qes1wto1_500.png&type=sc960_832">
                         <p align="center">
-                            <lable>닉네임 : </lable> <span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
+                            <lable>닉네임 : </lable> <span>관리자</span> <br>
+                            <span>맛집탐방</span> <span></span>
                         </p>  
                     </div>
                     <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20130401_290%2Fan_explorer_1364743851073cUc35_PNG%2Ftumblr_mihv5tJFVP1qes1wto1_500.png&type=sc960_832">
                         <p align="center">
-                            <lable>닉네임 : </lable> <span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
+                            <lable>닉네임 : </lable> <span>관리자</span> <br>
+                            <span>힐링여행</span> <span></span>
                         </p>  
                     </div>
                     <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
+                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20130401_290%2Fan_explorer_1364743851073cUc35_PNG%2Ftumblr_mihv5tJFVP1qes1wto1_500.png&type=sc960_832">
                         <p align="center">
-                            <lable>닉네임 : </lable> <span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
+                            <lable>닉네임 : </lable> <span>유저1</span> <br>
+                            <span>랜드마크</span> <span></span>
                         </p>  
                     </div>
                 </div>

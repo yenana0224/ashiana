@@ -1,9 +1,11 @@
 package com.kh.semi.travelReview.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.travelReview.model.vo.HashTag;
 import com.kh.semi.travelReview.model.vo.TravelReview;
+
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -58,8 +61,12 @@ public class TravelReviewUpdateController extends HttpServlet {
 			// 2) MultipartRequest 객체 생성하면서 파일의 이름을 수정하면서 업로드
 			MultipartRequest multiRequest =
 					new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+
 			Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-			String reviewWriter = String.valueOf(loginUser.getUserNo());
+
+			
+			String reviewWriter = multiRequest.getParameter("userNo");
+
 			String reviewTitle = multiRequest.getParameter("title");
 			String reviewContent = multiRequest.getParameter("content");
 			String arrivalDate = multiRequest.getParameter("arrival");
@@ -68,18 +75,21 @@ public class TravelReviewUpdateController extends HttpServlet {
 			String partner = multiRequest.getParameter("partner");
 			int starPoint = Integer.parseInt(multiRequest.getParameter("star"));
 			String planCheck = multiRequest.getParameter("planCheck");
+
 			String[] hashTagList = (String[])multiRequest.getParameterValues("hashTag");
+
 			String status = multiRequest.getParameter("status");
 			
-			System.out.println(reviewWriter + "작성자");
-			System.out.println(reviewTitle + "제목");
-			System.out.println(reviewContent + "내용");
-			System.out.println(arrivalDate + "떠나날");
-			System.out.println(cityNo + "도시");
-			System.out.println(partner + "파트너");
-			System.out.println(departureDate + "복구날");
-			System.out.println(Arrays.toString(hashTagList));
-		
+//			System.out.println(reviewWriter + "작성자");
+//			System.out.println(reviewTitle + "제목");
+//			System.out.println(reviewContent + "내용");
+//			System.out.println(arrivalDate + "떠나날");
+//			System.out.println(cityNo + "도시");
+//			System.out.println(partner + "파트너");
+//			System.out.println(departureDate + "복구날");
+//			System.out.println(Arrays.toString(hashTagList));
+//
+//		
 			TravelReview t = new TravelReview();
 			
 			t.setReviewWriter(reviewWriter);
@@ -127,7 +137,7 @@ public class TravelReviewUpdateController extends HttpServlet {
 					fileList.add(at);
 				}
 			}
-			
+
 		}	
 		
 	}

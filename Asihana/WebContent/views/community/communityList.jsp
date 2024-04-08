@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ page import="java.util.ArrayList, com.kh.semi.community.model.vo.Community" %>    
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ page import="com.kh.semi.community.model.vo.Community" %>  
+<%@ page import="java.util.ArrayList, com.kh.semi.community.model.vo.Community" %>   
 <%
 	ArrayList<Community> list = (ArrayList<Community>)request.getAttribute("community");
 
- %>    
+%>    
     
 <!DOCTYPE html>
 <html>
@@ -514,7 +515,7 @@
           
       
           
-           		<a href="<%=contextPath%>/insert.commu"> <button id="g5" > 글 작성하기</button></a>
+           		<a href="${ list }/insert.commu"> <button id="g5" > 글 작성하기</button></a>
           <!--글 작성하기를  누르면 글 작성폼으로 연결 -->
           
           		
@@ -528,22 +529,43 @@
                     
           <span>  
           
-	          
+          
+	       
 	         <table class="table table-hover"  id="t2">
 	          	<thead >
 		    	    <tr>
-		          		<th>글 번호</th>
-			    		<th>도시</th>
-			      		<th>회원 닉네임</th>
-			      		<th>글 내용</th>
-			      		<th>조회수</th>
-			      		<th>작성일</th>
+		          		<th>글 번호 :${ comuNo }</th>
+			    		<th>도시 :${ cityName }</th>
+			      		<th>회원 닉네임: ${ memberNickName }</th>
+			      		<th>글 내용 :${ comuContent }</th>
+			      		<th>조회수: ${ count }</th>
+			      		<th>작성일 :${ comuDate }</th>
 			      		
 		        	</tr>
 	          	  </thead>
 	          	  <tbody>
-	     
-	          	  		<% if(list.isEmpty()) {%>
+	          	  <c:choose>
+	     				<c:when test="${ empty list}">
+		          	  		<tr>
+		          	  			<td colspan="6">결과가 존재하지 않습니다.</td>
+		          	  		</tr>
+	          	  		</c:when>
+	          	  		<c:otherwise>
+	          	  			<c:forEach var="c" items="${ requestScope.list }" varStatus="s">
+	          	  				<tr>
+		          	  				<td>${ c.comuNo }</td>
+		          	  				<td>${ c.cityName }</td>
+		          	  				<td>${ c.memberNickname }</td>
+		          	  				<td>${ c.comuContent }</td>
+		          	  				<td>${ c.count }</td>
+		          	  				<td>${ c.comuDate }</td>
+	          	  				</tr>
+	          	  			</c:forEach>
+	          	  		</c:otherwise>
+	          	 	 </c:choose>		
+	          	  
+	       <%--
+	          	  	<% if(list.isEmpty()) {%>
 					<tr>
 						<th colspan="6"></th>
 					</tr> 
@@ -558,13 +580,10 @@
 						<td><%=c.getComuContent() %></td>
 						<td><%=c.getCount() %></td>	
 						<td><%=c.getComuDate() %></td>
-						
 					</tr>
-			
-			
 			<% } %>	
-			
 		<% } %>
+		--%>
 	          	  </tbody>
 	          </table>
 	       </span>
@@ -575,7 +594,7 @@
                     
                     // 2절 상세페이지 요청!!!
 
-                    // location.href='<%=contextPath%>/detail.commu';
+                    // location.href='${comunitylist}/detail.commu';
                     // 클릭했을 때 클릭한 공지사항의 번호를 넘겨줘야함!!!   
                     // console.log(this);
                     // 이벤트가 발생한 tr요소의 자식 중에서도 첫 번째 td요소의  Content영역의 값이 필요함!!

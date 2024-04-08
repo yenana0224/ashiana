@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonElement;
 import com.kh.semi.info.model.service.CityService;
+import com.kh.semi.info.model.service.NationService;
+import com.kh.semi.info.model.vo.CityFile;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.plan.model.service.PlanService;
 import com.kh.semi.plan.model.vo.*;
@@ -84,7 +86,7 @@ public class PlanController {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) { // 로그인 유저 넘버와 Parameter의 유저 넘버가 같은지 비교 
-			request.setAttribute("cityList", new TravelReviewService().selectCityList()); //도시 리스트
+			request.setAttribute("nationList", new NationService().allNationList()); //도시 리스트
 			request.setAttribute("planNo", new PlanService().selectInsertPlan(loginUserNo));
 			view = "views/plan/insertPlan.jsp";
 		} else {
@@ -192,6 +194,11 @@ public class PlanController {
 			request.getSession().setAttribute("alertMsg", "플랜 삭제 실패");
 		}
 		return selectPlanList(request, response);
+	}
+
+	public List<CityFile> cityList(HttpServletRequest request, HttpServletResponse response) {
+		
+		return new CityService().nationCity(Integer.parseInt(request.getParameter("nationNo")));
 	}
 
 

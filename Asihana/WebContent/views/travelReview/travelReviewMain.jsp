@@ -280,7 +280,7 @@
                              
                              
                              <% int writer = reviewList.get(i).getReviewNo(); %>
-                            <span>해시태그1</span> <span></span>
+                            <span>힐링여행</span> <span></span>
 							                            
                         </p>  
                     </div>    

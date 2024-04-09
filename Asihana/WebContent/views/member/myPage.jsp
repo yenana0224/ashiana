@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,26 +36,22 @@
 </head>
 <body>
 	
-	<%@ include file="../common/headerbar.jsp" %>
-	
-	<%
-		String userId = loginUser.getUserId();
-		String nickName = loginUser.getNickName();
-	%>
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
 		<div id="noticetext">
 	     	   <p>마이페이지</p>
 	   		</div>
-		<form id="enroll-form" method="post" action="<%=contextPath%>/update.me">
+		<form id="enroll-form" method="post" action="${path }/update.me">
 		
 			<table align="center">
 				<tr>
 					<td>* 아이디</td>
-					<td><input type="text" readonly maxlength="12" required name="userId" value="<%=userId%>"></td>
+					<td><input type="text" readonly maxlength="12" required name="userId" value="${ loginUser.userId}"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>* 닉네임</td>
-					<td><input type="text" maxlength="5" required name="nickName" value="<%=nickName%>"></td>
+					<td><input type="text" maxlength="5" required name="nickName" value="${ loginUser.nickName}"></td>
 					<td></td>
 				</tr>
 			</table>
@@ -67,9 +64,9 @@
 			</div>
 			<br>	
 			<div align="center">
-                <button type="button" onclick="location.href='<%=contextPath%>/myPlan'">My여행플랜</button>
-                <button type="button" onclick="location.href='<%=contextPath%>/myTravel'">My여행기</button>
-                <button type="button" onclick="location.href='<%=contextPath%>/friendList'">친구</button>
+                <button type="button" onclick="location.href='${path }/myPlan'">My여행플랜</button>
+                <button type="button" onclick="location.href='${path }/myTravel'">My여행기</button>
+                <button type="button" onclick="location.href='${path }/friendList'">친구</button>
 			</div>
 			<br><br>
 		
@@ -93,13 +90,13 @@
 	      </div>
 	
 	      <div class="modal-body">
-	        <form action="<%=contextPath%>/delete.me" method="post">
+	        <form action="${path }/delete.me" method="post">
 	        
 			  <div class="form-group">
 			    <label for="userPwd" style="font-size:12px; color:red">탈퇴를 원하신다면 비밀번호를 입력해주세요.</label>
 			    <input type="password" name="userPwd" class="form-control" placeholder="비밀번호를 입력해주세요." id="deletePwd" required>
 			  </div>
-			  <input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo">
+			  <input type="hidden" value="${loginUser.userNo }" name="userNo">
 			  
 			  <button type="submit" class="btn btn-danger" onclick="return deleteMember();">회원탈퇴</button>
 			  
@@ -139,7 +136,7 @@
 	
 		  <!-- 현재 비밀번호, 변경할 비밀번호, 변경할 비밀번호 재입력 -->
 	      <div class="modal-body">
-	        <form action="<%=contextPath%>/updatePwd.me" method="post">
+	        <form action="${path }/updatePwd.me" method="post">
 	        
 			  <div class="form-group">
 			    <label for="userPwd">현재 비밀번호 :</label>
@@ -158,7 +155,7 @@
 			  
 			  <button type="submit" class="btn btn-primary" onclick="return validatePwd();">비밀번호 변경</button>
 			  
-			  <input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo">
+			  <input type="hidden" value="${  loginUser.userNo}" name="userNo">
 			  
 			  <script>
 			  	function validatePwd(){
@@ -181,9 +178,7 @@
 	</div>
 	<br><br><br><br><br><br><br>
 	
-		<%@ include file="../common/footer.jsp" %>
-	
-	
+		<jsp:include page="../common/footer.jsp"/>
 	
 
 

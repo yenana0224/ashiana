@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import = "java.util.List, com.kh.semi.plan.model.vo.PlanMain"	%>
-	<%List<PlanMain> list = (List<PlanMain>)request.getAttribute("othersPlanList"); 
-	Member m = (Member)request.getAttribute("member");%>
+		 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,11 +64,12 @@
 
 </head>
 <body>
-
-	<%@ include file="../common/headerbar.jsp"%>
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
+	
 
 	<div id="noticetext">
-		<p><font color="blue"><%=m.getNickName() %></font>님의 여행플랜</p>
+		<p><font color="blue">${member.nickName}</font>님의 여행플랜</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>
@@ -91,32 +91,25 @@
 				</tr>
 			</thead>
 			<tbody id="myTable">
-				 <% if (list.isEmpty()) { %>
+					<c:choose>
+				<c:when test="${ empty othersPlanList}">
 			        <tr>
 			            <td colspan="6">내 여행기가 없습니다.</td>
 			        </tr>
-			    <% } else { %>
-			        <% int rowNumber = 1; %>
-			        <% for (PlanMain planMain : list) { %>
-			            <%
-			            int planNo = planMain.getPlanNo(); 
-			            String planCitys = planMain.getPlanCitys(); 
-			            String totalPrice = planMain.getTotalPrice(); 
-			            String uploadDate = planMain.getUploadDate(); 
-			            String travelDate = planMain.getTravelDate();
-			            String StartDate = planMain.getStartDate();
-			            %>
-			            <tr>
-			                <td><%= rowNumber %></td>
-			                <td><a href="#"><%= planCitys %></a></td>
-			                <td><a href="#"><%= totalPrice %></a></td>
-			                <td><a href="#"><%= travelDate %></a></td>
-			                <td><a href="#"><%= StartDate %></a></td>
-			                <td><a href="#"><%= uploadDate %></a></td>
-			            </tr>
-			            <% rowNumber++; %>
-			        <% } %>
-			    <% } %>
+				</c:when>
+			    <c:otherwise>
+			    <c:forEach var="othersPlanList" items="${ othersPlanList } "  varStatus="loop">
+		            <tr>
+		                <td><c:out value="${loop.index + 1}" /></td>
+		                <td><a href="#">${othersPlanList.planCitys }</a></td>
+		                <td><a href="#">${othersPlanList.totalPrice }</a></td>
+		                <td><a href="#">${othersPlanList.travelDate }</a></td>
+		                <td><a href="#">${othersPlanList.StartDate}</a></td>
+		                <td><a href="#">${othersPlanList.uploadDate}</a></td>
+		            </tr>
+			        </c:forEach>
+			        </c:otherwise>
+			        </c:choose>
 			</tbody>
 
 		</table>
@@ -134,7 +127,9 @@
 		});
 	</script>
 
-	<%@ include file="../common/footer.jsp"%>
+
+	<jsp:include page="../common/footer.jsp"/>
+
 
 </body>
 </html>

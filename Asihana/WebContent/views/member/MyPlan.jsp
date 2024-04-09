@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import = "java.util.List, com.kh.semi.plan.model.vo.PlanMain"	%>
-	<%List<PlanMain> list = (List<PlanMain>)request.getAttribute("myPlanList"); %>
+	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,8 +65,9 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp"%>
-
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
+	
 	<div id="noticetext">
 		<p>My여행플랜</p>
 	<div id = "searchtext">
@@ -86,41 +87,33 @@
 					<th>여행 일정</th>
 					<th>여행시작일</th>
 					<th>마지막수정일</th>
-					
 				</tr>
 			</thead>
 			<tbody id="myTable">
-				 <% if (list.isEmpty()) { %>
+			<c:choose>
+				<c:when test="${ empty myPlanList}">
 			        <tr>
-			            <td colspan="6">내 여행기가 없습니다.</td>
+			            <td colspan="6">내 여행계획이 없습니다.</td>
 			        </tr>
-			    <% } else { %>
-			        <% int rowNumber = 1; %>
-			        <% for (PlanMain planMain : list) { %>
-			            <%
-			            int planNo = planMain.getPlanNo(); 
-			            String planCitys = planMain.getPlanCitys(); 
-			            String totalPrice = planMain.getTotalPrice(); 
-			            String uploadDate = planMain.getUploadDate(); 
-			            String travelDate = planMain.getTravelDate();
-			            String StartDate = planMain.getStartDate();
-			            %>
+				</c:when>
+				<c:otherwise>
+			            <c:forEach var="planMain" items="${ myPlanList }"  varStatus="loop">
 			            <tr>
-			                <td><%= rowNumber %></td>
-			                <td><a href="#"><%= planCitys %></a></td>
-			                <td><a href="#"><%= totalPrice %></a></td>
-			                <td><a href="#"><%= travelDate %></a></td>
-			                <td><a href="#"><%= StartDate %></a></td>
-			                <td><a href="#"><%= uploadDate %></a></td>
+			   				<td><c:out value="${loop.index + 1}" /></td>
+			                <td><a href="#">${planMain.planCitys  }</a></td>
+			                <td><a href="#">${planMain.totalPrice }</a></td>
+			                <td><a href="#">${planMain.travelDate}</a></td>
+			                <td><a href="#">${planMain.startDate }</a></td>
+			                <td><a href="#">${planMain.uploadDate}</a></td>
 			            </tr>
-			            <% rowNumber++; %>
-			        <% } %>
-			    <% } %>
+			            </c:forEach>
+			        </c:otherwise>
+			        </c:choose>
 			</tbody>
 
 		</table>
 		<div align="center">
-         <button type="button" onclick="location.href='<%=contextPath%>/myTravel'">내 여행기로 가기</button>
+         <button type="button" onclick="location.href='${path}/myTravel'">내 여행기로 가기</button>
 	</div>
 	</div>
 	
@@ -136,7 +129,7 @@
 		});
 	</script>
 
-	<%@ include file="../common/footer.jsp"%>
+	<jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

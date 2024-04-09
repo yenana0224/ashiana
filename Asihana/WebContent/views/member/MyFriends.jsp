@@ -114,11 +114,11 @@
 				<c:otherwise>
 				<c:forEach var="friendShip" items="${ friendlist }">
 				<tr>
-					<td>${friendlist.nickName}</td>
-					<td class ="userNo" id = "${friendlist.userNo}"><a href="#">📝</a></td>
-					<td class ="userNo_plan" id = "${friendlist.userNo}"><a href="#">📅</a></td>
-					<td><button class="add-friend" data-user-no="${friendlist.userNo}">🤝</button></td>
-					<td><button class="delete-friend" data-user-no="${friendlist.userNo}">✂</button></td>
+					<td>${friendShip.nickNameF}</td>
+					<td class ="userNo" id = "${friendShip.userId2}"><a href="#">📝</a></td>
+					<td class ="userNo_plan" id = "${friendShip.userId2}"><a href="#">📅</a></td>
+					<td><button class="add-friend" data-user-no="${friendShip.userId2}">🤝</button></td>
+					<td><button class="delete-friend" data-user-no="${friendShip.userId2}">✂</button></td>
 				</tr>
 				</c:forEach>
 				</c:otherwise>

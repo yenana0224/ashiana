@@ -231,11 +231,9 @@
                         <input type="search" style="display : inline-block; width: 80%; height: 55px; " placeholder="국가, 도시, 키워드로 검색" name="search">
                         <input type="submit" style="display : inline-block; width: 50px; height: 55px;" value="검색">
                         <ol align="left" >
-                            
                             <!--1)DB에서 조회된 국가/도시 정보를 바탕으로 반복문을 통해서 li요소 추가, 
                                 2)해당 li요소를 클랙했을 때 해당 국가 여행기 게시판으로 이동
                                 -->
-                          
                         </ol>
 
                     </form>
@@ -274,7 +272,7 @@
 					      	 	</script>
                             </div>
                             <div class="content-wrap-1-1-1">
-                                <input type="date" value="${review.departureDate}<%-- <%=review.getDepartureDate()%>--%>" readonly> ~ <input type="date" value="<%=review.getArrivalDate()%>" readonly> <br>
+                                <input type="date" value="${review.departureDate}<%-- <%=review.getDepartureDate()%>--%>" readonly> ~ <input type="date" value="${review.arrivalDate }<%-- <%=review.getArrivalDate()%> --%>" readonly> <br>
                             </div>
                             <div class="content-wrap-1-1-1">
                                 <label>여행지 : </label><span>${review.cityName}<%-- <%=review.getCityName()%> --%></span>
@@ -357,7 +355,6 @@
             <div id="content-3wrap">
                 <div id="content-wrap-3-1">
                     <div id="board-content" >
-
                         <!--내용 영역을 DB에 조회해올때 replaceAll()를 통해 개행문자 => <br> 태그로 변환시켜야 함-->
                         <p style="margin : 0; margin-top : 5px;">${ review.reviewContent }<%--  <%=review.getReviewContent() %>--%></p>
                     </div>
@@ -367,10 +364,6 @@
                     </div>
                     <div id="content-wrap-3-2-2" align="left">
                         <div id="hash-tag">                        	
-                            <!--1)DB에서 조회된 결과를 바탕으로 반복문을 통해 보여질 해시태그 수를 정하고 
-                                2) 보여지는checkbox의 checked 속성을 조작해야함-->
-                            <%--  <%for(int i = 0; i < checkedHashTagList.size(); i++) {%> --%>
-                            
                             <c:forEach var="t" begin="0" end="50" varStatus="s" items="${ requestScope.checkedHashTagList }">
                            		<input type="checkbox" name="hash-tag" value="tag${ s. index }" disabled><label for="tag${ s. index }"> ${t.tagName} <%--  <%=checkedHashTagList.get(i).getTagName()%> --%></label>
                             </c:forEach>
@@ -387,20 +380,17 @@
 
                     <div id="plan-check">
                     	<c:choose>
-                    	<c:when test="${review.planCheck eq 'Y'}">
-                    	<%--  %> <%if(review.getPlanCheck().equals("Y")){%> --%>
-	                        <div>
-	                            <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
-	                            <a href="#" style="text-decoration: none; color : black;">
-	                            	등록된 플랜이 있습니다.
-	                            </a>
-	                         <%-- <%} else {%> --%>
-	                        </div>
-                         </c:when>
-                         <c:otherwise>
-                         	<div>등록된 여행플랜이 없습니다.</div>
-						</c:otherwise>	                        
-                         <%-- <%} %> --%>   
+	                    	<c:when test="${review.planCheck eq 'Y'}">
+		                        <div>
+		                            <!-- 게시물 작성자의 여행플랜이 있다면, a태그를 누를 때 해당 플랜으로 이동-->
+		                            <a href="#" style="text-decoration: none; color : black;">
+		                            	등록된 플랜이 있습니다.
+		                            </a>
+		                        </div>
+	                         </c:when>
+	                         <c:otherwise>
+	                         	<div>등록된 여행플랜이 없습니다.</div>
+							</c:otherwise>	                        
                          </c:choose>
                     </div>
                 </div>
@@ -420,7 +410,7 @@
                     	<c:set var="loginUser" value="${sessionScope.loginUser }"/>
                     	
                     	<c:if test="${ not empty loginUser and loginUser.nickName == review.reviewWriter}">
-                    	<button id="update-review" type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px;">수정</button>
+                    		<button id="update-review" type="button" style="background-color : rgb(255, 89, 94); color : white; border : 0; border-radius : 5px; width: 50px; height : 30px;">수정</button>
                     	</c:if>
                     </div>
                     

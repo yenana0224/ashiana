@@ -223,10 +223,8 @@
                 <script>
                 	$(function(){
                 		$('.review-list').click(function(){
-                			//console.log($(this).attr('id'));
                 			location.href = '${path}/detail.review?reviewNo=' + $(this).attr('id');
                 		})
-                		
                 	});
                 </script>
                 
@@ -263,45 +261,9 @@
 							})
                     	})
                     </script>
-                    
-                    
-                    
-                    <!--  더미 데이터의 영역, 완성 시 없앨 부분
-                    <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
-                        <p align="center">
-                            <lable>닉네임 : </lable><span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
-                        </p>  
-                    </div>
-                    <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
-                        <p align="center">
-                            <lable>닉네임 : </lable> <span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
-                        </p>  
-                    </div>
-                    <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
-                        <p align="center">
-                            <lable>닉네임 : </lable> <span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
-                        </p>  
-                    </div>
-                    <div>
-                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAyMDVfNTUg%2FMDAxNzA3MTE5NDY2NjAz.ApbkIELFXoR2Ke9Cp4i-ztgs0VQx36VbTWsdHo1DARQg.TCuxJb3UoONuyxvLTFWQ1iWXz0sBLQsQa_tHzouFy9og.PNG.kkeuliye%2Fimage.png&type=a340">
-                        <p align="center">
-                            <lable>닉네임 : </lable> <span>닉네임</span> <br>
-                            <span>해시태그</span> <span>해시태그2</span>
-                        </p>  
-                    </div>
-                    -->
-                    
                 </div>
             </div>
-            
             <div id="content-3-3">
-
             </div >
         </div>
     </div>

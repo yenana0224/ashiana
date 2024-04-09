@@ -37,10 +37,10 @@ public class CustomerController {
 	
 	public String noticeList(HttpServletRequest request, HttpServletResponse response) {
 		
-		int listCount; // 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용해서 조회
-		int currentPage; // 현재 페이지(사용자가 요청한 페이지) => request.getParameter("currentPage")
-		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 10개로 고정
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 10개
+		int listCount; // 현재 일반게시판의 게시글 총 개수
+		int currentPage; // 현재 페이지(사용자가 요청한 페이지)
+		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수
+		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수
 		
 		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
@@ -79,7 +79,7 @@ public class CustomerController {
 		}
 		
 		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("pageInfo", pi);
+		request.setAttribute("pi", pi);
 		request.setAttribute("searchContent", searchContent);
 		request.setAttribute("select", select);
 		
@@ -100,15 +100,15 @@ public class CustomerController {
 		Notice noticeDetail = new CustomerService().noticeDetail(noticeNo);
 		NoticeFile noticeFile = new CustomerService().selectFile(noticeNo, boardType);
 		
+		
+		request.setAttribute("noticeDetail", noticeDetail);
+		request.setAttribute("noticeFile", noticeFile);
+		request.setAttribute("currentPage", currentPage);
 		String view = "";
+		
 		if(noticeDetail != null) {
-			
-			request.setAttribute("noticeDetail", noticeDetail);
-			request.setAttribute("noticeFile", noticeFile);
-			request.setAttribute("currentPage", currentPage);
-			
 			view = "/views/customer/noticeDetail.jsp";
-		}else {
+		} else {
 			view = "/views/customer/nonePage.jsp";
 		}
 		
@@ -157,10 +157,10 @@ public class CustomerController {
 	
 	public String qaList(HttpServletRequest request, HttpServletResponse response) {
 		
-		int listCount; // 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용해서 조회
-		int currentPage; // 현재 페이지(사용자가 요청한 페이지) => request.getParameter("currentPage")
-		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 10개로 고정
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 10개
+		int listCount; // 현재 일반게시판의 게시글 총 개수 
+		int currentPage; // 현재 페이지(사용자가 요청한 페이지)
+		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 
+		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수
 		
 		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
@@ -198,7 +198,7 @@ public class CustomerController {
 			qnaList = new CustomerService().qnaList(pi);
 		}
 		
-		request.setAttribute("pageInfo", pi);
+		request.setAttribute("pi", pi);
 		request.setAttribute("qnaList", qnaList);
 		request.setAttribute("select", select);
 		request.setAttribute("searchContent", searchContent);
@@ -224,6 +224,7 @@ public class CustomerController {
 			String userNo = multiRequest.getParameter("userNo");
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
+			content = content.replaceAll("\\n", "<br>");
 			
 			QNA qna = new QNA();
 			qna.setQnaWriter(userNo);
@@ -274,17 +275,17 @@ public class CustomerController {
 		List<Answer> answer = new CustomerService().selectAnswer(qnaNo);
 		
 		QNA qna = new CustomerService().selectQna(qnaNo); 
-		String view = "";
 		
+		
+		request.setAttribute("qnaFile", qnaFile);
+		request.setAttribute("answer", answer);
+		request.setAttribute("qna", qna);
+		request.setAttribute("currentPage", currentPage);
+		
+		String view = "";
 		if(qna != null) {
-			request.setAttribute("qnaFile", qnaFile);
-			request.setAttribute("answer", answer);
-			request.setAttribute("qna", qna);
-			request.setAttribute("currentPage", currentPage);
-			
 			view = "views/customer/qnaDetail.jsp";
-			
-		}else {
+		} else {
 			view = "views/customer/nonePage.jsp";
 		}
 		
@@ -360,6 +361,7 @@ public class CustomerController {
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			String currentPage = multiRequest.getParameter("currentPage");
+			content = content.replaceAll("\\n", "<br>");
 			
 			QNA qna = new QNA();
 			qna.setQnaNo(qnaNo);
@@ -397,25 +399,6 @@ public class CustomerController {
 		}
 		return view;
 	}
-	
-	public String noticeDelete(HttpServletRequest request, HttpServletResponse response) {
-		
-		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public String allSerach(HttpServletRequest request, HttpServletResponse response) {
 		

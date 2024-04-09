@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page
-	import="com.kh.semi.customer.model.vo.*"
-%>   
- 
-<%
-	NoticeFile file = (NoticeFile) request.getAttribute("file");
-	QNA qna = (QNA) request.getAttribute("qna");
-	String currentPage = (String) request.getAttribute("currentPage");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,40 +27,49 @@
 </head>
 <body>
 	
-	<%@ include file='../common/headerbar.jsp' %>
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 	<div style="height:80px ;"></div>
 
-	<form action="<%=contextPath%>/updateQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
+	<form action="${ path }/updateQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
 
-		<input type="hidden" name="qnaNo" value="<%= qna.getQnaNo() %>">
-		<input type="hidden" name="currentPage" value="<%= currentPage %>">
+		<input type="hidden" name="qnaNo" value="${ qna.qnaNo }">
+		<input type="hidden" name="currentPage" value="${ currentPage }">
 
 		<div class="form-group">
 			<label for="usr"> 제목</label> <input type="text" class="form-control"
-				id="usr" name="title" value="<%=qna.getQnaTitle()%>">
+				id="usr" name="title" value="${ qna.qnaTitle }">
 		</div>
 		
 		<div class="form-group">
 			<label for="comment">내용</label>
 			<textarea class="form-control" rows="19" id="comment" placeholder="1000자까지 입력가능합니다."
-				style="resize: none;" name="content"><%=qna.getQnaContent() %></textarea>
+				style="resize: none;" name="content">${ qna.qnaContent }</textarea>
 		</div>
 		
 		<div id="counter">(0 / 1000)</div>
 		
 		<div class="form-group">
-			<input type="file" name="qnaFile" value="<%=(file != null) ? file.getOriginName() : "존재하는 파일이 없습니다."%>">
+			<input type="file" name="qnaFile" value="${( file != null) ? file.originName : "존재하는파일이없습니다."}">
 		</div>
 	
 		<div align="center" style="margin-top: 40px;">
-			<button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">취소</button>
+			<button type="button" class="btn btn-sm btn-secondary" onclick="cancel()">취소</button>
 			<button type="submit" class="btn btn-sm btn-danger">등록</button>
 		</div>
 
 	</form>
 	
 	<script>
+		function cancel(){
+			location.href='${ path }/qnaDetail.customer?qnaNo=' + ${ qna.qnaNo } + '&currentPage=' + ${ currentPage }
+		}
+		
+		// br문자 안보이게!!
+		let comment = $('#comment').val();
+		$('#comment').val(comment.replace('<br>',''));
+	
 		$('#usr').on('keyup', function(e){
 			let str = $(this).val();
 			let regExp = /[<>+_\-@#$%&*|\\;]/ig;
@@ -90,7 +91,8 @@
 				$(this).val(str);
 			}
 		})
-	
+		
+		
 		$('#comment').keyup(function(){
 	    let content = $('#comment').val();
 	    $('#counter').html("("+ content.length +" / 1000)");
@@ -100,6 +102,7 @@
 	        $(this).val(content.substring(0, 1000));
 	    }
 		});
+		
 
 	</script>
 	

@@ -38,6 +38,7 @@ public class ReplyAjaxInsert extends HttpServlet {
 		String coment = request.getParameter("content");
 		String qnaStatus = request.getParameter("qnaStatus");
 		
+		
 		Answer answer = new Answer();
 		answer.setQnaNo(qnaNo);
 		answer.setReplyComment(coment);
@@ -47,10 +48,6 @@ public class ReplyAjaxInsert extends HttpServlet {
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result > 0 ? "success" : "fail");
-		
-	
-	
-	
 	}
 
 	/**

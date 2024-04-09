@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +9,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <style>
-
-	
     #insert-form{
         width:  700px;
         margin:  auto;
@@ -28,13 +28,14 @@
 </head>
 <body>
 	
-	<%@ include file='../common/headerbar.jsp' %>
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 	<div style="height:80px ;"></div>
 
-	<form action="<%=contextPath%>/insertQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
+	<form action="${ path }/insertQa.customer" method="post" id="insert-form" enctype="multipart/form-data">
 
-		<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+		<input type="hidden" name="userNo" value="${ sessionScope.loginUser.userNo }">
 
 		<div class="form-group">
 			<label for="usr"> 제목</label> <input type="text" class="form-control"
@@ -82,7 +83,27 @@
 				str = str.replace(regExp, '');
 				$(this).val(str);
 			}
+		})
+		
+		$('textarea').on('keydown', function(e){
+			let str = $(this).val();
+			let regExp = /[<>+_\-@#&|\\;]/ig;
 			
+			if(regExp.test(str)){
+				alert('사용할 수 없는 특수 문자입니다.');
+				str = str.replace(regExp, '');
+				$(this).val(str);
+			}
+		})
+		$('textarea').on('keyup', function(e){
+			let str = $(this).val();
+			let regExp = /[<>+_\-@#&|\\;]/ig;
+			
+			if(regExp.test(str)){
+				alert('사용할 수 없는 특수 문자입니다.');
+				str = str.replace(regExp, '');
+				$(this).val(str);
+			}
 		})
 	
 		$('#comment').keyup(function (e){
@@ -98,6 +119,6 @@
 	</script>
 	
 
-	<%@ include file='../common/footer.jsp' %>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

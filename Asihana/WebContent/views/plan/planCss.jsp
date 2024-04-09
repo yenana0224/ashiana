@@ -21,6 +21,6 @@
     <link rel="stylesheet" href="resources/css/plan/planDetailSched.css">
     <!--목적지 추가 모달 css -->
     <link rel="stylesheet" href="resources/css/plan/addDesModal.css">
-
+    
 </head>
 </html>

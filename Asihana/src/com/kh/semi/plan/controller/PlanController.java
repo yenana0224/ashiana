@@ -86,7 +86,7 @@ public class PlanController {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		if(loginUserNo == userNo && new PlanService().insertPlan(userNo) > 0) { // 로그인 유저 넘버와 Parameter의 유저 넘버가 같은지 비교 
-			request.setAttribute("nationList", new NationService().allNationList()); //도시 리스트
+			request.setAttribute("nationList", new NationService().allNationList()); //국가 리스트
 			request.setAttribute("planNo", new PlanService().selectInsertPlan(loginUserNo));
 			view = "views/plan/insertPlan.jsp";
 		} else {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/headerbar.jsp"/>
 <jsp:include page="planCss.jsp"/>
 <!DOCTYPE html>
@@ -58,7 +59,7 @@
 		<input type="hidden" name="planNo" id="planNo" value="${ planNo }">
 	    <form method="post">
 	        <div id="planning-interface">
-
+				
 				출국일시 : <input type="date" name="start-date" id="start-date">
 				<input type="time" name="start-time" id="start-time" class="timepicker">
 			    <button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
@@ -152,7 +153,7 @@
                         	<option value="국가 선택" disabled selected>국가 선택</option>
                         	<c:forEach var="nation" items="${ nationList }">
                            		<c:if test="${ nation.nationName ne '대한민국' }">
-                           			<option value="${ nation.nationNo }">${ nation.nationName }</option>
+	                           		<option value="${ nation.nationNo }">${ nation.nationName }</option>
                            		</c:if>      
                             </c:forEach>
                         </select>
@@ -219,11 +220,11 @@
 					url : 'cityList.ajaxplan',
 					type : 'post',
 					data : {
-						nationNo : $('#country ').val()
+						nationNo : $('#country').val()
 					},
 					success : function(cityList){
-						for(let city in cityList){
-							$('<option value="${ city.cityNo }">${ city.cityName }</option>').insertAfter('#selectCity');
+						for(let i = 0; i < cityList.length; i++){
+							$('<option value="' + cityList[i].cityNo + '">' + cityList[i].cityName + '</option>').insertAfter('#selectCity');
 						}
 					}
 				})
@@ -460,7 +461,6 @@
     		$('#root-area').on('click', '.des-delete', function(){
     			const $destNo = $(this).siblings('input[name=destNo]').val();
     			if(confirm('해당 목적지를 삭제하시겠습니까?')){
-    				console.log($destNo);
     				$.ajax({
     					url : 'deleteDestCache.ajaxplan',
     					type : 'post',

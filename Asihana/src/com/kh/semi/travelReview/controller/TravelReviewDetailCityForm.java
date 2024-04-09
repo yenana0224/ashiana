@@ -48,8 +48,6 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 		
 		List<City> cityInfo = new TravelReviewService().selectDetailCity(cityNo);
 		
-		
-		
 		String language = cityInfo.get(0).getLanguage();
 		String currency = cityInfo.get(0).getCurrency();
 		String voltage = cityInfo.get(0).getVoltage();
@@ -75,22 +73,24 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 				newVoltage += ", " + cityInfo.get(k).getVoltage();
 			}
 		}
-//		
-//		도시 : </lable><span></span> <br> 
-//        <lable>언어 : </lable> <br>
-//        <lable>화폐단위 : </lable> <span></span> <br>
-//        <lable>전압 : </lable> <span></span> <br>
-//        <lable>비자 : </lable> <span></span> <br>     
+
 		
 		City cityInformation = new City();
 		cityInformation.setCityName(cityName);
+		cityInformation.setCurrency(newCurrency);
+		cityInformation.setVoltage(newVoltage);
+		cityInformation.setLanguage(newLanguage);
+		cityInformation.setNationName(cityInfo.get(0).getNationName());
+		cityInformation.setVisaName(cityInfo.get(0).getVisaName());
+		cityInformation.setFilePath(cityInfo.get(0).getFilePath());
+		cityInformation.setChangeName(cityInfo.get(0).getChangeName());
 		
 		
 		// 출력화면 지정
 		if(cityInfo.isEmpty()) {
 			request.setAttribute("errorMsg", "게시글 조회실패");
 		} else {
-			request.setAttribute("cityInformation", cityInfo);
+			request.setAttribute("cityInformation", cityInformation);
 		}
 		request.getRequestDispatcher("views/travelReview/travelReviewCityDetail.jsp").forward(request, response);
 	}

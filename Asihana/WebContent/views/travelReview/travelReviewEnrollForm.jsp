@@ -200,7 +200,7 @@
 							        <span id="5point" class="star-point"></span>
 					      	 	</div>
 								
-						   	 	<input id="star" type="hidden" name="star">
+						   	 	<input id="star" type="hidden" name="star" value="2" required>
 							    <script>
 							        $(function(){
 							            // 별을 누르면 이벤트 발생
@@ -419,7 +419,7 @@
                                 <option value="Y">공개</option>
                                 <option value="N">비공개</option>
                             </select>
-                            <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
+                            <button id="submit" type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>
                         </div>
                     </div>

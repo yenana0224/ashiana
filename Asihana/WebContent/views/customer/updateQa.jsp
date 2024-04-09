@@ -66,10 +66,8 @@
 			location.href='${ path }/qnaDetail.customer?qnaNo=' + ${ qna.qnaNo } + '&currentPage=' + ${ currentPage }
 		}
 		
-		// br문자 안보이게!!
-		let comment = $('#comment').val();
-		$('#comment').val(comment.replace('<br>',''));
-	
+		
+		
 		$('#usr').on('keyup', function(e){
 			let str = $(this).val();
 			let regExp = /[<>+_\-@#$%&*|\\;]/ig;

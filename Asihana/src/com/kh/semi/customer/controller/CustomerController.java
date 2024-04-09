@@ -335,6 +335,8 @@ public class CustomerController {
 		
 		QNA qna = new CustomerService().selectQna(qnaNo);
 		
+		qna.setQnaContent(qna.getQnaContent().replaceAll("<br>", ""));
+		
 		request.setAttribute("file", file);
 		request.setAttribute("qna", qna);
 		request.setAttribute("currentPage", currentPage);
@@ -361,6 +363,8 @@ public class CustomerController {
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			String currentPage = multiRequest.getParameter("currentPage");
+			
+			content = content.replaceAll(" ", "&nbsp;");
 			content = content.replaceAll("\\n", "<br>");
 			
 			QNA qna = new QNA();

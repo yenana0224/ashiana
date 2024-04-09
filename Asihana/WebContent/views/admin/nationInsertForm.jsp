@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*, java.util.List"%>
-<%
-	List<Visa> visaList = (List<Visa>)request.getAttribute("visaList");
-	List<Language> langList = (List<Language>)request.getAttribute("langList");
-	List<Voltage> volList = (List<Voltage>)request.getAttribute("volList");
-	List<Currency> curList = (List<Currency>)request.getAttribute("curList");
-	Nation nation = (Nation)request.getAttribute("nation");
-%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,8 +137,9 @@
 </head>
 
 <body>
-	<%@ include file="adminbar.jsp" %>
-	
+
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
 	    
     <div class="outer">
 
@@ -167,12 +163,12 @@
 
 	            <script>
 	            $('#nationNum').change(function() {
-	            	const a = $('#nationNum').val();
+	            	const nation = $('#nationNum').val();
 	            	
 	            	$.ajax({
 	            		url : 'nationCk.do',
 	            		data : {
-	            			nationNo : a
+	            			nationNo : nation
 	            		},
 	            		type : 'get',
 	            		success : function(result){
@@ -194,27 +190,27 @@
             <div class="info-area">
                <label>비자 선택 : </label> 
                <select name="visaNo" required>
-                    <% for (Visa v : visaList) {%>
-                      <option value="<%=v.getVisaNo()%>"><%=v.getVisaName() %></option>
-                    <%} %>
+               		<c:forEach var="visa" items="${ visaList }">
+                      <option value="${ visa.visaNo }">${ visa.visaName }</option>
+               		</c:forEach>
                 </select>
             </div>
             <div class="info-area">
               <label>전압 선택 : </label>
-				<% for(Voltage v : volList) { %>
+              	<c:forEach var="vol" items="${ volList }">
 					<div class="ck-area">
-						<input type="checkbox" name="volNo" value="<%=v.getVoltageNo() %>"> <%=v.getVolName() %>
+						<input type="checkbox" name="volNo" value="${ vol.voltageNo }"> ${ vol.volName }
 					</div>
-				<% } %>
+              	</c:forEach>
             </div>
             <div class="info-area">
             <label>화폐 선택 :</label> 
             	<div id="cur-area">
-            	<% for(Currency c : curList) { %>
-            		<div class="ck-area">
-            		<input type="checkbox" name="curNo" value="<%=c.getCurrencyNo()%>"> <%=c.getCurrencyName() %>
-					</div>
-				<% } %>
+            		<c:forEach var="currency" items="${ curList }">
+	            		<div class="ck-area">
+	            		<input type="checkbox" name="curNo" value="${ currency.currencyNo }"> ${ currency.currencyName }
+						</div>
+            		</c:forEach>
 				</div>
 				<div class="btn">
 					<div id="newCur">새로등록</div>
@@ -225,11 +221,11 @@
             <div class="info-area">
             <label id="select-lang">언어 선택 : </label> 
             	<div id="lang-area">
-                <% for(Language l : langList) { %>
-            		<div class="ck-area">
-            		<input type="checkbox" name="langNo" value="<%=l.getLanguageNo()%>"> <%=l.getLanguageName() %>
-					</div>
-				<% } %>
+            		<c:forEach var="language" items="${ langList }">
+	            		<div class="ck-area">
+	            		<input type="checkbox" name="langNo" value="${ language.languageNo }"> ${ language.languageName }
+						</div>
+            		</c:forEach>
 				</div>
 				<div class="btn">
 					<div id="newLang">새로등록</div>
@@ -254,12 +250,12 @@
         <script>
         
         $('#newCur').click(function(){
-        	const a = prompt('화폐를 입력해주세요');
-        	if(a != null) {
+        	const currency = prompt('화폐를 입력해주세요');
+        	if(currency != null) {
         		$.ajax({
             		url : 'addCur.do',
             		data : {
-            			currencyName : a
+            			currencyName : currency
             		},
             		type : 'get',
             		success : function(result){
@@ -282,12 +278,12 @@
        
         
         $('#newLang').click(function(){
-			const a = prompt('언어 이름을 입력해주세요');
-			if(a != null) {
+			const language = prompt('언어 이름을 입력해주세요');
+			if(language != null) {
 				$.ajax({
 	        		url : 'addLang.do',
 	        		data : {
-	        			languageName : a
+	        			languageName : language
 	        		},
 	        		type : 'get',
 	        		success : function(result){
@@ -310,7 +306,7 @@
 
         
         $('#backBtn').click(function(){
-        	location.href="<%=contextPath %>/info.admin?currentPage=1";
+        	location.href="${ path }/info.admin?currentPage=1";
         });
         
         function loadImg(inputFile, num){

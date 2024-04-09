@@ -18,7 +18,7 @@ public class PlanMain {
 			String totalPrice, String uploadDate) {
 		super();
 		this.planNo = planNo;
-		StartDate = startDate;
+		this.StartDate = startDate;
 		this.endDate = endDate;
 		this.travelDate = travelDate;
 		this.dDay = dDay;

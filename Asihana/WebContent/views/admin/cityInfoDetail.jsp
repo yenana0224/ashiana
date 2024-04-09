@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
-<%
-	City city = (City)request.getAttribute("city");
-	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
-	int nationNo = (int)request.getAttribute("nationNo");
-%>
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,8 +97,8 @@
     </style>
 </head>
 <body>
-    <%@ include file="adminbar.jsp" %>
-    
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
     <div class="outer">
         <div class="title">
             <h2>국가/도시정보</h2>
@@ -108,22 +106,22 @@
         </div>
        
         <div class="photo">
-        	<% if(file != null) { %>
-            <img src="<%=contextPath%><%=file.getFilePath()%>/<%=file.getChangeName()%>">
-            <% } %>
+        	<c:if test="${ not empty file }">
+	            <img src="${ path }${ file.filePath }/${ file.changeName }">
+        	</c:if>
         </div>
         
         <div class="btn" id="attractionList">
             <button> 즐길거리 목록 </button>
         </div>
         
-        <form action="<%=contextPath %>/cityUpdateForm.admin" method="post">
-            <input type="hidden" name="nationNo" value="<%=nationNo%>">
-            <input type="hidden" name="cityNo" value="<%=city.getCityNo()%>">
-            <div class="info-area"><input type="text" name="nationName" value = "<%=city.getNationName() %>" readonly></div>
-            <div class="info-area"><input type="text" name="cityName" value = "<%=city.getCityName() %>" readonly></div>
-            <div class="info-area"><textarea name="cityContent" cols="30" rows="10" style="resize: none;" readonly><%=city.getCityContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="flyingTime" value = "<%= city.getFlyingTime() %>" readonly></div>
+        <form action="${ path }/cityUpdateForm.admin" method="post">
+            <input type="hidden" name="nationNo" value="${ nationNo }">
+            <input type="hidden" name="cityNo" value="${ city.cityNo }">
+            <div class="info-area"><input type="text" name="nationName" value = "${ city.nationName }" readonly></div>
+            <div class="info-area"><input type="text" name="cityName" value = "${ city.cityName }" readonly></div>
+            <div class="info-area"><textarea name="cityContent" cols="30" rows="10" style="resize: none;" readonly>${ city.cityContent }</textarea></div>
+            <div class="info-area"><input type="text" name="flyingTime" value = "${ city.flyingTime }" readonly></div>
             <div class="btn">
                 <button type="submit" id="updateBtn"> 수정하기 </button>
             </div>
@@ -134,7 +132,7 @@
         </div>
         <script>
             $('#backBtn').click(function(){
-                location.href="<%=contextPath %>/nationCityList.admin?currentPage=1";
+                location.href="${ path }/nationCityList.admin?currentPage=1";
             });
             
         </script>

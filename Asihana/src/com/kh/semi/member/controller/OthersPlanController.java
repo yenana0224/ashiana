@@ -40,7 +40,6 @@ public class OthersPlanController extends HttpServlet {
 		
 		request.setAttribute("othersPlanList", othersPlanList);
 		
-		
 		request.setAttribute("member", member);
 		
 		String dispatcherPath = "";

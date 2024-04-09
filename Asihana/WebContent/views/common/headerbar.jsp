@@ -189,7 +189,11 @@
     </style>
 </head>
 <body>
-			<!-- 비로그인  -->
+
+	<c:set var="path" value="${ requestScope.contextPath }" />
+
+
+	<!-- 비로그인  -->
 	<%if(loginUser == null) {%>
 		<div id="login_join">
 	        <a href="<%=contextPath%>/views/member/memberLoginForm.jsp">로그인</a>

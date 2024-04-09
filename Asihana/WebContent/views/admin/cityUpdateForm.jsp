@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*, java.util.List"%>
-<%
-	City city = (City)request.getAttribute("city");
-	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
-	List<Nation> list = (List<Nation>)request.getAttribute("list");
-	int cityNo = (int)request.getAttribute("cityNo");
-	int nationNo = (int)request.getAttribute("nationNo");
-%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +95,9 @@
     </style>
 </head>
 <body>
-    <%@ include file="adminbar.jsp" %>
+
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
     
     <div class="outer">
         <div class="title">
@@ -109,27 +106,30 @@
         </div>
        
         <div class="photo">
-        	<% if(file != null) { %>
-            <img id="cityPhoto" src="<%=contextPath%>/<%=file.getFilePath()%>/<%=file.getChangeName()%>">
-            <% } %>
+        	<c:if test="${ not empty file }">
+	            <img id="cityPhoto" src="${ path }${ file.filePath }/${ file.changeName }">
+        	</c:if>
         </div>
         
         <form action="cityUpdate.admin" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="cityNo" value="<%= city.getCityNo() %>">
+            <input type="hidden" name="cityNo" value="${ city.cityNo }">
             <div class="info-area">
             	<select name="nationNo">
-                    <% for(Nation n : list) { %>
-                    	<% if(n.getNationNo() != nationNo) { %>
-                    		<option value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
-                    	<% } else { %>
-                       		<option value="<%=n.getNationNo() %>" selected><%=n.getNationName() %></option>
-                     	<% } %>
-                    <% } %>
+            		<c:forEach var="nation" items="${ list }">
+            			<c:choose>
+            				<c:when test="${ nation.nationNo ne nationNo }">
+            					<option value="${ nation.nationNo }">${ nation.nationName }</option>
+            				</c:when>
+            				<c:otherwise>
+            					<option value="${ nation.nationNo }" selected>${ nation.nationName }</option>
+            				</c:otherwise>
+            			</c:choose>
+            		</c:forEach>
                 </select>
             </div>
-            <div class="info-area"><input type="text" name="cityName" value = "<%=city.getCityName() %>"></div>
-            <div class="info-area"><textarea name="cityContent" cols="30" rows="10" style="resize: none;"><%=city.getCityContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="flyingTime" value = "<%= city.getFlyingTime() %>"></div>
+            <div class="info-area"><input type="text" name="cityName" value="${ city.cityName }"></div>
+            <div class="info-area"><textarea name="cityContent" cols="30" rows="10" style="resize: none;">${ city.cityContent }</textarea></div>
+            <div class="info-area"><input type="text" name="flyingTime" value="${ city.flyingTime }"></div>
             <div class="info-area">
                 <label>도시사진변경</label>
 			    <div class="btn"><input type="file" name="newFile" onchange="loadImg(this);"> </div>
@@ -145,7 +145,7 @@
         </div>
         <script>
             $('#backBtn').click(function(){
-                location.href="<%=contextPath %>/nationCityList.admin?currentPage=1";
+                location.href="${ path }/nationCityList.admin?currentPage=1";
             });
             
             function loadImg(inputFile){
@@ -159,8 +159,7 @@
 	        		}
         		};
         	};
-        
-            
+
         </script>
     </div>
 </body>

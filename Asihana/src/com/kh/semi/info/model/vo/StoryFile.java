@@ -6,8 +6,6 @@ public class StoryFile extends Story{
 	private String OriginName;
 	private String ChangeName;
 	private int boardNo; // BOARD_TYPE == 7
-
-	
 	
 	public StoryFile() {
 		super();
@@ -19,8 +17,6 @@ public class StoryFile extends Story{
 		OriginName = originName;
 		ChangeName = changeName;
 	}
-	
-	
 
 	public int getBoardNo() {
 		return boardNo;

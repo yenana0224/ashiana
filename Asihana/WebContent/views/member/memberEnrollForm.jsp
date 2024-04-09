@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,9 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp" %>
+
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
 	
 			<div id="noticetext">
 	     	   <p>회원가입</p>
@@ -44,7 +47,7 @@
 	   	<br>
 		
 	
-		<form id = "enroll-form" method="post" action="<%=contextPath%>/insert.me">
+		<form id = "enroll-form" method="post" action="${path}/insert.me">
 			<table align="center">
 				<tr>
 					<td>* 아이디</td>
@@ -58,7 +61,7 @@
 						
 						//AJAX요청
 						$.ajax({
-							url : '<%=contextPath%>/idCheck.do',
+							url : '${path}/idCheck.do',
 							data : {checkId : $userId.val()},
 							success : function(result){
 								//console.log(result);
@@ -116,7 +119,7 @@
 	<br><br><br><br><br><br>
 
 
-	<%@ include file="../common/footer.jsp" %>
-
+		
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice, com.kh.semi.pageInfo.model.vo.PageInfo
-				 , java.util.List" %>    
-
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Notice> list = (List<Notice>)request.getAttribute("noticeList");
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +117,9 @@
 </head>
 <body>
 
-	<%@ include file="adminbar.jsp" %>
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
 
         <div class="title">
@@ -142,12 +134,12 @@
                     <option value="content">내용</option>
                 </select>
                 <input type="text" name="keyword">
-                <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
+                <input type="hidden" name="currentPage" value="${ pageInfo.currentPage }">
                 <button type="submit">검색</button>
             </form>
         </div>
 
-        <form action="<%=contextPath %>/changeHold.admin" method="get">
+        <form action="${ path }/changeHold.admin" method="get">
             <table class="noticeList">
                 <thead>
                     <tr>
@@ -158,27 +150,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if(list.isEmpty()) { %>
-                        <tr>
-                            <td colspan="4"> 게시글이 없습니다</td>
-                        </tr>
-                    <% } else { %>
-                        <% for(Notice n : list) { %>
-                            <tr>
-                                <td>
-                                <% if(n.getNoticeHold().equals("Y")) { %>
-                                	<input class="ckOne" type="checkbox" name="hold" value="<%=n.getNoticeNo() %>" checked>
-                                <% } else { %>
-                                	<input class="ckOne" type="checkbox" name="hold" value="<%=n.getNoticeNo() %>"> 
-                                <% } %>
-                                </td>
-                                <td><%=n.getNoticeNo() %></td>
-                                <td class="noticeTitle" id="<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></td>
-                                <td><%=n.getCreateDate() %></td>
-                            </tr>
-                        <% } %>
-                    <% } %>
-                    
+                	<c:choose>
+                		<c:when test="${ empty noticeList }">
+	                		<tr>
+	                            <td colspan="4"> 게시글이 없습니다</td>
+	                        </tr>
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="notice" items="${ noticeList }">
+	                            <tr>
+	                                <td>
+	                                <c:choose>
+	                                	<c:when test="${ notice.noticeHold eq 'Y' }">
+	                                	<input class="ckOne" type="checkbox" name="hold" value="${ notice.noticeNo }" checked>
+	                                	</c:when>
+	                                	<c:otherwise>
+	                                	<input class="ckOne" type="checkbox" name="hold" value="${ notice.noticeNo }"> 
+	                                	</c:otherwise>
+	                                </c:choose>
+	                                </td>
+	                                <td> ${ notice.noticeNo } </td>
+	                                <td class="noticeTitle" id="${ notice.noticeNo }">${ notice.noticeTitle }</td>
+	                                <td>${ notice.createDate }</td>
+	                            </tr>
+                			
+                			</c:forEach>
+                		</c:otherwise>
+                	</c:choose>
+
                     <script>
                     	$(function(){
                     		$('#checkAll').click(function(){
@@ -206,38 +205,36 @@
         
         <div class="paging-area" align="center">
         
-        	<% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/notice.admin?currentPage=<%=currentPage -1 %>'">이전</button>
-          	<% } %>   
-        	
-			<% for(int i = startPage; i <= endPage; i++){ %>
-			
-				<% if(currentPage != i){ %>
-				<button class="pagebtn" onclick="location.href='<%=contextPath%>/notice.admin?currentPage=<%=i%>'"><%= i %></button>
-				<%} else {%>
-				<button style="background-color : darkgray" disabled><%=i %></button>
-				<%} %>
-			<%} %>
-			
-			<% if(currentPage != maxPage) { %>
-			  <button onclick="; location.href='<%=contextPath%>/notice.admin?currentPage=<%=currentPage + 1%>'">다음</button>
-			<% } %>
+        	<c:if test="${ pageInfo.currentPage gt 1 }">
+     			<button onclick="location.href='${ path }/notice.admin?currentPage=${ pageInfo.currentPage - 1 }'">이전</button>
+   			</c:if>
+   			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+   				<c:choose>
+	   				<c:when test="${ pageInfo.currentPage ne i }">
+						<button onclick="location.href='${ path }/notice.admin?currentPage=${ i }'">${ i }</button>
+	   				</c:when>
+	   				<c:otherwise>
+						<button style="background-color : darkgray" disabled>${ i }</button>
+	   				</c:otherwise>
+   				</c:choose>
+   			</c:forEach>
+   			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+ 				 <button onclick="location.href='${ path }/notice.admin?currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+   			</c:if>
         </div>
-        
 
 		<div class="btn">
-        	<a href="<%=contextPath %>/noticeInsertForm.admin">글작성하기</a>
+        	<a href="${ path }/noticeInsertForm.admin">글작성하기</a>
         </div>
         
-           <script>
-            
-            $(function(){
-            	
-            	$('.noticeTitle').click(function(){
-            		location.href="<%=contextPath%>/noticeDetail.admin?noticeNo=" + $(this).attr('id');
-            	});
-            });
-            </script>
+        <script>
+          $(function(){
+          	
+          	$('.noticeTitle').click(function(){
+          		location.href="${ path }/noticeDetail.admin?noticeNo=" + $(this).attr('id');
+          	});
+          });
+        </script>
 
     </div>
 </body>

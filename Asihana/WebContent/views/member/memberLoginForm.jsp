@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,12 +32,14 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp" %>
+	
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
 	
 			<div id="noticetext">
 	     	   <p>로그인</p>
 	   		</div>
-	<form id = "login-form"  action="<%=contextPath%>/login" method="post">
+	<form id = "login-form"  action="${path}/login" method="post">
 			<table align="center">
 				<tr>
 					<th>아이디</th>
@@ -66,7 +69,7 @@
 				<tr>
 					<th colspan="2" style="margin: 0 auto;" style="text-align: center;">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit"  class="btn btn-sm btn-primary">로그인</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-secondary" onclick="location.href='<%=contextPath%>/views/member/memberEnrollForm.jsp'">회원가입</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-secondary" onclick="location.href='${path}/views/member/memberEnrollForm.jsp'">회원가입</button>
 					</th>
 				</tr>
 			</table>
@@ -75,7 +78,6 @@
 		
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-	<%@ include file="../common/footer.jsp" %>
-
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

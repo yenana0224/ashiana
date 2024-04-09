@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.customer.model.vo.*"%>
-<%
-	NoticeFile atFile = (NoticeFile)request.getAttribute("atFile");
-	Notice notice = (Notice)request.getAttribute("notice");
-	String hold = notice.getNoticeHold();
-	NoticeFile noticeFile = (NoticeFile)request.getAttribute("noticeFile");
-%>
+    pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +73,9 @@
     </style>
 </head>
 <body>
-	<%@ include file="adminbar.jsp" %>
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
         
         <div class="title">
@@ -86,31 +84,34 @@
         </div>
 
         <div class="form-area">
-            <form action="<%=contextPath %>/noticeUpdateForm.admin" method="post">
-            	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
-            	<input type="hidden" name="noticeNo" value="<%= notice.getNoticeNo() %>">
+            <form action="${ path }/noticeUpdateForm.admin" method="post">
+            	<input type="hidden" name="userNo" value="${ loginUser.userNo }">
+            	<input type="hidden" name="noticeNo" value="${ notice.noticeNo }">
             	
                 <div class="title-area">
-                    <input type="text" name="title" value="<%= notice.getNoticeTitle() %>" readonly> 
+                    <input type="text" name="title" value="${ notice.noticeTitle }" readonly> 
                 </div>
                 <div class="content-area">
-                    <textarea name="content" cols="30" rows="20"  style="resize: none;" readonly><%= notice.getNoticeContent()%></textarea>
+                    <textarea name="content" cols="30" rows="20"  style="resize: none;" readonly>${ notice.noticeContent }</textarea>
                 </div>
 
                 <div class="fileAt">
                     <input type="file" name="noticeFile">
-                    <% if(noticeFile != null) { %>
-                    	첨부파일 : <label> <%=noticeFile.getOriginName() %></label>
-                    	<input type="hidden" name="fileNo" value="<%= noticeFile.getFileNo() %>">
-                    <% } %>
+                    <c:if test="${ not empty noticeFile }">
+                    	첨부파일 : <label>${ noticeFile.orginName }</label>
+                    	<input type="hidden" name="fileNo" value="${ noticeFile.fileNo }">
+                    </c:if>
                 </div>
 
                 <div class="check-area">
-                	<% if(notice.getNoticeHold().equals("Y")) { %>
-                    <input type="checkbox" name="hold" checked disabled> <label>상단고정</label>
-                    <% } else {%>
-                    <input type="checkbox" name="hold" disabled> <label>상단고정</label>
-                    <% } %>
+                	<c:choose>
+                		<c:when test="${ notice.noticeHold eq 'Y' }">
+		                    <input type="checkbox" name="hold" checked disabled> <label>상단고정</label>
+                		</c:when>
+                		<c:otherwise>
+		                    <input type="checkbox" name="hold" disabled> <label>상단고정</label>
+                		</c:otherwise>
+                	</c:choose>
                 </div>
            
                 <div class="btn">
@@ -118,7 +119,7 @@
                 </div>
             </form>
             	<div class="btn">
-                    <button onclick="location.href='<%=contextPath %>/notice.admin?currentPage=1'"> 목록으로 </button>
+                    <button onclick="location.href='${ path }/notice.admin?currentPage=1'"> 목록으로 </button>
             	</div>
         </div>
     </div>

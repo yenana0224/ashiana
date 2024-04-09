@@ -2,39 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.info.model.vo.City" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+
 
 <%
 	List<City> cityInfo = (List<City>)request.getAttribute("cityInformation");
 %>
 
-
-<%
-	String language = cityInfo.get(0).getLanguage();
-	String currency = cityInfo.get(0).getCurrency();
-	String voltage = cityInfo.get(0).getVoltage();
-
-	String newLanguage = cityInfo.get(0).getLanguage();
-	String newCurrency = cityInfo.get(0).getCurrency();
-	String newVoltage = cityInfo.get(0).getVoltage();
-	
-	for(int i = 1; i < cityInfo.size(); i++){
-		if(!language.equals(cityInfo.get(i).getLanguage())){
-			newLanguage += ", " + cityInfo.get(i).getLanguage();
-		}
-	}
-	
-	for(int j = 1; j < cityInfo.size(); j++){
-		if(!currency.equals(cityInfo.get(j).getCurrency())){
-			newCurrency += ", " + cityInfo.get(j).getCurrency(); 
-		}
-	}
-	
-	for(int k = 0; k < cityInfo.size(); k++){
-		if(!voltage.equals(cityInfo.get(k).getVoltage())){
-			newVoltage += ", " + cityInfo.get(k).getVoltage();
-		}
-	}
-%>
 
 
 <%@ include file="../common/headerbar.jsp" %>    
@@ -248,6 +222,14 @@
             <div id="content-2-1">
 
             </div>
+		
+		
+			
+
+			
+
+
+
 
             <div id="content-2-2">
                 <div id="content-2-title">
@@ -265,11 +247,11 @@
                         <div id="nation-contentlist">
                             <p>
                                 <!-- span요소에 출력될 값은 DB에서 국가/도시 테이블의 값을 넣을 예정-->
-                                <lable>도시 : </lable><span><%= cityInfo.get(0).getCityName() %></span> <br> 
-                                <lable>언어 : </lable> <span><%= newLanguage %></span> <br>
-                                <lable>화폐단위 : </lable> <span><%= newCurrency %></span> <br>
-                                <lable>전압 : </lable> <span><%= newVoltage %></span> <br>
-                                <lable>비자 : </lable> <span><%= cityInfo.get(0).getVisaName() %></span> <br>                       
+                                <lable>도시 : </lable><span></span> <br> 
+                                <lable>언어 : </lable> <br>
+                                <lable>화폐단위 : </lable> <span></span> <br>
+                                <lable>전압 : </lable> <span></span> <br>
+                                <lable>비자 : </lable> <span></span> <br>                       
                             </p>
                         </div>
                     </div>

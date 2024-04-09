@@ -4,11 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
 <jsp:include page="../common/headerbar.jsp"/>
-<%
-	List<City> cityList = (List<City>)session.getAttribute("cityList");
-	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
-%>
-    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,7 +208,6 @@
 								            $(this).addClass('on').prevAll('span').addClass('on');
 								            // 선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
 								            $('#star').val($(this).attr('id').substring(0, 1))
-								            console.log($('#star').val());
 							            })
 							        })
 							    </script>  

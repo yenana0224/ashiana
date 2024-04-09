@@ -5,15 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>				   
 
 <jsp:include page="../common/headerbar.jsp"/>
-<%
-	List<City> cityList = (List<City>)session.getAttribute("cityList");
-	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
-	TravelReview review = (TravelReview)request.getAttribute("review");
-	List<AttachmentFile> fileList = (List<AttachmentFile>)request.getAttribute("fileList");
-	List<HashTag> checkedTagList = (List<HashTag>)request.getAttribute("checkedTagList");
-
-%>
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -204,7 +195,7 @@
 								    <span id="4point" class="star-point"></span>
 								    <span id="5point" class="star-point"></span>
 						    	</div>
-						    <input id="star" type="hidden" name="star" value="<%=review.getReviewPoint()%>">
+						    <input id="star" type="hidden" name="star" value="${requestScope.review.reviewPoint}">
 						
 						    <script>
 						        $(function(){
@@ -230,8 +221,8 @@
                                 <h3 style="margin : 0;">언제 다녀오셨나요?</h3>
                             </div>
                             <div id="calendar-content"> <!--제목의 content영역-->
-                            	출발일<input type="date" name="departure" value="<%=review.getDepartureDate()%>"> <br>
-                            	도착일<input type="date" name="arrival" value="<%=review.getArrivalDate()%>">
+                            	출발일<input type="date" name="departure" value="${ requestScope.review.departureDate }"> <br>
+                            	도착일<input type="date" name="arrival" value="${requestScope.review.arrivalDate}">
                             </div>
                         </div>
                         <div id="area-place"><!--장소 영역-->
@@ -409,7 +400,7 @@
                                 <h3>여행기 쓰기</h3>
                             </div>
                             <div>
-                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();" required><%=review.getReviewContent() %></textarea>
+                                <textarea id="content" style="width: 950px;" name="content" cols="30" rows="10" placeholder="내용을 입력해주세요  (최대 600글자)" maxlength="600" oninput="lengthCheck();" required>${requestScope.review.reviewContent}</textarea>
                             </div>
                             <script>
                            		function lengthCheck(e){

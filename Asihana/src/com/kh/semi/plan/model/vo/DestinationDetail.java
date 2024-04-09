@@ -3,6 +3,7 @@ package com.kh.semi.plan.model.vo;
 public class DestinationDetail {
 	
 	private int destNo;
+	private int cityNo;
 	private String cityName;
 	private String trans;
 	private String trip;
@@ -17,10 +18,11 @@ public class DestinationDetail {
 		super();
 	}
 
-	public DestinationDetail(int destNo, String cityName, String trans, String trip, String transPrice, String arrival,
-			String returnDate, String destDate, String schedCostSum, String filePath) {
+	public DestinationDetail(int destNo, int cityNo, String cityName, String trans, String trip, String transPrice,
+			String arrival, String returnDate, String destDate, String schedCostSum, String filePath) {
 		super();
 		this.destNo = destNo;
+		this.cityNo = cityNo;
 		this.cityName = cityName;
 		this.trans = trans;
 		this.trip = trip;
@@ -37,6 +39,12 @@ public class DestinationDetail {
 	}
 	public void setDestNo(int destNo) {
 		this.destNo = destNo;
+	}
+	public int getCityNo() {
+		return cityNo;
+	}
+	public void setCityNo(int cityNo) {
+		this.cityNo = cityNo;
 	}
 	public String getCityName() {
 		return cityName;

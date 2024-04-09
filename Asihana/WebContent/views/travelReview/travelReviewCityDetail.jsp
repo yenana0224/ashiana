@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.info.model.vo.City" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	List<City> cityInfo = (List<City>)request.getAttribute("cityInformation");
 %>
-<%
-	System.out.println(cityInfo);
-%>
+
 
 <%
 	String language = cityInfo.get(0).getLanguage();

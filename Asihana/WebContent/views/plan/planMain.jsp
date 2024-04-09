@@ -102,7 +102,7 @@
         </div>
     </div> <!-- outer -->
 
-    <%@ include file="../common/footer.jsp" %>
+    <jsp:include page="../common/footer.jsp" />
     
     <script>
     	$(function(){

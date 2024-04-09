@@ -3,8 +3,6 @@
 	
 import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%>
 		 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("othersTravelList"); 
-	Member m = (Member)request.getAttribute("member");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +88,7 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 			</thead>
 			<tbody id="myTable">
 				<c:choose>
-				<c:when test="${ empty othersTravelList}"   varStatus="loop">
+				<c:when test="${ empty othersTravelList}"  >
 			        <tr>
 			            <td colspan="5">내 여행기가 없습니다.</td>
 			        </tr>

@@ -2,10 +2,8 @@
 	pageEncoding="UTF-8"
 	import = "java.util.ArrayList, com.kh.semi.friendShip.model.vo.FriendShip,com.kh.semi.member.model.vo.Member"
 	%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-	<%
-	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberlist");
-	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,8 +80,9 @@
 
 </head>
 <body>
-
-	<%@ include file="../common/headerbar.jsp"%>
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
+	
 	<div>
 	<div id="noticetext">
 		<p>유저찾기</p>
@@ -106,28 +105,29 @@
 				</tr>
 			</thead>
 			<tbody id="myTable">
-				<%if(list.isEmpty()) {%>
+			<c:choose>
+				<c:when test="${ empty memberlist}">
 				<tr>
 					<td colspan="5"> 친구가 없습니다.</td>
-				<tr>
-				<%}else{ %>
-				<%for(Member member :list){ %>
-				<%int userNo = member.getUserNo(); %>
-				
-				<tr>
-					<td><%=member.getNickName()%></td>
-					<td class ="userNo" id = "<%=userNo%>"><a href="#">📝</a></td>
-					<td class ="userNo_plan" id = "<%=userNo%>"><a href="#">📅</a></td>
-					<td><button class="add-friend" data-user-no="<%= userNo %>">🤝</button></td>
-					<td><button class="delete-friend" data-user-no="<%= userNo %>">✂</button></td>
 				</tr>
-				<%} %>
-				<%} %>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="member" items="${ memberlist }">
+					<tr>
+						<td>${member.nickName}</td>
+						<td class ="userNo" id = "${member.userNo }"><a href="#">📝</a></td>
+						<td class ="userNo_plan" id = "${member.userNo }"><a href="#">📅</a></td>
+						<td><button class="add-friend" data-user-no="${member.userNo }">🤝</button></td>
+						<td><button class="delete-friend" data-user-no="${member.userNo }">✂</button></td>
+					</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 			</tbody>
 		</table>
 		
 		<div align="center">
-	         <button type="button" onclick="location.href='<%=contextPath%>/friendList'">내 친구목록</button>
+	         <button type="button" onclick="location.href='${ path }/friendList'">내 친구목록</button>
 		</div>
 	</div>	 
 		<br><br><br><br><br>
@@ -135,13 +135,13 @@
 	<script>
 	$(function(){
 		$('.userNo').click(function(){
-			location.href='<%=contextPath%>/othersTravel?userNo='+$(this).attr('id');
+			location.href='${ path }/othersTravel?userNo='+$(this).attr('id');
 		});
 	});
 	
 	$(function(){
 		$('.userNo_plan').click(function(){
-			location.href='<%=contextPath%>/othersPlan?userNo='+$(this).attr('id');
+			location.href='${ path }/othersPlan?userNo='+$(this).attr('id');
 		});
 	});
 	
@@ -162,7 +162,7 @@
 		        var userNo = $(this).data('user-no');
 		        if (userNo !== null) {
 		            $.ajax({
-		                url: '<%=contextPath%>/insert.friend',
+		                url: '${ path }/insert.friend',
 		                type: 'post',
 		                data: {
 		                    userId2: userNo
@@ -191,7 +191,7 @@
 		        var userNo = $(this).data('user-no');
 		        if (userNo !== null) {
 		            $.ajax({
-		                url: '<%=contextPath%>/delete.friend',
+		                url: '${ path }/delete.friend',
 		                type: 'post',
 		                data: {
 		                    userId2: userNo
@@ -214,7 +214,7 @@
 		
 	</script>
 
-	<%@ include file="../common/footer.jsp"%>
+	<jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

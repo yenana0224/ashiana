@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.customer.model.vo.Answer;
 import com.kh.semi.customer.model.vo.Notice;
 import com.kh.semi.customer.model.vo.NoticeFile;
@@ -143,6 +144,32 @@ public class CustomerDao {
 		
 		return result;
 	}
+	public int selectHoldCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("selectHoldCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		
+		return result;
+	}
 	
 	
 	public List<Notice> noticeList(Connection conn, PageInfo pi){
@@ -157,7 +184,14 @@ public class CustomerDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
+			int endRow = 0;
+			int holdCount = selectHoldCount();
+			if(startRow == 1) {
+				endRow = (startRow + pi.getBoardLimit() - 1) - holdCount;
+			}else {
+				startRow = ((pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1) - holdCount;
+				endRow = (startRow + pi.getBoardLimit()) - 1 + holdCount;
+			}
 			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);

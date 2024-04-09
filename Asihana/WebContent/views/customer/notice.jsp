@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="$../../resources/css/customer/notice.css">
+<link rel="stylesheet" href="/Asihana/resources/css/customer/notice.css">
 </head>
 <body>
 
@@ -121,8 +121,7 @@
 				</c:otherwise>
 			</c:choose>
 		</c:when>
-		
-		
+	
 		<c:otherwise>
 			<c:choose>
 				<c:when test="${ pi.currentPage > pi.endPage }">

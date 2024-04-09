@@ -4,11 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
 <jsp:include page="../common/headerbar.jsp"/>
-<%
-	List<City> cityList = (List<City>)session.getAttribute("cityList");
-	List<HashTag> hashTagList = (List<HashTag>)session.getAttribute("hashTagList");
-%>
-    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,7 +196,7 @@
 							        <span id="5point" class="star-point"></span>
 					      	 	</div>
 								
-						   	 	<input id="star" type="hidden" name="star">
+						   	 	<input id="star" type="hidden" name="star" value="2" required>
 							    <script>
 							        $(function(){
 							            // 별을 누르면 이벤트 발생
@@ -212,7 +208,6 @@
 								            $(this).addClass('on').prevAll('span').addClass('on');
 								            // 선택한 별점의 아이디를 통해 점수를 알아내서 hidden input의 value 값으로 전달
 								            $('#star').val($(this).attr('id').substring(0, 1))
-								            console.log($('#star').val());
 							            })
 							        })
 							    </script>  
@@ -419,7 +414,7 @@
                                 <option value="Y">공개</option>
                                 <option value="N">비공개</option>
                             </select>
-                            <button type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
+                            <button id="submit" type="sumbit" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">작성</button>
                             <button type="button" id="23" style="background-color : rgb(224, 224, 224); color : black; border: 0; width:50px; height: 30px;" onclick="history.back();">취소</button>
                         </div>
                     </div>

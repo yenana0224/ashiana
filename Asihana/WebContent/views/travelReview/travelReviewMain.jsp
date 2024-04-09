@@ -212,7 +212,7 @@
                     <c:forEach var="review" items="${requestScope.reviewList }">
 	                    <div id="${review.reviewNo}" class="review-list">
 	                        <input type="hidden" value="">  
-	                        <img class="review-thumnail" src="${review.titleImg}">
+	                        <img class="review-thumnail" src="${requestScope.review.titleImg}">
 	                        <p align="center">
 	                            <lable>작성자 : </lable><span>${review.reviewWriter}</span> <br>
 	                            <span>힐링여행</span> <span></span>

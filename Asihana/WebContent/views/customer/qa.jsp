@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="$../../resources/css/customer/qna.css">
+<link rel="stylesheet" href="/Asihana/resources/css/customer/qna.css">
 </head>
 <body>
 	<jsp:include page="../common/headerbar.jsp"/>

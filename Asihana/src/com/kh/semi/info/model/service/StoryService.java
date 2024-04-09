@@ -113,6 +113,7 @@ public class StoryService {
 			fileResult = new StoryDao().updateStoryFile(conn, file);
 		}
 		int result = storyResult * fileResult;
+		
 		if(result > 0) commit(conn);
 		else rollback(conn);
 		

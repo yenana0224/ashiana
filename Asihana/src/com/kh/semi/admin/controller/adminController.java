@@ -34,6 +34,14 @@ import com.oreilly.servlet.MultipartRequest;
 
 public class adminController {
 	
+	public String adminMain(HttpServletRequest request, HttpServletResponse response) {
+		
+		String path = request.getContextPath();
+		request.getSession().setAttribute("path", path);
+		
+		return "views/admin/adminMain.jsp";
+	}
+
 	/***
 	 * 공지사항 목록 + 검색
 	 * 

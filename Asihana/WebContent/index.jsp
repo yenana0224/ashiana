@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -179,14 +182,14 @@ pageEncoding="UTF-8"%>
 
     </style>
 <body>
-	
-	<%@ include file="views/common/headerbar.jsp" %>
+
+	<jsp:include page="views/common/headerbar.jsp"/>
 	
     <div class="outer">
         <div class="main">
 
             <div class="searchbar">
-                <form action="<%=contextPath%>/allSearch.customer" name="search" id="searchform">
+                <form action="${ contextPath }>/allSearch.customer" name="search" id="searchform">
                     <input type="text" name="query" id="searchtext" placeholder="검색어를 입력하세요">
                     <button type="submit" id="searchbtn"></button>
                 </form>
@@ -260,6 +263,7 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 
-	<%@ include file="views/common/footer.jsp" %>
+	<jsp:include page="views/common/footer.jsp"/>
+
 </body>   
 </html>

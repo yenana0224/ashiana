@@ -119,7 +119,6 @@
 <body>
 
 	<jsp:include page="adminbar.jsp"/>
-	<c:set var="path" value="${ pageContext.request.contextPath }" />
 		
     <div class="outer">
 
@@ -159,7 +158,7 @@
                 			    <tr class="cityOne">
 	                                <td class="nationNo" id="${ city.nationNo }">${ city.nationName }</td>
 	                                <td class="cityName" id="${ city.cityNo }">${ city.cityName }</td>
-	                                <td>${ c.count }</td>
+	                                <td>${ city.count }</td>
                             	</tr>
                 			</c:forEach>
                 		</c:otherwise>

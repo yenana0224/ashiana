@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import ="com.kh.semi.member.model.vo.Member"%>
-<%
-	String contextPath = request.getContextPath();
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	String alertMsg = (String)session.getAttribute("alertMsg");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,78 +186,82 @@
 </head>
 <body>
 
-	<c:set var="path" value="${ requestScope.contextPath }" />
-
-
-	<!-- 비로그인  -->
-	<%if(loginUser == null) {%>
-		<div id="login_join">
-	        <a href="<%=contextPath%>/views/member/memberLoginForm.jsp">로그인</a>
-	        <a href="<%=contextPath%>/views/member/memberEnrollForm.jsp">회원가입</a>
-	    </div>
-    <%}else{ %>
-	    	<!-- 로그인시 -->
-    	<div id="login_join">
-    		<% if(!loginUser.getUserId().equals("admin")) {%>
-    		<ul id="navi_mypage" >
-	        <li>
-                 <a href="<%=contextPath%>/views/member/myPage.jsp">⚙</a>
-                <ul>
-                    <li><a href="<%=contextPath%>/myPlan">📅My여행플랜</a></li>
-                    <li><a href="<%=contextPath%>/myTravel">📝My여행기</a></li>
-                    <li><a href="<%=contextPath%>/friendList">👨‍👩‍👦‍👦친구</a></li>
-                </ul>
-	        </li>
-	        </ul>
-	        <% } else {%>
-	        <a href="<%=contextPath%>/main.admin">관리자페이지</a>
-	        <% } %>
-	        <a href="<%=contextPath%>/logout">로그아웃</a>
-	        <p><%=loginUser.getNickName()%>님 환영합니다!</p>
-	    </div>
-	 <%} %>
-	 
+	<c:set var="contextPath" value="${ pageContext.request.contextPath }" />
+	
+	<c:choose>
+		<c:when test="${ empty loginUser }">
+			<div id="login_join">
+		        <a href="${ contextPath }/views/member/memberLoginForm.jsp">로그인</a>
+		        <a href="${ contextPath }/views/member/memberEnrollForm.jsp">회원가입</a>
+		    </div>
+		</c:when>
+		<c:otherwise>
+			<div id="login_join">
+				<c:choose>
+					<c:when test="${ loginUser.userId ne 'admin' }">
+						<ul id="navi_mypage" >
+				        <li>
+			                 <a href="${ contextPath }/views/member/myPage.jsp">⚙</a>
+			                <ul>
+			                    <li><a href="${ contextPath }/myPlan">📅My여행플랜</a></li>
+			                    <li><a href="${ contextPath }/myTravel">📝My여행기</a></li>
+			                    <li><a href="${ contextPath }/friendList">👨‍👩‍👦‍👦친구</a></li>
+			                </ul>
+				        </li>
+				        </ul>
+					</c:when>
+					<c:otherwise>
+						<a href="${ contextPath }/main.admin">관리자페이지</a>
+					</c:otherwise>
+				</c:choose>	
+				<a href="${ contextPath }/logout">로그아웃</a>
+		        <p>${ loginUser.nickName }님 환영합니다!</p>
+	   		</div>	
+		</c:otherwise>
+	</c:choose>
+ 
 	    <div id="logotop">
-	        <a href="<%=contextPath%>">아시아를 한눈에 하나로</a>
+	        <a href="${ contextPath }">아시아를 한눈에 하나로</a>
 	    </div>
 	    <div id="logolow">
-	        <a href="<%=contextPath%>">아시<b>하</b>나</a>
+	        <a href="${ contextPath }">아시<b>하</b>나</a>
 	    </div>
 	    <div id="menubar">
 	        <ul id="navi">
 	            <li>
 	                <a href="#">살펴보기</a>
 	                <ul>
-	                    <li><a href="<%=contextPath%>/story.info?currentPage=1">여행스토리</a></li>
-	                    <li><a href="<%=contextPath%>/main.info">여행정보</a></li>
+	                    <li><a href="${ contextPath }/story.info?currentPage=1">여행스토리</a></li>
+	                    <li><a href="${ contextPath }/main.info">여행정보</a></li>
 	                </ul>
 	            </li>
 	            <li>
-	                <a href="<%=contextPath%>/travelReviewMain">여행기</a>
+	                <a href="${ contextPath }/travelReviewMain">여행기</a>
 	            </li>
 	            <li>
-	                <a href="<%=contextPath%>/planMain.plan">여행플랜</a>
+	                <a href="${ contextPath }/planMain.plan">여행플랜</a>
 	            </li>
 	            <li>
-	                <a href="<%=contextPath%>/commu.List">커뮤니티</a> 
+	                <a href="${ contextPath }/commu.List">커뮤니티</a> 
 	            </li>
 	            <li>
-	                <a href="<%=contextPath%>/customer.customer">고객센터</a>
+	                <a href="${ contextPath }/customer.customer">고객센터</a>
 	                <ul>
-	                    <li><a href="<%=contextPath%>/notice.customer?currentPage=1">공지사항</a></li>
-	                    <li><a href="<%=contextPath%>/faq.customer">FAQ</a></li>
-	                    <li><a href="<%=contextPath%>/qa.customer?currentPage=1">Q & A</a></li>
+	                    <li><a href="${ contextPath }/notice.customer?currentPage=1">공지사항</a></li>
+	                    <li><a href="${ contextPath }/faq.customer">FAQ</a></li>
+	                    <li><a href="${ contextPath }/qa.customer?currentPage=1">Q & A</a></li>
 	                </ul>
 	            </li>
 	        </ul>
 	    </div>
+	    
     <script>
-    
-		const msg = '<%= alertMsg %>';
+		const msg = ${ alertMsg };
 		
 		if(msg != 'null'){
 			alert(msg);
-			<% session.removeAttribute("alertMsg"); %>
+			<c:remove var="alertMsg" scope="session"/>
+			
 		};
 	</script>
 

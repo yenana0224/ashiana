@@ -110,7 +110,6 @@
 <body>
 
 	<jsp:include page="adminbar.jsp"/>
-	<c:set var="path" value="${ pageContext.request.contextPath }" />
 
     <div class="outer">
 

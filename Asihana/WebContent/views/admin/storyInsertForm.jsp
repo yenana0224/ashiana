@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,10 @@
     </style>
 </head>
 <body>
-	<%@ include file="adminbar.jsp" %>
+
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
         
         <div class="title">
@@ -86,7 +90,7 @@
         </div>
 
         <div class="form-area">
-            <form action="<%=contextPath %>/storyInsert.admin" method="post" enctype="multipart/form-data">
+            <form action="${ path }/storyInsert.admin" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="board" value="7">
             	
                 <div class="title-area">
@@ -119,7 +123,7 @@
        		<script>
              	$('#back').click(function(){
              		
-             		location.href="<%=contextPath%>/story.admin?currentPage=1";
+             		location.href="${ path }/story.admin?currentPage=1";
              	});
              
                 function loadImg(inputFile){

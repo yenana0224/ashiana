@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, java.util.List, com.kh.semi.common.*"%>
-    
-<%
-	List<Nation> nationList = (List<Nation>)request.getAttribute("nationList");
-	Nation nation = (Nation)request.getAttribute("nation");
-	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
-	List<CityFile> files = (List<CityFile>)request.getAttribute("cityList");
-	
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,22 +200,22 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp" %>
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
 
     <div class="outer">
     
         <div class="selectbar">
             <div id="selectwrap">
                 <h5>다른 여행지 보기</h5>
-                <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
+                <form action="${ path }/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange()">
-                        <option> 국가 선택 </option>
-                         <% for(Nation n : nationList) {%>
-                        <option class="nationList" value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
-                        <% } %>
+                        <c:forEach var="n" items="${ nationList }">
+	                        <option class="nationList" value="${ n.nationNo }">${ n.nationName }</option>
+                        </c:forEach>
                     </select>
                     <select name="city" id="selectCity">
-                        <option>도시</option>
+                        <option>도시선택</option>
                     </select> 
                     <button type="submit" class="btn btn-sm btn-basic" width="20px"> Go </button>
                 </form>
@@ -252,32 +246,30 @@
             				"<option value='"+result[i].cityNo+"'>"+result[i].cityName+"</option>" 		
             				)
             			};
-     					
             		}
             	})
             }
  			</script>
 
         </div>
-
         
         <br><br><br><br>
         <div class="currentPage">
-            <a href="<%=contextPath%>/main.info">홈</a> 
+            <a href="${ path }/main.info">홈</a> 
             <span> > </span>
-            <a href="#"><%= nation.getNationName() %></a>
+            <a href="${ path }/search.info?nation=${ nation.nationNo }&city=도시선택">${ nation.nationName }</a>
         </div>
 
         <div class="nationIntro">
             <div id="nationPhoto">
-            	<% if(title != null) { %>
-                <img src="<%=contextPath%>/<%=title.getFilePath() %>/<%=title.getChangeName() %>" alt="">
-            	<% } %>
+            	<c:if test="${ not empty title }">
+                	<img src="${ path }${ title.filePath }/${ title.changeName }">
+            	</c:if>
             </div>
             
             <div class="info-area">
 	            <textarea cols="30" rows="10" readonly>
-<%= nation.getNationContent() %>
+${ nation.nationContent } 
 	            </textarea>
             </div>
  
@@ -289,16 +281,15 @@
 
              <div class="cityView">
                 <!-- 조회 많은 순서대로 도시 노출 -->
-			<% for(CityFile c : files) { %>
-                <div class="city">
-                    <div class="cityPhoto"><img src="<%=contextPath%><%=c.getFilePath() %>/<%=c.getChangeName()%>"></div>
-                    <div class="cityName">
-	                    <h5 class="namecity" id="<%=c.getCityNo() %>"><%=c.getCityName() %></h5>
-	                    <h6 class="namenation" id="<%=c.getNationNo() %>"><%=c.getNationName() %></h6>
-                	</div>
-               	</div>
-
-            <% } %>
+             	<c:forEach var="c" items="${ cityList }">
+	                <div class="city">
+	                    <div class="cityPhoto"><img src="${ path }/${ c.filePath }/${ c.changeName }"></div>
+	                    <div class="cityName">
+		                    <h5 class="namecity" id="${ c.cityNo }">${ c.cityName }</h5>
+		                    <h6 class="namenation" id="${ c.nationNo }">${ c.nationName }</h6>
+	                	</div>
+	               	</div>
+             	</c:forEach>
             </div>   
         </div>
         
@@ -307,14 +298,14 @@
 	            	$('.city').click(function(){
 	            		const cityNo = $(this).find('.namecity').attr('id');
 	            		const nationNo = $(this).find('.namenation').attr('id')
-	            		location.href="<%=contextPath%>/search.info?nation=" + nationNo + "&city=" + cityNo;
+	            		location.href="${ path }/search.info?nation=" + nationNo + "&city=" + cityNo;
 	            	})
 	            })
             </script>
 
     </div>
  
-    	<%@ include file="../common/footer.jsp" %>
+ 	<jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

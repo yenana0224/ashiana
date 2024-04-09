@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, java.util.List, com.kh.semi.pageInfo.model.vo.PageInfo" %>
-<%
-	List<StoryFile> list = (List<StoryFile>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,70 +123,75 @@
 </head>
 <body>
 
-<%@ include file="../common/headerbar.jsp" %>
+<jsp:include page="../common/headerbar.jsp"/>
+
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+
     <div class="outer">
 
         <div class="main">
         
             <div class="mainTitle"> S T O R Y </div>
             
-            <% if(list.isEmpty()){ %>
-
-            <div class="storyEmpty">
-            	<div class="content">
-            		<div class="title"><p>등록된 게시글이 없습니다</p></div>
-            	</div>
-           	</div>
-           	
-            <% } else { %>
-            
-	         <% for(StoryFile s : list) { %>
-	            <div class="story" id="<%=s.getStoryNo() %>">
-	                <div class="storyphoto">
-	                    <img src="<%=contextPath%>/<%=s.getFilePath()%>/<%=s.getChangeName()%>">
-	                </div>
-	                <div class="content">
-	                	<div class="createDate"><p><%=s.getCreateDate() %></p></div>
-	                    <div class="title"><p><%=s.getStoryTitle() %></p></div>
-
-	                </div>
-            	</div>
-	            <% } %>
-	        </div>
-	      <% } %>
+            <c:choose>
+            	<c:when test="${ empty requestScope.list }">
+		            <div class="storyEmpty">
+		            	<div class="content">
+		            		<div class="title"><p>등록된 게시글이 없습니다</p></div>
+		            	</div>
+		           	</div>
+	           	</c:when>
+				<c:otherwise>           	
+            		<c:forEach var="s" items="${ requestScope.list }">
+            		<div class="story" id="${ s.storyNo }">
+		                <div class="storyphoto">
+		                    <img src="${ path }${ s.filePath }/${ s.changeName }">
+		                </div>
+		                <div class="content">
+		                	<div class="createDate"><p> ${ path }${ s.createDate } </p></div>
+		                    <div class="title"><p>${ s.storyTitle }</p></div>
+		                </div>
+            		</div>
+            		</c:forEach>
+				</c:otherwise>
+	      	</c:choose>
+	     </div>
 	      
 	     <script>
         	$(function(){
         		
         		$('.story').click(function(){
-        			location.href='<%=contextPath%>/detailStory.info?pageNo=<%=currentPage%>&storyNo='+$(this).attr('id');
+        			location.href='${ path }/detailStory.info?pageNo=${ pageInfo.currentPage }&storyNo='+$(this).attr('id');
  
         		});
         	})
         </script> 
         
-       <div class="paging-area" align="center">
-        
-        	<% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage -1 %>'">이전</button>
-          	<% } %>   
-        	
-			<% for(int i = startPage; i <= endPage; i++){ %>
-			
-				<% if(currentPage != i){ %>
-				<button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=i%>'"><%= i %></button>
-				<%} else {%>
-					<button style="background-color : darkgray" disabled><%=i %></button>
-				<%} %>
-			<%} %>
-			
-			<% if(currentPage != maxPage) { %>
-			  <button onclick="location.href='<%=contextPath%>/story.info?currentPage=<%=currentPage + 1%>'">다음</button>
-			<% } %>
-        </div>   
+	       <div class="paging-area" align="center">
+				<c:if test="${ pageInfo.currentPage gt 1 }">
+	        		<button onclick="location.href='${ path }/story.info?currentPage=${ pageInfo.currentPage - 1 }'">이전</button>
+				</c:if>
+				
+				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+					<c:choose>
+						<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/story.info?currentPage=${i}'">${i}</button>
+						</c:when>
+						<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+				<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+				  <button onclick="location.href='${ path }/story.info?currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+				</c:if>
+				
+	        </div>   
        </div>
    </div>
-   <%@ include file="../common/footer.jsp" %>
+   
+   <jsp:include page ="../common/footer.jsp"/>
    
 </body>
 </html>

@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*, java.util.List"%>
-<%
-	// 국가정보 조회 : 국가번호, 국가이름, 국가소개, 비자
-	Nation nation = (Nation)request.getAttribute("nation");
-	//하나의 도시 정보조회 : 도시번호, 도시이름, 도시소개, 국가번호, 국가이름, 비행시간
-	City city = (City)request.getAttribute("City");
-	List<Nation> nationList = (List<Nation>)request.getAttribute("nationList");
-	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
-	String language = (String)request.getAttribute("language");
-	String voltage = (String)request.getAttribute("voltage");
-	String currency = (String)request.getAttribute("currency");
-	String visa = nation.getVisaName();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,21 +128,21 @@
 
 <body>
 
-	<%@ include file="../common/headerbar.jsp"%>
-	
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+
     <div class="outer">
            <div class="selectbar">
             <div id="selectwrap">
                 <h5>다른 여행지 보기</h5>
-                <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
+                <form action="${ path }/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange()">
-                        <option> 국가 선택 </option>
-                         <% for(Nation n : nationList) {%>
-                        <option class="nationList" value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
-                        <% } %>
+                        <c:forEach var="n" items="${ nationList }">
+	                        <option class="nationList" value="${ n.nationNo }">${ n.nationName }</option>
+                        </c:forEach>
                     </select>
                     <select name="city" id="selectCity">
-                        <option>도시</option>
+                        <option>도시선택</option>
                     </select> 
                     <button type="submit" class="btn btn-sm btn-basic" width="20px"> Go </button>
                 </form>
@@ -192,19 +182,17 @@
         </div>
         
        <div class="currentPage">
-            <a href="<%=contextPath%>/main.info">홈</a> 
+            <a href="${ path }/main.info">홈</a> 
             <span> > </span>
-            <a href="<%=contextPath%>/search.info?nation=<%=nation.getNationNo() %>&city=도시선택"><%= nation.getNationName() %></a>
-            <% if(nation.getNationNo() != 853 && nation.getNationNo() != 852 && nation.getNationNo() != 65) {%>
-            	<span> > </span>
-	           		 <a href="#"><%= city.getCityName() %></a>
-    	     		 <% } %>
+            <a href="${ path }/search.info?nation=${ nation.nationNo }&city=도시선택">${ nation.nationName }</a>
+            	<c:if test="${ nation.nationNo ne 853 && nation.nationNo ne 852 && nation.nationNo ne 65}">
+            		<span> > </span>
+	           			 <a href="#">${ City.cityName }</a>
+    	     	</c:if>	 
         </div>
-    
-    
-    
+
         <div class="photo">
-            <img src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>" >
+            <img src="${ path }${ file.filePath }/${ file.changeName }" >
         </div>
 
         <div class="info">
@@ -217,17 +205,17 @@
                         <th>언어</th>
                     </tr>
                     <tr>
-                        <td><%=visa %></td>
-                        <td><%=currency %></td>
-                        <td><%=voltage %></td>
-                        <td><%=language %></td>
+                        <td>${ nation.visaName }</td>
+                        <td>${ currency }</td>
+                        <td>${ voltage }</td>
+                        <td>${ language }</td>
                     </tr>
                 </table>
             </div>
 
             <div class="content">
                 <p>
-                	<%= city.getCityContent()%>
+                	${ City.cityContent }
                 </p>
             </div>
         </div>
@@ -237,10 +225,7 @@
         </div>
     </div>
 
-        
-    <%@ include file="../common/footer.jsp" %>
-
-
+	<jsp:include page="../common/footer.jsp" />        
   
 </body>
 </html>

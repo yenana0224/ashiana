@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.info.model.vo.*, com.kh.semi.pageInfo.model.vo.PageInfo
-				 , java.util.List" %>    
-
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<City> list = (ArrayList<City>)request.getAttribute("list");
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-	String category = (String)request.getAttribute("category");
-	String keyword = (String)request.getAttribute("keyword");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -130,7 +118,9 @@
 </head>
 <body>
 
-	<%@ include file="adminbar.jsp" %>
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+		
     <div class="outer">
 
         <div class="title">
@@ -144,7 +134,7 @@
                     <option value="city">도시</option>
                 </select>
                 <input type="text" name="keyword">
-                <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
+                <input type="hidden" name="currentPage" value="${ pageInfo.currentPage }">
                 <button type="submit">검색</button>
             </form>
         </div>
@@ -158,69 +148,76 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if(list.isEmpty()) { %>
-                        <tr>
-                            <td colspan="3"> 게시글이 없습니다</td>
-                        </tr>
-                    <% } else { %>
-                        <% for(City c : list) { %>
-                            <tr class="cityOne">
-                                <td class="nationNo" id="<%=c.getNationNo()%>"><%=c.getNationName() %></td>
-                                <td class="cityName" id="<%=c.getCityNo() %>"><%=c.getCityName() %></td>
-                                <td><%=c.getCount() %></td>
-                            </tr>
-                        <% } %>
-                    <% } %>
+                	<c:choose>
+                		<c:when test="${ empty list }">
+                			<tr>
+                            	<td colspan="3"> 게시글이 없습니다</td>
+                        	</tr>
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="city" items="${ list }">
+                			    <tr class="cityOne">
+	                                <td class="nationNo" id="${ city.nationNo }">${ city.nationName }</td>
+	                                <td class="cityName" id="${ city.cityNo }">${ city.cityName }</td>
+	                                <td>${ c.count }</td>
+                            	</tr>
+                			</c:forEach>
+                		</c:otherwise>
+                	</c:choose>
+			        <script>
+				        $(function(){
+				
+				        	$('.cityOne').click(function(){
+				        		location.href="${ path }/cityinfo.admin?nationNo=" + $(this).children('.nationNo').attr('id') + "&cityNo=" + $(this).children('.cityName').attr('id');
+				        	});
+				        })
+			        </script>
                 </tbody>
             </table>
 
         
-        <script>
-        
-        $(function(){
 
-        	$('.cityOne').click(function(){
-        		location.href="<%=contextPath%>/cityinfo.admin?nationNo=" + $(this).children('.nationNo').attr('id') + "&cityNo=" + $(this).children('.cityName').attr('id');
-        	});
-        	
-        })
-        
-        </script>
         
        <div class="paging-area" align="center">
-
-        	<% if(category != null) { %>
-        	    <% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/nationCityList.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=currentPage -1 %>'">이전</button>
-          		<% } %>         		
-        		<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if(currentPage != i){ %>
-					<button onclick="location.href='<%=contextPath%>/nationCityList.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=i%>'"><%= i %></button>
-					<%} else {%>
-						<button style="background-color : darkgray" disabled><%=i %></button>
-					<%} %>
-				<%} %>
-				<% if(currentPage != maxPage) { %>
-			 	 <button onclick="location.href='<%=contextPath%>/nationCityList.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=currentPage + 1%>'">다음</button>
-				<% } %>	
-							
-        	<% } else { %>
-        	    <% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=currentPage -1 %>'">이전</button>
-          		<% } %> 
-				<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if(currentPage != i){ %>
-					<button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=i%>'"><%= i %></button>
-					<%} else {%>
-						<button style="background-color : darkgray" disabled><%=i %></button>
-					<%} %>
-				<%} %>
-				<% if(currentPage != maxPage) { %>
-			 	 <button onclick="location.href='<%=contextPath%>/nationCityList.admin?currentPage=<%=currentPage + 1%>'">다음</button>
-				<% } %>
-			
-			<% } %>
-
+       
+       	<c:choose>
+       		<c:when test="${ not empty category }">
+       			<c:if test="${ pageInfo.currentPage gt 1 }">
+        			<button onclick="location.href='${ path }/nationCityList.admin?category=${ category }&keyword=${ keyword }&currentPage=${ pageInfo.currentPage - 1}'">이전</button>
+       			</c:if>
+       			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+       				<c:choose>
+	       				<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/nationCityList.admin?category=${ category }&keyword=${ keyword }&currentPage=${ i }'">${ i }</button>
+	       				</c:when>
+	       				<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+	       				</c:otherwise>
+       				</c:choose>
+       			</c:forEach>
+       			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+			 	 	<button onclick="location.href='${ path }/nationCityList.admin?category=${ category }&keyword=${ keyword }&currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+       			</c:if>
+       		</c:when>
+       		<c:otherwise>
+       			<c:if test="${ pageInfo.currentPage gt 1 }">
+	        		<button onclick="location.href='${ path }/nationCityList.admin?currentPage=${ pageInfo.currentPage - 1 }'">이전</button>
+       			</c:if>
+       			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+       				<c:choose>
+	       				<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/nationCityList.admin?currentPage=${ i }'">${ i }</button>
+	       				</c:when>
+	       				<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+	       				</c:otherwise>
+       				</c:choose>
+       			</c:forEach>
+       			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+				 	 <button onclick="location.href='${ path }/nationCityList.admin?currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+       			</c:if>
+       		</c:otherwise>
+       	</c:choose>
         </div>
         
     </div>

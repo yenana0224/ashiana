@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
-<%
-	StoryFile file = (StoryFile)request.getAttribute("file");
-
-%>
+    pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,8 +107,9 @@
 </head>
 
 <body>
-	<%@ include file="adminbar.jsp" %>
-	
+
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
 	    
     <div class="outer">
 
@@ -121,19 +119,31 @@
         </div>
        
         <div class="titlePicture">
-        <% if(file.getFilePath() != null) { %>
-            <img id="titlePhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
-        <% } else {%>
-        	<img id="titlePhoto" src="">
-        	<% } %>
+        	<c:choose>
+        		<c:when test="${ not empty file.filePath }">
+		            <img id="titlePhoto" src="${ path }${ file.filePath }/${ file.changeName }">
+        		</c:when>
+        		<c:otherwise>
+		        	<img id="titlePhoto" src="">
+        		</c:otherwise>
+        	</c:choose>
         </div>
 
         <form action="storyUpdate.admin" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="storyNo" value="<%=file.getStoryNo() %>">
+        	<input type="hidden" name="storyNo" value="${ file.storyNo }">
         	<input type="hidden" name="board" value="7">
-            <div class="info-area"><input type="text" name="title" value="<%=file.getStoryTitle() %>"></div>
-            <div class="info-area"><textarea name="storyContent" cols="30" rows="10" style="resize: none;"><%=file.getStoryContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="from" value="<%=file.getStoryFrom() %>"></div>
+            <div class="info-area"><input type="text" name="title" value="${ file.storyTitle }"></div>
+            <div class="info-area"><textarea name="storyContent" cols="30" rows="10" style="resize: none;">${ file.storyContent }</textarea></div>
+            <div class="info-area">
+            	<c:choose>
+            		<c:when test="${ not empty file.storyFrom }">
+			            <input type="text" name="from" value="${ file.storyFrom }">
+					</c:when>
+					<c:otherwise>
+					    <input type="text" name="from" value="출처없음">
+					</c:otherwise>            		
+            	</c:choose>
+            </div>
             <div class="info-area"><input type="file" name="newFile" onchange="loadImg(this)" required > </div>
             <div class="btn">
             	<button type="submit" id="updateBtn"> 수정하기 </button>
@@ -147,7 +157,7 @@
         
         <script>
         $('#backBtn').click(function(){
-        	location.href="<%=contextPath %>/story.admin?currentPage=1";
+        	location.href="${ path }/story.admin?currentPage=1";
         })
         
         function loadImg(inputFile){
@@ -160,7 +170,6 @@
         	}
         	
         }
-        
         </script>
 
     </div>

@@ -2,10 +2,8 @@
 	pageEncoding="UTF-8"
 	import = "java.util.ArrayList, com.kh.semi.friendShip.model.vo.FriendShip"
 	%>
-	
-	<%
-	ArrayList<FriendShip> list = (ArrayList<FriendShip>)request.getAttribute("friendlist");
-	%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,11 +80,10 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp"%>
-
-	<%
-		String userId = loginUser.getUserId();
-	%>
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
+	
+	
 	<div id="noticetext">
 		<p>팔로우</p>
 	<div id = "searchtext">
@@ -108,29 +105,29 @@
 				</tr>
 			</thead>
 			<tbody id="myTable">
-				<%if(list.isEmpty()) {%>
+			<c:choose>
+				<c:when test="${ empty friendlist}">
 				<tr>
 					<td colspan="5"> 친구가 없습니다.</td>
 				<tr>
-				<%}else{ %>
-				<%for(FriendShip friendShip :list){ %>
-				<%String nickName =friendShip.getNickNameF();
-				int userNo = friendShip.getUserId2();%>
-				
+				</c:when>
+				<c:otherwise>
+				<c:forEach var="friendShip" items="${ friendlist }">
 				<tr>
-					<td><%=nickName%></td>
-					<td class ="userNo" id = "<%=userNo%>"><a href="#">📝</a></td>
-					<td class ="userNo_plan" id = "<%=userNo%>"><a href="#">📅</a></td>
-					<td><button class="add-friend" data-user-no="<%= userNo %>">🤝</button></td>
-					<td><button class="delete-friend" data-user-no="<%= userNo %>">✂</button></td>
+					<td>${friendShip.nickNameF}</td>
+					<td class ="userNo" id = "${friendShip.userId2}"><a href="#">📝</a></td>
+					<td class ="userNo_plan" id = "${friendShip.userId2}"><a href="#">📅</a></td>
+					<td><button class="add-friend" data-user-no="${friendShip.userId2}">🤝</button></td>
+					<td><button class="delete-friend" data-user-no="${friendShip.userId2}">✂</button></td>
 				</tr>
-				<%} %>
-				<%} %>
+				</c:forEach>
+				</c:otherwise>
+			</c:choose>
 			</tbody>
 		</table>
 		
 		<div align="center">
-	         <button type="button" onclick="location.href='<%=contextPath%>/selectUser'">유저 찾기</button>
+	         <button type="button" onclick="location.href='${path}/selectUser'">유저 찾기</button>
 		</div>
 	</div>	 
 		<br><br><br><br><br>
@@ -139,13 +136,13 @@
 	
 		$(function(){
 			$('.userNo').click(function(){
-				location.href='<%=contextPath%>/othersTravel?userNo='+$(this).attr('id');
+				location.href='${path}/othersTravel?userNo='+$(this).attr('id');
 			});
 		});
 		
 		$(function(){
 			$('.userNo_plan').click(function(){
-				location.href='<%=contextPath%>/othersPlan?userNo='+$(this).attr('id');
+				location.href='${path}/othersPlan?userNo='+$(this).attr('id');
 			});
 		});
 		
@@ -167,7 +164,7 @@
 		        var userNo = $(this).data('user-no');
 		        if (userNo !== null) {
 		            $.ajax({
-		                url: '<%=contextPath%>/insert.friend',
+		                url: '${path}/insert.friend',
 		                type: 'post',
 		                data: {
 		                    userId2: userNo
@@ -198,7 +195,7 @@
 		        var userNo = $(this).data('user-no');
 		        if (userNo !== null) {
 		            $.ajax({
-		                url: '<%=contextPath%>/delete.friend',
+		                url: '${path}/delete.friend',
 		                type: 'post',
 		                data: {
 		                    userId2: userNo
@@ -221,8 +218,9 @@
 
 		
 	</script>
+	
+	<jsp:include page="../common/footer.jsp"/>
 
-	<%@ include file="../common/footer.jsp"%>
 
 </body>
 </html>

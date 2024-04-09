@@ -165,14 +165,15 @@ public class TravelReviewService {
 		// 파일첨부 (최소 1개 존재)
 		int insertFileList = new TravelReviewDao().insertFileList(conn, fileList);
 		
-		if(insertReview * insertTagList * insertFileList > 0) {
+		//좋아요 테이블 생성
+		int insertLikePoint = new TravelReviewDao().insertLikePoint(conn, t);
+		
+		if(insertReview * insertTagList * insertFileList * insertLikePoint > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		
-		//좋아요 테이블 생성
-		int insertLikePoint = new TravelReviewDao().insertLikePoint(conn, t);
 		
 		close(conn);
 		

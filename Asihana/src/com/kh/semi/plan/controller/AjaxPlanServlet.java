@@ -54,6 +54,7 @@ public class AjaxPlanServlet extends HttpServlet {
 		case "deleteDestCache" : new Gson().toJson(pc.deleteDestCache(request, response), response.getWriter()); break;
 		case "deleteSchedCache" : pc.deleteSchedCache(request, response); break;
 		case "updateSched" : new Gson().toJson(pc.updateSched(request, response), response.getWriter()); break;
+		case "cityList" : new Gson().toJson(pc.cityList(request, response), response.getWriter()); break;
 		}
 		
 		

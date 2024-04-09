@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.kh.semi.plan.model.vo.PlanMain" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../common/headerbar.jsp" %>
 <%@ include file="planCss.jsp" %>
 <!DOCTYPE html>
@@ -101,7 +102,7 @@
         </div>
     </div> <!-- outer -->
 
-    <%@ include file="../common/footer.jsp" %>
+    <jsp:include page="../common/footer.jsp" />
     
     <script>
     	$(function(){
@@ -111,7 +112,7 @@
 	    	$('#outer-main').on('click', '.btn-insert', function(){ // 플랜 카드 안에 여행 플랜 추가 버튼 클릭 시 작성 화면 이동 =>
 
 	    		if(${ !empty loginUser }){
-		    		location.href = '${ path }/insert.plan?userNo=' + ${ loginUser.userNo };
+		    		location.href = '${ path }/insert.plan?userNo=' + '${ loginUser.userNo }';
 	    		}
 	    		else{
 	    			alert("로그인 후 이용해주세요..");

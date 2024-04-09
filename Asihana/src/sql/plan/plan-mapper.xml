@@ -138,6 +138,7 @@
 	
 	<entry key="selectDesDetail">
 		SELECT DEST_NO,
+			   CITY_NO,
 		       NATION_NAME || '-' || CITY_NAME AS CITY_NAME,
 		       TRANS,
 		       TRIP,

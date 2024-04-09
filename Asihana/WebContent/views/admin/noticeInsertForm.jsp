@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,9 @@
     </style>
 </head>
 <body>
-	<%@ include file="adminbar.jsp" %>
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
         
         <div class="title">
@@ -80,8 +83,8 @@
         </div>
 
         <div class="form-area">
-            <form action="<%=contextPath %>/noticeInsert.customer" method="post" enctype="multipart/form-data">
-            	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+            <form action="${ path }/noticeInsert.customer" method="post" enctype="multipart/form-data">
+            	<input type="hidden" name="userNo" value="${ loginUser.userNo }">
                 <div class="title-area">
                     <input class="input-area" type="text" placeholder="제목을 입력해주세요" name="title"> 
                 </div>
@@ -101,10 +104,9 @@
                     <button type="submit"> 등록 </button>
                     <button>취소</button>
                 </div>
-                
-               
             </form>
         </div>
+        
     </div>
     
 </body>

@@ -46,10 +46,48 @@ public class TravelReviewDetailCityForm extends HttpServlet {
 		int cityNo = new TravelReviewService().selectCityNo(cityName);
 		
 		
-		List<City> cityInformation = new TravelReviewService().selectDetailCity(cityNo);
+		List<City> cityInfo = new TravelReviewService().selectDetailCity(cityNo);
+		
+		String language = cityInfo.get(0).getLanguage();
+		String currency = cityInfo.get(0).getCurrency();
+		String voltage = cityInfo.get(0).getVoltage();
+
+		String newLanguage = cityInfo.get(0).getLanguage();
+		String newCurrency = cityInfo.get(0).getCurrency();
+		String newVoltage = cityInfo.get(0).getVoltage();
+		
+		for(int i = 1; i < cityInfo.size(); i++){
+			if(!language.equals(cityInfo.get(i).getLanguage())){
+				newLanguage += ", " + cityInfo.get(i).getLanguage();
+			}
+		}
+		
+		for(int j = 1; j < cityInfo.size(); j++){
+			if(!currency.equals(cityInfo.get(j).getCurrency())){
+				newCurrency += ", " + cityInfo.get(j).getCurrency(); 
+			}
+		}
+		
+		for(int k = 0; k < cityInfo.size(); k++){
+			if(!voltage.equals(cityInfo.get(k).getVoltage())){
+				newVoltage += ", " + cityInfo.get(k).getVoltage();
+			}
+		}
+
+		
+		City cityInformation = new City();
+		cityInformation.setCityName(cityName);
+		cityInformation.setCurrency(newCurrency);
+		cityInformation.setVoltage(newVoltage);
+		cityInformation.setLanguage(newLanguage);
+		cityInformation.setNationName(cityInfo.get(0).getNationName());
+		cityInformation.setVisaName(cityInfo.get(0).getVisaName());
+		cityInformation.setFilePath(cityInfo.get(0).getFilePath());
+		cityInformation.setChangeName(cityInfo.get(0).getChangeName());
+		
 		
 		// 출력화면 지정
-		if(cityInformation.isEmpty()) {
+		if(cityInfo.isEmpty()) {
 			request.setAttribute("errorMsg", "게시글 조회실패");
 		} else {
 			request.setAttribute("cityInformation", cityInformation);

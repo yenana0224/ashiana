@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.info.model.vo.City, java.util.List" %>
-<%
-	List<City> cityList = (List<City>)request.getAttribute("cityList");
-	int planNo = (int)request.getAttribute("planNo");
-%>
-<%@ include file="../common/headerbar.jsp" %>
-<%@ include file="planCss.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/headerbar.jsp"/>
+<jsp:include page="planCss.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>      
@@ -59,10 +56,10 @@
 	        </div>
 	    </div>
 		<input type="hidden" name="startDestNo" id="startDestNo" value="">
-		<input type="hidden" name="planNo" id="planNo" value="<%=planNo%>">
+		<input type="hidden" name="planNo" id="planNo" value="${ planNo }">
 	    <form method="post">
 	        <div id="planning-interface">
-
+				
 				출국일시 : <input type="date" name="start-date" id="start-date">
 				<input type="time" name="start-time" id="start-time" class="timepicker">
 			    <button class="btn btn-sm btn-success btn-date-int" id="setStartDate" type="button">날짜 설정</button>
@@ -107,7 +104,7 @@
 	    </form>
 	</div> <!-- outer -->
 	
-	<%@ include file="../common/footer.jsp" %>
+	<jsp:include page="../common/footer.jsp" />
 	
 	<script>
 		$(function(){
@@ -118,7 +115,7 @@
 	        })
 	        // 작성 취소 버튼 클릭 시 플랜 메인 화면으로 이동
 	        $('.cancel-plan').click(function(){
-	        	location.href = '<%=contextPath%>/planMain.plan';
+	        	location.href = '${ contextPath }/planMain.plan';
 	        })
 		})
 	</script>
@@ -150,17 +147,15 @@
                     </div>
                     <div id="modal-form-area">
                     	<input type="hidden" name="updateDestNo">
+                    	<input type="hidden" name="prevCityNo">
                     	<input type="hidden" name="prevCity"> <!-- 수정 시 도시가 바뀌었는지 체크하는 용 -->
                         <select name="country" id="country">
                         	<option value="국가 선택" disabled selected>국가 선택</option>
-                            <% for(int i = 0; i < cityList.size(); i++) { %>
-                            	<% if(i == 0 && !cityList.get(i).getNationName().equals("대한민국")) { %>
-	                            	<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
-                            	<% } %>
-	                            <% if(i > 0 && !cityList.get(i - 1).getNationName().equals(cityList.get(i).getNationName()) && !cityList.get(i).getNationName().equals("대한민국")) { %>
-	                            	<option value="<%= cityList.get(i).getNationName() %>"><%= cityList.get(i).getNationName() %></option>
-	                            <% } %>
-                            <% } %>
+                        	<c:forEach var="nation" items="${ nationList }">
+                           		<c:if test="${ nation.nationName ne '대한민국' }">
+	                           		<option value="${ nation.nationNo }">${ nation.nationName }</option>
+                           		</c:if>      
+                            </c:forEach>
                         </select>
                         <select name="city" id="city">
                         	<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>
@@ -195,7 +190,7 @@
                        	 출국시간 : <input type="time" name="end-time" id="end-time">
                         
                         <div id="des-sum">
-                            <label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>
+                            <label>${ loginUser.nickName }</label>님의 일정 요약 <br>
                             <p>
                                 <label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>
                                                                         해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.
@@ -221,11 +216,18 @@
     		$('#country').change(function(){
     			$('#city').empty();
     			$('<option id="selectCity" value="도시 선택" disabled selected>도시 선택</option>').prependTo('#city');
-    			<% for(City city : cityList) { %>
-    				if($('#country').val() == '<%=city.getNationName()%>'){
-    					$('<option value="<%= city.getCityNo() %>"><%= city.getCityName() %></option>').insertAfter('#selectCity');
-    				}
-    			<% } %>
+				$.ajax({
+					url : 'cityList.ajaxplan',
+					type : 'post',
+					data : {
+						nationNo : $('#country').val()
+					},
+					success : function(cityList){
+						for(let i = 0; i < cityList.length; i++){
+							$('<option value="' + cityList[i].cityNo + '">' + cityList[i].cityName + '</option>').insertAfter('#selectCity');
+						}
+					}
+				})
     		})
     	});
     	
@@ -244,7 +246,7 @@
         }
         $(function(){ // 모달 일정 요약 부분
             $('#city').change(function(){ // 도시 선택시 인풋 벨류 변경
-                $('#country-city').val($('#country').val() + '-' + $('#city option:checked').text());
+                $('#country-city').val($('#country option:checked').text() + '-' + $('#city option:checked').text());
             });
             $('#add-day').change(function(){ // +1일 체크박스
                 if($('#add-day').is(':checked')) {
@@ -274,7 +276,7 @@
 				$('#modal-header').find('h4').text('목적지 추가');
 				$('#updateDes').css('display', 'none');
             	$('#insertDes').css('display', '');
-				let display = '<label><%= loginUser.getNickName() %></label>님의 일정 요약 <br>'
+				let display = '<label>${ loginUser.nickName }</label>님의 일정 요약 <br>'
 				            + '<p>'
 				            + '<label id="dep-date-display">****-**-**</label> <label id="dep-time-display">**:**</label>에 출발하여 <label id="arr-date-display">****-**-**</label> <label id="arr-time-display">**:**</label>에 <label id="country-city-display">**-**</label>로 도착합니다. <br>'
 				            + '해당 국가 출국은 <label id="end-date-display">****-**-**</label> <label id="end-time-display">**:**</label> 입니다.'
@@ -306,7 +308,7 @@
 	            		url : 'selectDesDetail.ajaxplan',
 	            		type : 'post',
 	            		data : {
-	            			planNo : <%= planNo %>,
+	            			planNo : ${ planNo },
 	            			status : 'N'
 	            		},
 	            		success : function(result){
@@ -327,10 +329,10 @@
 					$('#end-date').val('');
 					$('#end-time').val('');
 				}
-			})
+			});
+            
             
             $('#modal-form-area').find('input, select').change(function(){ // 모달 디스플레이
-            	
                 $('#dep-time-display').text($('#dep-time').val());
                 $('#arr-date-display').text($('#arr-date').val());
                 $('#arr-time-display').text($('#arr-time').val());
@@ -349,7 +351,7 @@
             		url : 'selectDesDetail.ajaxplan',
             		type : 'post',
             		data : {
-            			planNo : <%= planNo %>,
+            			planNo : ${ planNo },
             			status : 'N'
             		},
             		success : function(result){
@@ -360,6 +362,7 @@
 		            			$('#country option:first').prop('selected', true);
 		        				$('#city option:first').prop('selected', true);
 		            			$('#country-city').val(result[i].cityName);
+		            			$('input[name=prevCityNo]').val(result[i].cityNo);
 		            			$('input[name=prevCity]').val(result[i].cityName);
 		            			$('#transport').val(result[i].trans).prop('selected', true);
 		            			$('#trans-price').val(result[i].transPrice);
@@ -393,7 +396,7 @@
     				url : 'insertDestination.ajaxplan',
     				type : 'post',
     				data : {
-    					planNo : <%=planNo%>,
+    					planNo : ${ planNo },
     					cityNo : $('#city').val(),
     					trans : $('#transport').val(),
     					transPrice : $('#trans-price').val().split(',').join(''),
@@ -413,16 +416,12 @@
     		});
     		$('#updateDes').click(function(){ // 목적지 수정
     			let $city = $('#city').val();
+	    		const countryCity = $('#country-city').val().split('-');
     			if($city == null){
-	    			const countryCity = $('#country-city').val().split('-');
-    				<% for(City city : cityList) { %>
-    					if('<%= city.getCityName() %>' == countryCity[1]){
-    						$city = <%= city.getCityNo() %>;
-    					}
-    				<% } %>
+    				$city = $('input[name=prevCityNo]').val();
     			}
 				// 목적지 수정시 도시가 변경되었을 경우
-				if($('input[name=prevCity]').val() != $('#country-city').val()){
+				if($('input[name=prevCity]').val() != countryCity[1]){
 					if(confirm('목적지 변경으로 인해 등록하신 예약 및 일정이 초기화 됩니다. 정말로 변경 하시겠습니까?')){
 						$.ajax({
 							url : 'deleteSchedCache.ajaxplan',
@@ -462,7 +461,6 @@
     		$('#root-area').on('click', '.des-delete', function(){
     			const $destNo = $(this).siblings('input[name=destNo]').val();
     			if(confirm('해당 목적지를 삭제하시겠습니까?')){
-    				console.log($destNo);
     				$.ajax({
     					url : 'deleteDestCache.ajaxplan',
     					type : 'post',
@@ -568,6 +566,7 @@
         		success : function(result){
         			if(result > 0){
         				selectSchedule($schedDestNo);
+        				selectPlan();
         			}
         			else{
         				alert("예약 및 일정 추가를 다시 시도해주세요..")
@@ -629,6 +628,7 @@
         		},
         		success : function(result){
         			selectSchedule($schedDestNo);
+        			selectPlan();
         		}
         	})
         	$sched.remove();
@@ -652,7 +652,7 @@
 						url : 'insertStartDestination.ajaxplan',
 						type : 'post',
 						data : {
-							planNo : <%=planNo%>,
+							planNo : ${ planNo },
 							returnDate : $('#start-date').val() + ' ' + $('#start-time').val()
 						},
 						success : function(result){
@@ -719,7 +719,7 @@
     			url : 'selectPlanDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>,
+    				planNo : ${ planNo },
     				status : 'N'
     			},
     			success : function(result){
@@ -742,7 +742,7 @@
     			url : 'selectDesDetail.ajaxplan',
     			type : 'post',
     			data : {
-    				planNo : <%= planNo %>,
+    				planNo : ${ planNo },
     				status : 'N'
     			},
     			success : function(result){    				
@@ -807,7 +807,7 @@
 					    	           +     '<div class="sched-btn-area">'
 					    	           +         '<button type="button" class="btn btn-danger btn-add-sched">추가</button><img src="resources/icons/arrow-down-circle-fill.svg">'
 					    	           +     '</div>'
-					    	           +     '<span class="sched-des-price">예약 및 일정 예산 <label>' + result[i].schedCostSum + '원</label></span>'
+					    	           +     '<span class="sched-des-price">예약 및 일정 예산 <label class="schedCostSum">' + result[i].schedCostSum + '원</label></span>'
 					    	           +     '<span class="sched-des-price">항공 가격 <label>' + result[i].transPrice + '원</label> +&nbsp;</span>'
 					    	           + '</div>'
 					    	           + '<div class="sched-des sched-des-detail">' // 아코디언 내부
@@ -826,11 +826,9 @@
 					    	           +         '</tbody>'
 					    	           +       '</table>'
 					    	           + '</div>';
-	    	                
 		    				$('#sched-box').append(schedArea);
 						    selectSchedule(result[i].destNo);
     					}
-
     				} // for문
 		  	            rootArea += rootAddIcon;
     					$('#root-area').html(rootArea);
@@ -875,7 +873,7 @@
                     $(schedTable).insertAfter('.schedDestNo[value=' + destNo + ']');
 
                     $('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum').text(schedCostSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
-
+					console.log($('.schedDestNo[value=' + destNo + ']').parent().parent().parent().prev('.sched-des').find('.schedCostSum'));
                     
     			}
     		})
@@ -930,7 +928,7 @@
 		// 귀국 INSERT 등록 안했을 시
 		$('#insertEndDestNull').click(function(){
 			const endDest = {
-					planNo : <%= planNo %>,
+					planNo : ${ planNo },
 					trans : '등록 안함',
 					transPrice : 0,
 					trip : '귀국',
@@ -942,7 +940,7 @@
 		// 귀국 INSERT 이동수단 등록 시 
 		$('#insertEndDest').click(function(){
 			const endDest = {
-					planNo : <%= planNo %>,
+					planNo : ${ planNo },
 					trans : $('#transport-end').val(),
 					transPrice : $('#trans-price-end').val(),
 					trip : '편도',
@@ -962,7 +960,7 @@
 			data : endDest,
 			success : function(result){
 				if(result > 0){
-					location.href = '<%=contextPath%>/publishPlan.plan?planNo=<%=planNo%>&scheds=' + $scheds;
+					location.href = '${ contextPath }/publishPlan.plan?planNo=${ planNo }&scheds=' + $scheds;
 				}
 				else{
 					alert('오류 발생.. 다시 시도해주세요.');

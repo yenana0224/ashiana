@@ -1,20 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.info.model.vo.*, com.kh.semi.pageInfo.model.vo.PageInfo
-				 , java.util.List" %>    
-
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Story> list = (ArrayList<Story>)request.getAttribute("list");
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-	int count = (int)request.getAttribute("count");
-	String category = (String)request.getAttribute("category");
-	String keyword = (String)request.getAttribute("keyword");
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,7 +125,8 @@
 </head>
 <body>
 
-	<%@ include file="adminbar.jsp" %>
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
     <div class="outer">
 
         <div class="title">
@@ -153,15 +141,16 @@
                     <option value="content">내용</option>
                 </select>
                 <input type="text" name="keyword">
-                <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
+                <input type="hidden" name="currentPage" value="${ pageInfo.currentPage }">
                 <button type="submit">검색</button>
             </form>
         </div>
 
         <form action="storyDel.admin" name="status">
-        	<% if(category != null) { %>
-        	<h6 id="countTitle"> 검색결과 : <%=count %>개의 게시글이 조회되었습니다</h6>
-        	<% } %>
+        	<c:if test="${ not empty category }">
+	        	<h6 id="countTitle"> 검색결과 : ${ count }개의 게시글이 조회되었습니다</h6>
+        	</c:if>
+
             <table class="storyList">
                 <thead>
                     <tr>
@@ -172,20 +161,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if(list.isEmpty()) { %>
-                        <tr>
-                            <td colspan="4"> 게시글이 없습니다</td>
-                        </tr>
-                    <% } else { %>
-                        <% for(Story s : list) { %>
-                            <tr>
-                                <td><input type="checkbox" name="storyNo" value="<%=s.getStoryNo() %>"></td>
-                                <td><%=s.getStoryNo() %></td>
-                                <td class="storyTitle" id="<%=s.getStoryNo() %>"><%=s.getStoryTitle() %></td>
-                                <td><%=s.getCreateDate() %></td>
-                            </tr>
-                        <% } %>
-                    <% } %>
+                	<c:choose>
+                		<c:when test="${ empty list }">
+	                        <tr>
+	                            <td colspan="4"> 게시글이 없습니다</td>
+	                        </tr>
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="story" items="${ list }">
+                				<tr>
+                					<td><input class="ckOne" type="checkbox" name="storyNo" value="${ story.storyNo }"></td>
+                					<td>${ story.storyNo }</td>
+                					<td class="storyTitle" id="${ story.storyNo }">${ story.storyTitle }</td>
+                					<td>${ story.createDate }</td>
+                				</tr>
+                			</c:forEach>
+                		</c:otherwise>
+                	</c:choose>
+                	
+                	<script>
+                    	$(function(){
+                    		$('#checkAll').click(function(){
+                    			if($('#checkAll').prop('checked')){
+	                    			$('.ckOne').prop('checked', true);
+                    			} else {
+                    				$('.ckOne').prop('checked', false);
+                    			}
+                    		});
+                    		
+                    		$('#checkAll').on('change', function(){
+	                    		if($(this).prop('checked') == false){
+	                    			$('#checkAll').prop('checked', false);
+	                    		}
+                    		});
+                    	})
+                    </script>
+                	
                 </tbody>
             </table>
             <div class="btn">
@@ -196,50 +207,57 @@
         </form>
         
        <div class="paging-area" align="center">
-
-        	<% if(category != null) { %>
-        	    <% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/story.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=currentPage -1 %>'">이전</button>
-          		<% } %>         		
-        		<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if(currentPage != i){ %>
-					<button onclick="location.href='<%=contextPath%>/story.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=i%>'"><%= i %></button>
-					<%} else {%>
-						<button style="background-color : darkgray" disabled><%=i %></button>
-					<%} %>
-				<%} %>
-				<% if(currentPage != maxPage) { %>
-			 	 <button onclick="location.href='<%=contextPath%>/story.admin?category=<%=category%>&keyword=<%=keyword%>&currentPage=<%=currentPage + 1%>'">다음</button>
-				<% } %>	
-							
-        	<% } else { %>
-        	    <% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/story.admin?currentPage=<%=currentPage -1 %>'">이전</button>
-          		<% } %> 
-				<% for(int i = startPage; i <= endPage; i++){ %>
-					<% if(currentPage != i){ %>
-					<button onclick="location.href='<%=contextPath%>/story.admin?currentPage=<%=i%>'"><%= i %></button>
-					<%} else {%>
-						<button style="background-color : darkgray" disabled><%=i %></button>
-					<%} %>
-				<%} %>
-				<% if(currentPage != maxPage) { %>
-			 	 <button onclick="location.href='<%=contextPath%>/story.admin?currentPage=<%=currentPage + 1%>'">다음</button>
-				<% } %>
-			
-			<% } %>
+       
+        <c:choose>	
+       		<c:when test="${ not empty category }">
+       			<c:if test="${ pageInfo.currentPage gt 1 }">
+        			<button onclick="location.href='${ path }/story.admin?category=${ category }&keyword=${ keyword }&currentPage=${ pageInfo.currentPage - 1}'">이전</button>
+       			</c:if>
+       			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step="1">
+       				<c:choose>
+	       				<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/story.admin?category=${ category }&keyword=${ keyword }&currentPage=${ i }'">${ i }</button>
+	       				</c:when>
+	       				<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+	       				</c:otherwise>
+       				</c:choose>
+       			</c:forEach>
+       			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+			 	 	<button onclick="location.href='${ path }/story.admin?category=${ category }&keyword=${ keyword }&currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+       			</c:if>
+       		</c:when>
+       		<c:otherwise>
+       			<c:if test="${ pageInfo.currentPage gt 1 }">
+	        		<button onclick="location.href='${ path }/story.admin?currentPage=${ pageInfo.currentPage - 1 }'">이전</button>
+       			</c:if>
+       			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+       				<c:choose>
+	       				<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/story.admin?currentPage=${ i }'">${ i }</button>
+	       				</c:when>
+	       				<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+	       				</c:otherwise>
+       				</c:choose>
+       			</c:forEach>
+       			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+				 	 <button onclick="location.href='${ path }/story.admin?currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+       			</c:if>
+       		</c:otherwise>
+       	</c:choose>
 
         </div>
 
 		<div class="btn">
-        	<a href="<%=contextPath %>/storyInsertForm.admin">글작성하기</a>
+        	<a href="${ path }/storyInsertForm.admin">글작성하기</a>
         </div>
         
         <script>
         $(function(){
 
         	$('.storyTitle').click(function(){
-        		location.href="<%=contextPath%>/storyDetail.admin?storyNo=" + $(this).attr('id');
+        		location.href="${ path }/storyDetail.admin?storyNo=" + $(this).attr('id');
         	});
         	
         })

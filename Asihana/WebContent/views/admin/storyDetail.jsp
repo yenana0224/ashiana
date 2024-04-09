@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
-<%
-	StoryFile file = (StoryFile)request.getAttribute("file");
+    pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,9 +108,10 @@
 </head>
 
 <body>
-	<%@ include file="adminbar.jsp" %>
-	
-	    
+
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+
     <div class="outer">
 
         <div class="title">
@@ -121,14 +120,23 @@
         </div>
        
         <div class="titlePicture">
-            <img id="titlePhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
+            <img id="titlePhoto" src="${ path }${ file.filePath }/${ file.changeName }">
         </div>
 
 
-    	<input type="hidden" name="storyNo" value="<%=file.getStoryNo() %>" readonly>
-        <div class="info-area"><input type="text" name="title" value="<%=file.getStoryTitle() %>" readonly></div>
-        <div class="info-area"><textarea name="storyContent" cols="30" rows="10" style="resize: none;" readonly><%=file.getStoryContent() %></textarea></div>
-        <div class="info-area"><input type="text" name="from" value="<%=file.getStoryFrom() %>" readonly></div>
+    	<input type="hidden" name="storyNo" value="${ file.storyNo }" readonly>
+        <div class="info-area"><input type="text" name="title" value="${ file.storyTitle }" readonly></div>
+        <div class="info-area"><textarea name="storyContent" cols="30" rows="10" style="resize: none;" readonly>${ file.storyContent }</textarea></div>
+        <div class="info-area">
+        	<c:choose>
+        		<c:when test="${ not empty file.storyFrom }">
+			        <input type="text" name="from" value="${ file.storyFrom }" readonly>
+        		</c:when>
+        		<c:otherwise>
+			        <input type="text" name="from" value="" readonly>
+        		</c:otherwise>
+        	</c:choose>
+        </div>
         <div class="btn">
         	<button id="updateBtn"> 수정하기 </button>
         </div>
@@ -140,11 +148,11 @@
         
         <script>
         $('#backBtn').click(function(){
-        	location.href="<%=contextPath %>/story.admin?currentPage=1";
+        	location.href="${ path }/story.admin?currentPage=1";
         });
         
         $('#updateBtn').click(function(){
-        	location.href="<%=contextPath %>/storyUpdateForm.admin?storyNo=<%=file.getStoryNo()%>";
+        	location.href="${ path }/storyUpdateForm.admin?storyNo=${ file.storyNo }";
         })
 
         

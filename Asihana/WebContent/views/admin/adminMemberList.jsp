@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList , com.kh.semi.customer.model.vo.Notice, com.kh.semi.pageInfo.model.vo.PageInfo
-				 , java.util.List" %>    
-
-<%
-	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
-	List<Member> list = (List<Member>)request.getAttribute("list");
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +117,9 @@
 </head>
 <body>
 
-	<%@ include file="adminbar.jsp" %>
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
 
         <div class="title">
@@ -142,12 +134,12 @@
                     <option value="nickName">닉네임</option>
                 </select>
                 <input type="text" name="keyword">
-                <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
+                <input type="hidden" name="currentPage" value="${ pageInfo.currentPage }">
                 <button type="submit">검색</button>
             </form>
         </div>
 
-        <form action="<%=contextPath %>/memberDelete.admin" method="get">
+        <form action="${ path }/memberDelete.admin" method="get">
             <table class="memberList">
                 <thead>
                     <tr>
@@ -157,25 +149,42 @@
                         <th>회원가입일</th>
                     </tr>
                 </thead>
+                
                 <tbody>
-                    <% if(list.isEmpty()) { %>
-                        <tr>
+                    <c:choose>
+                		<c:when test="${ empty list }">
+	                        <tr>
                             <td colspan="4"> 회원이 없습니다</td>
-                        </tr>
-                    <% } else { %>
-                        <% for(Member m : list) { %>
-                            <tr>
-                                <td>
-                                	<input class="ckOne" type="checkbox" name="userNo" value="<%=m.getUserNo() %>"> 
-                                </td>
-                                <td><%=m.getUserId() %></td>
-                                <td class="memberTitle" id="<%=m.getUserNo() %>"><%=m.getNickName() %></td>
-                                <td><%=m.geteDate() %></td>
-                            </tr>
-                        <% } %>
-                    <% } %>
-                    
-                    <script>
+	                        </tr>
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="member" items="${ list }">
+                				<c:choose>
+	                				<c:when test="${ member.userId ne 'admin' }">
+		                				<tr>
+			                                <td>
+			                                	<input class="ckOne" type="checkbox" name="userNo" value="${ member.userNo }"> 
+			                                </td>
+			                                <td>${ member.userId }</td>
+			                                <td class="memberTitle" id="${ member.userNo }">${ member.nickName }</td>
+			                                <td>${ member.eDate }</td>
+		                            	</tr>
+	                				</c:when>
+	                				<c:otherwise>
+	                					<tr>
+			                                <td>
+			                                </td>
+			                                <td>${ member.userId }</td>
+			                                <td class="memberTitle" id="${ member.userNo }">${ member.nickName }</td>
+			                                <td>${ member.eDate }</td>
+		                            	</tr>
+	                				</c:otherwise>
+                				</c:choose>
+                			</c:forEach>
+                		</c:otherwise>
+                	</c:choose>
+                	
+	              <script>
                     	$(function(){
                     		$('#checkAll').click(function(){
                     			if($('#checkAll').prop('checked')){
@@ -192,7 +201,10 @@
                     		});
                     	})
                     </script>
+                    
                 </tbody>
+                
+                
             </table>
             <div class="btn">
                 선택 회원
@@ -202,22 +214,45 @@
         
         <div class="paging-area" align="center">
         
-        	<% if(currentPage > 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=currentPage -1 %>'">이전</button>
-          	<% } %>   
-        	
-			<% for(int i = startPage; i <= endPage; i++){ %>
-			
-				<% if(currentPage != i){ %>
-				<button class="pagebtn" onclick="location.href='<%=contextPath%>/member.admin?currentPage=<%=i%>'"><%= i %></button>
-				<%} else {%>
-				<button style="background-color : darkgray" disabled><%=i %></button>
-				<%} %>
-			<%} %>
-			
-			<% if(currentPage != maxPage) { %>
-			  <button onclick="; location.href='<%=contextPath%>/member.admin?currentPage=<%=currentPage + 1%>'">다음</button>
-			<% } %>
+       <c:choose>
+       		<c:when test="${ not empty category }">
+       			<c:if test="${ pageInfo.currentPage gt 1 }">
+        			<button onclick="location.href='${ path }/member.admin?category=${ category }&keyword=${ keyword }&currentPage=${ pageInfo.currentPage - 1}'">이전</button>
+       			</c:if>
+       			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+      				<c:choose>
+	       				<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/member.admin?category=${ category }&keyword=${ keyword }&currentPage=${ i }'">${ i }</button>
+	       				</c:when>
+	       				<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+	       				</c:otherwise>
+       				</c:choose>
+       			</c:forEach>
+       			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+			 	 	<button onclick="location.href='${ path }/member.admin?category=${ category }&keyword=${ keyword }&currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+       			</c:if>
+       		</c:when>
+       		<c:otherwise>
+       			<c:if test="${ pageInfo.currentPage gt 1 }">
+	        		<button onclick="location.href='${ path }/member.admin?currentPage=${ pageInfo.currentPage - 1 }'">이전</button>
+       			</c:if>
+       			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="i" step = "1">
+       				<c:choose>
+	       				<c:when test="${ pageInfo.currentPage ne i }">
+							<button onclick="location.href='${ path }/member.admin?currentPage=${ i }'">${ i }</button>
+	       				</c:when>
+	       				<c:otherwise>
+							<button style="background-color : darkgray" disabled>${ i }</button>
+	       				</c:otherwise>
+       				</c:choose>
+       			</c:forEach>
+       			<c:if test="${ pageInfo.currentPage ne pageInfo.maxPage }">
+				 	 <button onclick="location.href='${ path }/member.admin?currentPage=${ pageInfo.currentPage + 1 }'">다음</button>
+       			</c:if>
+       		</c:otherwise>
+       	</c:choose>
+        
         </div>
 
            <script>
@@ -225,7 +260,7 @@
             $(function(){
             	
             	$('.memberTitle').click(function(){
-            		location.href="<%=contextPath%>/memberDetail.admin?memberNo=" + $(this).attr('id');
+            		location.href="${ path }/memberDetail.admin?memberNo=" + $(this).attr('id');
             	});
             });
             </script>

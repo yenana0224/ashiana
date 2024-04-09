@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+
 <%
 	StoryFile s = (StoryFile)request.getAttribute("story");
 	int pageNo = (int)request.getAttribute("pageNo");
@@ -60,8 +62,6 @@
             font-size : 18px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             white-space: pre-wrap;
-
-
         }
 
         .from-area{
@@ -89,45 +89,50 @@
     </style>
 </head>
 <body>
-    <%@ include file="../common/headerbar.jsp" %>
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
         <div class="main">
 
             <div class="title">
-                <p><%= s.getStoryTitle() %></p>
+                <p>${ story.storyTitle }</p>
             </div>
             <div class="createDate">
-                <p><%= s.getCreateDate() %></p>
+                <p>${ story.createDate }</p>
             </div>
 
             <div class="photo">
-                <img src="<%=contextPath %><%=s.getFilePath() %>/<%=s.getChangeName() %>">
+                <img src="${ path }${ story.filePath }/${ story.changeName }">
             </div>
 
             <div class="content-area">
                 <pre>
-    <%= s.getStoryContent() %> 
+  ${ story.storyContent }
                 </pre>
             </div>
 
             <div class="from-area">
-            	<% if(s.getStoryFrom() != null) { %>
-                <p>출처 : <%= s.getStoryFrom() %> </p>
-                <% } %>
+            	<c:if test="${ not empty story.storyFrom }">
+	                <p>출처 : ${ story.storyFrom } </p>
+            	</c:if>
             </div>
 
             <div class="btn">
-
-    		<% if(loginUser == null || !loginUser.getUserId().equals("admin")) {%>
-    		    <a href="<%=contextPath%>/story.info?currentPage=<%=pageNo%>">목록으로</a>
-    		<% } else {%>
-    			<a href="<%=contextPath%>/story.info?currentPage=<%=pageNo%>">목록으로</a>
-    			<a href="<%=contextPath%>.storyUpdateForm.admin?storyNo=<%=s.getStoryNo() %>">수정하기</a>
-    		<% } %>
+            
+            <c:choose>
+            	<c:when test="${ empty loginUser || loginUser.userId eq 'admin'}">
+	    		    <a href="${ path }/story.info?currentPage=${ pageNo }">목록으로</a>
+            	</c:when>
+            	<c:otherwise>
+    			<a href="${ path }/story.info?currentPage=${ pageNo }">목록으로</a>
+    			<a href="${ path }.storyUpdateForm.admin?storyNo=${ story.storyNo }">수정하기</a>
+            	</c:otherwise>
+            </c:choose>
             </div>
         </div>
     </div>
     
-    <%@ include file="../common/footer.jsp" %>
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

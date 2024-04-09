@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"
 	
 import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%>
-	<%ArrayList<TravelReview> list = (ArrayList<TravelReview>)request.getAttribute("othersTravelList"); 
-	Member m = (Member)request.getAttribute("member");%>
+		 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,11 +64,11 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp"%>
-
-
+<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }"/>
+	
 	<div id="noticetext">
-		<p><font color="blue"><%=m.getNickName() %></font>님의 여행기</p>
+		<p><font color="blue">${member.nickName}</font>님의 여행기</p>
 	<div id = "searchtext">
 	<input class="form-control" id="myInput" type="text" placeholder="Search..">
 	</div>
@@ -88,67 +87,28 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 				</tr>
 			</thead>
 			<tbody id="myTable">
-			    <% if (list.isEmpty()) { %>
+				<c:choose>
+				<c:when test="${ empty othersTravelList}"  >
 			        <tr>
 			            <td colspan="5">내 여행기가 없습니다.</td>
 			        </tr>
-			    <% } else { %>
-			        <% int rowNumber = 1; %>
-			        <% for (TravelReview travelReview : list) { %>
-			            <%
-			            int reviewNo = travelReview.getReviewNo(); 
-			            String reviewTitle = travelReview.getReviewTitle(); 
-			            String cityName = travelReview.getCityName(); 
-			            String departureDate = travelReview.getDepartureDate(); 
-			            int count = travelReview.getCount(); 
-			            String nickName = travelReview.getNickName();
-			            %>
+				</c:when>	
+				<c:otherwise>
+				 <c:forEach var="othersTravelList" items="${ othersTravelList } "  varStatus="loop">
 			            <tr>
-			                <td><%= rowNumber %></td>
-			                <td><a href="#"><%= reviewTitle %></a></td>
-			                <td><a href="#"><%= cityName %></a></td>
-			                <td><a href="#"><%= departureDate %></a></td>
-			                <td><a href="#"><%= count %></a></td>
+			               <td><c:out value="${loop.index + 1}" /></td>
+			                <td><a href="#">${othersTravelList.reviewTitle}</a></td>
+			                <td><a href="#"> ${othersTravelList.cityName }</a></td>
+			                <td><a href="#">${othersTravelList.departureDate }</a></td>
+			                <td><a href="#">${othersTravelList.count}</a></td>
 			            </tr>
-			            <% rowNumber++; %>
-			        <% } %>
-			    <% } %>
+			     </c:forEach>
+			    </c:otherwise>
+			    </c:choose>
 			</tbody>
 
 		</table>
 			
-			<!--
-			<tbody id="myTable">
-				<tr>
-					<td>1</td>
-					<td>핀란드여행기</td>
-					<td>2023.11.15</td>
-					<td>30</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>중국여행기</td>
-					<td>2024.1.15</td>
-					<td>32</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>태국여행기</td>
-					<td>2023.11.05</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>미국여행기</td>
-					<td>2023.11.25</td>
-					<td>10</td>
-				</tr>
-			</tbody>
-		</table>
-		-->
-	<div align="center">
-         <!-- <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">플랜으로 가기</button> -->
-	</div>
 	</div>
 
 	<br><br><br>
@@ -163,8 +123,8 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 		});
 	</script>
 
-	<%@ include file="../common/footer.jsp"%>
 
+	<jsp:include page="../common/footer.jsp"/>
 
 
 </body>

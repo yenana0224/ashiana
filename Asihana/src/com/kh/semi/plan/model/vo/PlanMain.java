@@ -18,7 +18,7 @@ public class PlanMain {
 			String totalPrice, String uploadDate) {
 		super();
 		this.planNo = planNo;
-		StartDate = startDate;
+		this.StartDate = startDate;
 		this.endDate = endDate;
 		this.travelDate = travelDate;
 		this.dDay = dDay;
@@ -26,7 +26,6 @@ public class PlanMain {
 		this.totalPrice = totalPrice;
 		this.uploadDate = uploadDate;
 	}
-	
 	
 	public String getFilePath() {
 		return filePath;

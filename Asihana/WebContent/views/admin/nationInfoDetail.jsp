@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
-<%
-	Nation nation = (Nation)request.getAttribute("nation");
-	AttachmentFile title = (AttachmentFile)request.getAttribute("title");
-	AttachmentFile file = (AttachmentFile)request.getAttribute("file");
-%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +95,7 @@
             cursor : pointer;
         }
         
-        #backBtn{
+        #backBtn, #delBtn{
         	margin-bottom : 50px;
         }
         
@@ -107,36 +104,35 @@
 </head>
 
 <body>
-	<%@ include file="adminbar.jsp" %>
-	
-	    
-    <div class="outer">
 
+	<jsp:include page="adminbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
+    <div class="outer">
         <div class="title">
             <h2>국가/도시정보</h2>
             <h3>국가정보 </h3>
         </div>
-       
         <div class="titlePhoto">
-        	<% if(title != null) { %>
-            <img id="titlePhoto" src="<%=contextPath %>/<%=title.getFilePath() %>/<%=title.getChangeName() %>">
-            <% } %>
+        	<c:if test="${ not empty title }">
+	            <img id="titlePhoto" src="${ path }${ title.filePath }/${ title.changeName }">
+        	</c:if>
         </div>
 
         <div class="photo">
-        	<% if(file != null) { %>
-            <img id="nationPhoto" src="<%=contextPath %>/<%=file.getFilePath() %>/<%=file.getChangeName() %>">
-            <% } %>
+        	<c:if test="${ not empty file }">
+	            <img id="nationPhoto" src="${ path }${ file.filePath }/${ file.changeName }">
+        	</c:if>
         </div>
     
         <form action="nationUpdateForm.admin" method="post">
-        	<input type="hidden" name="nationNo" value="<%=nation.getNationNo() %>">
-            <div class="info-area"><input type="text" name="nationName" value="<%=nation.getNationName() %>" readonly></div>
-            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly><%=nation.getNationContent() %></textarea></div>
-            <div class="info-area"><input type="text" name="voltage" value="<%=nation.getVoltage() %>" readonly></div>
-            <div class="info-area"><input type="text" name="visa" value="<%=nation.getVisaName() %>" readonly></div>
-            <div class="info-area"><input type="text" name="language" value="<%=nation.getLanguage() %>" readonly></div>
-            <div class="info-area"><input type="text" name="currency" value="<%=nation.getCurrency() %>" readonly></div>
+        	<input type="hidden" name="nationNo" value="${ nation.nationNo }">
+            <div class="info-area"><input type="text" name="nationName" value="${ nation.nationName }" readonly></div>
+            <div class="info-area"><textarea name="nationContent" cols="30" rows="10" style="resize: none;" readonly>${ nation.nationContent }</textarea></div>
+            <div class="info-area"><input type="text" name="visa" value="${ nation.visaName }" readonly></div>
+            <div class="info-area"><input type="text" name="voltage" value="${ nation.voltage }" readonly></div>
+            <div class="info-area"><input type="text" name="currency" value="${ nation.currency }" readonly></div>
+            <div class="info-area"><input type="text" name="language" value="${ nation.language }" readonly></div>
 
             <div class="btn">
             	<button type="submit" id="updateBtn"> 수정하기 </button>
@@ -147,9 +143,18 @@
         	<button id="backBtn"> 목록으로 </button>
         </div>
         
+       
+        <div class="btn">
+        	<button id="delBtn"> 삭제하기 </button>
+        </div>
+        
         <script>
         $('#backBtn').click(function(){
-        	location.href="<%=contextPath %>/info.admin?currentPage=1";
+        	location.href="${ path }/info.admin?currentPage=1";
+        })
+        
+        $('#delBtn').click(function(){
+        	location.href="${ path }/deleteNation.admin?nationNo=${ nation.nationNo }";
         })
         </script>
 

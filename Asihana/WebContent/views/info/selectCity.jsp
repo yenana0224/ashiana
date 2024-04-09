@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.List, com.kh.semi.info.model.vo.*, com.kh.semi.common.*"%>
-<%
-	List<Nation> nationList = (List<Nation>)request.getAttribute("nationList");
-	List<CityFile> files = (List<CityFile>)request.getAttribute("files");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,18 +109,19 @@
 </head>
 <body>
 
-	<%@ include file="../common/headerbar.jsp" %>
-
+	<jsp:include page="../common/headerbar.jsp"/>
+	<c:set var="path" value="${ pageContext.request.contextPath }" />
+	
     <div class="outer">
         <div class="main">
             <br><br><br>
             <h2 id="mainComent">어디로 떠나고 싶으세요?</h2>
             <div class="selectbar">
-                <form action="<%=contextPath%>/search.info" method="GET" name="selectNation">
+                <form action="${ path }/search.info" method="GET" name="selectNation">
                     <select name="nation" id="selectNation" onchange="nationChange()">
-                         <% for(Nation n : nationList) {%>
-                        <option class="nationList" value="<%=n.getNationNo() %>"><%=n.getNationName() %></option>
-                        <% } %>
+                    	<c:forEach var="n" items="${ nationList }">
+                        	<option class="nationList" value="${ n.nationNo }">${ n.nationName }</option>
+                        </c:forEach>
                     </select>
                     <select name="city" id="selectCity">
                         <option>도시선택</option>
@@ -135,8 +134,7 @@
             function nationChange(){
             	
             	$('#selectCity').empty();
-            	
-            	// console.log($('#selectNation').val());
+
             	const nationNo = $('#selectNation').val();
             	
             	if(nationNo != 65 && nationNo != 852 && nationNo != 853){
@@ -168,36 +166,30 @@
                 <h4 id="popular">인기있는 여행지</h4>
             </div>
             <div class="cityView">
-                <!-- 조회 많은 순서대로 도시 8개 노출 -->
-			<% for(CityFile c : files) { %>
-                <div class="city">
-                    <div class="cityPhoto"><img src="<%=contextPath%><%=c.getFilePath() %>/<%=c.getChangeName()%>"></div>
-                    <div class="cityName">
-	                    <h5 class="namecity" id="<%=c.getCityNo() %>"><%=c.getCityName() %></h5>
-	                    <h6 class="namenation" id="<%=c.getNationNo() %>"><%=c.getNationName() %></h6>
-                	</div>
-               	</div>
-
-            <% } %>
+            	<c:forEach var = "c" items ="${ files }">         
+	                <div class="city">
+	                    <div class="cityPhoto"><img src="${ path }${ c.filePath }/${c.changeName }"></div>
+	                    <div class="cityName">
+		                    <h5 class="namecity" id="${ c.cityNo }">${ c.cityName }</h5>
+		                    <h6 class="namenation" id="${ c.nationNo }">${ c.nationName }</h6>
+	                	</div>
+	               	</div>
+               	</c:forEach>
             </div>   
-            
-            
 
             <script>
 	            $(function(){
 	            	$('.city').click(function(){
 	            		const cityNo = $(this).find('.namecity').attr('id');
-	            		const nationNo = $(this).find('.namenation').attr('id')
-	            		location.href="<%=contextPath%>/search.info?nation=" + nationNo + "&city=" + cityNo;
+	            		const nationNo = $(this).find('.namenation').attr('id');
+	            		location.href="${ path }/search.info?nation=" + nationNo + "&city=" + cityNo;
 	            	})
 	            })
             </script>
-
         </div>
     </div>
     
-    	<%@ include file="../common/footer.jsp" %>
-
+    <jsp:include page="../common/footer.jsp"/>
     
 </body>
 </html>

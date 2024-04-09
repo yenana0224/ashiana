@@ -109,9 +109,6 @@ import = "java.util.ArrayList, com.kh.semi.travelReview.model.vo.TravelReview"	%
 
 		</table>
 			
-	<div align="center">
-         <!-- <button type="button" onclick="location.href='<%=contextPath%>/views/member/MyPlan.jsp'">플랜으로 가기</button> -->
-	</div>
 	</div>
 
 	<br><br><br>

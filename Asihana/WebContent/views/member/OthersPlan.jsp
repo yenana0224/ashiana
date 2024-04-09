@@ -98,14 +98,14 @@
 			        </tr>
 				</c:when>
 			    <c:otherwise>
-			    <c:forEach var="othersPlanList" items="${ othersPlanList } "  varStatus="loop">
+			    <c:forEach var="planMain" items="${ othersPlanList }"  varStatus="loop">
 		            <tr>
 		                <td><c:out value="${loop.index + 1}" /></td>
-		                <td><a href="#">${othersPlanList.planCitys }</a></td>
-		                <td><a href="#">${othersPlanList.totalPrice }</a></td>
-		                <td><a href="#">${othersPlanList.travelDate }</a></td>
-		                <td><a href="#">${othersPlanList.StartDate}</a></td>
-		                <td><a href="#">${othersPlanList.uploadDate}</a></td>
+		                <td><a href="#">${planMain.planCitys }</a></td>
+		                <td><a href="#">${planMain.totalPrice }</a></td>
+		                <td><a href="#">${planMain.travelDate }</a></td>
+		                <td><a href="#">${planMain.startDate}</a></td>
+		                <td><a href="#">${planMain.uploadDate}</a></td>
 		            </tr>
 			        </c:forEach>
 			        </c:otherwise>

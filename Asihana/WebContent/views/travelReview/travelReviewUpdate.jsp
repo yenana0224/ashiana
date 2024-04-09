@@ -452,6 +452,13 @@
                      		<button type="button" id="delete" style="background-color : rgb(255, 89, 94); color : white; border: 0; width:50px; height: 30px;">삭제</button>
                         </div>
                     </div>
+                    
+                    <script>
+                    
+                    
+                    </script>
+                    
+                    
                 </div>
             </form>
         </div>

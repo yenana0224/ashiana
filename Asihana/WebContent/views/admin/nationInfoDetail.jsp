@@ -106,8 +106,7 @@
 <body>
 
 	<jsp:include page="adminbar.jsp"/>
-	<c:set var="path" value="${ pageContext.request.contextPath }" />
-	
+
     <div class="outer">
         <div class="title">
             <h2>국가/도시정보</h2>

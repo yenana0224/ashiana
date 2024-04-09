@@ -106,8 +106,6 @@
 </head>
 <body>
 
-	<c:set var="path" value="${ pageContext.request.contextPath }" />
-	
 	<c:choose>
 		<c:when test="${ empty loginUser }">
 			<script>

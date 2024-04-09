@@ -61,6 +61,7 @@ public class InfoService {
 	public int updateVisa(int nationNo, int visaNo) {
 		Connection conn = getConnection();
 		int result = new InfoDao().updateVisa(conn, nationNo, visaNo);
+		if(result > 0) commit(conn);
 		close(conn);
 		return result;
 	}
